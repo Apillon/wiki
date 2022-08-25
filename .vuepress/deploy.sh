@@ -1,11 +1,11 @@
 set -e
 npm run build
-cd dist
+cd .vuepress/dist
 echo 'wiki.authtrail.com' > CNAME
 git init
 git add -A
 git commit -m "Deploy wiki"
-git push -f git@github.com:authtrail/wiki main:gh-pages
+git push -f git@github.com:authtrail/wiki master:gh-pages
 cd -
 echo ''
 echo '-------------------------------------------------------'
