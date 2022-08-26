@@ -19,6 +19,7 @@ jobs:
     - name: Init new repo in dist folder and commit generated files
       run: |
         cd .vuepress/dist
+        echo 'wiki.authtrail.com' > CNAME
         git init
         git add -A
         git config --local user.email "action@github.com"
