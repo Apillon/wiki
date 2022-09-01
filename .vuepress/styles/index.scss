@@ -1,0 +1,57 @@
+:root {
+  --c-brand: #7f5af0;
+  --c-brand-light: #8c6bf2;
+  --c-bg: #ffffff;
+  --c-bg-light: #f3f4f5;
+  --c-bg-lighter: #eeeeee;
+  --c-bg-navbar: var(--c-bg);
+  --c-bg-sidebar: var(--c-bg);
+  --c-bg-arrow: #7f5af0;
+  --c-text: #010101;
+  --c-text-accent: var(--c-brand);
+  --c-text-light: #6A7380;
+  --c-text-lighter: #6A7380;
+  --c-text-lightest: #6a8bad;
+  --c-text-quote: #7f5af0;
+  --c-border: #eaecef;
+  --c-border-dark: #dfe2e5;
+  --c-tip: #7f5af0;
+  --c-tip-bg: var(--c-bg-light);
+  --c-tip-title: var(--c-text);
+  --c-tip-text: var(--c-text);
+  --c-tip-text-accent: var(--c-text-accent);
+  --c-warning: #e7c000;
+  --c-warning-bg: #fffae3;
+  --c-warning-title: #ad9000;
+  --c-warning-text: #746000;
+  --c-warning-text-accent: var(--c-text);
+  --c-danger: #cc0000;
+  --c-danger-bg: #ffe0e0;
+  --c-danger-title: #990000;
+  --c-danger-text: #660000;
+  --c-danger-text-accent: var(--c-text);
+  --c-details-bg: #eeeeee;
+  --c-badge-tip: var(--c-tip);
+  --c-badge-warning: var(--c-warning);
+  --c-badge-danger: var(--c-danger);
+  --t-color: 0.3s ease;
+  --t-transform: 0.3s ease;
+  --code-bg-color: #282c34;
+  --code-hl-bg-color: rgba(0, 0, 0, 0.66);
+  --code-ln-color: #9e9e9e;
+  --code-ln-wrapper-width: 3.5rem;
+}
+html.dark  {
+	--c-brand: #7f5af0;
+  --c-brand-light: #6648c0;
+  --c-text: #FFFFFF;
+  --c-text-light: rgba(255, 255, 255, 0.9);
+  --c-text-lighter: rgba(255, 255, 255, 0.7);
+  --c-text-lightest: #6a8bad;
+  --c-bg: #010101;
+  --c-border: rgb(148, 161, 178, 0.3);
+}
+
+.site-name {
+	display: none!important;
+}
