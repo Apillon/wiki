@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { searchPlugin } from "@vuepress/plugin-search";
 import { defaultTheme, defineUserConfig } from "vuepress";
 
 export default defineUserConfig({
@@ -10,6 +11,8 @@ export default defineUserConfig({
   theme: defaultTheme({
     repo: "authtrail/wiki",
     docsDir: "",
+    searchPlaceholder: 'Search...',
+    smoothScroll: true,
     // theme-level locales config
     locales: {
       /**
@@ -20,21 +23,34 @@ export default defineUserConfig({
        */
       "/": {
         sidebar: generateSidebar(),
-        // page meta
-        editLinkText: "",
+        editLink: false,
+        contributors: false,
       },
     },
     logo: 'assets/logo.svg',
     logoDark: 'assets/logo-dark.svg',
-    navbar: [
-      {
-        text: 'Foo',
-        link: '/foo/',
-      },
-      '/index.md',
-    ],
+    navbar: generateNav(),
   }),
+  plugins: [
+    searchPlugin({
+      locales: {
+        '/': {
+          placeholder: 'Search',
+        },
+      },
+    }),
+  ],
 });
+
+//Generate Nav 
+function generateNav() {
+  const folders = ["about", "build", "maintain"];
+  const navItems = folders.map(folder => {
+    return { text: folder.charAt(0).toUpperCase() + folder.slice(1), link: `/${folder}/`}
+  })
+
+  return navItems
+}
 
 //Generate Complete
 function generateSidebar() {
