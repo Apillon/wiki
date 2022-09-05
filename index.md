@@ -1,6 +1,7 @@
 ---
 pageClass: homepage
 lastUpdated: false
+editLink: false
 ---
 <div class="homepage_content">
 	<div class="homepage_container">

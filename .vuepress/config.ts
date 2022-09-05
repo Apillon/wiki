@@ -8,6 +8,12 @@ export default defineUserConfig({
   base: "/",
   title: "Authtrail Wiki",
   description: "Authtrail Wiki",
+  head: [
+    ['link', { rel: 'icon', href: 'assets/logo-favicon.png', sizes: '32x32' }],
+    ['link', { rel: 'icon', href: 'assets/logo-favicon.png', sizes: '192x192' }],
+    ['link', { rel: 'apple-touch-icon', href: 'assets/logo-favicon.png' }],
+    ['meta', { name: 'msapplication-TileImage', content: 'assets/logo-favicon.png' }],
+  ],
   theme: defaultTheme({
     repo: "authtrail/wiki",
     docsDir: "",
@@ -23,7 +29,6 @@ export default defineUserConfig({
        */
       "/": {
         sidebar: generateSidebar(),
-        editLink: false,
         contributors: false,
       },
     },
