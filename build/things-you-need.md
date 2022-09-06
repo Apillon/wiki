@@ -1,7 +1,4 @@
----
-title: Basics - What do you need to build with Auttrail?
----
-# 123test
+# Things you need
 
 <div class="split_content">
 	<div class="split_side">
