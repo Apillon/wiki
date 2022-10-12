@@ -1,3 +1,3 @@
 # Build
 
-Coming soon
+Guides and tutorials coming soon, stay tuned...
