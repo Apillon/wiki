@@ -83,10 +83,10 @@ html.dark  {
   --c-bg: #141721;
   --c-bg-dark: #141721;
   --c-bg-darker: #06080F;
-  --c-bg-light: #20232c;
+  --c-bg-light: #1f212b;
   --c-bg-lighter: #2b2e30;
   --c-border: #2b2e30;
-  --c-glow: rgba(0,0,0,0.8);
+  --c-glow: rgba(20,23,33,0.8);
   --c-tip: rgb(120,220,232);
   --c-tip-bg: rgba(120,220,232, 0.3);
   --c-tip-title: var(--c-tip);
@@ -134,15 +134,12 @@ html.dark  {
 .homepage:before {
   content: '';
   position: fixed;
-  top: 10%;
+  top: 0%;
   left: -20%;
   width: 140%;
   height: 100vh;
   z-index: 0;
-  background-image: url(../assets/homepage.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  background: url(../assets/homepage.svg) center / 300px 150px repeat;
 }
 
 .homepage .navbar {
@@ -156,7 +153,7 @@ html.dark  {
   min-height: 100vh;
 }
 .homepage .page .theme-default-content {
-  max-width: var(--homepage-width);
+  max-width: 100%;
   padding: 0 1rem;
 }
 
@@ -172,22 +169,20 @@ html.dark  {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: calc(100% + 2rem);
-  margin: 0 -1rem;
-  gap: 1rem;
+  margin: 0 auto;
+  gap: 4rem;
 }
 .homepage_item {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: calc(100% / 3 - 4rem);
+  justify-content: space-between;
+  text-align: left;
+  width: calc(100% / 3 - 8rem);
   background-color: var(--c-bg-light);
   border: none;
-  padding: 32px 20px;
-  min-height: 300px;
+  padding: 40px 25px;
+  min-height: 280px;
   box-shadow: 0 2px 4px 0 var(--c-glow);
-  border: 2px solid var(--c-text-light);
   transition: box-shadow .3s ease-in-out, background-color .3s ease-in-out;
   text-decoration: none!important;
 }
@@ -195,12 +190,21 @@ html.dark  {
   background-color: var(--c-bg-darker);
   box-shadow: 0 2px 30px 0 var(--c-glow);
 }
+.homepage_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.homepage_title img {
+  width: 24px;
+}
 .homepage_item h2 {
   padding: 0;
   margin: 0!important;
   color: var(--c-text);
   font-family: var(--font-family-title);
-  font-size: 3.5rem;
+  font-size: 1.75rem;
   line-height: 3rem;
   font-weight: 900;
   border: none;
@@ -209,8 +213,8 @@ html.dark  {
   padding: 0;
   margin: 20px 0 0!important;
   color: var(--c-text-lighter);
-  font-size: 0.8rem;
-  line-height: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
   font-weight: 500;
   border: none;
 }
@@ -241,8 +245,7 @@ html.dark  {
 /* Mobile */
 @media (max-width: 1140px) {
   .homepage_item {
-    width: calc(50% - 4rem);
-    max-width: 400px;
+    width: calc(50% - 8rem);
   }
   .split_side {
     width: 100%;
