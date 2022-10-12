@@ -45,6 +45,7 @@
   --navbar-height: 3.6rem;
   --navbar-padding-v: 0.8rem;
   --navbar-line-height: calc( var(--navbar-height) - 2 * var(--navbar-padding-v) );
+
   --homepage-width: 1275px;
   --content-width: 960px;
 
@@ -197,6 +198,11 @@ html.dark  {
   display: none!important;
 }
 /* Homepage End */
+
+.navbar .logo {
+  height: 24px;
+  vertical-align: middle;
+}
 
 /* Text & Code Split */
 .split_content {
