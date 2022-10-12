@@ -1,3 +1,19 @@
+@font-face {
+  font-family: CabinetGrotesk-Variable;
+  src: url(/fonts/CabinetGrotesk-Variable.ttf);
+  font-weight: 900;
+}
+@font-face {
+  font-family: ui-sans-serif;
+  src: url(/fonts/IBMPlexSans-Regular.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: ui-sans-serif;
+  src: url(/fonts/IBMPlexSans-Bold.ttf);
+  font-weight: 700;
+}
+
 :root {
   --c-brand: #f9ff73;
   --c-brand-light: #faff81;
@@ -52,6 +68,9 @@
   /* Search Style */
   --search-input-width: 10rem!important;
   --search-result-width: 20rem!important;
+
+  --font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  --font-family-title: CabinetGrotesk-Variable,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
 }
 html.dark  {
 	--c-brand: #f9ff73;
@@ -63,6 +82,7 @@ html.dark  {
   --c-text-lightest: rgb(120 220 232);
   --c-bg: #141721;
   --c-bg-dark: #141721;
+  --c-bg-darker: #06080F;
   --c-bg-light: #20232c;
   --c-bg-lighter: #2b2e30;
   --c-border: #2b2e30;
@@ -167,21 +187,22 @@ html.dark  {
   padding: 32px 20px;
   min-height: 300px;
   box-shadow: 0 2px 4px 0 var(--c-glow);
-  border: 2px solid var(--c-brand);
+  border: 2px solid var(--c-text-light);
   transition: box-shadow .3s ease-in-out, background-color .3s ease-in-out;
   text-decoration: none!important;
 }
 .homepage_item:hover {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--c-bg-darker);
   box-shadow: 0 2px 30px 0 var(--c-glow);
 }
 .homepage_item h2 {
   padding: 0;
   margin: 0!important;
   color: var(--c-text);
+  font-family: var(--font-family-title);
   font-size: 3.5rem;
   line-height: 3rem;
-  font-weight: 600;
+  font-weight: 900;
   border: none;
 }
 .homepage_item p {
