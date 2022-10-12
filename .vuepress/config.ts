@@ -6,18 +6,24 @@ import { defaultTheme, defineUserConfig } from "vuepress";
 export default defineUserConfig({
   lang: "en-US",
   base: "/",
-  title: "Authtrail Wiki",
-  description: "Authtrail Wiki",
+  title: "Apillon Wiki",
+  description: "Apillon Wiki",
   head: [
-    ['link', { rel: 'icon', href: 'assets/logo-favicon.png', sizes: '32x32' }],
-    ['link', { rel: 'icon', href: 'assets/logo-favicon.png', sizes: '192x192' }],
-    ['link', { rel: 'apple-touch-icon', href: 'assets/logo-favicon.png' }],
-    ['meta', { name: 'msapplication-TileImage', content: 'assets/logo-favicon.png' }],
+    ["link", { rel: "icon", href: "assets/logo-favicon.png", sizes: "32x32" }],
+    [
+      "link",
+      { rel: "icon", href: "assets/logo-favicon.png", sizes: "192x192" },
+    ],
+    ["link", { rel: "apple-touch-icon", href: "assets/logo-favicon.png" }],
+    [
+      "meta",
+      { name: "msapplication-TileImage", content: "assets/logo-favicon.png" },
+    ],
   ],
   theme: defaultTheme({
-    repo: "authtrail/wiki",
+    repo: "apillon-web3/wiki",
     docsDir: "",
-    searchPlaceholder: 'Search...',
+    searchPlaceholder: "Search...",
     smoothScroll: true,
     // theme-level locales config
     locales: {
@@ -32,47 +38,52 @@ export default defineUserConfig({
         contributors: false,
       },
     },
-    logo: 'assets/logo.svg',
-    logoDark: 'assets/logo-dark.svg',
+    logo: "assets/logo.svg",
+    logoDark: "assets/logo-dark.svg",
     navbar: generateNav(),
   }),
   plugins: [
     searchPlugin({
       locales: {
-        '/': {
-          placeholder: 'Search',
+        "/": {
+          placeholder: "Search",
         },
       },
     }),
   ],
 });
 
-//Generate Nav 
+//Generate Nav
 function generateNav() {
   const folders = ["about", "build", "maintain"];
-  const navItems = folders.map(folder => {
-    return { text: folder.charAt(0).toUpperCase() + folder.slice(1), link: `/${folder}/`}
-  })
+  const navItems = folders.map((folder) => {
+    return {
+      text: folder.charAt(0).toUpperCase() + folder.slice(1),
+      link: `/${folder}/`,
+    };
+  });
 
-  return navItems
+  return navItems;
 }
 
 //Generate Complete
 function generateSidebar() {
   const folders = ["about", "build", "maintain"];
-  let fullSidebar = { "/": [],}
-  let sidebarMap = []
+  let fullSidebar = { "/": [] };
+  let sidebarMap = [];
 
-  folders.map(folder => {
-    sidebarMap.push(getSidebar(`${folder}`, folder.charAt(0).toUpperCase() + folder.slice(1)))
-  })
-  
-  folders.map(folder => {
+  folders.map((folder) => {
+    sidebarMap.push(
+      getSidebar(`${folder}`, folder.charAt(0).toUpperCase() + folder.slice(1))
+    );
+  });
+
+  folders.map((folder) => {
     fullSidebar = {
       ...fullSidebar,
       [`/${folder}`]: sidebarMap,
-    }
-  })
+    };
+  });
 
   return fullSidebar;
 }
@@ -87,17 +98,24 @@ function getSidebar(folder, title) {
         fs.statSync(path.join(`${__dirname}/../${folder}`, item)).isDirectory()
     );
 
-  let foldersMap = []
+  let foldersMap = [];
 
   if (folders && folders.length > 0) {
-    foldersMap = folders.map(f => {
-      return getSidebarSubfoder(`${folder}/${f}`, f.charAt(0).toUpperCase() + f.slice(1))
-    })
+    foldersMap = folders.map((f) => {
+      return getSidebarSubfoder(
+        `${folder}/${f}`,
+        f.charAt(0).toUpperCase() + f.slice(1)
+      );
+    });
   }
 
   const folderFiles = getFolderFiled(folder);
 
-  return { text: title, collapsible: true, children: [...folderFiles, ...foldersMap] };
+  return {
+    text: title,
+    collapsible: true,
+    children: [...folderFiles, ...foldersMap],
+  };
 }
 
 //Generate Sidebar Subfolders
@@ -120,24 +138,28 @@ function getFolderFiled(folder) {
         extension.includes(path.extname(item))
     );
 
-  files = files.map(file => {
-    return `/${folder}/${file}`
-  })
-
-  files.sort(function (a, b) {
-    var ma = a.replace(`\/${folder}/`, "").replace(".md", "")
-    var mb = b.replace(`\/${folder}/`, "").replace(".md", "")
-    if (!ma) {
-      return -1
-    } else if (!mb) {
-      return 1
-    } else {
-      return ma - mb
-    }
-  }).sort(function (a, b) {
-    var ma = a.replace(`\/${folder}/`, "")
-    if (ma === "index.md") {return -1;}
+  files = files.map((file) => {
+    return `/${folder}/${file}`;
   });
+
+  files
+    .sort(function (a, b) {
+      var ma = a.replace(`\/${folder}/`, "").replace(".md", "");
+      var mb = b.replace(`\/${folder}/`, "").replace(".md", "");
+      if (!ma) {
+        return -1;
+      } else if (!mb) {
+        return 1;
+      } else {
+        return ma - mb;
+      }
+    })
+    .sort(function (a, b) {
+      var ma = a.replace(`\/${folder}/`, "");
+      if (ma === "index.md") {
+        return -1;
+      }
+    });
 
   return files;
 }

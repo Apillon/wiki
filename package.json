@@ -1,7 +1,7 @@
 {
   "name": "wiki",
   "version": "0.0.1",
-  "description": "Authtrail wiki page",
+  "description": "Apillon wiki page",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,18 +11,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Authtrail/wiki.git"
+    "url": "git+https://github.com/apillon-web3/wiki.git"
   },
   "keywords": [
+    "apillon",
     "authtrail",
-    "wiki"
+    "wiki",
+    "web3"
   ],
-  "author": "Tadej Vengust (Authtrail)",
+  "author": "Tadej Vengust (Apillon)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Authtrail/wiki/issues"
+    "url": "https://github.com/Apillon-web3/wiki/issues"
   },
-  "homepage": "https://github.com/Authtrail/wiki#readme",
+  "homepage": "https://github.com/Apillon-web3/wiki#readme",
   "devDependencies": {
     "@vuepress/plugin-search": "^2.0.0-beta.50",
     "vuepress": "^2.0.0-beta.50"

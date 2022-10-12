@@ -1,8 +1,8 @@
-# Authtrail Wiki
+# Apillon Wiki
 
-Welcome to Authtrail documentation repository.
+Welcome to Apillon documentation repository.
 
-Please, see live documentation at: https://wiki.authtrail.com
+Please, see live documentation at: https://wiki.apillon.io
 
 ## Setup
 
