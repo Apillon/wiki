@@ -1,3 +1,0 @@
-# Build a Web3 project
-
-Guides and tutorials coming soon, stay tuned...
