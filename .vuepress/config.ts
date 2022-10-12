@@ -9,15 +9,15 @@ export default defineUserConfig({
   title: "Apillon Wiki",
   description: "Apillon Wiki",
   head: [
-    ["link", { rel: "icon", href: "assets/logo-favicon.png", sizes: "32x32" }],
+    ["link", { rel: "icon", href: "/assets/logo-favicon.png", sizes: "32x32" }],
     [
       "link",
-      { rel: "icon", href: "assets/logo-favicon.png", sizes: "192x192" },
+      { rel: "icon", href: "/assets/logo-favicon.png", sizes: "192x192" },
     ],
-    ["link", { rel: "apple-touch-icon", href: "assets/logo-favicon.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/assets/logo-favicon.png" }],
     [
       "meta",
-      { name: "msapplication-TileImage", content: "assets/logo-favicon.png" },
+      { name: "msapplication-TileImage", content: "/assets/logo-favicon.png" },
     ],
   ],
   theme: defaultTheme({
