@@ -23,6 +23,8 @@ export default defineUserConfig({
   theme: defaultTheme({
     repo: "apillon-web3/wiki",
     docsDir: "",
+    colorModeSwitch: false,
+    colorMode: 'dark',
     searchPlaceholder: "Search...",
     smoothScroll: true,
     // theme-level locales config
