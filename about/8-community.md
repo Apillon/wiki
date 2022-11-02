@@ -2,7 +2,7 @@
 
 ## Join Apillon Community
 
-Become part of the Apillon community and stay up to date with the latest updates.
+Become part of the Apillon community and stay up to date with the latest news.
 
 * [Twitter](https://twitter.com/apillon_io)
 * [Discord](https://discord.gg/yX3gTw36C4)
