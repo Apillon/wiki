@@ -4,7 +4,7 @@
 
 Become part of the Apillon community and stay up to date with the latest news.
 
-* [Twitter](https://twitter.com/apillon_io)
+* [Twitter](https://twitter.com/Apillon)
 * [Discord](https://discord.gg/yX3gTw36C4)
 * [Telegram](https://t.me/Apillon_io)
 * [Reddit](https://www.reddit.com/r/apillon/)
