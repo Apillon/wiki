@@ -10,21 +10,21 @@ editLink: false
 				<h2>About</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
-			<p>Plug and play access to parachain use cases.</p>
+			<p>Get to know the Apillon platform, its purpose, features, and benefits.</p>
 		</a>
 		<a class="homepage_item" href="/build/">
 			<div class="homepage_title">
 				<h2>Build</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
-			<p>Plug and play access to parachain use cases.Plug and play access to parachain use cases.Plug and play access to parachain use cases.</p>
+			<p>Develop a Web3 product with step-by-step guides and tutorials.</p>
 		</a>
 		<a class="homepage_item" href="/maintain/">
 			<div class="homepage_title">
 				<h2>Maintain</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
-			<p>Plug and play access to parachain use cases.Plug and play access to parachain use cases.</p>
+			<p>Ensure your Web3 product performs well and keeps up with infrastructure updates.</p>
 		</a>
 	</div>
 </div>
