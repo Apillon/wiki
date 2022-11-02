@@ -21,11 +21,11 @@ Building with Apillon does not require prior knowledge of blockchain technology 
 
 Apillon brings the power of distributed technologies to web developers and opens the floodgate to their widespread adoption. It democratizes the usability of advanced technologies and helps Web3 services reach wider and deeper.
 
-## Why does unified pricing matter?
+## Unified pricing
 
 Unpredictable pricing of Web3 services hinders adoption as users cannot foresee the costs generated in the process of using them. The Apillon platform delivers various Web3 services at stable pricing and allows users to devote more time and energy to developing new products.
 
-### Predictability boosting adoption
+### Predictable pricing for greater adoption
 
 The Web3 space delivers outstanding possibilities for building advanced decentralized products. However, the projects providing Web3 services have mostly focused on perfecting the technology offering and less on how end-users interact with it and adopt it.
 
