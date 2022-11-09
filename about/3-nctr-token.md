@@ -45,3 +45,9 @@ In each stage, the gathered performance data will either confirm or reject the p
 The $NCTR token is an ERC-20-compatible token minted on the Moonbeam Network. 
 
 Total supply: 150,000,000 NCTR
+
+### Apillon Tokenomics Whitepaper
+
+Read more about the NCTR token, its role in the Apillon business model, and the general tokenomics.
+
+[Apillon Tokenomics Whitepaper](assets/Apillon_Tokenomics_Whitepaper.pdf "Apillon Tokenomics Whitepaper")
