@@ -50,4 +50,4 @@ Total supply: 150,000,000 NCTR
 
 Read more about the NCTR token, its role in the Apillon business model, and the general tokenomics.
 
-[Apillon Tokenomics Whitepaper](/assets/Apillon_Tokenomics_Whitepaper.pdf "Apillon Tokenomics Whitepaper")
+[Apillon Tokenomics Whitepaper](https://apillon.io/files/Apillon_Tokenomics_Whitepaper.pdf)
