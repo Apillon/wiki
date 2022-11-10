@@ -1,4 +1,4 @@
-# How does it work?
+# How does Apillon work?
 
 Apillon abstracts the technological complexity behind the Polkadot network and its parachains into a suite of development tools empowering developers to upgrade to Web3 easily.
 
