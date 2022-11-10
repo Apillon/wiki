@@ -11,5 +11,5 @@ The main topics you can explore are:
     *  [Tokenomics](/about/3-nctr-token.html#tokenomics)
 *  **Building Web3 with Apillon**
     *  [Why Apillon?](/about/4-why-apillon.html) What need is there on the market and what does Apillon solve?
-    *  [How does it work?](/about/5-how-does-it-work.html) What are the main functionalities it provides?
+    *  [How does it work?](/about/5-how-does-apillon-work.html) What are the main functionalities it provides?
     *  [Developing Web3 with Apillon](/about/6-developing-web3-with-apillon.html): How does it differ from building Web3 products from scratch?
