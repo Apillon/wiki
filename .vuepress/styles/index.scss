@@ -17,34 +17,34 @@
 :root {
   --c-brand: #f9ff73;
   --c-brand-light: #faff81;
-  --c-bg: #FAF8F5;
-  --c-bg-dark: #FAF8F5;
-  --c-bg-light: #FFFFFF;
-  --c-bg-lighter: #FAFAFA;
+  --c-bg: #faf8f5;
+  --c-bg-dark: #faf8f5;
+  --c-bg-light: #ffffff;
+  --c-bg-lighter: #fafafa;
   --c-bg-navbar: var(--c-bg);
   --c-bg-sidebar: var(--c-bg);
   --c-bg-arrow: #f9ff73;
-  --c-glow: rgba(0,0,0,0.2);
+  --c-glow: rgba(0, 0, 0, 0.2);
   --c-text: #010101;
   --c-text-accent: var(--c-brand);
-  --c-text-light: #6A7380;
-  --c-text-lighter: #6A7380;
+  --c-text-light: #6a7380;
+  --c-text-lighter: #6a7380;
   --c-text-lightest: rgb(120 220 232);
   --c-text-quote: #f9ff73;
   --c-border: #edebe9;
   --c-border-dark: #e1dfdd;
-  --c-tip: rgb(120,220,232);
-  --c-tip-bg: rgba(120,220,232, 0.3);
+  --c-tip: rgb(120, 220, 232);
+  --c-tip-bg: rgba(120, 220, 232, 0.3);
   --c-tip-title: var(--c-tip);
   --c-tip-text: var(--c-text);
   --c-tip-text-accent: var(--c-text-accent);
-  --c-warning: rgb(249,255,115);
-  --c-warning-bg: rgba(249,255,115, 0.3);
+  --c-warning: rgb(249, 255, 115);
+  --c-warning-bg: rgba(249, 255, 115, 0.3);
   --c-warning-title: var(--c-warning);
   --c-warning-text: var(--c-text);
   --c-warning-text-accent: var(--c-text-accent);
   --c-danger: #e46b71;
-  --c-danger-bg: rgba(228,107,113, 0.3);
+  --c-danger-bg: rgba(228, 107, 113, 0.3);
   --c-danger-title: var(--c-danger);
   --c-danger-text: var(--c-text);
   --c-details-bg: var(--c-bg-light);
@@ -60,20 +60,27 @@
   --code-ln-wrapper-width: 3.5rem;
   --navbar-height: 3.6rem;
   --navbar-padding-v: 0.8rem;
-  --navbar-line-height: calc( var(--navbar-height) - 2 * var(--navbar-padding-v) );
+  --navbar-line-height: calc(
+    var(--navbar-height) - 2 * var(--navbar-padding-v)
+  );
 
   --homepage-width: 1275px;
-  --content-width: 960px;
+  --content-width: 1275px;
 
   /* Search Style */
-  --search-input-width: 10rem!important;
-  --search-result-width: 20rem!important;
+  --search-input-width: 10rem !important;
+  --search-result-width: 20rem !important;
 
-  --font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-  --font-family-title: CabinetGrotesk-Variable,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  --font-family-title: CabinetGrotesk-Variable, ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
+    Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
 }
-html.dark  {
-	--c-brand: #f9ff73;
+html.dark {
+  --c-brand: #f9ff73;
   --c-brand-light: #faff81;
   --c-bg-arrow: #f9ff73;
   --c-text: #f0f2da;
@@ -82,23 +89,23 @@ html.dark  {
   --c-text-lightest: rgb(120 220 232);
   --c-bg: #141721;
   --c-bg-dark: #141721;
-  --c-bg-darker: #06080F;
+  --c-bg-darker: #06080f;
   --c-bg-light: #1f212b;
   --c-bg-lighter: #2b2e30;
   --c-border: #2b2e30;
-  --c-glow: rgba(20,23,33,0.8);
-  --c-tip: rgb(120,220,232);
-  --c-tip-bg: rgba(120,220,232, 0.3);
+  --c-glow: rgba(20, 23, 33, 0.8);
+  --c-tip: rgb(120, 220, 232);
+  --c-tip-bg: rgba(120, 220, 232, 0.3);
   --c-tip-title: var(--c-tip);
   --c-tip-text: var(--c-text);
   --c-tip-text-accent: var(--c-text-accent);
-  --c-warning: rgb(249,255,115);
-  --c-warning-bg: rgba(249,255,115, 0.3);
+  --c-warning: rgb(249, 255, 115);
+  --c-warning-bg: rgba(249, 255, 115, 0.3);
   --c-warning-title: var(--c-warning);
   --c-warning-text: var(--c-text);
   --c-warning-text-accent: var(--c-text-accent);
   --c-danger: #e46b71;
-  --c-danger-bg: rgba(228,107,113, 0.3);
+  --c-danger-bg: rgba(228, 107, 113, 0.3);
   --c-danger-title: var(--c-danger);
   --c-danger-text: var(--c-text);
   --c-details-bg: var(--c-bg-light);
@@ -114,16 +121,16 @@ html.dark  {
 /* Search */
 .search-box {
   order: -1;
-  margin: 0!important;
-  margin-right: 1rem!important;
-  --search-item-focus-bg-color: var(--c-bg-light)
+  margin: 0 !important;
+  margin-right: 1rem !important;
+  --search-item-focus-bg-color: var(--c-bg-light);
 }
 .search-box input {
   --search-border-color: var(--c-text);
 }
 
 .site-name {
-	display: none!important;
+  display: none !important;
 }
 
 /* Homepage */
@@ -132,7 +139,7 @@ html.dark  {
 }
 
 .homepage:before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0%;
   left: -20%;
@@ -148,7 +155,7 @@ html.dark  {
 
 .homepage .page {
   position: relative;
-  padding: 0!important;
+  padding: 0 !important;
   height: initial;
   min-height: 100vh;
 }
@@ -183,8 +190,8 @@ html.dark  {
   padding: 40px 25px;
   min-height: 280px;
   box-shadow: 0 2px 4px 0 var(--c-glow);
-  transition: box-shadow .3s ease-in-out, background-color .3s ease-in-out;
-  text-decoration: none!important;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  text-decoration: none !important;
 }
 .homepage_item:hover {
   background-color: var(--c-bg-darker);
@@ -201,7 +208,7 @@ html.dark  {
 }
 .homepage_item h2 {
   padding: 0;
-  margin: 0!important;
+  margin: 0 !important;
   color: var(--c-text);
   font-family: var(--font-family-title);
   font-size: 1.75rem;
@@ -211,7 +218,7 @@ html.dark  {
 }
 .homepage_item p {
   padding: 0;
-  margin: 20px 0 0!important;
+  margin: 20px 0 0 !important;
   color: var(--c-text-lighter);
   font-size: 1.125rem;
   line-height: 1.5;
@@ -220,7 +227,7 @@ html.dark  {
 }
 
 .homepage footer {
-  display: none!important;
+  display: none !important;
 }
 /* Homepage End */
 
@@ -234,13 +241,12 @@ html.dark  {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 1rem;
+  gap: 2rem;
 }
 .split_side {
-  width: calc(50% - 0.5rem);
+  width: calc(50% - 1rem);
 }
 /* Text & Code Split End */
-
 
 /* Mobile */
 @media (max-width: 1140px) {
@@ -262,6 +268,6 @@ html.dark  {
     min-height: 200px;
   }
   .search-box {
-    margin-right: 0rem!important;
+    margin-right: 0rem !important;
   }
 }
