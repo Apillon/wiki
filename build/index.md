@@ -12,7 +12,7 @@ Guides and tutorials coming soon, stay tuned...
 <CodeGroup>
   <CodeGroupItem title="cURL" active>
 
-```bash:no-line-numbers
+```bash
 curl --location --request DELETE "https://api-dev.apillon.io/storage/:bucketUuid/file/:id" \
 --header "Authorization: Basic :credentials" \
 --data-raw ""
