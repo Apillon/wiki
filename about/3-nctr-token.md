@@ -1,6 +1,6 @@
 # NCTR token
 
-The NCTR token (pronounced “nectar”) is Apillon’s native utility token and sustains Apillon functionalities when interacting with linked Polkadot parachains and transacting with their protocols. 
+The NCTR token (pronounced “nectar”) is Apillon’s native utility token and sustains Apillon functionalities when interacting with linked Polkadot parachains and transacting with their protocols.
 
 It represents a uniform means of value exchange in the process of building Web3 projects on the Apillon platform, as it replaces the need to interact with individual tokens of utilized parachains.
 
@@ -34,15 +34,15 @@ To achieve awareness and engagement beyond the platform use, a portion of the NC
 
 In the course of its MVP development, Apillon is set to start a three-stage tokenomics and business model release cycle that introduces new features, spanned across a maximum of 24 months.
 
-* Stage 1: Staking & Governance
-* Stage 2: Incentivization & Payments
-* Stage 3: Value Exchange & Proof of Adoption
+- Stage 1: Staking & Governance
+- Stage 2: Incentivization & Payments
+- Stage 3: Value Exchange & Proof of Adoption
 
 In each stage, the gathered performance data will either confirm or reject the project’s predispositions and help improve the tokenomics and business model to suit the users’ needs.
 
 ### Technical Token Parameters
 
-The $NCTR token is an ERC-20-compatible token minted on the Moonbeam Network. 
+The $NCTR token is an ERC-20-compatible token minted on the Moonbeam Network.
 
 Total supply: 150,000,000 NCTR
 
@@ -51,4 +51,3 @@ Total supply: 150,000,000 NCTR
 Learn more about the NCTR token, its role in the Apillon business model, and the general tokenomics.
 
 [![image](/assets/apillon-Read-Apillon-Tokenomics-Whitepaper.png)](https://apillon.io/files/Apillon_Tokenomics_Whitepaper.pdf)
-
