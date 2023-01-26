@@ -1,4 +1,4 @@
-# Apillon Web3 services
+# Web3 services
 
 Before proceeding to use Apillon Web3 Storage services, it is highly recommended to first read Apillon API general docs, as they explain the basic infrastructure, as well as the authentication and request-response system.
 
