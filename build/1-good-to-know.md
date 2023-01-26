@@ -1,4 +1,4 @@
-# Concepts, terminology, and underlying technology
+# Good to know
 
 The provision of Apillon Web3 services comes with certain specifics that are important to understand before using the Apillon dashboard.
 
