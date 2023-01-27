@@ -25,7 +25,7 @@ API routes restrict public access and require authentication.
 
 Requests must include a [basic auth](**https://en.wikipedia.org/wiki/Basic_access_authentication) HTTP header field in the form of `Authorization: Basic <credentials>`, where credentials represent the Base64 encoding of API key and API key secret joined by a single colon `:`.
 
-API keys could be generated on the developer dashboard (https://app.apillon.io/dashboard/api-keys) under Project settings.
+API keys could be generated on the [developer dashboard](https://app.apillon.io/dashboard/api-keys) under Project settings.
 
 #### Authentication errors
 
