@@ -12,7 +12,7 @@ Coming soon, [stay tuned](https://discord.gg/yX3gTw36C4).
 
 Apillon Web3 Storage is a Web3-based storage service that implements AWS S3 (as cache to optimize upload of large files), [IPFS](https://ipfs.tech/), and [Crust Network](https://crust.network/) (to pin files on multiple IPFS nodes).
 
-To streamline the development experience, Apillon Web3 Storage service introduces the concept of [storage buckets](**link to storage buckets**).
+To streamline the development experience, Apillon Web3 Storage service introduces the concept of storage buckets.
 
 Before using the Apillon Web3 Storage service, a storage bucket should be created on the Apillon Dashboard. Once ready, it enables file storage from both the Apillon dashboard and the API endpoints.
 
