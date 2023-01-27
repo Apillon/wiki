@@ -69,9 +69,9 @@ Query requests through `GET` method can return status codes `200`, `400`, `401`,
 A successful request includes a `data` key, which holds a valid response object.
 
   </div>
-<div class="split_side">
+  <div class="split_side">
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response" active>
 
 ```json
@@ -83,7 +83,7 @@ A successful request includes a `data` key, which holds a valid response object.
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
 
@@ -108,7 +108,7 @@ Errors include a unique code number, a property which caused the error, and an e
 
 Fields in code exception:
 
-  <div class="split_content">
+<div class="split_content">
 	<div class="split_side">
 
 | Field     | Description                                                                  |
@@ -119,9 +119,9 @@ Fields in code exception:
 | path      | Endpoint that threw the error                                                |
 | timestamp | Date when the error occurred                                                 |
 
-</div>
+  </div>
 	<div class="split_side">
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response" active>
 
 ```json
@@ -135,7 +135,7 @@ Fields in code exception:
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
 
@@ -152,7 +152,7 @@ Errors include a unique code number, a property which caused the error, and an e
 
   </div>
 	<div class="split_side">
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response" active>
 
 ```json
@@ -169,7 +169,7 @@ Errors include a unique code number, a property which caused the error, and an e
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
 
@@ -202,13 +202,13 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 <div class="split_content">
 	<div class="split_side">
 
-##### URL parameters
+#### URL parameters
 
 | Name       | Description                                                            | Required |
 | ---------- | ---------------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of storage bucket. Key is displayed on developer dashboard. | true     |
 
-##### Body fields
+#### Body fields
 
 | Name        | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                               | Required |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -216,7 +216,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                                                                                | true     |
 | path        | `string` | Virtual file path. Empty for root. Must not contain `fileName`. <br><br> The `path` field can be used to place file in virtual directories inside a bucket. If directories do not yet exist, they will be automatically generated.<br><br>For example, an `images/icons` path creates `images` directory in a bucket and `icons` directory inside it. File will then be created in the `icons` directory. | false    |
 
-##### Possible errors
+#### Possible errors
 
 | Code     | Description                                                                    |
 | -------- | ------------------------------------------------------------------------------ |
@@ -227,7 +227,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it. |
 | 50006003 | Internal error - Apillon was unable to generate upload URL.                    |
 
-##### Response fields
+#### Response fields
 
 | Field               | Type      | Description                                                                                                                                                                                                                                                                                                                                 |
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -240,7 +240,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 #### POST /storage/:bucketUuid/upload
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="cURL" active>
 
 ```sh
@@ -254,8 +254,8 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 ```
 
   </CodeGroupItem>
-</CodeGroup>
-<CodeGroup>
+  </CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response">
 
 ```json
@@ -273,9 +273,9 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 **Example for uploading to signed URL:**
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="cURL binary" active>
 
 ```sh
@@ -284,7 +284,6 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 ```
 
   </CodeGroupItem>
-
   <CodeGroupItem title="cURL file from disk" active>
 
 ```sh
@@ -294,10 +293,9 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 
-   </div>
-
+  </div>
 </div>
 
 ### Get bucket content
@@ -307,13 +305,13 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 <div class="split_content">
 	<div class="split_side">
 
-##### URL parameters
+#### URL parameters
 
 | Name       | Description                                                    | Required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
 
-##### Query parameters
+#### Query parameters
 
 | Name        | Description                                                                               | Required |
 | ----------- | ----------------------------------------------------------------------------------------- | -------- |
@@ -324,13 +322,13 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 | orderBy     | One or multiple properties, separated by a comma, used to order data.                     | false    |
 | desc        | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.      | false    |
 
-##### Possible errors
+#### Possible errors
 
 | Code     | Description            |
 | -------- | ---------------------- |
 | 40406002 | Bucket does not exist. |
 
-##### Response fields
+#### Response fields
 
 The `Data` property of API response contains two properties: `items` (records that match the current query) and `total` (number of all records. This information should be used for pagination: Round up (`total` / `limit`) = number of pages.
 
@@ -351,13 +349,12 @@ Properties of each item:
 | CID               | `string`   | File content identifier - label used to point to material in IPFS. |
 | link              | `string`   | File link on Apillon IPFS gateway.                                 |
 
-</div>
-
-<div class="split_side">
+  </div>
+  <div class="split_side">
 
 #### GET /storage/:bucketUuid/content
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="cURL basic" active>
 
 ```sh
@@ -374,8 +371,8 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 ```
 
   </CodeGroupItem>
-</CodeGroup>
-<CodeGroup>
+  </CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response">
 
 ```json
@@ -407,7 +404,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
 
@@ -418,24 +415,24 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 <div class="split_content">
 	<div class="split_side">
 
-##### URL parameters
+#### URL parameters
 
 | Name       | Description                                                      | required |
 | ---------- | ---------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of a bucket. Key is displayed on developer dashboard. | true     |
 | id         | File internal ID, UUID or CID.                                   | true     |
 
-##### Possible errors
+#### Possible errors
 
 | Code     | Description          |
 | -------- | -------------------- |
 | 40406005 | File does not exist. |
 
-##### Response fields
+#### Response fields
 
 Response `data` property contains two properties: `fileStatus` and `file`. File status tells the current status of the file relative to the entire flow the file goes through to be fully loaded and pinned on Crust Network, while `file` property contains file metadata fields.
 
-###### File statuses
+##### File statuses
 
 | Number | Description                                                       |
 | ------ | ----------------------------------------------------------------- |
@@ -444,7 +441,7 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 | 3      | File is transferred to IPFS node.                                 |
 | 4      | File is replicated to different IPFS nodes through Crust Network. |
 
-###### File metadata
+##### File metadata
 
 `CID`, `size`, and `downloadLink` are present if file is already loaded to IPFS.
 
@@ -459,12 +456,12 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 | size                                                                     | `integer` | File size in bytes                                   |
 | downloadLink                                                             | `string`  | File link on Apillon IPFS gateway                    |
 
-</div>
-<div class="split_side">
+  </div>
+  <div class="split_side">
 
 #### GET /storage/:bucketUuid/file/:id/detail
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="cURL" active>
 
 ```sh
@@ -473,8 +470,8 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 ```
 
   </CodeGroupItem>
-</CodeGroup>
-<CodeGroup>
+  </CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response">
 
 ```json
@@ -499,7 +496,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
 
@@ -511,21 +508,21 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 <div class="split_content">
 	<div class="split_side">
 
-##### URL parameters
+#### URL parameters
 
 | Name       | Description                                                    | required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
 | id         | File internal ID, UUID, or CID.                                | true     |
 
-##### Possible errors
+#### Possible errors
 
 | Code     | Description                  |
 | -------- | ---------------------------- |
 | 40406005 | File does not exist.         |
 | 40006009 | File is marked for deletion. |
 
-##### Response fields
+#### Response fields
 
 The response of delete function is a record that has been marked for deletion.
 
@@ -533,12 +530,12 @@ Returned fields are the same as fields that are returned in [GET file details AP
 
 **Note:** The `status` property of file is 8. This means the file is marked for deletion and will be deleted after a certain period.
 
-</div>
-<div class="split_side">
+  </div>
+  <div class="split_side">
 
 #### DELETE /storage/:bucketUuid/file/:id
 
-<CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="cURL" active>
 
 ```sh
@@ -548,8 +545,8 @@ curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/fil
 ```
 
   </CodeGroupItem>
-</CodeGroup>
-<CodeGroup>
+  </CodeGroup>
+  <CodeGroup>
   <CodeGroupItem title="Response">
 
 ```json
@@ -570,6 +567,6 @@ curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/fil
 ```
 
   </CodeGroupItem>
-</CodeGroup>
+  </CodeGroup>
 	</div>
 </div>
