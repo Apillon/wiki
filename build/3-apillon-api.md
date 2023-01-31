@@ -213,7 +213,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | Name        | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                               | Required |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                                                                                     | true     |
-| contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                                                                                | true     |
+| contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                                                                                | false    |
 | path        | `string` | Virtual file path. Empty for root. Must not contain `fileName`. <br><br> The `path` field can be used to place file in virtual directories inside a bucket. If directories do not yet exist, they will be automatically generated.<br><br>For example, an `images/icons` path creates `images` directory in a bucket and `icons` directory inside it. File will then be created in the `icons` directory. | false    |
 
 #### Possible errors
@@ -222,7 +222,6 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | -------- | ------------------------------------------------------------------------------ |
 | 40406002 | Bucket does not exist.                                                         |
 | 42200008 | Request body is missing a `fileName` field.                                    |
-| 42200009 | Request body is missing a `contentType` field.                                 |
 | 40006002 | Bucket has reached max size limit.                                             |
 | 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it. |
 | 50006003 | Internal error - Apillon was unable to generate upload URL.                    |
@@ -302,6 +301,8 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Gets directories and files in bucket. Items are paginated and can be filtered and ordered through query parameters.
 
+**Note: This endpoint returns files, that are successfully transferred to IPFS node. I.e. files with [fileStatus](#file-statuses) 3 or 4.**
+
 <div class="split_content">
 	<div class="split_side">
 
@@ -337,11 +338,10 @@ Properties of each item:
 | Field             | Type       | Description                                                        |
 | ----------------- | ---------- | ------------------------------------------------------------------ |
 | id                | `integer`  | Item internal ID                                                   |
-| type              | `string`   | Item type, possible values are `file` and `directory`              |
-| name              | `string`   | Item (file or directory) name                                      |
+| type              | `integer`  | Item type with possible values `1`(directory) and `2`(file)        |
+| name              | `string`   | Item (directory or file) name                                      |
 | createTime        | `DateTime` | Item create time                                                   |
 | updateTime        | `DateTime` | Item last update time                                              |
-| contentType       | `string`   | Item content type (MIME type)                                      |
 | contentType       | `string`   | Item content type (MIME type)                                      |
 | size              | `integer`  | Item size in bytes                                                 |
 | parentDirectoryId | `integer`  | ID of directory where a file is located                            |
@@ -383,7 +383,21 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
         "items": [
             ...
             {
-                "type": "file",
+                "type": 1,
+                "id": 11,
+                "status": 5,
+                "name": "My directory",
+                "CID": null,
+                "createTime": "2022-12-08T13:27:00.000Z",
+                "updateTime": "2023-01-10T12:18:55.000Z",
+                "contentType": null,
+                "size": null,
+                "parentDirectoryId": null,
+                "fileUuid": null,
+                "link": null
+            },
+            {
+                "type": 2,
                 "id": 397,
                 "status": 5,
                 "name": "My file.txt",
@@ -393,7 +407,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
                 "contentType": "text/plain",
                 "size": 68,
                 "parentDirectoryId": null,
-                "file_uuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
+                "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
                 "link": "https://ipfs.apillon.io/ipfs/QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42"
             }
             ...
@@ -483,7 +497,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
     "file": {
       "id": 397,
       "status": 5,
-      "file_uuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
+      "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
       "CID": "QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42",
       "name": "My file.txt",
       "contentType": "text/plain",
@@ -556,7 +570,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/fil
   "data": {
     "id": 397,
     "status": 8,
-    "file_uuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
+    "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
     "CID": "QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42",
     "name": "My file.txt",
     "contentType": "text/plain",
