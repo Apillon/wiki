@@ -47,3 +47,5 @@ Crust Network has three main functions: NFT and metaverse metadata storage, pers
 ### Storage buckets
 
 Storage buckets are Apillon’s Web3 Storage abstraction that allows developers to utilize IPFS and Crust to store files in an unstoppable, decentralized way.
+
+Learn more about [storage buckets](/build/2-web3-services.html#storage-bucket).
