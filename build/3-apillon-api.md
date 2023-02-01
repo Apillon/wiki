@@ -230,7 +230,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 | Field               | Type      | Description                                                                                                                                                                                                                                                                                                                                 |
 | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| signedUrlForUpload  | `string`  | URL for file upload. Signed URL is unique for each file and is valid only for a limited time (1 min), so you should start with file upload as soon as possible.<br><br>Request should use `PUT` method and `binary` body.<br><br>Binary data should be sent in body as-is, but with the appropriate Content-Type header (e.g., text/plain). |
+| url                 | `string`  | URL for file upload. Signed URL is unique for each file and is valid only for a limited time (1 min), so you should start with file upload as soon as possible.<br><br>Request should use `PUT` method and `binary` body.<br><br>Binary data should be sent in body as-is, but with the appropriate Content-Type header (e.g., text/plain). |
 | fileUuid            | `string`  | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileUploadRequestId | `integer` | Apillon internal ID of file upload request                                                                                                                                                                                                                                                                                                  |
 
@@ -262,7 +262,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
   "id": "aea7f4e9-6dbb-4075-a76c-f6cc6c47c331",
   "status": 201,
   "data": {
-    "signedUrlForUpload": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE/11/my%20test%20file.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230104%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230104T101419Z&X-Amz-Expires=900&X-Amz-Signature=e1be26c5863d845d5ec5477ac4e7aabafd6901060b3515d23d36c71360255259&X-Amz-SignedHeaders=host",
+    "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE/11/my%20test%20file.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230104%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230104T101419Z&X-Amz-Expires=900&X-Amz-Signature=e1be26c5863d845d5ec5477ac4e7aabafd6901060b3515d23d36c71360255259&X-Amz-SignedHeaders=host",
     "fileUuid": "18bdb4ef-4b9d-4bd4-9e5f-0bc7744b4376",
     "fileUploadRequestId": 70
   }
