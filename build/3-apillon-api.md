@@ -2,7 +2,7 @@
 
 ## Endpoints
 
-List of endpoints the API is available at.
+List of endpoints the API is available at:
 
 | Environment | URL                    |
 | ----------- | ---------------------- |
@@ -23,7 +23,7 @@ The server speaks [JSON](https://en.wikipedia.org/wiki/JSON). It is recommended 
 
 API routes restrict public access and require authentication.
 
-Requests must include a [basic auth](**https://en.wikipedia.org/wiki/Basic_access_authentication) HTTP header field in the form of `Authorization: Basic <credentials>`, where credentials represent the Base64 encoding of API key and API key secret joined by a single colon `:`.
+Requests must include a [basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication) HTTP header field in the form of `Authorization: Basic <credentials>`, where credentials represent the Base64 encoding of API key and API key secret joined by a single colon `:`.
 
 API keys could be generated on the [developer dashboard](https://app.apillon.io/dashboard/api-keys) under Project settings.
 
@@ -199,6 +199,8 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload request and returns a URL for file upload.
 
+#### POST /storage/:bucketUuid/upload
+
 <div class="split_content">
 	<div class="split_side">
 
@@ -236,8 +238,6 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
   </div>
   <div class="split_side">
-
-#### POST /storage/:bucketUuid/upload
 
   <CodeGroup>
   <CodeGroupItem title="cURL" active>
@@ -303,6 +303,8 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 **Note: This endpoint returns files, that are successfully transferred to IPFS node. I.e. files with [fileStatus](#file-statuses) 3 or 4.**
 
+#### GET /storage/:bucketUuid/content
+
 <div class="split_content">
 	<div class="split_side">
 
@@ -351,8 +353,6 @@ Properties of each item:
 
   </div>
   <div class="split_side">
-
-#### GET /storage/:bucketUuid/content
 
   <CodeGroup>
   <CodeGroupItem title="cURL basic" active>
@@ -519,6 +519,8 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 > Marks a file inside bucket for deletion by `id`, `fileUuid`, or `CID`. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
+#### DELETE /storage/:bucketUuid/file/:id
+
 <div class="split_content">
 	<div class="split_side">
 
@@ -546,8 +548,6 @@ Returned fields are the same as fields that are returned in [GET file details AP
 
   </div>
   <div class="split_side">
-
-#### DELETE /storage/:bucketUuid/file/:id
 
   <CodeGroup>
   <CodeGroupItem title="cURL" active>

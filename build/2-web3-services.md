@@ -1,7 +1,5 @@
 # Web3 services
 
-Before proceeding to use Apillon Web3 Storage services, it is highly recommended to first read Apillon API general docs, as they explain the basic infrastructure, as well as the authentication and request-response system.
-
 Apillon integrates multiple [Polkadot](https://polkadot.network/) parachains and offers access to them in a unified way via modules on the developer dashboard and through Apillon APIs.
 
 ## Web3 Authentication
@@ -43,21 +41,21 @@ To make the storage more dynamic, Apillon artificially lowers the deletion perio
 The process below describes how a static website or app is hosted decentrally with Apillon Web3 Hosting.
 
 1. Uploaded files land on a reputable centralized cloud provider to ensure fast file capture.
-2. Once the files are received, they proceed to the Apillon node. They are accessible through the IPFS gateway until moved from staging to production. 
-3. Once the files move from staging to production, they proceed to the decentralized Apillon IPFS gateway, where the pinning and replication process is started with Crust. 
+2. Once the files are received, they proceed to the Apillon node. They are accessible through the IPFS gateway until moved from staging to production.
+3. Once the files move from staging to production, they proceed to the decentralized Apillon IPFS gateway, where the pinning and replication process is started with Crust.
 4. At this point, you can connect your custom domain, which starts the SSL certificate generation process in the Apillon gateway.
 5. Finally, you can migrate your domain’s DNS records to Apillon and launch your website or app using decentralized hosting.
 
 ### Deployment
 
-To deploy a Web3 website or application, follow the process below: 
+To deploy a Web3 website or application, follow the process below:
 
 1. Register an [account on Apillon](https://app.apillon.io/register).
 2. Log in to your Apillon dashboard.
 3. In the left-hand menu, under Services, navigate to Hosting, and click “Get started.”
 4. Drag and drop your static website to the Hosting view and wait for the upload to finish.
-6. Once the upload is complete, file pinning and replication on Crust Network will start automatically.
-7. Once finished, your website or app will be hosted on your custom domain to the world wide web.
+5. Once the upload is complete, file pinning and replication on Crust Network will start automatically.
+6. Once finished, your website or app will be hosted on your custom domain to the world wide web.
 
 If you want to redeploy the website or app with new changes, repeat the process above simply by uploading the whole website or app via Apillon Hosting view.
 
