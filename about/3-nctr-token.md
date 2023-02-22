@@ -149,7 +149,7 @@ Then, as seen in some DAOs, there is a risk that individuals exploit heavier vot
 
 The goal of the Apillon platform is to give users smooth access to Web3 services without them having to learn extensive documentation and complex programming languages. If Apillon fails at achieving this objective, users could no longer see value in using the platform, leading to governance losing its role.
 
-### Three-Phase Governance Implementation
+### Three-Phase Implementation
 
 Apillon’s three-phase governance model aims to steadily boost user participation while fairly distributing voting power and their influence over the Apillon platform evolution.
 
