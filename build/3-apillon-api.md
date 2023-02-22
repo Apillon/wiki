@@ -259,7 +259,7 @@ Files in request body are returned in response `data.files` property. Each file 
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "http://localhost:6002/storage/:bucketUuid/upload" \
+curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -359,7 +359,7 @@ Api respond with status `200 OK` , if operation is successfully executed.
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "http://localhost:6002/storage/:bucketUuid/upload/:sessionUuid/end" \
+curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -753,7 +753,7 @@ Files in request body are returned in response `data.files` property. Each file 
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "http://localhost:6002/hosting/websites/:websiteUuid/upload" \
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -869,7 +869,7 @@ Api respond with status `200 OK` , if operation is successfully executed.
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "http://localhost:6002/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -969,7 +969,7 @@ Deployment goes throuh different stages and each stage updates `deploymentStatus
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "http://localhost:6002/hosting/websites/:websiteUuid/deploy" \
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/deploy" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -1047,7 +1047,7 @@ curl --location --request POST "http://localhost:6002/hosting/websites/:websiteU
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "http://localhost:6002/hosting/websites/:websiteUuid/deployments/:deploymentId" \
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -1119,7 +1119,7 @@ curl --location --request GET "http://localhost:6002/hosting/websites/:websiteUu
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "http://localhost:6002/hosting/websites/:websiteUuid" \
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid" \
 --header "Authorization: Basic :credentials"
 ```
 
