@@ -684,8 +684,7 @@ To deploy page through Apillon API, follow below steps:
 - Upload files to cloud server
 - Trigger transfer into website
 
-2. Execute deployment to staging(preview) environment
-3. Execute deployment to production
+2. Execute deployment to staging or production environment.
 
 **Note:** To use Apillon Web3 Hosting APIs, you should first create a website on the [Apillon dashboard](https://app.apillon.io/dashboard/service/hosting).
 
@@ -913,9 +912,17 @@ curl --location --request POST "http://localhost:6002/hosting/websites/:websiteU
 
 #### Body fields
 
-| Name        | Type     | Description                                                      | Required |
-| ----------- | -------- | ---------------------------------------------------------------- | -------- |
-| environment | `number` | `1` = staging(preview) environment, `2` = production environment | true     |
+| Name        | Type     | Description                                       | Required |
+| ----------- | -------- | ------------------------------------------------- | -------- |
+| environment | `number` | Possible `environment` values are explained below | true     |
+
+##### Environments
+
+| Status | Description                                                                                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | Uploaded files are deployed to staging environment. Website will be available through staging IPNS link                                                          |
+| 2      | Files from current staging environment are deployed to production environment. Website is pinned to CRUST, replicated and available through production IPNS link |
+| 3      | Same as `2`, only that the source are uploaded files, not files in staging environment.                                                                          |
 
 #### Possible errors
 
