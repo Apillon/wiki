@@ -212,9 +212,9 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 #### Body fields
 
-| Name  | Type    | Description               | Required |
-| ----- | ------- | ------------------------- | -------- |
-| files | `array` | Array of files metadatas. | true     |
+| Name  | Type    | Description              | Required |
+| ----- | ------- | ------------------------ | -------- |
+| files | `array` | Array of files metadata. | true     |
 
 Each file metadata object in `files` array, contain below properties.
 
@@ -240,7 +240,7 @@ Each file metadata object in `files` array, contain below properties.
 | Name        | Type     | Description                                                                        |
 | ----------- | -------- | ---------------------------------------------------------------------------------- |
 | sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files to bucket |
-| files       | `array`  | Array of files metadatas.                                                          |
+| files       | `array`  | Array of files metadata.                                                           |
 
 Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
 
@@ -327,7 +327,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 ### End upload session
 
-> Once files are uploaded to cloud server via recieved URL, trigger sync of files to IPFS and CRUST.
+> Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
 #### POST /storage/:bucketUuid/upload/:sessionUuid/end
 
@@ -343,10 +343,10 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 #### Possible errors
 
-| Code     | Description                                   |
-| -------- | --------------------------------------------- |
-| 40406004 | Session does not exists                       |
-| 40006001 | Files in this session were already transfered |
+| Code     | Description                                    |
+| -------- | ---------------------------------------------- |
+| 40406004 | Session does not exists                        |
+| 40006001 | Files in this session were already transferred |
 
 #### Response
 
@@ -707,9 +707,9 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 #### Body fields
 
-| Name  | Type    | Description               | Required |
-| ----- | ------- | ------------------------- | -------- |
-| files | `array` | Array of files metadatas. | true     |
+| Name  | Type    | Description              | Required |
+| ----- | ------- | ------------------------ | -------- |
+| files | `array` | Array of files metadata. | true     |
 
 Each file metadata object in `files` array, contain below properties.
 
@@ -734,7 +734,7 @@ Each file metadata object in `files` array, contain below properties.
 | Name        | Type     | Description                                                                         |
 | ----------- | -------- | ----------------------------------------------------------------------------------- |
 | sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files ti website |
-| files       | `array`  | Array of files metadatas.                                                           |
+| files       | `array`  | Array of files metadata.                                                            |
 
 Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
 
@@ -853,10 +853,10 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 #### Possible errors
 
-| Code     | Description                                   |
-| -------- | --------------------------------------------- |
-| 40406004 | Session does not exists                       |
-| 40006001 | Files in this session were already transfered |
+| Code     | Description                                    |
+| -------- | ---------------------------------------------- |
+| 40406004 | Session does not exists                        |
+| 40006001 | Files in this session were already transferred |
 
 #### Response
 
@@ -942,25 +942,25 @@ This deployment is now waiting to be processed.
 When deploying to `staging` environment, files are added to IPFS and wrapped to directory, which is then accessible in IPFS via IPNS or CID.
 In `production`, this CID is pinned to CRUST and replicated to other nodes.
 
-| Field            | Type     | Description                                                                                    |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------------- |
-| id               | `number` | Deployment internal number                                                                     |
-| status           | `number` | Deployment record status                                                                       |
-| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                                |
-| environment      | `number` | Environment to where website will be deployed                                                  |
-| deploymentStatus | `number` | Current status of deployment. Possible values are listed below.                                |
-| cid              | `string` | When deployment is successfull, CID points to directory on IPFS, where this page is accessible |
-| size             | `number` | Size of website                                                                                |
-| number           | `number` | Deployment serial number - for this environment                                                |
+| Field            | Type     | Description                                                                                   |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------- |
+| id               | `number` | Deployment internal number                                                                    |
+| status           | `number` | Deployment record status                                                                      |
+| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                               |
+| environment      | `number` | Environment to where website will be deployed                                                 |
+| deploymentStatus | `number` | Current status of deployment. Possible values are listed below.                               |
+| cid              | `string` | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
+| size             | `number` | Size of website                                                                               |
+| number           | `number` | Deployment serial number - for this environment                                               |
 
-Deployment goes throuh different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
+Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
 
-| Status | Description            |
-| ------ | ---------------------- |
-| 0      | Deployment initiated   |
-| 1      | In processing          |
-| 10     | Deployment successfull |
-| 100    | Deployment failed      |
+| Status | Description           |
+| ------ | --------------------- |
+| 0      | Deployment initiated  |
+| 1      | In processing         |
+| 10     | Deployment successful |
+| 100    | Deployment failed     |
 
   </div>
   <div class="split_side">
@@ -1029,16 +1029,25 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 #### Response fields
 
-| Field            | Type     | Description                                                                                    |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------------- |
-| id               | `number` | Deployment internal number                                                                     |
-| status           | `number` | Deployment DB status                                                                           |
-| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                                |
-| environment      | `number` | Environment to where website will be deployed                                                  |
-| deploymentStatus | `number` | Current status of deployment                                                                   |
-| cid              | `string` | When deployment is successfull, CID points to directory on IPFS, where this page is accessible |
-| size             | `number` | Size of website                                                                                |
-| number           | `number` | Deployment serial number - for this environment                                                |
+| Field            | Type     | Description                                                                                   |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------- |
+| id               | `number` | Deployment internal number                                                                    |
+| status           | `number` | Deployment DB status                                                                          |
+| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                               |
+| environment      | `number` | Environment to where website will be deployed                                                 |
+| deploymentStatus | `number` | Current status of deployment                                                                  |
+| cid              | `string` | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
+| size             | `number` | Size of website                                                                               |
+| number           | `number` | Deployment serial number - for this environment                                               |
+
+Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
+
+| Status | Description           |
+| ------ | --------------------- |
+| 0      | Deployment initiated  |
+| 1      | In processing         |
+| 10     | Deployment successful |
+| 100    | Deployment failed     |
 
   </div>
   <div class="split_side">
@@ -1109,7 +1118,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 | description        | `string` | Website description                                         |
 | domain             | `string` | Domain for production environment                           |
 | bucketUuid         | `string` | UUID of bucket, for file upload                             |
-| ipnsStagingLink    | `string` | IPNS address of stagign version, on Apillon IPFS gateway    |
+| ipnsStagingLink    | `string` | IPNS address of staging version, on Apillon IPFS gateway    |
 | ipnsProductionLink | `string` | IPNS address of production version, on Apillon IPFS gateway |
 
   </div>
