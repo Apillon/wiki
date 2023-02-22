@@ -694,7 +694,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload requests and returns URLs for files upload.
 
-#### POST /hosting/websites/:websiteUuid/upload
+#### POST /hosting/:websiteUuid/upload
 
 <div class="split_content">
 	<div class="split_side">
@@ -753,7 +753,7 @@ Files in request body are returned in response `data.files` property. Each file 
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload" \
+curl --location --request POST "https://api.apillon.io/hosting/:websiteUuid/upload" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -839,7 +839,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
 
-#### POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end
+#### POST /hosting/:websiteUuid/upload/:sessionUuid/end
 
 <div class="split_content">
 	<div class="split_side">
@@ -869,7 +869,7 @@ Api respond with status `200 OK` , if operation is successfully executed.
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
+curl --location --request POST "https://api.apillon.io/hosting/:websiteUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -899,7 +899,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to trigger website deployment into specific environment.
 
-#### POST /hosting/websites/:websiteUuid/deploy
+#### POST /hosting/:websiteUuid/deploy
 
 <div class="split_content">
 	<div class="split_side">
@@ -969,7 +969,7 @@ Deployment goes through different stages and each stage updates `deploymentStatu
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/deploy" \
+curl --location --request POST "https://api.apillon.io/hosting/:websiteUuid/deploy" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -1009,7 +1009,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to get deployment.
 
-#### GET /hosting/websites/:websiteUuid/deployments/:deploymentId
+#### GET /hosting/:websiteUuid/deployments/:deploymentId
 
 <div class="split_content">
 	<div class="split_side">
@@ -1056,7 +1056,7 @@ Deployment goes through different stages and each stage updates `deploymentStatu
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
+curl --location --request GET "https://api.apillon.io/hosting/:websiteUuid/deployments/:deploymentId" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -1091,7 +1091,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
 
-#### GET /hosting/websites/:websiteUuid
+#### GET /hosting/:websiteUuid
 
 <div class="split_content">
 	<div class="split_side">
@@ -1128,7 +1128,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid" \
+curl --location --request GET "https://api.apillon.io/hosting/:websiteUuid" \
 --header "Authorization: Basic :credentials"
 ```
 
