@@ -9,6 +9,7 @@ The main topics you can explore are:
 *  **[NCTR token](/about/3-nctr-token.html)**
     *  [Utility](/about/3-nctr-token.html#utility)
     *  [Tokenomics](/about/3-nctr-token.html#tokenomics)
+    *  [Governance](/about/3-nctr-token.html#governance)
 *  **Building Web3 with Apillon**
     *  [Why Apillon?](/about/4-why-apillon.html) What need is there on the market and what does Apillon solve?
     *  [How does it work?](/about/5-how-does-apillon-work.html) What are the main functionalities it provides?
