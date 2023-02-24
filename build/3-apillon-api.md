@@ -190,14 +190,14 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 **File upload process through Apillon Web3 Storage API**
 
-1. URL request is signed for upload.
+1. Request signed URL(s) for upload.
 2. File is uploaded to Apillon central server.
 3. File is transferred to IPFS and available through the Apillon gateway.
 4. File is replicated to different IPFS nodes globally via Crust Network.
 
 ### Upload to bucket
 
-> API that creates file upload request and returns a URL for file upload.
+> API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
 #### POST /storage/:bucketUuid/upload
 
@@ -212,6 +212,12 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 #### Body fields
 
+| Name  | Type    | Description              | Required |
+| ----- | ------- | ------------------------ | -------- |
+| files | `array` | Array of files metadata. | true     |
+
+Each file metadata object in `files` array, contain below properties.
+
 | Name        | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                               | Required |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                                                                                     | true     |
@@ -223,18 +229,28 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | Code     | Description                                                                    |
 | -------- | ------------------------------------------------------------------------------ |
 | 40406002 | Bucket does not exist.                                                         |
-| 42200008 | Request body is missing a `fileName` field.                                    |
+| 42200040 | Request body is missing a `files` field.                                       |
+| 42200008 | Request body file object is missing a `fileName` field.                        |
 | 40006002 | Bucket has reached max size limit.                                             |
 | 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it. |
 | 50006003 | Internal error - Apillon was unable to generate upload URL.                    |
 
-#### Response fields
+#### Response
 
-| Field               | Type      | Description                                                                                                                                                                                                                                                                                                                                 |
-| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| url                 | `string`  | URL for file upload. Signed URL is unique for each file and is valid only for a limited time (1 min), so you should start with file upload as soon as possible.<br><br>Request should use `PUT` method and `binary` body.<br><br>Binary data should be sent in body as-is, but with the appropriate Content-Type header (e.g., text/plain). |
-| fileUuid            | `string`  | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
-| fileUploadRequestId | `integer` | Apillon internal ID of file upload request                                                                                                                                                                                                                                                                                                  |
+| Name        | Type     | Description                                                                        |
+| ----------- | -------- | ---------------------------------------------------------------------------------- |
+| sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files to bucket |
+| files       | `array`  | Array of files metadata.                                                           |
+
+Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
+
+| Field       | Type     | Description                                                                                                                                                                                                                                                                                                                                 |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| url         | `string` | URL for file upload. Signed URL is unique for each file and is valid only for a limited time (1 min), so you should start with file upload as soon as possible.<br><br>Request should use `PUT` method and `binary` body.<br><br>Binary data should be sent in body as-is, but with the appropriate Content-Type header (e.g., text/plain). |
+| fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
+| fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
+| contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
+| path        | `string` | File path.                                                                                                                                                                                                                                                                                                                                  |
 
   </div>
   <div class="split_side">
@@ -247,8 +263,13 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
-    \"fileName\": \"My file.txt\",
-    \"contentType\": \"text/plain\"
+    \"files\": [
+        {
+            \"fileName\": \"My test file\",
+            \"contentType\": \"text/html\"
+        }
+    ]
+
 }"
 ```
 
@@ -259,12 +280,19 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 ```json
 {
-  "id": "aea7f4e9-6dbb-4075-a76c-f6cc6c47c331",
+  "id": "cbdc4930-2bbd-4b20-84fa-15daa4429952",
   "status": 201,
   "data": {
-    "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE/11/my%20test%20file.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230104%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230104T101419Z&X-Amz-Expires=900&X-Amz-Signature=e1be26c5863d845d5ec5477ac4e7aabafd6901060b3515d23d36c71360255259&X-Amz-SignedHeaders=host",
-    "fileUuid": "18bdb4ef-4b9d-4bd4-9e5f-0bc7744b4376",
-    "fileUploadRequestId": 70
+    "sessionUuid": "3b6113bc-f265-4662-8cc5-ea86f06cc74b",
+    "files": [
+      {
+        "path": null,
+        "fileName": "My test file",
+        "contentType": "text/html",
+        "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject",
+        "fileUuid": "4ef1177b-f7c9-4434-be56-a559cec0cc18"
+      }
+    ]
   }
 }
 ```
@@ -278,15 +306,15 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
   <CodeGroupItem title="cURL binary" active>
 
 ```sh
-curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE/11/my%20test%20file.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230104%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230104T101419Z&X-Amz-Expires=900&X-Amz-Signature=e1be26c5863d845d5ec5477ac4e7aabafd6901060b3515d23d36c71360255259&X-Amz-SignedHeaders=host" \
---data-binary "my test content"
+curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject" \
+--data-binary "My test content"
 ```
 
   </CodeGroupItem>
   <CodeGroupItem title="cURL file from disk" active>
 
 ```sh
-curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE/11/my%20test%20file.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230104%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230104T101419Z&X-Amz-Expires=900&X-Amz-Signature=e1be26c5863d845d5ec5477ac4e7aabafd6901060b3515d23d36c71360255259&X-Amz-SignedHeaders=host" \
+curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject" \
 --header "Content-Type: text/plain" \
 --data-binary ":full path to file"
 ```
@@ -294,6 +322,66 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
   </CodeGroupItem>
   </CodeGroup>
 
+  </div>
+</div>
+
+### End upload session
+
+> Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
+
+#### POST /storage/:bucketUuid/upload/:sessionUuid/end
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name        | Description                                                     | Required |
+| ----------- | --------------------------------------------------------------- | -------- |
+| bucketUuid  | Unique key of bucket. Key is displayed in developer dashboard.  | true     |
+| sessionUuid | Session uuid, recieved in [upload to bucket](#upload-to-bucket) | true     |
+
+#### Possible errors
+
+| Code     | Description                                    |
+| -------- | ---------------------------------------------- |
+| 40406004 | Session does not exists                        |
+| 40006001 | Files in this session were already transferred |
+
+#### Response
+
+Api respond with status `200 OK` , if operation is successfully executed.
+
+  </div>
+  <div class="split_side">
+
+<CodeGroup>
+    <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"directSync\": true
+}"
+```
+
+  </CodeGroupItem>
+</CodeGroup>
+<CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "b64b1c07-1a8a-4b05-9e3b-3c6a519d6ff7",
+  "status": 200,
+  "data": true
+}
+```
+
+</CodeGroupItem>
+</CodeGroup>
   </div>
 </div>
 
@@ -426,6 +514,8 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 
 > Gets details of a specific file inside a bucket.
 
+#### GET /storage/:bucketUuid/file/:id/detail
+
 <div class="split_content">
 	<div class="split_side">
 
@@ -472,8 +562,6 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 
   </div>
   <div class="split_side">
-
-#### GET /storage/:bucketUuid/file/:id/detail
 
   <CodeGroup>
   <CodeGroupItem title="cURL" active>
@@ -583,4 +671,490 @@ curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/fil
   </CodeGroupItem>
   </CodeGroup>
 	</div>
+</div>
+
+## Web3 Hosting API
+
+Hosting API provides endpoints, that can be used to implement [CI/CD](https://en.wikipedia.org/wiki/CI/CD).
+To deploy page through Apillon API, follow below steps:
+
+1. Upload website files to Apillon cloud server.
+
+- Request URLs for files upload
+- Upload files to cloud server
+- Trigger transfer into website
+
+2. Execute deployment to staging or production environment.
+
+**Note:** To use Apillon Web3 Hosting APIs, you should first create a website on the [Apillon dashboard](https://app.apillon.io/dashboard/service/hosting).
+
+In all cURL examples, parameters with a colon as a prefix should be replaced with real values.
+
+### Get URLs for files upload
+
+> API that creates file upload requests and returns URLs for files upload.
+
+#### POST /hosting/websites/:websiteUuid/upload
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name        | Description                                                            | Required |
+| ----------- | ---------------------------------------------------------------------- | -------- |
+| websiteUuid | Unique key of website bucket. Key is displayed on developer dashboard. | true     |
+
+#### Body fields
+
+| Name  | Type    | Description              | Required |
+| ----- | ------- | ------------------------ | -------- |
+| files | `array` | Array of files metadata. | true     |
+
+Each file metadata object in `files` array, contain below properties.
+
+| Name        | Type     | Description                                                                                                | Required |
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------------- | -------- |
+| fileName    | `string` | Full name (name and extension) of file to be uploaded                                                      | true     |
+| contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types) | false    |
+| path        | `string` | File path inside website. Empty for root. Must not contain `fileName`.                                     | false    |
+
+#### Possible errors
+
+| Code     | Description                                                 |
+| -------- | ----------------------------------------------------------- |
+| 40406010 | Website does not exists                                     |
+| 42200040 | Request body is missing a `files` field.                    |
+| 42200008 | Request body file object is missing a `fileName` field.     |
+| 40006002 | Website has reached max size limit.                         |
+| 50006003 | Internal error - Apillon was unable to generate upload URL. |
+
+#### Response
+
+| Name        | Type     | Description                                                                         |
+| ----------- | -------- | ----------------------------------------------------------------------------------- |
+| sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files ti website |
+| files       | `array`  | Array of files metadata.                                                            |
+
+Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
+
+| Field       | Type     | Description                                                                                                                                                                                                                                                                                                                                 |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| url         | `string` | URL for file upload. Signed URL is unique for each file and is valid only for a limited time (1 min), so you should start with file upload as soon as possible.<br><br>Request should use `PUT` method and `binary` body.<br><br>Binary data should be sent in body as-is, but with the appropriate Content-Type header (e.g., text/plain). |
+| fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
+| fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
+| contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
+| path        | `string` | File path.                                                                                                                                                                                                                                                                                                                                  |
+
+  </div>
+  <div class="split_side">
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"files\": [
+        {
+            \"fileName\": \"index.html\",
+            \"contentType\": \"text/html\"
+        },
+        {
+            \"fileName\": \"styles.css\",
+            \"contentType\": \"text/css\",
+            \"path\": \"assets/\"
+        }
+
+    ]
+
+}"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "7dd011ec-20e2-4c28-b585-da6c6f7fce8d",
+  "status": 201,
+  "data": {
+    "sessionUuid": "29ef6ca2-b171-440c-b934-db8aa88c3424",
+    "files": [
+      {
+        "path": null,
+        "fileName": "index.html",
+        "contentType": "text/html",
+        "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/HOSTING_sessions/70/29ef6ca2-b171-440c-b934-db8aa88c3424/index.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T105030Z&X-Amz-Expires=900&X-Amz-Signature=187035d2307bc089101eff3abbdd7baa3e8691b4d5d3bafa5aebb87e589e8c0c&X-Amz-SignedHeaders=host&x-id=PutObject",
+        "fileUuid": "e17436a1-5292-4380-ad91-eaac02a862b1"
+      },
+      {
+        "path": "assets/",
+        "fileName": "styles.css",
+        "contentType": "text/css",
+        "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/HOSTING_sessions/70/29ef6ca2-b171-440c-b934-db8aa88c3424/assets/styles.css?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T105030Z&X-Amz-Expires=900&X-Amz-Signature=f91b03a951fe3f99291802306be3e79812ca64e39effbb7dea1c19bb7cd1e42b&X-Amz-SignedHeaders=host&x-id=PutObject",
+        "fileUuid": "358c2942-4ced-421e-9a6f-edbf94c55dff"
+      }
+    ]
+  }
+}
+```
+
+**Example for uploading to signed URL:**
+
+  </CodeGroupItem>
+  </CodeGroup>
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL binary" active>
+
+```sh
+curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/HOSTING_sessions/70/29ef6ca2-b171-440c-b934-db8aa88c3424/index.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T105030Z&X-Amz-Expires=900&X-Amz-Signature=187035d2307bc089101eff3abbdd7baa3e8691b4d5d3bafa5aebb87e589e8c0c&X-Amz-SignedHeaders=host&x-id=PutObject" \
+--header "Content-Type: text/plain" \
+--data-raw "<h1>
+Welcome to my awesome website
+</h1>"
+```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="cURL file from disk" active>
+
+```sh
+curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/HOSTING_sessions/70/29ef6ca2-b171-440c-b934-db8aa88c3424/index.html?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T105030Z&X-Amz-Expires=900&X-Amz-Signature=187035d2307bc089101eff3abbdd7baa3e8691b4d5d3bafa5aebb87e589e8c0c&X-Amz-SignedHeaders=host&x-id=PutObject" \
+--header "Content-Type: text/plain" \
+--data-binary ":full path to file"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+
+  </div>
+</div>
+
+### End upload session
+
+> Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
+
+#### POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name        | Description                                                                           | Required |
+| ----------- | ------------------------------------------------------------------------------------- | -------- |
+| websiteUuid | Unique key of website. Key is displayed in developer dashboard.                       | true     |
+| sessionUuid | Session uuid, recieved in [get URL for upload request](#post-storagebucketuuidupload) | true     |
+
+#### Possible errors
+
+| Code     | Description                                    |
+| -------- | ---------------------------------------------- |
+| 40406004 | Session does not exists                        |
+| 40006001 | Files in this session were already transferred |
+
+#### Response
+
+Api respond with status `200 OK` , if operation is successfully executed.
+
+  </div>
+  <div class="split_side">
+
+<CodeGroup>
+    <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"directSync\": true
+}"
+```
+
+  </CodeGroupItem>
+</CodeGroup>
+<CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "b64b1c07-1a8a-4b05-9e3b-3c6a519d6ff7",
+  "status": 200,
+  "data": true
+}
+```
+
+</CodeGroupItem>
+</CodeGroup>
+  </div>
+</div>
+
+### Deploy website
+
+> Endpoint to trigger website deployment into specific environment.
+
+#### POST /hosting/websites/:websiteUuid/deploy
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name        | Description                                                 | Required |
+| ----------- | ----------------------------------------------------------- | -------- |
+| websiteUuid | Website UUID, visible in developer console website overview | true     |
+
+#### Body fields
+
+| Name        | Type     | Description                                       | Required |
+| ----------- | -------- | ------------------------------------------------- | -------- |
+| environment | `number` | Possible `environment` values are explained below | true     |
+
+##### Environments
+
+| Status | Description                                                                                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | Uploaded files are deployed to staging environment. Website will be available through staging IPNS link                                                          |
+| 2      | Files from current staging environment are deployed to production environment. Website is pinned to CRUST, replicated and available through production IPNS link |
+| 3      | Same as `2`, only that the source are uploaded files, not files in staging environment.                                                                          |
+
+#### Possible errors
+
+| Code     | Description                                     |
+| -------- | ----------------------------------------------- |
+| 42200039 | Request body is missing an `environment` field. |
+| 40406010 | Website does not exists                         |
+| 40006016 | There are no files to deploy.                   |
+| 40006017 | There are no changes to deploy.                 |
+
+#### Response
+
+Endpoint triggers deployment of website to specific environment. As result, deployment record with below field is returned.
+This deployment is now waiting to be processed.
+
+**Note:** Deployment is processed in background, which may take several minutes.
+When deploying to `staging` environment, files are added to IPFS and wrapped to directory, which is then accessible in IPFS via IPNS or CID.
+In `production`, this CID is pinned to CRUST and replicated to other nodes.
+
+| Field            | Type     | Description                                                                                   |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------- |
+| id               | `number` | Deployment internal number                                                                    |
+| status           | `number` | Deployment record status                                                                      |
+| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                               |
+| environment      | `number` | Environment to where website will be deployed                                                 |
+| deploymentStatus | `number` | Current status of deployment. Possible values are listed below.                               |
+| cid              | `string` | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
+| size             | `number` | Size of website                                                                               |
+| number           | `number` | Deployment serial number - for this environment                                               |
+
+Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
+
+| Status | Description           |
+| ------ | --------------------- |
+| 0      | Deployment initiated  |
+| 1      | In processing         |
+| 10     | Deployment successful |
+| 100    | Deployment failed     |
+
+  </div>
+  <div class="split_side">
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/deploy" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"environment\": 1
+}"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "32eff81a-6b0b-4a92-a5cb-e5cebf6d6c28",
+  "status": 200,
+  "data": {
+    "id": 51,
+    "status": 5,
+    "websiteId": 4,
+    "bucketId": 62,
+    "environment": 1,
+    "deploymentStatus": 0,
+    "cid": null,
+    "size": null,
+    "number": 11
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
+
+### Get deployment
+
+> Endpoint to get deployment.
+
+#### GET /hosting/websites/:websiteUuid/deployments/:deploymentId
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name         | Description                                                         | Required |
+| ------------ | ------------------------------------------------------------------- | -------- |
+| websiteUuid  | Website UUID, visible in developer console website overview         | true     |
+| deploymentId | Deployment internal number, returned from `deploy` website endpoint | true     |
+
+#### Possible errors
+
+| Code     | Description                |
+| -------- | -------------------------- |
+| 40406011 | Deployment does not exists |
+
+#### Response fields
+
+| Field            | Type     | Description                                                                                   |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------- |
+| id               | `number` | Deployment internal number                                                                    |
+| status           | `number` | Deployment DB status                                                                          |
+| bucketId         | `number` | Internal ID of bucket, which contain files for this environment                               |
+| environment      | `number` | Environment to where website will be deployed                                                 |
+| deploymentStatus | `number` | Current status of deployment                                                                  |
+| cid              | `string` | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
+| size             | `number` | Size of website                                                                               |
+| number           | `number` | Deployment serial number - for this environment                                               |
+
+Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
+
+| Status | Description           |
+| ------ | --------------------- |
+| 0      | Deployment initiated  |
+| 1      | In processing         |
+| 10     | Deployment successful |
+| 100    | Deployment failed     |
+
+  </div>
+  <div class="split_side">
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "2d7d1b0c-15b1-4816-9aec-857182c7b617",
+  "status": 200,
+  "data": {
+    "id": 51,
+    "status": 5,
+    "bucketId": 62,
+    "environment": 1,
+    "deploymentStatus": 10,
+    "cid": "QmY3KF4F6Ap5HbrwWpq8dTVaR65Cd674jYXKBayNynDASJ",
+    "size": 289,
+    "number": 11
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
+
+### Get website
+
+> Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
+
+#### GET /hosting/websites/:websiteUuid
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name        | Description                                                 | Required |
+| ----------- | ----------------------------------------------------------- | -------- |
+| websiteUuid | Website UUID, visible in developer console website overview | true     |
+
+#### Possible errors
+
+| Code     | Description             |
+| -------- | ----------------------- |
+| 40406010 | Website does not exists |
+
+#### Response fields
+
+| Field              | Type     | Description                                                 |
+| ------------------ | -------- | ----------------------------------------------------------- |
+| id                 | `number` | Website id                                                  |
+| status             | `number` | Website DB status                                           |
+| name               | `string` | Website name                                                |
+| description        | `string` | Website description                                         |
+| domain             | `string` | Domain for production environment                           |
+| bucketUuid         | `string` | UUID of bucket, for file upload                             |
+| ipnsStagingLink    | `string` | IPNS address of staging version, on Apillon IPFS gateway    |
+| ipnsProductionLink | `string` | IPNS address of production version, on Apillon IPFS gateway |
+
+  </div>
+  <div class="split_side">
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "0eb223ce-51c0-4a9b-96ce-331a1cd99603",
+  "status": 200,
+  "data": {
+    "id": 4,
+    "status": 5,
+    "name": "My test page",
+    "description": null,
+    "domain": "",
+    "bucketUuid": "57aef0fc-84cb-4564-9af2-0f7bfc0ef729",
+    "ipnsStagingLink": "https://ipfs.apillon.io/ipns/k2k4r8p6fvcyq5qogaqdtvmqn5vyvyy3khut1llkrz13ls16ocp4gojx",
+    "ipnsProductionLink": "https://ipfs.apillon.io/ipns/k2k4r8ng8nqexubrmbwnhsuu1d6n4ebgnxsbdcu9gxk8uv3l67098hge"
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
 </div>
