@@ -15,13 +15,13 @@ Become part of the Apillon community and stay up to date with the latest news.
 
 ## Apillon Ambassador program
 
-### 1. Overview
+### Overview
 
 Whether a developer or non-technical Web3 enthusiast, every member of the Apillon community is invited to become more involved in Apillon’s venture. We are looking for passionate and devoted Web3 believers to support and spread Apillon’s mission — accelerating Web3 adoption by continuously empowering its builders.
 
 The application for the Apillon Ambassador program is available [here](https://surveys.apillon.io/).
 
-### 2. Benefits
+### Benefits
 
 By joining the Apillon Ambassador program, one would:
 
@@ -31,7 +31,7 @@ By joining the Apillon Ambassador program, one would:
 * Get rewarded by gaining NCTR tokens and other crypto-bonuses.
 * Gain access to in-person meets and conferences with the Apillon [](https://)team.
 
-### 3. How does it work?
+### How does it work?
  
 *Current version: 1.0 (January 2023)*
 
@@ -45,7 +45,7 @@ Apillon Ambassador will be entrusted with additional tasks, which will be reward
 
 And finally, based on the added value, consistently brought to the table over an extended period of time, Apillon Senior Ambassadors will be promoted to Apillon Evangelists. The tasks will entail coordinating a group of Apillon Senior Ambassadors, running monthly sync calls, and taking on other important responsibilities (discussed at a later stage).
 
-### 4. Ambassador program tiers
+### Ambassador program tiers
 
 * Tier 1: **Apillon Candidate** (performing tasks on Crew3 platform).
 * Tier 2: **Apillon Apprentice** (performing tasks proactively, receiving personalized guidance from the Apillon core team and Apillon Senior Ambassadors).
@@ -94,7 +94,7 @@ sync for an upcoming month on all the topics and future events,
 find new tasks that would benefit the Apillon community,
 manage other tasks, pertinent at that moment.
 
-#### 5. Tasks and deliverables
+### Tasks and deliverables
 
 Each program tier requires a set of tasks to be done and deliverables to be provided by each participant to be considered eligible and to proceed to the next level. For Ambassadors to have an easier overview, we’ve combined the tasks into several niches. A complete breakdown of the niches’ descriptions, guidelines and deliverables is available at this link, below you can check through the niche list and their general overview.
 
@@ -109,6 +109,6 @@ Each program tier requires a set of tasks to be done and deliverables to be prov
 * **Showman**: Hosting online events for your local community.
 
 
-#### 6. How to apply
+### How to apply
 
 After submitting your application [here](https://surveys.apillon.io/), you’ll receive a return email with next steps and guidelines. Then, Apillon’s community manager will set up a short call with you to see if we are the right match to work together.
