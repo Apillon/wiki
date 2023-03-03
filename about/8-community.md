@@ -47,11 +47,11 @@ And finally, based on the added value, consistently brought to the table over an
 
 ### Ambassador program tiers
 
-* Tier 1: **Apillon Candidate** (performing tasks on Crew3 platform).
-* Tier 2: **Apillon Apprentice** (performing tasks proactively, receiving personalized guidance from the Apillon core team and Apillon Senior Ambassadors).
-* Tier 3: **Apillon Ambassador** (participating through different content niches, receiving guidance and overview from the Apillon core team).
-* Tier 4: **Apillon Senior Ambassador** (offering guidance, providing task overview, running tasks from different fields).
-* Tier 5: **Apillon Evangelist** (performing very personalized and specialized tasks).
+* Tier 1: **[Apillon Candidate](#apillon-candidate)** (performing tasks on Crew3 platform).
+* Tier 2: **[Apillon Apprentice](#apillon-apprentice)** (performing tasks proactively, receiving personalized guidance from the Apillon core team and Apillon Senior Ambassadors).
+* Tier 3: **[Apillon Ambassador](#apillon-ambassador)** (participating through different content niches, receiving guidance and overview from the Apillon core team).
+* Tier 4: **[Apillon Senior Ambassador](#apillon-senior-ambassador)** (offering guidance, providing task overview, running tasks from different fields).
+* Tier 5: **[Apillon Evangelist](apillon-evangelist)** (performing very personalized and specialized tasks).
 
 #### Apillon Candidate
 
@@ -107,7 +107,6 @@ Each program tier requires a set of tasks to be done and deliverables to be prov
 * **Artisan**: Expressing creativity through infographics, memes, music, videos, NFTs etc.
 * **Business craftsman**: Finding and connecting to projects that could benefit from Apillon.
 * **Showman**: Hosting online events for your local community.
-
 
 ### How to apply
 
