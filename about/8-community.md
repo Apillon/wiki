@@ -51,7 +51,7 @@ And finally, based on the added value, consistently brought to the table over an
 * Tier 2: **[Apillon Apprentice](#apillon-apprentice)** (performing tasks proactively, receiving personalized guidance from the Apillon core team and Apillon Senior Ambassadors).
 * Tier 3: **[Apillon Ambassador](#apillon-ambassador)** (participating through different content niches, receiving guidance and overview from the Apillon core team).
 * Tier 4: **[Apillon Senior Ambassador](#apillon-senior-ambassador)** (offering guidance, providing task overview, running tasks from different fields).
-* Tier 5: **[Apillon Evangelist](apillon-evangelist)** (performing very personalized and specialized tasks).
+* Tier 5: **[Apillon Evangelist](#apillon-evangelist)** (performing very personalized and specialized tasks).
 
 #### Apillon Candidate
 
