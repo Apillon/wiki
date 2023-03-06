@@ -1,4 +1,4 @@
-# Web3 up close
+# Web3 and Apillon explained
 
 ## Polkadot, a complete service stack for Web3 builders
 
