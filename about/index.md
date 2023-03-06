@@ -14,7 +14,7 @@ The main topics you can explore are:
     *  [Why Apillon?](/about/4-why-apillon.html) What need is there on the market and what does Apillon solve?
     *  [How does it work?](/about/5-how-does-apillon-work.html) What are the main functionalities it provides?
     *  [Developing Web3 with Apillon](/about/6-developing-web3-with-apillon.html): How does it differ from building Web3 products from scratch?
-    *  [Web3 up close](about/7-web3-up-close.html): An insight into Web3 and Polkadot and their challenges.
+    *  [Web3 and Apillon explained](about/7-web3-and-apillon-explained.html): An introduction into Web3, Polkadot, and the Apillon platform.
 * **Community**
     *  [Join Apillon community](/about/8-community.html#join-apillon-community) Follow our communication channels and never miss an update.
     *  [Apillon Ambassador program](/about/8-community.html#apillon-ambassador-program) Add your share to the growth of Apillon as brand ambassador.
