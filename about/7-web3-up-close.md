@@ -77,11 +77,11 @@ Web3 project is a website, program, or app that’s built using decentralized te
 #### Web3 Authentication
 [Web3 Authentication](/build/2-web3-services.html#web3-authentication) is a Web3 service that enables decentralized verification of unique sets of data, identities, and assets. The Apillon platform offers Web3 authentication services powered by KILT Protocol, which delivers secure identity solutions and credentials for enterprises and consumers.
 #### Web3 Storage
-[Web3 Storage](/2-web3-services.html#web3-storage) is a Web3 service that connects to a decentralized network of computer nodes to store the files of a website or app, increasing accessibility and eliminating a single point of access. As the files get stored on a decentralized network of nodes, they become unstoppable. The Apillon platform delivers Web3 Storage service powered by Crust Network.
+[Web3 Storage](/build/2-web3-services.html#web3-storage) is a Web3 service that connects to a decentralized network of computer nodes to store the files of a website or app, increasing accessibility and eliminating a single point of access. As the files get stored on a decentralized network of nodes, they become unstoppable. The Apillon platform delivers Web3 Storage service powered by Crust Network.
 #### Web3 Hosting 
 [Web3 Hosting](/build/2-web3-services.html#web3-hosting) is a Web3 service that connects to a decentralized network of computer nodes to host a website or app, increasing its accessibility and eliminating a single point of access. As the website or app gets hosted on a decentralized network of nodes, it becomes unstoppable. The Apillon platform delivers Web3 Hosting service powered by Crust Network.
 #### Web3 Computing
-[Web3 Computing](/build/2-web3-services.html#deployment) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
+[Web3 Computing](/build/2-web3-services.html#web3-computing)) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
 #### unified service pricing
 Unified service pricing is a reliable business model that enables the user to predict the cost of services and pay for multiple services in a single transaction. The Apillon platform delivers various Web3 services at stable monthly pricing with NCTR, its native utility token, that allows users to devote more time to developing new products as they don’t have to deal with the typically unstable pricing of Web3 services. [Read more >](https://blog.apillon.io/what-is-apillons-unified-pricing-and-why-does-it-matter-45832a14cc94)
 #### freemium model
@@ -89,7 +89,7 @@ A freemium business model offers basic services free of charge, while a premium 
 #### NCTR token
 Apillon’s native utility token is [NCTR](/about/3-nctr-token.html), pronounced “nectar”. NCTR sustains Apillon platform functionalities, interacts with linked Polkadot parachains, and transacts with their protocols. NCTR eliminates the need for users to interact with individual tokens of utilized parachains.
 #### utility token
-Utility tokens offer different use cases to the holders in terms of access to the company’s services or goods, governance rights, etc. The NCTR token has two applicabilities: [payment utility](/3-nctr-token.html#tokenomics) and [governance utility](/3-nctr-token.html#governance). 
+Utility tokens offer different use cases to the holders in terms of access to the company’s services or goods, governance rights, etc. The NCTR token has two applicabilities: [payment utility](/about/3-nctr-token.html#tokenomics)) and [governance utility](/about/3-nctr-token.html#governance). 
 #### token staking
 Certain tokens can be staked by locking them up for a period of time for various reasons, e.g. to support the operation of a Web3 project or network, in exchange for a reward, typically an interest on the staked amount.
 #### Apillon Platform Closed Beta
@@ -105,7 +105,7 @@ Tokenomics equals token’s economics, a set of rules that define a token’s qu
 * [How does Apillon work?](https://blog.apillon.io/how-does-apillon-work-caffe0554e1)
 * [Apillon Lightpaper](https://apillon.io/files/Apillon_Lightpaper.pdf)
 * [Apillon Tokenomics Whitepaper](https://apillon.io/files/Apillon_Tokenomics_Whitepaper.pdf)
-* [NCTR, Apillon’s native utility token](https://wiki.apillon.io/about/3-nctr-token.html)
+* [NCTR, Apillon’s native utility token](/about/3-nctr-token.html)
 * [What is Apillon’s unified pricing and why does it matter?](https://blog.apillon.io/what-is-apillons-unified-pricing-and-why-does-it-matter-45832a14cc94)
 * [What kind of Web3 products could you build with Apillon?](https://blog.apillon.io/what-kind-of-web3-products-could-you-build-with-apillon-7871ceb2b02b)
 * [How Apillon changes the way Web3 products are built?](https://blog.apillon.io/how-apillon-changes-the-way-web3-products-are-built-ee0adae9b94a)
