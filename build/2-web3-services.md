@@ -83,6 +83,12 @@ However, to make the hosting service more dynamic, Apillon artificially lowers t
 
 **Note**: In the Apillon Closed Beta stage, single file changes are not supported. Instead, hosting is treated as batch upload, meaning that with every new version of a website or app, its contents are rewritten, which leads to new files getting pinned and replicated on Crust. This limitation will be improved in future dashboard updates to enhance the developer experience. In case you need a larger storage capacity, feel free to get in touch on [Apillon Discord](https://discord.gg/yX3gTw36C4), and we will grant you extra space or more storage buckets.
 
+# Apillon Smart Contracts
+
+## Metadata standards
+Apillon supports metadata that is structured according to the official OpenSea metadata standard: 
+https://docs.opensea.io/docs/metadata-standards
+
 ## Web3 Computing
 
 Coming soon, [stay tuned](https://discord.gg/yX3gTw36C4).
