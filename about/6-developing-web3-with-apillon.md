@@ -47,7 +47,7 @@ To build a simple Web3 app utilizing Crust for file storage from scratch, a deve
 * Manage the FILE expiry
 * Upgrade and maintain the end product with protocol upgrades
 
-Using the Apillon platform, on the other hand, a developer simply calls the `getStorage()SKD` function and moves the files to a decentralized, pinned service provided by Crust and IPFS.
+Using the Apillon platform, on the other hand, a developer simply calls the `getStorage()` SDK function and moves the files to a decentralized, pinned service provided by Crust and IPFS.
 
 In both cases, the resources spent on building a functional Web3 application with Apillon are significantly reduced, and the product’s go-to-market trajectory much shorter and streamlined.
 
