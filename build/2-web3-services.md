@@ -32,6 +32,8 @@ However, to make the storage service more dynamic, Apillon artificially lowers t
 
 **Note:** These limitations are in the nature of the Apillon Closed Beta release, which is intended for testing purposes only. Once the Beta period is up, the limitations of Apillon Web3 services will be adjusted to more realistic production requirements.
 
+Learn more: [Web3 Storage FAQ](https://medium.com/apillon/faq-apillon-web3-storage-c99a9b0e8b12)
+
 ## Web3 Hosting
 
 Apillon Web3 Hosting is a Web3-based storage service that allows you to increase the accessibility of your website or app and make it unstoppable, as it gets hosted on a decentralized network of nodes worldwide.
@@ -69,6 +71,8 @@ If you want to redeploy the website or app with new changes, repeat the process 
 
 **Note:** Repeat deployment to Apillon Hosting will continue spending the Hosting storage capacity. However, every 3 months, the capacity will be renewed after older versions are deleted.
 
+Learn more: [Web3 Hosting FAQ](https://medium.com/apillon/faq-apillon-web3-hosting-81d5477661e7)
+
 ### File deletion
 
 Each file hosting that passes through Crust’s pinning and replication service is paid upfront for a minimum period of 6 months. Apillon has no control over amending that period, so keep in mind that all files you deploy to Apillon storage buckets will remain accessible for that period of time.
@@ -83,9 +87,7 @@ However, to make the hosting service more dynamic, Apillon artificially lowers t
 
 Apillon NFT service supports drag-and-drop compilation, deployment, and minting of non-fungible assets.
 
-The service is initially launched on the [Moonbeam Network](https://moonbeam.network/) but will expand to provide connectivity to other networks in future upgrades.
-
-[Learn more >](https://blog.apillon.io/make-your-own-nft-collection-in-minutes-brought-to-moonbeam-by-apillon-538fdf34fc5)
+The service initially launched on the [Moonbeam Network](https://blog.apillon.io/make-your-own-nft-collection-in-minutes-brought-to-moonbeam-by-apillon-538fdf34fc5) but will expand to provide connectivity to other networks in future upgrades.
 
 ### NFT files
 
@@ -125,10 +127,11 @@ To deploy an NFT collection on Moonbeam, follow the process below:
 
 **Note**: Deploying NFTs on the blockchain makes them permanently immutable. To keep NFT metadata editable, upload it manually to Apillon [Web3 Storage with IPNS](/build/2-web3-services.html#web3-storage).
 
-Learn more about the process:
+Learn more:
 
 * [Guide: NFT Service prerequisites — Generate NFT art (with AI) and get files ready](https://blog.apillon.io/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303)
 * [Guide: NFT Service — Create and deploy NFT collection on Moonbeam](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756)
+* [NFT Service on Moonbeam FAQ](https://medium.com/apillon/faq-apillon-nft-service-by-moonbeam-a64f0c3930b1)
 
 ## Web3 Computing
 
