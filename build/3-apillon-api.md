@@ -1326,7 +1326,7 @@ Response is a list of items described [under Response Fields above](#get-nft-col
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io/nfts/collections?status=2&search=NFT%20Collection' \
+curl --location 'https://api.apillon.io/nfts/collections' \
 --header 'Authorization: Basic :credentials'
 ```
 
@@ -1425,7 +1425,7 @@ curl --location 'https://api.apillon.io/nfts/collections?status=2&search=NFT%20C
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io/nfts/collections?status=2&search=NFT%20Collection' \
+curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 --header 'Authorization: Basic :credentials'
 ```
 
@@ -1744,10 +1744,10 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io//nfts/collections/d6355fd3-640d-4803-a4d9-79d875abcb5a/transfer' \
+curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
---data '{"address": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241551"}'
+--data '{"receivingAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557", "quantity": 1}'
 ```
 
   </CodeGroupItem>
@@ -1799,7 +1799,7 @@ curl --location 'https://api.apillon.io//nfts/collections/d6355fd3-640d-4803-a4d
 
 > Burn specific NFT belonging to collection specified.
 
-#### POST /nfts/collections/:uuid/mint
+#### POST /nfts/collections/:uuid/burn
 
 <div class="split_content">
 	<div class="split_side">
@@ -1844,10 +1844,10 @@ Deployment goes through different stages and each stage updates `deploymentStatu
   <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
+curl --location 'https://api.apillon.io/nfts/collections/:uuid/burn' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
---data '{"receivingAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557", "quantity": 1}'
+--data '{"tokenId": 1}'
 ```
 
   </CodeGroupItem>
