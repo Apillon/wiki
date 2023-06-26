@@ -1162,9 +1162,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 ## Web3 NFTs API
 
-NFTs API provides endpoints, that can be used to create non-fungible tokens in accordance with [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard.
-
-**Note:** For now API only allows creation of NFT collections with metadata uploaded to hosting server manually and providing base URI, hosting them via Apillon API may be supported later.
+API is for creating and managing NFTs. To prepare images and metadata you can use storage API. To learn more about metadata standards you can visit: https://docs.opensea.io/docs/metadata-standards
 
 ### Get NFT Collection
 
@@ -1215,7 +1213,6 @@ NFTs API provides endpoints, that can be used to create non-fungible tokens in a
 | contractAddress  | `string`  | Smart address of contract for deployed collection.                                                |
 | transactionHash  | `string`  | Deployment transaction hash/id.                                                                   |
 | deployerAddress  | `string`  | Wallet address of deployer.                                                                       |
-| minted           | `number`  | Number of NFTs minted for this collection.                                                        |
 
   </div>
   <div class="split_side">
@@ -1261,8 +1258,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287,
-        "minted": 0
+        "chain": 1287
     }
 }
 ```
@@ -1365,8 +1361,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
                 "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
                 "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
                 "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-                "chain": 1287,
-                "minted": 0
+                "chain": 1287
             }
         ],
         "total": 1
@@ -1495,6 +1490,13 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 
 > API that creates NFT collection and deploys it on selected network.
 
+Collection can be created with a few features/functionalities:
+
+- drop: collection can be minted/purchased by users
+- revokable: NFTs can be revoked by collection owner who can burn them
+- soulbound: NFTs are bound to wallet address and can't be transferred
+- royalties: owner can enable royalties to earn specified percentage per each NFT trade
+
 #### POST /nfts/collections
 
 <div class="split_content">
@@ -1511,7 +1513,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 | description       | `string`  | NFT collection description.                                                       | false    |
 | maxSupply         | `number`  | Maximal number of NFTs ever in existence.                                         | true     |
 | mintPrice         | `number`  | Price of NFT at mint stage.                                                       | true     |
-| baseUri           | `string`  | Base URI for collection metadata (token id and file extension is appended to it). | false    |
+| baseUri           | `string`  | Base URI for collection metadata (token id and file extension is appended to it). | true     |
 | baseExtension     | `string`  | File extension that is auto appended after token id to form a full URL.           | true     |
 | isDrop            | `boolean` | Determines if collection is mintable by public.                                   | true     |
 | dropStart         | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.   | true     |
@@ -1519,7 +1521,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 | isRevokable       | `boolean` | For revocable collection owner can destroy NFTs at any time.                      | true     |
 | isSoulbound       | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.         | true     |
 | royaltiesAddress  | `string`  | Address where royalties are sent to.                                              | true     |
-| royaltiesFees     | `number`  | Amount of royalties earned for each NFT transfer.                                 | true     |
+| royaltiesFees     | `number`  | Percentage of royalties earned per each NFT trade.                                | true     |
 
 #### Possible errors
 
@@ -1595,8 +1597,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287,
-        "minted": 0
+        "chain": 1287
     }
 }
 ```
@@ -1687,8 +1688,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287,
-        "minted": 0
+        "chain": 1287
     }
 }
 ```
@@ -1702,6 +1702,8 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
 ### Mint Collection NFTs
 
 > Mint specified amount of NFTs to a wallet address provided in request.
+
+**Note:** if the collection is set as `isDrop` this endpoint can only mint reserved NFTs.
 
 #### POST /nfts/collections/:uuid/mint
 
@@ -1783,8 +1785,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287,
-        "minted": 0
+        "chain": 1287
     }
 }
 ```
@@ -1798,6 +1799,8 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
 ### Burn Collection NFT
 
 > Burn specific NFT belonging to collection specified.
+
+**Note:** burning NFTs is only available if `isRevokable` is enabled on collection.
 
 #### POST /nfts/collections/:uuid/burn
 
