@@ -120,7 +120,7 @@ Backed by Polkadot Treasury funding and community support, the Apillon platform 
 
 Here are the most frequent questions and answers to help you navigate and understand the weight of the proposal.
 
-### The Common good and open-source approach
+### Common good and open source
 Polkadot’s common good and open-source approach aims to innovate services that benefit projects and users across the whole ecosystem.
 
 With many new protocol-layer projects regularly developed on Polkadot, the ecosystem is in dire need of an application-layer solution that would allow developers to easily onboard the Polkadot ecosystem and bring Web3 to a mainstream level.
@@ -132,7 +132,7 @@ With decentralized governance, existing and new platform users would get to deci
 
 Apillon would make a strong commitment to the community and the ecosystem to achieve the set milestones, spend resources as described in the Proposal, and pursue the vision of the developer community.
 
-### Proposal: Apillon, Polkadot, and the Web3 sphere
+### Proposal: Apillon, Polkadot, Web3
 #### What are the main points of Apillon’s Proposal?
 Apillon’s Proposal for Polkadot’s Treasury funding seeks community support to transform into an open-source infrastructure on Polkadot.
 
