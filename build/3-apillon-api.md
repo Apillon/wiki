@@ -1198,21 +1198,21 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 | name             | `string`  | NFT collection name.                                                                              |
 | description      | `string`  | NFT collection description.                                                                       |
 | maxSupply        | `number`  | Maximal number of NFTs ever in existence.                                                         |
-| mintPrice        | `number`  | Price of NFT at mint stage.                                                                       |
 | bucketUuid       | `string`  | UUID of the bucket where metadata is stored.                                                      |
 | baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).                 |
 | baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                           |
-| isDrop           | `boolean` | Determines if collection is mintable by public.                                                   |
-| dropStart        | `number`  | UNIX timestamp which determines public mint opening date and time.                                |
 | isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
 | isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                                      |
-| reserve          | `number`  | Amount of NFTs reserved by owner.                                                                 |
 | royaltiesFees    | `number`  | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
 | royaltiesAddress | `string`  | Address where royalties are sent to.                                                              |
 | chain            | `number`  | Blockchain id on which you want to release your collection.                                       |
 | contractAddress  | `string`  | Smart address of contract for deployed collection.                                                |
 | transactionHash  | `string`  | Deployment transaction hash/id.                                                                   |
 | deployerAddress  | `string`  | Wallet address of deployer.                                                                       |
+| drop             | `boolean` | Determines if collection is mintable by public.                                                   |
+| dropStart        | `number`  | UNIX timestamp which determines public mint opening date and time.                                |
+| dropPrice        | `number`  | Price of NFT at mint stage.                                                                       |
+| dropReserve      | `number`  | Amount of NFTs reserved by owner.                                                                 |
 
   </div>
   <div class="split_side">
@@ -1243,15 +1243,15 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
         "name": "NFT Collection",
         "description": "NFT Collection Description",
         "maxSupply": 1000,
-        "mintPrice": 0.1,
+        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "isDrop": true,
+        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
         "dropStart": 1687251003,
-        "reserve": 5,
+        "dropReserve": 5,
         "royaltiesFees": 0.1,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
@@ -1346,15 +1346,15 @@ curl --location 'https://api.apillon.io/nfts/collections' \
                 "name": "NFT Collection",
                 "description": "NFT Collection Description",
                 "maxSupply": 1000,
-                "mintPrice": 0.1,
+                "dropPrice": 0.1,
                 "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
                 "baseUri": "https://ipfs.apillon.io/metadata/",
                 "baseExtension": ".json",
-                "isDrop": true,
+                "drop": true,
                 "isSoulbound": false,
                 "isRevokable": true,
                 "dropStart": 1687251003,
-                "reserve": 5,
+                "dropReserve": 5,
                 "royaltiesFees": 0.1,
                 "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
                 "collectionStatus": 0,
@@ -1518,15 +1518,15 @@ Collection can be created with a few features/functionalities:
 | isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.         | true     |
 | royaltiesAddress | `string`  | Address where royalties are sent to.                                              | true     |
 | royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                | true     |
-| isDrop           | `boolean` | Determines if collection is mintable by public.                                   | true     |
+| drop             | `boolean` | Determines if collection is mintable by public.                                   | true     |
 | dropStart*       | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.   | true     |
-| mintPrice*       | `number`  | Price of NFT at mint stage.                                                       | true     |
-| reserve*         | `number`  | Amount of NFTs reserved by owner.                                                 | true     |
+| dropPrice*           | `number`  | Price of NFT at mint stage.                                                       | true     |
+| dropReserve*     | `number`  | Amount of NFTs reserved by owner.                                                 | true     |
 
 
 **Notes:**
 
-*`dropStart`, `mintPrice` and `reserve` are only used if `isDrop` is set to boolean `true`.
+*`dropStart`, `dropPrice` and `dropReserve` are only used if `drop` is set to boolean `true`.
 
 #### Possible errors
 
@@ -1554,13 +1554,13 @@ curl --location 'https://api.apillon.io/nfts/collections' \
     "symbol": "NFT",
     "name": "NFT Collection",
     "maxSupply": 1000,
-    "mintPrice": 0.1,
+    "dropPrice": 0.1,
     "project_uuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
     "baseUri": "https://ipfs.apillon.io/metadata/",
     "baseExtension": "json",
-    "isDrop": true,
+    "drop": true,
     "dropStart": 1687251003,
-    "reserve": 5,
+    "dropReserve": 5,
     "chain": 1287,
     "isRevokable": true,
     "isSoulbound": false,
@@ -1587,15 +1587,15 @@ curl --location 'https://api.apillon.io/nfts/collections' \
         "name": "NFT Collection",
         "description": null,
         "maxSupply": 1000,
-        "mintPrice": 0.1,
+        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "isDrop": true,
+        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
         "dropStart": 1687251003,
-        "reserve": 5,
+        "dropReserve": 5,
         "royaltiesFees": 0,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
@@ -1678,15 +1678,15 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
         "name": "NFT Collection",
         "description": null,
         "maxSupply": 1000,
-        "mintPrice": 0.1,
+        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "isDrop": true,
+        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
         "dropStart": 1687251003,
-        "reserve": 5,
+        "dropReserve": 5,
         "royaltiesFees": 0,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
@@ -1708,7 +1708,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
 
 > Mint specified amount of NFTs to a wallet address provided in request.
 
-**Note:** if the collection is set as `isDrop` this endpoint can only mint reserved NFTs.
+**Note:** if the collection is set as `drop` this endpoint can only mint reserved NFTs.
 
 #### POST /nfts/collections/:uuid/mint
 
@@ -1775,15 +1775,15 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
         "name": "NFT Collection",
         "description": null,
         "maxSupply": 1000,
-        "mintPrice": 0.1,
+        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "isDrop": true,
+        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
         "dropStart": 1687251003,
-        "reserve": 5,
+        "dropReserve": 5,
         "royaltiesFees": 0,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
