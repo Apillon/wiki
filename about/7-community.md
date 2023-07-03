@@ -111,3 +111,124 @@ Each program tier requires a set of tasks to be done and deliverables to be prov
 ### How to apply
 
 After submitting your application [here](https://surveys.apillon.io/), you’ll receive a return email with next steps and guidelines. Then, Apillon’s community manager will set up a short call with you to see if we are the right match to work together.
+
+## Polkadot Treasury Proposal
+
+On June 19, on the encouragement of the key ecosystem stakeholders, Apillon submitted an [OpenGov discussion](https://blog.apillon.io/apillon-aims-to-foster-web3-adoption-as-a-common-good-infrastructure-solution-on-polkadot-6566508190c5) to back upcoming proposal for Polkadot Treasury funding.
+
+Backed by Polkadot Treasury funding and community support, the Apillon platform would transition to an open-source product with permanent freemium access and community governance. By becoming a common good project, Apillon would help spur Web3 adoption, Polkadot ecosystem growth, and DOT utility.
+
+Here are the most frequent questions and answers to help you navigate and understand the weight of the proposal.
+
+### The Common good and open-source approach
+Polkadot’s common good and open-source approach aims to innovate services that benefit projects and users across the whole ecosystem.
+
+With many new protocol-layer projects regularly developed on Polkadot, the ecosystem is in dire need of an application-layer solution that would allow developers to easily onboard the Polkadot ecosystem and bring Web3 to a mainstream level.
+
+#### Why would Apillon transition to a common good solution?
+With Apillon transforming into a common good solution, the Polkadot ecosystem would get a forever-freemium Web3 development platform. Every new user on the Apillon platform would mean a new developer for Polkadot, boosting the adoption of Web3 technologies. Through DOT-based governance, the Polkadot’s native token would get another utility boost and purpose in driving the network’s adoption.
+
+With decentralized governance, existing and new platform users would get to decide on parachain integrations and the evolution of the Apillon platform, thus collaboratively innovating the future of Web3.
+
+Apillon would make a strong commitment to the community and the ecosystem to achieve the set milestones, spend resources as described in the Proposal, and pursue the vision of the developer community.
+
+### Proposal: Apillon, Polkadot, and the Web3 sphere
+#### What are the main points of Apillon’s Proposal?
+Apillon’s Proposal for Polkadot’s Treasury funding seeks community support to transform into an open-source infrastructure on Polkadot.
+
+The funding would have the following direct consequences on Apillon:
+
+* The Apillon platform becomes open-source.
+* Apillon’s product offering is governed via Polkadot governance.
+* Apillon’s NCTR token is removed from the open-source project for the duration of the proposal; the main token used is DOT.
+* Apillon becomes an open-source, common good infrastructure project on Polkadot. It does not pursue a parachain slot in the first year of operation.
+* Apillon continues large-scale marketing activities and establishes clear adoption KPIs.
+* By achieving the milestones set in the Proposal, Apillon would upgrade the platform offering in line with user needs and the newest trends in the ecosystem.
+
+[Read the full Proposal >](https://ipfs.apillon.io/ipfs/QmVNKr3LxZ8yEhPBk5scgiVVezKK6YwRsZdyjxSqYmNJSb)
+
+#### What business model for Apillon does the proposal foresee?
+With operational costs covered by the Treasury for two years, Apillon would be able to incentivize developers with freemium plans at no additional fees.
+
+After the end of the two-year period, Apillon would introduce a price margin on top of parachain service cost. However, this would be non-profitable and controlled via governance, allowing the Apillon team to survive on fees to keep the project alive and in the best possible shape.
+
+Apillon’s Treasury-backed transition to open-source presents a strong obligation towards the community. Therefore, The Freemium plan will remain permanently or until the project’s governance decides otherwise.
+
+#### What does Apillon bring to Polkadot as a common good project?
+The Apillon platform would further improve the Polkadot ecosystem and the Web3 space with:
+
+* Easy access to Polkadot-based technologies and tools for both rookie and seasoned developers
+* Faster, easier, and cheaper engineering process in the Polkadot ecosystem
+* Greater number of tangible application-layer products
+* Opportunity to build multi-chain decentralized solutions beyond asset transactions
+* Community control over currently centralized parts of the platform
+
+#### How would an open-source development platform benefit developers and other stakeholders outside the Polkadot ecosystem?
+Easier, faster, and cheaper Web3 development would bring developers and other stakeholders:
+
+* The option to work on multiple deployment-ready Web3 projects simultaneously
+* Equal opportunities for every developer, regardless of their background and expertise
+* One-stop-shop for services that would otherwise have to be sourced from multiple individual providers
+* Governance-regulated backlog of features and new integration
+
+#### How would Apillon address its current centralized points?
+In the current stage, three main pillars of Apillon would require implementation of decentralized control:
+
+* **Future integrations and portfolio of services:** The community would vote on future milestones, prioritize integrations and include them in the platform’s dynamic backlog via a DOT-based governance system setting future milestones.
+* **Payments architecture and control:** A decentralized control would manage incoming and outgoing capital streams. Fiat or DOT payments would be converted into stablecoins, while asset custody bags would ensure continuous payment for underlying parachain services.
+* **Treasury milestone delivery:** The first Apillon milestone defines integrations and deadlines. The other two milestones are open to public discussion and governance, with the community deciding on KPIs Apillon should be pursuing.
+
+#### What would Apillon governance look like?
+With DOT-based governance, the developer community would be able to co-decide the development direction of the Apillon platform, making it more agile in addressing market demands.
+
+Apillon’s product governance would address questions such as:
+
+* What parachains, protocols, and services should get integrated into the Apillon platform, and when?
+* What improvements could the platform make to enhance the user experience?
+* What business models make sense within platform users’ context and could get implemented in the platform’s future versions?
+* What product partnerships would be a good fit for the platform?
+* What is the priority of accepted proposals, which upgrades should be implemented faster, and why?
+* The Apillon governance model is designed to run on the OpenGov mechanism, an upgraded decentralized governance system for Kusama and Polkadot.
+
+#### Where can I comment on the proposal and join the discussion?
+The official discussion on the Apillon Proposal will be taking place on [Polkassembly](https://polkadot.polkassembly.io/post/1823). You can engage with the broader Web3 and Polkadot community on the [Polkadot Forum](https://forum.polkadot.network/t/apillon-web3-development-platform-as-a-common-good-infrastructure-polkadot-treasury-proposal/3145) as well.
+
+#### How long does the discussion and the voting process last?
+The public discussion will be open for a month before the voting process begins on July 17, 2023, lasting 28 days. Follow our social media channels and stay updated on the latest developments.
+
+#### Where can I vote?
+If you are a DOT holder, you will be able to vote with your Polkadot.js wallet, Talisman, or Subwallet on [Polkassembly](https://polkadot.polkassembly.io/post/1823) once the proposal moves into the voting period.
+
+If you’re not sure how to navigate the voting process, stay tuned for detailed voting tutorials.
+
+#### Why should I vote Aye?
+Do you care about boosting Web3 adoption? Providing access to easier, cheaper, and faster Web3 development for all developers? Expanding the possibilities for the growth of Polkadot’s ecosystem?
+
+If you do, you should vote Aye on the Apillon’s Proposal.
+
+If you have second thoughts, please share them with our team on [Polkassembly](https://polkadot.polkassembly.io/post/1823) right below the post or on [Polkadot Forum](https://forum.polkadot.network/t/apillon-web3-development-platform-as-a-common-good-infrastructure-polkadot-treasury-proposal/3145). We’ll be happy to answer all your questions.
+
+#### What does the Proposal mean for the Apillon community of early contributors?
+The opportunity for Apillon to become an open-source common good infrastructure platform on Polkadot opens up opportunities for early contributors, too.
+
+Polkadot Treasury funding of the Apillon two-and-a-half-year development ensures uninterrupted work on both preset and jointly agreed upon milestones to deliver the most requested and needed Web3 services and features to the developer community.
+
+With every developer using the Apillon platform, the Polkadot and Web3 ecosystems gain a new contributor. Faster growth of Apillon means accelerated expansion and collaboration of both established and up-and-coming Web3 projects.
+
+In addition to the financial aspect, Polkadot Treasury would provide a much-appreciated approval from the wider Web3 community, acknowledging Apillon as the go-to Web3 development platform - that would significantly increase the future value of the project.
+
+#### What is Proposal’s enactment timeline?
+The Proposal suggests a timeline for Polkadot Treasury funding that spans three milestone periods and ends in Q3 2025.
+
+#### Is TGE of Apillon’s NCTR token postponed due to the Proposal?
+One of Proposal’s main points is Apillon transitioning to DOT-based governance and operations. Hence, the launch of the NCTR token is postponed until after the end of the period set in the Proposal.
+
+#### What can the community of early backers expect?
+Apillon has always greatly appreciated the community support and trust in the project.
+
+At this early point of the referendum process, the benefits for early investors are still undefined. The Apillon team kindly asks for everyone’s patience while the optimal options for the community are being explored.
+
+#### What happens if the Proposal does not get approved?
+If the Polkadot community ends up voting Nay on Apillon receiving Treasury funding, the work for the team will not cease.
+
+Aligned with the preset milestones and following the dynamic backlog of integrations, the team will continue working towards developing and delivering state-of-the art features and services to drive Web3 adoption for every developer.
