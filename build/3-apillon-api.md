@@ -1504,24 +1504,29 @@ Collection can be created with a few features/functionalities:
 
 #### Body fields
 
-| Name              | Type      | Description                                                                       | Required |
-|-------------------|-----------|-----------------------------------------------------------------------------------|----------|
-| project_uuid      | `string`  | Apillon project id.                                                               | true     |
-| chain             | `number`  | Blockchain id on which you want to release your collection.                       | true     |
-| symbol            | `string`  | NFT collection symbol (usually 3-4 characters long).                              | true     |
-| name              | `string`  | NFT collection name.                                                              | true     |
-| description       | `string`  | NFT collection description.                                                       | false    |
-| maxSupply         | `number`  | Maximal number of NFTs ever in existence.                                         | true     |
-| mintPrice         | `number`  | Price of NFT at mint stage.                                                       | true     |
-| baseUri           | `string`  | Base URI for collection metadata (token id and file extension is appended to it). | true     |
-| baseExtension     | `string`  | File extension that is auto appended after token id to form a full URL.           | true     |
-| isDrop            | `boolean` | Determines if collection is mintable by public.                                   | true     |
-| dropStart         | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.   | true     |
-| reserve           | `number`  | Amount of NFTs reserved by owner.                                                 | true     |
-| isRevokable       | `boolean` | For revocable collection owner can destroy NFTs at any time.                      | true     |
-| isSoulbound       | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.         | true     |
-| royaltiesAddress  | `string`  | Address where royalties are sent to.                                              | true     |
-| royaltiesFees     | `number`  | Percentage of royalties earned per each NFT trade.                                | true     |
+| Name             | Type      | Description                                                                       | Required |
+|------------------|-----------|-----------------------------------------------------------------------------------|----------|
+| project_uuid     | `string`  | Apillon project id.                                                               | true     |
+| chain            | `number`  | Blockchain id on which you want to release your collection.                       | true     |
+| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                              | true     |
+| name             | `string`  | NFT collection name.                                                              | true     |
+| description      | `string`  | NFT collection description.                                                       | false    |
+| maxSupply        | `number`  | Maximal number of NFTs ever in existence.                                         | true     |
+| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it). | true     |
+| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.           | true     |
+| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                      | true     |
+| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.         | true     |
+| royaltiesAddress | `string`  | Address where royalties are sent to.                                              | true     |
+| royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                | true     |
+| isDrop           | `boolean` | Determines if collection is mintable by public.                                   | true     |
+| dropStart*       | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.   | true     |
+| mintPrice*       | `number`  | Price of NFT at mint stage.                                                       | true     |
+| reserve*         | `number`  | Amount of NFTs reserved by owner.                                                 | true     |
+
+
+**Notes:**
+
+*`dropStart`, `mintPrice` and `reserve` are only used if `isDrop` is set to boolean `true`.
 
 #### Possible errors
 
