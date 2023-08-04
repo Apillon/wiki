@@ -1160,6 +1160,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 </div>
 
 
+
 ## Web3 NFTs API
 
 API is for creating and managing NFTs. To prepare images and metadata you can use storage API. To learn more about metadata standards you can visit: https://docs.opensea.io/docs/metadata-standards
@@ -1188,31 +1189,35 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 
 #### Response Fields
 
-| Name             | Type      | Description                                                                                       |
-|------------------|-----------|---------------------------------------------------------------------------------------------------|
-| collectionUuid   | `string`  | Unique key of a collection.                                                                       |
-| collectionStatus | `number`  | Apillon internal/database collection status.                                                      |
-| status           | `number`  | Collection status.                                                                                |
-| projectUuid      | `string`  | Apillon project id.                                                                               |
-| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                              |
-| name             | `string`  | NFT collection name.                                                                              |
-| description      | `string`  | NFT collection description.                                                                       |
-| maxSupply        | `number`  | Maximal number of NFTs ever in existence.                                                         |
-| bucketUuid       | `string`  | UUID of the bucket where metadata is stored.                                                      |
-| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).                 |
-| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                           |
-| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
-| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                                      |
-| royaltiesFees    | `number`  | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
-| royaltiesAddress | `string`  | Address where royalties are sent to.                                                              |
-| chain            | `number`  | Blockchain id on which you want to release your collection.                                       |
-| contractAddress  | `string`  | Smart address of contract for deployed collection.                                                |
-| transactionHash  | `string`  | Deployment transaction hash/id.                                                                   |
-| deployerAddress  | `string`  | Wallet address of deployer.                                                                       |
-| drop             | `boolean` | Determines if collection is mintable by public.                                                   |
-| dropStart        | `number`  | UNIX timestamp which determines public mint opening date and time.                                |
-| dropPrice        | `number`  | Price of NFT at mint stage.                                                                       |
-| dropReserve      | `number`  | Amount of NFTs reserved by owner.                                                                 |
+| Name             | Type       | Description                                                                                       |
+|------------------|------------|---------------------------------------------------------------------------------------------------|
+| id               | `string`   | Internal collection id.                                                                           |
+| status           | `number`   | Collection status.                                                                                |
+| collectionType   | `number`   | Type of smart contract to use for collection (1 for generic, 2 for nestable).                     |
+| collectionUuid   | `string`   | Unique key of a collection.                                                                       |
+| projectUuid      | `string`   | Apillon project id.                                                                               |
+| symbol           | `string`   | NFT collection symbol (usually 3-4 characters long).                                              |
+| name             | `string`   | NFT collection name.                                                                              |
+| description      | `string`   | NFT collection description.                                                                       |
+| maxSupply        | `number`   | Maximal number of NFTs ever in existence (0 stands for unlimited).                                |
+| bucketUuid       | `string`   | UUID of the bucket where metadata is stored.                                                      |
+| baseUri          | `string`   | Base URI for collection metadata (token id and file extension is appended to it).                 |
+| baseExtension    | `string`   | File extension that is auto appended after token id to form a full URL.                           |
+| isSoulbound      | `boolean`  | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
+| isRevokable      | `boolean`  | For revocable collection owner can destroy NFTs at any time.                                      |
+| royaltiesFees    | `number`   | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
+| royaltiesAddress | `string`   | Address where royalties are sent to.                                                              |
+| collectionStatus | `number`   | Apillon internal/database collection status.                                                      |
+| contractAddress  | `string`   | Smart address of contract for deployed collection.                                                |
+| transactionHash  | `string`   | Deployment transaction hash/id.                                                                   |
+| imagesSession    | `string`   |                                                                                                   |
+| metadataSession  | `string`   |                                                                                                   |
+| deployerAddress  | `string`   | Wallet address of deployer.                                                                       |
+| chain            | `number`   | Blockchain id on which you want to release your collection.                                       |
+| drop             | `boolean`  | Determines if collection is mintable by public.                                                   |
+| dropStart        | `number`   | UNIX timestamp which determines public mint opening date and time.                                |
+| dropPrice        | `number`   | Price of NFT at mint stage.                                                                       |
+| dropReserve      | `number`   | Amount of NFTs reserved by owner.                                                                 |
 
   </div>
   <div class="split_side">
@@ -1237,28 +1242,29 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
     "data": {
         "id": 23,
         "status": 2,
+        "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
         "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
         "symbol": "NFT",
         "name": "NFT Collection",
         "description": "NFT Collection Description",
         "maxSupply": 1000,
-        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
-        "dropStart": 1687251003,
-        "dropReserve": 5,
         "royaltiesFees": 0.1,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287
+        "chain": 1287,
+        "drop": true,
+        "dropStart": 1687251003,
+        "dropPrice": 0.1,
+        "dropReserve": 5
     }
 }
 ```
@@ -1279,6 +1285,13 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 | 8      | Marked for deletion |
 | 9      | Deleted             |
 
+##### Collection Type
+
+| Number | Description              |
+|--------|--------------------------|
+| 0      | Generic NFT collection.  |
+| 1      | Nestable NFT collection. |
+
 ##### Collection Statuses
 
 | Number | Description                              |
@@ -1289,7 +1302,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 | 3      | Collection was deployed successfully.    |
 | 4      | Collection was transferred successfully. |
 | 5      | Failed deploying collection.             |
-
 
 
 ### List NFT Collections
@@ -1340,28 +1352,29 @@ curl --location 'https://api.apillon.io/nfts/collections' \
             {
                 "id": 23,
                 "status": 2,
+                "collectionType": 1,
                 "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
                 "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
                 "symbol": "NFT",
                 "name": "NFT Collection",
                 "description": "NFT Collection Description",
                 "maxSupply": 1000,
-                "dropPrice": 0.1,
                 "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
                 "baseUri": "https://ipfs.apillon.io/metadata/",
                 "baseExtension": ".json",
-                "drop": true,
                 "isSoulbound": false,
                 "isRevokable": true,
-                "dropStart": 1687251003,
-                "dropReserve": 5,
                 "royaltiesFees": 0.1,
                 "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
                 "collectionStatus": 0,
                 "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
                 "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
                 "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-                "chain": 1287
+                "drop": true,
+                "chain": 1287,
+                "dropStart": 1687251003,
+                "dropPrice": 0.1,
+                "dropReserve": 5
             }
         ],
         "total": 1
@@ -1373,7 +1386,6 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 </CodeGroup>
   </div>
 </div>
-
 
 
 ### List Collection Transactions
@@ -1406,6 +1418,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 | Name              | Type        | Description                                                 |
 |-------------------|-------------|-------------------------------------------------------------|
+| id                | `number`    | Internal collection id.                                     |
 | status            | `number`    | Apillon internal/database transaction status.               |
 | chainId           | `number`    | Blockchain id on which you want to release your collection. |
 | transactionType   | `number`    | Transaction type.                                           |
@@ -1474,6 +1487,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 | 3      | Mint NFT                    |
 | 4      | Set Collection Base URI     |
 | 5      | Burn NFT                    |
+| 6      | Nest mint NFT               |
 
 ##### Transaction Status
 
@@ -1488,7 +1502,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 
 ### Create NFT Collection
 
-> API that creates NFT collection and deploys it on selected network.
+> API endpoint that creates NFT collection and deploys it on selected network.
 
 Collection can be created with a few features/functionalities:
 
@@ -1497,6 +1511,10 @@ Collection can be created with a few features/functionalities:
 - soulbound: NFTs are bound to wallet address and can't be transferred
 - royalties: owner can enable royalties to earn specified percentage per each NFT trade
 
+2 types of collections are supported:
+1. Generic collection
+2. Nestable collection (the same as generic but allows nesting NFTs under each other)
+
 #### POST /nfts/collections
 
 <div class="split_content">
@@ -1504,24 +1522,24 @@ Collection can be created with a few features/functionalities:
 
 #### Body fields
 
-| Name             | Type      | Description                                                                       | Required |
-|------------------|-----------|-----------------------------------------------------------------------------------|----------|
-| project_uuid     | `string`  | Apillon project id.                                                               | true     |
-| chain            | `number`  | Blockchain id on which you want to release your collection.                       | true     |
-| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                              | true     |
-| name             | `string`  | NFT collection name.                                                              | true     |
-| description      | `string`  | NFT collection description.                                                       | false    |
-| maxSupply        | `number`  | Maximal number of NFTs ever in existence.                                         | true     |
-| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it). | true     |
-| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.           | true     |
-| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                      | true     |
-| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.         | true     |
-| royaltiesAddress | `string`  | Address where royalties are sent to.                                              | true     |
-| royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                | true     |
-| drop             | `boolean` | Determines if collection is mintable by public.                                   | true     |
-| dropStart*       | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.   | true     |
-| dropPrice*           | `number`  | Price of NFT at mint stage.                                                       | true     |
-| dropReserve*     | `number`  | Amount of NFTs reserved by owner.                                                 | true     |
+| Name             | Type      | Description                                                                              | Required |
+|------------------|-----------|------------------------------------------------------------------------------------------|----------|
+| collectionType   | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable). | true     |
+| chain            | `number`  | Blockchain id on which you want to release your collection.                              | true     |
+| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                     | true     |
+| name             | `string`  | NFT collection name.                                                                     | true     |
+| description      | `string`  | NFT collection description.                                                              | false    |
+| maxSupply        | `number`  | Maximal number of NFTs ever in existence (0 stands for unlimited).                       | true     |
+| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).        | true     |
+| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                  | true     |
+| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                             | true     |
+| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.                | true     |
+| royaltiesAddress | `string`  | Address where royalties are sent to.                                                     | true     |
+| royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                       | true     |
+| drop             | `boolean` | Determines if collection is mintable by public.                                          | true     |
+| dropStart*       | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.          | true     |
+| dropPrice*       | `number`  | Price of NFT at mint stage.                                                              | true     |
+| dropReserve*     | `number`  | Amount of NFTs reserved by owner.                                                        | true     |
 
 
 **Notes:**
@@ -1529,12 +1547,13 @@ Collection can be created with a few features/functionalities:
 *`dropStart`, `dropPrice` and `dropReserve` are only used if `drop` is set to boolean `true`.
 
 #### Possible errors
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
 
-| Code     | Description                                                 |
-| -------- |-------------------------------------------------------------|
-| 40012002 | Collection quota reached                                    |
-| 50012010 | Failed to create bucket for storing metadata.               |
-| 50012003 | Failed deploying NFT contract on chain.                     |
+| Code     | Description                                   |
+| -------- |-----------------------------------------------|
+| 40012002 | Collection quota reached                      |
+| 50012003 | Failed deploying NFT contract on chain.       |
+| 50012010 | Failed to create bucket for storing metadata. |
 
 
 #### Response
@@ -1551,21 +1570,22 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{
+    "collectionType": 1,
+    "chain": 1287,
     "symbol": "NFT",
     "name": "NFT Collection",
+    "description": "NFT Collection description",
     "maxSupply": 1000,
-    "dropPrice": 0.1,
-    "project_uuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
     "baseUri": "https://ipfs.apillon.io/metadata/",
     "baseExtension": "json",
-    "drop": true,
-    "dropStart": 1687251003,
-    "dropReserve": 5,
-    "chain": 1287,
     "isRevokable": true,
     "isSoulbound": false,
     "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-    "royaltiesFees": 10
+    "royaltiesFees": 10,
+    "drop": true,
+    "dropStart": 1687251003,
+    "dropReserve": 5,
+    "dropPrice": 0.1
 }'
 ```
 
@@ -1581,11 +1601,12 @@ curl --location 'https://api.apillon.io/nfts/collections' \
     "data": {
         "id": 23,
         "status": 2,
+        "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
         "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
         "symbol": "NFT",
         "name": "NFT Collection",
-        "description": null,
+        "description": "NFT Collection description",
         "maxSupply": 1000,
         "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
@@ -1634,14 +1655,15 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 | address | `string` | Wallet address of a new owner. | true     |
 
 #### Possible errors
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
 
-| Code     | Description                                                                       |
-| -------- |-----------------------------------------------------------------------------------|
-| 40012003 | Contract can't be transferred to wallet address that already owns this collection. |
-| 40012004 | Transfer transaction already exists.                                              |
-| 40300000 | Not allowed to access collection                                                  |
-| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.              | 
-| 50012004 | Collection transfer failed.                                                       | 
+| Code     | Description                                                                         |
+| -------- |-------------------------------------------------------------------------------------|
+| 40012003 | Contract can't be transferred to wallet address that already owns this collection.  |
+| 40012004 | Transfer transaction already exists.                                                |
+| 40300000 | Not allowed to access collection                                                    |
+| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.               |
+| 50012004 | Collection transfer failed.                                                         | 
 
 #### Response
 
@@ -1730,11 +1752,13 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
 
 
 #### Possible errors
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
 
 | Code     | Description                                                              |
 | -------- |--------------------------------------------------------------------------|
 | 40300000 | Not allowed to access collection.                                        |
-| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.     |
+| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.    |
+| 50012005 | Error minting NFT.                                                       |
 | 50012007 | Total number of minted NFTs would exceed max supply for this collection. |
 | 50012008 | All of the reserved NFTs were already minted.                            |
 
@@ -1767,30 +1791,83 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
     "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
     "status": 200,
     "data": {
-        "id": 23,
-        "status": 2,
-        "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
-        "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
-        "symbol": "NFT",
-        "name": "NFT Collection",
-        "description": null,
-        "maxSupply": 1000,
-        "dropPrice": 0.1,
-        "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
-        "baseUri": "https://ipfs.apillon.io/metadata/",
-        "baseExtension": ".json",
-        "drop": true,
-        "isSoulbound": false,
-        "isRevokable": true,
-        "dropStart": 1687251003,
-        "dropReserve": 5,
-        "royaltiesFees": 0,
-        "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "collectionStatus": 0,
-        "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
-        "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
-        "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287
+        "success": true
+    }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
+
+
+### Nest Mint Collection NFTs
+
+> Nest mint specified amount of NFTs under a parent NFT defined by the parent collection UUID and token id.
+
+#### POST /nfts/collections/:uuid/nest-mint
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name  | Description                                      | Required |
+|-------|--------------------------------------------------| -------- |
+| uuid  | Unique key of (child) collection we are minting. | true     |
+
+#### Body fields
+
+| Name                 | Type     | Description                                       | Required |
+|----------------------|----------|---------------------------------------------------| -------- |
+| parentCollectionUuid | `string` | Collection UUID of NFT receiving nest-minted NFT. | true     |
+| parentNftId          | `number` | Token id of NFT receiving nest-minted NFT.        | true     |
+| quantity             | `number` | Number of NFTs to nest-mint.                      | true     |
+
+
+#### Possible errors
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
+
+| Code     | Description                                                              |
+| -------- |--------------------------------------------------------------------------|
+| 40300000 | Not allowed to access collection.                                        |
+| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.    |
+| 50012007 | Total number of minted NFTs would exceed max supply for this collection. |
+| 50012008 | All of the reserved NFTs were already minted.                            |
+| 50012013 | Parrent collection doesn't support nesting.                              |
+| 50012014 | Parrent and child collection chain missmatch.                            |
+
+#### Response Fields
+
+| Field            | Type      | Description       |
+| ---------------- |-----------|-------------------|
+| success          | `boolean` | Status of action. |
+
+  </div>
+  <div class="split_side">
+
+  <CodeGroup>
+  <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location 'https://api.apillon.io/nfts/collections/:uuid/next-mint' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic :credentials' \
+--data '{"parentCollectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a", "parentNftId": 1, "quantity": 1}'
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+    "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
+    "status": 200,
+    "data": {
+        "success": true
     }
 }
 ```
@@ -1825,10 +1902,13 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
 | tokenId  | `number` | Non fungible token id that we are burning. | true     |
 
 #### Possible errors
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
 
-| Code     | Description        |
-| -------- |--------------------|
-| 50012012 | Burning NFT failed |
+| Code     | Description                                                           |
+| -------- |-----------------------------------------------------------------------|
+| 40300000 | Not allowed to access collection.                                     |
+| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred. |
+| 50012012 | Burning NFT failed.                                                   |
 
 #### Response fields
 
