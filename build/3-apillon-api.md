@@ -1189,35 +1189,32 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 
 #### Response Fields
 
-| Name             | Type       | Description                                                                                       |
-|------------------|------------|---------------------------------------------------------------------------------------------------|
-| id               | `string`   | Internal collection id.                                                                           |
-| status           | `number`   | Collection status.                                                                                |
-| collectionType   | `number`   | Type of smart contract to use for collection (1 for generic, 2 for nestable).                     |
-| collectionUuid   | `string`   | Unique key of a collection.                                                                       |
-| projectUuid      | `string`   | Apillon project id.                                                                               |
-| symbol           | `string`   | NFT collection symbol (usually 3-4 characters long).                                              |
-| name             | `string`   | NFT collection name.                                                                              |
-| description      | `string`   | NFT collection description.                                                                       |
-| maxSupply        | `number`   | Maximal number of NFTs ever in existence (0 stands for unlimited).                                |
-| bucketUuid       | `string`   | UUID of the bucket where metadata is stored.                                                      |
-| baseUri          | `string`   | Base URI for collection metadata (token id and file extension is appended to it).                 |
-| baseExtension    | `string`   | File extension that is auto appended after token id to form a full URL.                           |
-| isSoulbound      | `boolean`  | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
-| isRevokable      | `boolean`  | For revocable collection owner can destroy NFTs at any time.                                      |
-| royaltiesFees    | `number`   | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
-| royaltiesAddress | `string`   | Address where royalties are sent to.                                                              |
-| collectionStatus | `number`   | Apillon internal/database collection status.                                                      |
-| contractAddress  | `string`   | Smart address of contract for deployed collection.                                                |
-| transactionHash  | `string`   | Deployment transaction hash/id.                                                                   |
-| imagesSession    | `string`   |                                                                                                   |
-| metadataSession  | `string`   |                                                                                                   |
-| deployerAddress  | `string`   | Wallet address of deployer.                                                                       |
-| chain            | `number`   | Blockchain id on which you want to release your collection.                                       |
-| drop             | `boolean`  | Determines if collection is mintable by public.                                                   |
-| dropStart        | `number`   | UNIX timestamp which determines public mint opening date and time.                                |
-| dropPrice        | `number`   | Price of NFT at mint stage.                                                                       |
-| dropReserve      | `number`   | Amount of NFTs reserved by owner.                                                                 |
+| Name             | Type        | Description                                                                                       |
+|------------------|-------------|---------------------------------------------------------------------------------------------------|
+| createTime       | `DateTime`  | Collection create time.                                                                           |
+| updateTime       | `DateTime`  | Collection last update time.                                                                      |
+| collectionType   | `number`    | Type of smart contract to use for collection (1 for generic, 2 for nestable).                     |
+| collectionUuid   | `string`    | Unique key of a collection.                                                                       |
+| symbol           | `string`    | NFT collection symbol (usually 3-4 characters long).                                              |
+| name             | `string`    | NFT collection name.                                                                              |
+| description      | `string`    | NFT collection description.                                                                       |
+| maxSupply        | `number`    | Maximal number of NFTs ever in existence (0 stands for unlimited).                                |
+| bucketUuid       | `string`    | UUID of the bucket where metadata is stored.                                                      |
+| baseUri          | `string`    | Base URI for collection metadata (token id and file extension is appended to it).                 |
+| baseExtension    | `string`    | File extension that is auto appended after token id to form a full URL.                           |
+| isSoulbound      | `boolean`   | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
+| isRevokable      | `boolean`   | For revocable collection owner can destroy NFTs at any time.                                      |
+| royaltiesFees    | `number`    | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
+| royaltiesAddress | `string`    | Address where royalties are sent to.                                                              |
+| collectionStatus | `number`    | Apillon internal/database collection status.                                                      |
+| contractAddress  | `string`    | Smart address of contract for deployed collection.                                                |
+| transactionHash  | `string`    | Deployment transaction hash/id.                                                                   |
+| deployerAddress  | `string`    | Wallet address of deployer.                                                                       |
+| chain            | `number`    | Blockchain id on which you want to release your collection.                                       |
+| drop             | `boolean`   | Determines if collection is mintable by public.                                                   |
+| dropStart        | `number`    | UNIX timestamp which determines public mint opening date and time.                                |
+| dropPrice        | `number`    | Price of NFT at mint stage in token that is used on `chain`.                                      |
+| dropReserve      | `number`    | Amount of NFTs reserved by owner.                                                                 |
 
   </div>
   <div class="split_side">
@@ -1240,11 +1237,10 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
     "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
     "status": 200,
     "data": {
-        "id": 23,
-        "status": 2,
+        "createTime": "2023-06-13T10:15:58.000Z",
+        "updateTime": "2023-06-13T10:15:58.000Z",
         "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
-        "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
         "symbol": "NFT",
         "name": "NFT Collection",
         "description": "NFT Collection Description",
@@ -1274,16 +1270,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
   </div>
 </div>
 
-
-##### Statuses
-
-| Number | Description         |
-|--------|---------------------|
-| 1      | Draft               |
-| 2      | Incomplete          |
-| 5      | Active              |
-| 8      | Marked for deletion |
-| 9      | Deleted             |
 
 ##### Collection Type
 
@@ -1315,14 +1301,14 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 
 #### Query parameters
 
-| Name    | Description                                                                                           | Required |
-|---------|-------------------------------------------------------------------------------------------------------|----------|
-| status  | Collection status.                                                                                    | false    |
-| search  | Search by collection name.                                                                            | false    |
-| page    | Collections are paginated by default. This parameter is used to get collections from a specific page. | false    |
-| limit   | Number of files on a page (default: 20).                                                              | false    |
-| orderBy | One or multiple properties, separated by a comma, used to order data.                                 | false    |
-| desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                  | false    |
+| Name             | Description                                                                                           | Required |
+|------------------|-------------------------------------------------------------------------------------------------------|----------|
+| collectionStatus | Collection status.                                                                                    | false    |
+| search           | Search by collection name.                                                                            | false    |
+| page             | Collections are paginated by default. This parameter is used to get collections from a specific page. | false    |
+| limit            | Number of files on a page (default: 20).                                                              | false    |
+| orderBy          | One or multiple properties, separated by a comma, used to order data.                                 | false    |
+| desc             | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                  | false    |
 
 #### Response
 Response is a list of items described [under Response Fields above](#get-nft-collection).
@@ -1350,11 +1336,10 @@ curl --location 'https://api.apillon.io/nfts/collections' \
     "data": {
         "items": [
             {
-                "id": 23,
-                "status": 2,
+                "createTime": "2023-06-13T10:15:58.000Z",
+                "updateTime": "2023-06-13T10:15:58.000Z",
                 "collectionType": 1,
                 "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
-                "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
                 "symbol": "NFT",
                 "name": "NFT Collection",
                 "description": "NFT Collection Description",
@@ -1370,8 +1355,8 @@ curl --location 'https://api.apillon.io/nfts/collections' \
                 "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
                 "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
                 "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-                "drop": true,
                 "chain": 1287,
+                "drop": true,
                 "dropStart": 1687251003,
                 "dropPrice": 0.1,
                 "dropReserve": 5
@@ -1405,26 +1390,26 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 #### Query parameters
 
-| Name    | Description                                                                                             | Required |
-|---------|---------------------------------------------------------------------------------------------------------|----------|
-| status  | Transaction status.                                                                                     | false    |
-| search  | Search by transaction hash.                                                                             | false    |
-| page    | Transactions are paginated by default. This parameter is used to get transactions from a specific page. | false    |
-| limit   | Number of transactions on a page (default: 20).                                                         | false    |
-| orderBy | One or multiple properties, separated by a comma, used to order data.                                   | false    |
-| desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                    | false    |
+| Name              | Description                                                                                             | Required |
+|-------------------|---------------------------------------------------------------------------------------------------------|----------|
+| transactionStatus | Transaction status.                                                                                     | false    |
+| transactionType   | Transaction type.                                                                                       | false    |
+| search            | Search by transaction hash.                                                                             | false    |
+| page              | Transactions are paginated by default. This parameter is used to get transactions from a specific page. | false    |
+| limit             | Number of transactions on a page (default: 20).                                                         | false    |
+| orderBy           | One or multiple properties, separated by a comma, used to order data.                                   | false    |
+| desc              | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                    | false    |
 
 #### Response Fields
 
 | Name              | Type        | Description                                                 |
 |-------------------|-------------|-------------------------------------------------------------|
-| id                | `number`    | Internal collection id.                                     |
-| status            | `number`    | Apillon internal/database transaction status.               |
 | chainId           | `number`    | Blockchain id on which you want to release your collection. |
 | transactionType   | `number`    | Transaction type.                                           |
 | transactionStatus | `number`    | Transaction status                                          |
 | transactionHash   | `number`    | Transaction hash/id.                                        |
 | updateTime        | `DateTime`  | Transaction last update time.                               |
+| createTime        | `DateTime`  | Transaction create time.                                     |
 
   </div>
   <div class="split_side">
@@ -1449,13 +1434,12 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
     "data": {
         "items": [
             {
-                "id": 7,
-                "status": 5,
                 "chainId": 1287,
                 "transactionType": 1,
                 "transactionStatus": 1,
                 "transactionHash": "0xb988c8cda7ec8b441611b208360e0aace9c294e1ca5672375b21e815890a54d1",
-                "updateTime": "2023-06-13T10:15:58.000Z"
+                "updateTime": "2023-06-13T10:15:58.000Z",
+                "createTime": "2023-06-13T10:15:58.000Z"
             }
         ],
         "total": 1
@@ -1467,16 +1451,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 </CodeGroup>
   </div>
 </div>
-
-##### Statuses
-
-| Number | Description         |
-|--------|---------------------|
-| 1      | Draft               |
-| 2      | Incomplete          |
-| 5      | Active              |
-| 8      | Marked for deletion |
-| 9      | Deleted             |
 
 ##### Transaction Types
 
@@ -1599,31 +1573,30 @@ curl --location 'https://api.apillon.io/nfts/collections' \
     "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
     "status": 200,
     "data": {
-        "id": 23,
-        "status": 2,
+        "createTime": "2023-06-13T10:15:58.000Z",
+        "updateTime": "2023-06-13T10:15:58.000Z",
         "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
-        "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
         "symbol": "NFT",
         "name": "NFT Collection",
-        "description": "NFT Collection description",
+        "description": "NFT Collection Description",
         "maxSupply": 1000,
-        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
-        "dropStart": 1687251003,
-        "dropReserve": 5,
-        "royaltiesFees": 0,
+        "royaltiesFees": 0.1,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287
+        "chain": 1287,
+        "drop": true,
+        "dropStart": 1687251003,
+        "dropPrice": 0.1,
+        "dropReserve": 5
     }
 }
 ```
@@ -1692,30 +1665,30 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
     "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
     "status": 200,
     "data": {
-        "id": 23,
-        "status": 2,
+        "createTime": "2023-06-13T10:15:58.000Z",
+        "updateTime": "2023-06-13T10:15:58.000Z",
+        "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
-        "projectUuid": "b8d3cb86-fde5-4d96-81af-bf47f8703e22",
         "symbol": "NFT",
         "name": "NFT Collection",
-        "description": null,
+        "description": "NFT Collection Description",
         "maxSupply": 1000,
-        "dropPrice": 0.1,
         "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
         "baseUri": "https://ipfs.apillon.io/metadata/",
         "baseExtension": ".json",
-        "drop": true,
         "isSoulbound": false,
         "isRevokable": true,
-        "dropStart": 1687251003,
-        "dropReserve": 5,
-        "royaltiesFees": 0,
+        "royaltiesFees": 0.1,
         "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
         "collectionStatus": 0,
         "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
         "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
         "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-        "chain": 1287
+        "chain": 1287,
+        "drop": true,
+        "dropStart": 1687251003,
+        "dropPrice": 0.1,
+        "dropReserve": 5
     }
 }
 ```
@@ -1915,15 +1888,6 @@ Beside validation errors (with 422 http status code) these are the error codes m
 | Field            | Type      | Description       |
 | ---------------- |-----------|-------------------|
 | success          | `boolean` | Status of action. |
-
-Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
-
-| Status | Description           |
-| ------ | --------------------- |
-| 0      | Deployment initiated  |
-| 1      | In processing         |
-| 10     | Deployment successful |
-| 100    | Deployment failed     |
 
   </div>
   <div class="split_side">
