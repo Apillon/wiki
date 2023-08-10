@@ -22,11 +22,12 @@ export default defineUserConfig({
   ],
   theme: defaultTheme({
     repo: "apillon-web3/wiki",
+    themePlugins: {
+      backToTop: true
+    },
     docsDir: "",
     colorModeSwitch: false,
     colorMode: 'dark',
-    searchPlaceholder: "Search...",
-    smoothScroll: true,
     // theme-level locales config
     locales: {
       /**
@@ -55,28 +56,26 @@ export default defineUserConfig({
   ],
 });
 
+
 //Generate Nav
 function generateNav() {
   const folders = ["about", "build", "maintain"];
-  const navItems = folders.map((folder) => {
-    return {
-      text: folder.charAt(0).toUpperCase() + folder.slice(1),
-      link: `/${folder}/`,
-    };
-  });
 
-  return navItems;
+  return folders.map((folder) => ({
+    text: folder.charAt(0).toUpperCase() + folder.slice(1),
+    link: `/${folder}/`,
+  }));
 }
 
 //Generate Complete
 function generateSidebar() {
   const folders = ["about", "build", "maintain"];
   let fullSidebar = { "/": [] };
-  let sidebarMap = [];
+  const sidebarMap: any[] = [];
 
   folders.map((folder) => {
     sidebarMap.push(
-      getSidebar(`${folder}`, folder.charAt(0).toUpperCase() + folder.slice(1))
+      getSidebar(folder, folder.charAt(0).toUpperCase() + folder.slice(1))
     );
   });
 
@@ -100,16 +99,10 @@ function getSidebar(folder, title) {
         fs.statSync(path.join(`${__dirname}/../${folder}`, item)).isDirectory()
     );
 
-  let foldersMap = [];
-
-  if (folders && folders.length > 0) {
-    foldersMap = folders.map((f) => {
-      return getSidebarSubfoder(
-        `${folder}/${f}`,
-        f.charAt(0).toUpperCase() + f.slice(1)
-      );
-    });
-  }
+  const foldersMap = folders && folders.length > 0 ? folders.map((f) => getSidebarSubfoder(
+    `${folder}/${f}`,
+    f.charAt(0).toUpperCase() + f.slice(1)
+  )) : [];
 
   const folderFiles = getFolderFiled(folder);
 
@@ -140,24 +133,22 @@ function getFolderFiled(folder) {
         extension.includes(path.extname(item))
     );
 
-  files = files.map((file) => {
-    return `/${folder}/${file}`;
-  });
+  files = files.map((file) => `/${folder}/${file}`);
 
   files
-    .sort(function (a, b) {
-      var ma = a.replace(`\/${folder}/`, "").replace(".md", "");
-      var mb = b.replace(`\/${folder}/`, "").replace(".md", "");
+    .sort((a, b) => {
+      const ma = a.replace(`\/${folder}/`, "").replace(".md", "");
+      const mb = b.replace(`\/${folder}/`, "").replace(".md", "");
       if (!ma) {
         return -1;
-      } else if (!mb) {
-        return 1;
-      } else {
+      } else if (mb) {
         return ma - mb;
+      } else {
+        return 1;
       }
     })
-    .sort(function (a, b) {
-      var ma = a.replace(`\/${folder}/`, "");
+    .sort((a, b) => {
+      const ma = a.replace(`\/${folder}/`, "");
       if (ma === "index.md") {
         return -1;
       }
