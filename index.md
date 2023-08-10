@@ -5,14 +5,14 @@ editLink: false
 ---
 <div class="homepage_content">
 	<div class="homepage_container">
-		<a class="homepage_item" href="/about/">
+		<a class="homepage_item" href="/about/1-index">
 			<div class="homepage_title">
 				<h2>About</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
 			<p>Get to know the Apillon platform, its purpose, features, and benefits.</p>
 		</a>
-		<a class="homepage_item" href="/build/">
+		<a class="homepage_item" href="/build/1-index">
 			<div class="homepage_title">
 				<h2>Build</h2>
 				<img src="/assets/arrow-right.svg" />

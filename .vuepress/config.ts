@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { searchPlugin } from "@vuepress/plugin-search";
-import { defaultTheme, defineUserConfig } from "vuepress";
+import { NavbarGroup, defaultTheme, defineUserConfig } from "vuepress";
 
 export default defineUserConfig({
   lang: "en-US",
@@ -58,12 +58,13 @@ export default defineUserConfig({
 
 
 //Generate Nav
-function generateNav() {
+function generateNav(): NavbarGroup[] {
   const folders = ["about", "build", "maintain"];
 
   return folders.map((folder) => ({
     text: folder.charAt(0).toUpperCase() + folder.slice(1),
     link: `/${folder}/`,
+    children: getSidebar(folder, folder.charAt(0).toUpperCase() + folder.slice(1)).children,
   }));
 }
 
