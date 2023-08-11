@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;900&display=swap');
 @import './sidebar';
 @import './homepage';
 
@@ -199,4 +200,16 @@ h3 {
 div.divider {
   margin: 3rem auto;
   border-bottom: 1px solid var(--primary-bright);
+}
+
+div.request-url {
+  color: var(--c-text);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  background: #121415;
+  padding: 15px;
+  border: 1px solid rgb(87, 85, 85);
+  border-radius: 10px;
 }

@@ -201,7 +201,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
-#### POST /storage/:bucketUuid/upload
+<div class="request-url">POST /storage/:bucketUuid/upload</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -331,7 +331,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
-#### POST /storage/:bucketUuid/upload/:sessionUuid/end
+<div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -393,7 +393,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 **Note: This endpoint returns files, that are successfully transferred to IPFS node. I.e. files with [fileStatus](#file-statuses) 3 or 4.**
 
-#### GET /storage/:bucketUuid/content
+<div class="request-url">GET /storage/:bucketUuid/content</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -516,7 +516,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 
 > Gets details of a specific file inside a bucket.
 
-#### GET /storage/:bucketUuid/file/:id/detail
+<div class="request-url">GET /storage/:bucketUuid/file/:id/detail</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -609,7 +609,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 > Marks a file inside bucket for deletion by `id`, `fileUuid`, or `CID`. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
-#### DELETE /storage/:bucketUuid/file/:id
+<div class="request-url">DELETE /storage/:bucketUuid/file/:id</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -696,7 +696,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload requests and returns URLs for files upload.
 
-#### POST /hosting/websites/:websiteUuid/upload
+<div class="request-url">POST /hosting/websites/:websiteUuid/upload</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -841,7 +841,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
 
-#### POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end
+<div class="request-url">POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -901,7 +901,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to trigger website deployment into specific environment.
 
-#### POST /hosting/websites/:websiteUuid/deploy
+<div class="request-url">POST /hosting/websites/:websiteUuid/deploy</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -1011,7 +1011,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to get deployment.
 
-#### GET /hosting/websites/:websiteUuid/deployments/:deploymentId
+<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deploymentId</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -1093,7 +1093,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
 
-#### GET /hosting/websites/:websiteUuid
+<div class="request-url">GET /hosting/websites/:websiteUuid</div>
 
 <div class="split_content">
 	<div class="split_side">
