@@ -60,23 +60,21 @@ export default defineUserConfig({
 //Generate Nav
 function generateNav(): NavbarGroup[] {
   const folders = ["about", "build", "maintain"];
-
   return folders.map((folder) => ({
-    text: folder.charAt(0).toUpperCase() + folder.slice(1),
+    text: capitalize(folder),
     link: `/${folder}/`,
-    children: getSidebar(folder, folder.charAt(0).toUpperCase() + folder.slice(1)).children,
+    children: generateSiteMap(folder, capitalize(folder)).children,
   }));
 }
 
-//Generate Complete
-function generateSidebar() {
+function generateSidebar(): { [route: string]: string[] } {
   const folders = ["about", "build", "maintain"];
   let fullSidebar = { "/": [] };
   const sidebarMap: any[] = [];
 
   folders.map((folder) => {
     sidebarMap.push(
-      getSidebar(folder, folder.charAt(0).toUpperCase() + folder.slice(1))
+      generateSiteMap(folder, capitalize(folder))
     );
   });
 
@@ -91,7 +89,7 @@ function generateSidebar() {
 }
 
 //Generate Sidebar Navigation Map
-function getSidebar(folder, title) {
+function generateSiteMap(folder, title) {
   const folders = fs
     .readdirSync(path.join(`${__dirname}/../${folder}`))
     .filter(
@@ -100,12 +98,10 @@ function getSidebar(folder, title) {
         fs.statSync(path.join(`${__dirname}/../${folder}`, item)).isDirectory()
     );
 
-  const foldersMap = folders && folders.length > 0 ? folders.map((f) => getSidebarSubfoder(
-    `${folder}/${f}`,
-    f.charAt(0).toUpperCase() + f.slice(1)
-  )) : [];
+  const foldersMap = folders?.length > 0 ? folders.map((f) =>
+    getSidebarSubfoder(`${folder}/${f}`, capitalize(folder))) : [];
 
-  const folderFiles = getFolderFiled(folder);
+  const folderFiles = getFolderFiles(folder);
 
   return {
     text: title,
@@ -116,13 +112,13 @@ function getSidebar(folder, title) {
 
 //Generate Sidebar Subfolders
 function getSidebarSubfoder(folder, title) {
-  const folderFiles = getFolderFiled(folder);
+  const folderFiles = getFolderFiles(folder);
 
   return { text: title, collapsible: true, children: [...folderFiles] };
 }
 
 //Generate Folder Files
-function getFolderFiled(folder) {
+function getFolderFiles(folder) {
   const extension = [".md"];
 
   let files = fs
@@ -156,4 +152,8 @@ function getFolderFiled(folder) {
     });
 
   return files;
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
