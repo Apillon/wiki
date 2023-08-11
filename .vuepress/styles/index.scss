@@ -77,10 +77,10 @@
   --search-input-width: 10rem !important;
   --search-result-width: 20rem !important;
 
-  --font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
-    Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  --font-family-title: Inter, CabinetGrotesk-Variable, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI,
-    Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+  --font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
+    Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  --font-family-title: Inter, CabinetGrotesk-Variable, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
     Noto Color Emoji;
 
   --primary-dark: #06080f;
@@ -287,29 +287,29 @@ html.dark {
 .sidebar-item {
   background-color: var(--primary-dark);
   color: var(--secondary-dark);
+  width: 90% !important;
 
   &:hover {
     background-color: var(--primary-light) !important;
     color: var(--secondary-dark) !important;
+    border-radius: 8px;
   }
 
   &.active {
     background-color: var(--primary-dark) !important;
-    color: var(--secondary) !important;
+    color: var(--secondary-light) !important;
+    font-weight: bolder !important;
 
-    &:hover {
+    &:hover,
+    &:nth-last-child(1) {
+      border-radius: 8px;
       background-color: var(--primary-light) !important;
-      color: var(--secondary) !important;
     }
   }
 }
 
-ul.sidebar-items,
-.sidebar {
-  background-color: var(--primary-dark);
-}
-
-h2, h3 {
+h2,
+h3 {
   margin-top: 1rem !important;
   font-family: var(--font-family-title) !important;
 }
