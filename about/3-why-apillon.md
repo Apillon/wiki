@@ -1,5 +1,7 @@
 # Why Apillon?
 
+<div class="divider"></div>
+
 The dawn of open-source and decentralized technologies has inspired the creation of systems that give individuals more power to exchange assets and open up new business opportunities while reducing their reliance on centralized authorities. However, even though the pace of technological progress has been outstanding, the adoption of decentralized solutions still awaits implementation in the real economy on a large scale.
 
 Polkadot, one of the leading players in the Web3 ecosystem, is set to transform the way businesses, individuals, and organizations manage assets and data. Still, several factors hinder the broader adoption of Web3 solutions:

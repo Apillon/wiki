@@ -1,5 +1,7 @@
 # Developing Web3 with Apillon
 
+<div class="divider"></div>
+
 ## Challenges of blockchain complexity
 
 When building on Web3, be it within the Polkadot ecosystem or in general, developers face challenges that still lack proper addressing.
@@ -28,7 +30,7 @@ Using Apillon, on the other hand, the process of developing a Web3 product is ra
 
 **Example #1: Building on KILT Protocol***
 
-To build a simple Web3 app utilizing KILT Protocol for user authentication from scratch, a developer needs to do (at least) the following: 
+To build a simple Web3 app utilizing KILT Protocol for user authentication from scratch, a developer needs to do (at least) the following:
 * Research the KILT Documentation
 * Configure and integrate the KILT Protocol
 * Generate and manage KILT’s Decentralized Identifiers (DIDs)

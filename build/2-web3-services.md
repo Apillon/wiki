@@ -1,5 +1,7 @@
 # Apillon Web3 services
 
+<div class="divider"></div>
+
 Apillon integrates multiple [Polkadot](https://polkadot.network/) parachains and offers access to them in a unified way via modules on the developer dashboard and through [Apillon APIs](/build/3-apillon-api.html).
 
 ## Web3 Storage
@@ -47,14 +49,14 @@ Decentralized hosting of a website or an app on Apillon is very similar to the u
 The process below describes how a static website or app is hosted decentrally with Apillon Web3 Hosting.
 
 1. Uploaded files land on a reputable centralized cloud provider to ensure fast file capture.
-2. Once the files are received, they proceed to the Apillon node. They are accessible through the IPFS gateway until moved from staging to production. 
-3. Once the files move from staging to production, they proceed to the decentralized Apillon IPFS gateway, where the pinning and replication process is started with Crust. 
+2. Once the files are received, they proceed to the Apillon node. They are accessible through the IPFS gateway until moved from staging to production.
+3. Once the files move from staging to production, they proceed to the decentralized Apillon IPFS gateway, where the pinning and replication process is started with Crust.
 4. At this point, a custom domain can be connected to the website/app, which starts the SSL certificate generation process in the Apillon gateway.
 5. Finally, the domain’s DNS records can be migrated to Apillon, and website or app can be launched using decentralized hosting.
 
 ### Deployment
 
-To deploy a Web3 website or application, follow the process below: 
+To deploy a Web3 website or application, follow the process below:
 
 1. Register an [account on Apillon](https://app.apillon.io/register).
 2. Log in to your Apillon dashboard.

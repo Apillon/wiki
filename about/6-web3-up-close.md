@@ -1,5 +1,7 @@
 # Web3 and Apillon explained
 
+<div class="divider"></div>
+
 ## Polkadot, a complete service stack for Web3 builders
 
 Polkadot is a “blockchain of blockchains,” allowing many different types of chains to work and interact securely together within the same ecosystem. The network has already contributed great promise and significant progress by encouraging individual sovereignty over personal and business data. Andmore importantly, the integration of diverse parachains into a scalable and flexible network set a new standard for Web3 builders.

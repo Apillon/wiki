@@ -1,5 +1,7 @@
 # Apillon API
 
+<div class="divider"></div>
+
 ## Endpoints
 
 List of endpoints the API is available at:
@@ -61,7 +63,7 @@ If a request is made with an API key that lacks permission for called endpoint, 
 
 <div class="split_content">
 	<div class="split_side">
-  
+
 Every response has a unique ID which helps identify potential issues. It also includes a status code that can help identify the cause of a potential problem.
 
 Query requests through `GET` method can return status codes `200`, `400`, `401`, `403`, or `500`. Mutations through `POST`, `PUT` and `DELETE` can also return codes `201` and `422`. Invalid routes return status code `404`.

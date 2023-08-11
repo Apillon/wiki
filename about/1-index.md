@@ -1,5 +1,7 @@
 # Navigation
 
+<div class="divider"></div>
+
 In this section, you will learn everything you need to know before you start building on Web3 with Apillon.
 
 The main topics you can explore are:
