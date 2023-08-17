@@ -256,9 +256,9 @@ Files in request body are returned in response `data.files` property. Each file 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload" \
@@ -356,9 +356,9 @@ Api respond with status `200 OK` , if operation is successfully executed.
 
   </div>
   <div class="split_side">
-
-<CodeGroup>
-    <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+          <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
@@ -443,9 +443,9 @@ Properties of each item:
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL basic" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/content" \
@@ -564,9 +564,9 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:id/detail" \
@@ -638,9 +638,9 @@ Returned fields are the same as fields that are returned in [GET file details AP
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/file/:id" \
@@ -750,9 +750,9 @@ Files in request body are returned in response `data.files` property. Each file 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload" \
@@ -866,9 +866,9 @@ Api respond with status `200 OK` , if operation is successfully executed.
 
   </div>
   <div class="split_side">
-
-<CodeGroup>
-    <CodeGroupItem title="cURL" active>
+    <br>
+    <CodeGroup>
+        <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
@@ -966,9 +966,9 @@ Deployment goes through different stages and each stage updates `deploymentStatu
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/deploy" \
@@ -1053,9 +1053,9 @@ Deployment goes through different stages and each stage updates `deploymentStatu
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
@@ -1125,9 +1125,9 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid" \
