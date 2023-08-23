@@ -1,5 +1,7 @@
 # Good to know
 
+<div class="divider"></div>
+
 The provision of Apillon Web3 services comes with certain specifics that are important to understand before using the Apillon dashboard.
 
 Before jumping to the API section, please make sure you fully understand what to expect from each service so you can plan your Web3 application architecture and development accordingly.

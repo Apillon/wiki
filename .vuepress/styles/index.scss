@@ -1,19 +1,6 @@
-@font-face {
-  font-family: CabinetGrotesk-Variable;
-  src: url(/fonts/CabinetGrotesk-Variable.ttf);
-  font-weight: 900;
-}
-@font-face {
-  font-family: ui-sans-serif;
-  src: url(/fonts/IBMPlexSans-Regular.ttf);
-  font-weight: 400;
-}
-@font-face {
-  font-family: ui-sans-serif;
-  src: url(/fonts/IBMPlexSans-Bold.ttf);
-  font-weight: 700;
-}
-
+@import "./fonts";
+@import "./sidebar";
+@import "./homepage";
 :root {
   --c-brand: #f9ff73;
   --c-brand-light: #faff81;
@@ -60,9 +47,7 @@
   --code-ln-wrapper-width: 3.5rem;
   --navbar-height: 3.6rem;
   --navbar-padding-v: 0.8rem;
-  --navbar-line-height: calc(
-    var(--navbar-height) - 2 * var(--navbar-padding-v)
-  );
+  --navbar-line-height: calc(var(--navbar-height) - 2 * var(--navbar-padding-v));
 
   --homepage-width: 1275px;
   --content-width: 1275px;
@@ -71,13 +56,17 @@
   --search-input-width: 10rem !important;
   --search-result-width: 20rem !important;
 
-  --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  --font-family-title: CabinetGrotesk-Variable, ui-sans-serif, system-ui,
-    -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
-    Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-    Noto Color Emoji;
+  --font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
+    Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  --font-family-title: NewSpirit, Inter, CabinetGrotesk-Variable, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
+  --primary-dark: #06080f;
+  --primary-light: #1e212b;
+  --primary-bright: #313442;
+  --secondary-dark: #9d9e91;
+  --secondary-light: #f0f2da;
 }
 html.dark {
   --c-brand: #f9ff73;
@@ -87,7 +76,7 @@ html.dark {
   --c-text-light: #9d9e91;
   --c-text-lighter: #9d9e91;
   --c-text-lightest: rgb(120 220 232);
-  --c-bg: #141721;
+  --c-bg: var(--primary-dark);
   --c-bg-dark: #141721;
   --c-bg-darker: #06080f;
   --c-bg-light: #1f212b;
@@ -124,112 +113,15 @@ html.dark {
   margin: 0 !important;
   margin-right: 1rem !important;
   --search-item-focus-bg-color: var(--c-bg-light);
-}
-.search-box input {
-  --search-border-color: var(--c-text);
+
+  & input {
+    --search-border-color: var(--c-text);
+  }
 }
 
 .site-name {
   display: none !important;
 }
-
-/* Homepage */
-.homepage {
-  background-color: var(--c-bg-dark);
-}
-
-.homepage:before {
-  content: "";
-  position: fixed;
-  top: 0%;
-  left: -20%;
-  width: 140%;
-  height: 100vh;
-  z-index: 0;
-  background: url(../assets/homepage.svg) center / 300px 150px repeat;
-}
-
-.homepage .navbar {
-  background-color: var(--c-bg-dark);
-}
-
-.homepage .page {
-  position: relative;
-  padding: 0 !important;
-  height: initial;
-  min-height: 100vh;
-}
-.homepage .page .theme-default-content {
-  max-width: 100%;
-  padding: 0 1rem;
-}
-
-.homepage_content {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: calc(var(--navbar-height) + 2rem) 0 2rem;
-  box-sizing: border-box;
-}
-.homepage_container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
-  gap: 4rem;
-}
-.homepage_item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  width: calc(100% / 3 - 8rem);
-  background-color: var(--c-bg-light);
-  border: none;
-  padding: 40px 25px;
-  min-height: 280px;
-  box-shadow: 0 2px 4px 0 var(--c-glow);
-  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  text-decoration: none !important;
-}
-.homepage_item:hover {
-  background-color: var(--c-bg-darker);
-  box-shadow: 0 2px 30px 0 var(--c-glow);
-}
-.homepage_title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-.homepage_title img {
-  width: 24px;
-}
-.homepage_item h2 {
-  padding: 0;
-  margin: 0 !important;
-  color: var(--c-text);
-  font-family: var(--font-family-title);
-  font-size: 1.75rem;
-  line-height: 3rem;
-  font-weight: 900;
-  border: none;
-}
-.homepage_item p {
-  padding: 0;
-  margin: 20px 0 0 !important;
-  color: var(--c-text-lighter);
-  font-size: 1.125rem;
-  line-height: 1.5;
-  font-weight: 500;
-  border: none;
-}
-
-.homepage footer {
-  display: none !important;
-}
-/* Homepage End */
 
 .navbar .logo {
   height: 24px;
@@ -256,6 +148,10 @@ html.dark {
   .split_side {
     width: 100%;
   }
+
+  nav {
+    display: none !important;
+  }
 }
 
 @media (max-width: 720px) {
@@ -270,4 +166,34 @@ html.dark {
   .search-box {
     margin-right: 0rem !important;
   }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-family-title) !important;
+  font-weight: 900 !important;
+  padding-bottom: 16px;
+}
+
+h2,
+h3 {
+  margin-top: 1rem !important;
+}
+
+div.divider {
+  margin: 3rem auto;
+  border-bottom: 1px solid var(--primary-bright);
+}
+
+div.request-url {
+  color: var(--c-text);
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  background: #121415;
+  padding: 15px;
+  border: 1px solid rgb(87, 85, 85);
+  border-radius: 10px;
 }
