@@ -1,5 +1,7 @@
 # Community
 
+<div class="divider"></div>
+
 ## Join Apillon Community
 
 Become part of the Apillon community and stay up to date with the latest news.

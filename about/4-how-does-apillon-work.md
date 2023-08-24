@@ -1,5 +1,7 @@
 # How does Apillon work?
 
+<div class="divider"></div>
+
 Apillon abstracts the technological complexity behind the Polkadot network and its parachains into a suite of development tools empowering developers to upgrade to Web3 easily.
 
 The platform gathers and delivers Web3 functionalities powered by Polkadot parachains to developers through straightforward API access, and provides support with ample SDKs and complete documentation for each service.
