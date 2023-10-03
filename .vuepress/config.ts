@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { searchPlugin } from "@vuepress/plugin-search";
-import { defaultTheme, defineUserConfig } from "vuepress";
+import { NavbarGroup, defaultTheme, defineUserConfig } from "vuepress";
 
 export default defineUserConfig({
   lang: "en-US",
@@ -22,11 +22,12 @@ export default defineUserConfig({
   ],
   theme: defaultTheme({
     repo: "apillon-web3/wiki",
+    themePlugins: {
+      backToTop: true
+    },
     docsDir: "",
     colorModeSwitch: false,
     colorMode: 'dark',
-    searchPlaceholder: "Search...",
-    smoothScroll: true,
     // theme-level locales config
     locales: {
       /**
@@ -55,28 +56,25 @@ export default defineUserConfig({
   ],
 });
 
-//Generate Nav
-function generateNav() {
-  const folders = ["about", "build", "maintain"];
-  const navItems = folders.map((folder) => {
-    return {
-      text: folder.charAt(0).toUpperCase() + folder.slice(1),
-      link: `/${folder}/`,
-    };
-  });
 
-  return navItems;
+//Generate Nav
+function generateNav(): NavbarGroup[] {
+  const folders = ["about", "build", "maintain"];
+  return folders.map((folder) => ({
+    text: capitalize(folder),
+    link: `/${folder}/`,
+    children: generateSiteMap(folder, capitalize(folder)).children,
+  }));
 }
 
-//Generate Complete
-function generateSidebar() {
+function generateSidebar(): { [route: string]: string[] } {
   const folders = ["about", "build", "maintain"];
   let fullSidebar = { "/": [] };
-  let sidebarMap = [];
+  const sidebarMap: any[] = [];
 
   folders.map((folder) => {
     sidebarMap.push(
-      getSidebar(`${folder}`, folder.charAt(0).toUpperCase() + folder.slice(1))
+      generateSiteMap(folder, capitalize(folder))
     );
   });
 
@@ -91,7 +89,7 @@ function generateSidebar() {
 }
 
 //Generate Sidebar Navigation Map
-function getSidebar(folder, title) {
+function generateSiteMap(folder, title) {
   const folders = fs
     .readdirSync(path.join(`${__dirname}/../${folder}`))
     .filter(
@@ -100,18 +98,10 @@ function getSidebar(folder, title) {
         fs.statSync(path.join(`${__dirname}/../${folder}`, item)).isDirectory()
     );
 
-  let foldersMap = [];
+  const foldersMap = folders?.length > 0 ? folders.map((f) =>
+    getSidebarSubfoder(`${folder}/${f}`, capitalize(folder))) : [];
 
-  if (folders && folders.length > 0) {
-    foldersMap = folders.map((f) => {
-      return getSidebarSubfoder(
-        `${folder}/${f}`,
-        f.charAt(0).toUpperCase() + f.slice(1)
-      );
-    });
-  }
-
-  const folderFiles = getFolderFiled(folder);
+  const folderFiles = getFolderFiles(folder);
 
   return {
     text: title,
@@ -122,13 +112,13 @@ function getSidebar(folder, title) {
 
 //Generate Sidebar Subfolders
 function getSidebarSubfoder(folder, title) {
-  const folderFiles = getFolderFiled(folder);
+  const folderFiles = getFolderFiles(folder);
 
   return { text: title, collapsible: true, children: [...folderFiles] };
 }
 
 //Generate Folder Files
-function getFolderFiled(folder) {
+function getFolderFiles(folder) {
   const extension = [".md"];
 
   let files = fs
@@ -140,28 +130,30 @@ function getFolderFiled(folder) {
         extension.includes(path.extname(item))
     );
 
-  files = files.map((file) => {
-    return `/${folder}/${file}`;
-  });
+  files = files.map((file) => `/${folder}/${file}`);
 
   files
-    .sort(function (a, b) {
-      var ma = a.replace(`\/${folder}/`, "").replace(".md", "");
-      var mb = b.replace(`\/${folder}/`, "").replace(".md", "");
+    .sort((a, b) => {
+      const ma = a.replace(`\/${folder}/`, "").replace(".md", "");
+      const mb = b.replace(`\/${folder}/`, "").replace(".md", "");
       if (!ma) {
         return -1;
-      } else if (!mb) {
-        return 1;
-      } else {
+      } else if (mb) {
         return ma - mb;
+      } else {
+        return 1;
       }
     })
-    .sort(function (a, b) {
-      var ma = a.replace(`\/${folder}/`, "");
+    .sort((a, b) => {
+      const ma = a.replace(`\/${folder}/`, "");
       if (ma === "index.md") {
         return -1;
       }
     });
 
   return files;
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

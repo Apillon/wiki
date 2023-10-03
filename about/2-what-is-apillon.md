@@ -1,5 +1,7 @@
 # What is Apillon?
 
+<div class="divider"></div>
+
 Apillon is a Web3 development platform for developers and businesses building on Web3. By gathering unified API endpoints, it delivers the functionalities of Polkadot parachains adapted to the standard development process and user-preferred technology stack.
 
 It gathers a unique set of tools, ample SDKs, and comprehensive documentation to fully support users in building their Web3 products from day one.

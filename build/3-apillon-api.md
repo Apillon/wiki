@@ -1,5 +1,7 @@
 # Apillon API
 
+<div class="divider"></div>
+
 ## Endpoints
 
 List of endpoints the API is available at:
@@ -61,7 +63,7 @@ If a request is made with an API key that lacks permission for called endpoint, 
 
 <div class="split_content">
 	<div class="split_side">
-  
+
 Every response has a unique ID which helps identify potential issues. It also includes a status code that can help identify the cause of a potential problem.
 
 Query requests through `GET` method can return status codes `200`, `400`, `401`, `403`, or `500`. Mutations through `POST`, `PUT` and `DELETE` can also return codes `201` and `422`. Invalid routes return status code `404`.
@@ -199,7 +201,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
-#### POST /storage/:bucketUuid/upload
+<div class="request-url">POST /storage/:bucketUuid/upload</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -254,9 +256,9 @@ Files in request body are returned in response `data.files` property. Each file 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload" \
@@ -329,7 +331,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
-#### POST /storage/:bucketUuid/upload/:sessionUuid/end
+<div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -354,9 +356,9 @@ Api respond with status `200 OK` , if operation is successfully executed.
 
   </div>
   <div class="split_side">
-
-<CodeGroup>
-    <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+          <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
@@ -391,7 +393,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 **Note: This endpoint returns files, that are successfully transferred to IPFS node. I.e. files with [fileStatus](#file-statuses) 3 or 4.**
 
-#### GET /storage/:bucketUuid/content
+<div class="request-url">GET /storage/:bucketUuid/content</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -441,9 +443,9 @@ Properties of each item:
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL basic" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/content" \
@@ -514,7 +516,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 
 > Gets details of a specific file inside a bucket.
 
-#### GET /storage/:bucketUuid/file/:id/detail
+<div class="request-url">GET /storage/:bucketUuid/file/:id/detail</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -562,9 +564,9 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:id/detail" \
@@ -607,7 +609,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 > Marks a file inside bucket for deletion by `id`, `fileUuid`, or `CID`. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
-#### DELETE /storage/:bucketUuid/file/:id
+<div class="request-url">DELETE /storage/:bucketUuid/file/:id</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -636,9 +638,9 @@ Returned fields are the same as fields that are returned in [GET file details AP
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/file/:id" \
@@ -694,7 +696,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API that creates file upload requests and returns URLs for files upload.
 
-#### POST /hosting/websites/:websiteUuid/upload
+<div class="request-url">POST /hosting/websites/:websiteUuid/upload</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -748,9 +750,9 @@ Files in request body are returned in response `data.files` property. Each file 
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload" \
@@ -839,7 +841,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
 
-#### POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end
+<div class="request-url">POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -864,9 +866,9 @@ Api respond with status `200 OK` , if operation is successfully executed.
 
   </div>
   <div class="split_side">
-
-<CodeGroup>
-    <CodeGroupItem title="cURL" active>
+    <br>
+    <CodeGroup>
+        <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
@@ -899,7 +901,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to trigger website deployment into specific environment.
 
-#### POST /hosting/websites/:websiteUuid/deploy
+<div class="request-url">POST /hosting/websites/:websiteUuid/deploy</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -964,9 +966,9 @@ Deployment goes through different stages and each stage updates `deploymentStatu
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/deploy" \
@@ -1009,7 +1011,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to get deployment.
 
-#### GET /hosting/websites/:websiteUuid/deployments/:deploymentId
+<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deploymentId</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -1051,9 +1053,9 @@ Deployment goes through different stages and each stage updates `deploymentStatu
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
@@ -1091,7 +1093,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
 
-#### GET /hosting/websites/:websiteUuid
+<div class="request-url">GET /hosting/websites/:websiteUuid</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -1123,9 +1125,9 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
   </div>
   <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
 
 ```sh
 curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid" \
