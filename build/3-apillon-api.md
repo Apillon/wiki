@@ -1191,32 +1191,32 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 
 #### Response Fields
 
-| Name             | Type        | Description                                                                                       |
-|------------------|-------------|---------------------------------------------------------------------------------------------------|
-| createTime       | `DateTime`  | Collection create time.                                                                           |
-| updateTime       | `DateTime`  | Collection last update time.                                                                      |
-| collectionType   | `number`    | Type of smart contract to use for collection (1 for generic, 2 for nestable).                     |
-| collectionUuid   | `string`    | Unique key of a collection.                                                                       |
-| symbol           | `string`    | NFT collection symbol (usually 3-4 characters long).                                              |
-| name             | `string`    | NFT collection name.                                                                              |
-| description      | `string`    | NFT collection description.                                                                       |
-| maxSupply        | `number`    | Maximal number of NFTs ever in existence (0 stands for unlimited).                                |
-| bucketUuid       | `string`    | UUID of the bucket where metadata is stored.                                                      |
-| baseUri          | `string`    | Base URI for collection metadata (token id and file extension is appended to it).                 |
-| baseExtension    | `string`    | File extension that is auto appended after token id to form a full URL.                           |
-| isSoulbound      | `boolean`   | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                       |
-| isRevokable      | `boolean`   | For revocable collection owner can destroy NFTs at any time.                                      |
-| royaltiesFees    | `number`    | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address. |
-| royaltiesAddress | `string`    | Address where royalties are sent to.                                                              |
-| collectionStatus | `number`    | Apillon internal/database collection status.                                                      |
-| contractAddress  | `string`    | Smart address of contract for deployed collection.                                                |
-| transactionHash  | `string`    | Deployment transaction hash/id.                                                                   |
-| deployerAddress  | `string`    | Wallet address of deployer.                                                                       |
-| chain            | `number`    | Blockchain id on which you want to release your collection.                                       |
-| drop             | `boolean`   | Determines if collection is mintable by public.                                                   |
-| dropStart        | `number`    | UNIX timestamp which determines public mint opening date and time.                                |
-| dropPrice        | `number`    | Price of NFT at mint stage in token that is used on `chain`.                                      |
-| dropReserve      | `number`    | Amount of NFTs reserved by owner.                                                                 |
+| Name             | Type        | Description                                                                                              |
+|------------------|-------------|----------------------------------------------------------------------------------------------------------|
+| createTime       | `DateTime`  | Collection create time.                                                                                  |
+| updateTime       | `DateTime`  | Collection last update time.                                                                             |
+| collectionType   | `number`    | Type of smart contract to use for collection. Available types are described [here](#collection-types).   |
+| collectionUuid   | `string`    | Unique key of a collection.                                                                              |
+| symbol           | `string`    | NFT collection symbol (usually 3-4 characters long).                                                     |
+| name             | `string`    | NFT collection name.                                                                                     |
+| description      | `string`    | NFT collection description.                                                                              |
+| maxSupply        | `number`    | Maximal number of NFTs ever in existence (0 stands for unlimited).                                       |
+| bucketUuid       | `string`    | UUID of the bucket where metadata is stored.                                                             |
+| baseUri          | `string`    | Base URI for collection metadata (token id and file extension is appended to it).                        |
+| baseExtension    | `string`    | File extension that is auto appended after token id to form a full URL.                                  |
+| isSoulbound      | `boolean`   | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                              |
+| isRevokable      | `boolean`   | For revocable collection owner can destroy NFTs at any time.                                             |
+| royaltiesFees    | `number`    | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address.        |
+| royaltiesAddress | `string`    | Address where royalties are sent to.                                                                     |
+| collectionStatus | `number`    | Apillon internal/database collection status.                                                             |
+| contractAddress  | `string`    | Smart address of contract for deployed collection.                                                       |
+| transactionHash  | `string`    | Deployment transaction hash/id.                                                                          |
+| deployerAddress  | `string`    | Wallet address of deployer.                                                                              |
+| chain            | `number`    | Blockchain id on which you want to release your collection.                                              |
+| drop             | `boolean`   | Determines if collection is mintable by public.                                                          |
+| dropStart        | `number`    | UNIX timestamp which determines public mint opening date and time.                                       |
+| dropPrice        | `number`    | Price of NFT at mint stage in token that is used on `chain`.                                             |
+| dropReserve      | `number`    | Amount of NFTs reserved by owner.                                                                        |
 
   </div>
   <div class="split_side">
@@ -1305,7 +1305,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 
 | Name             | Description                                                                                           | Required |
 |------------------|-------------------------------------------------------------------------------------------------------|----------|
-| collectionStatus | Collection status.                                                                                    | false    |
+| collectionStatus | Collection status. Find available statuses [here](#collection-statuses).                              | false    |
 | search           | Search by collection name.                                                                            | false    |
 | page             | Collections are paginated by default. This parameter is used to get collections from a specific page. | false    |
 | limit            | Number of files on a page (default: 20).                                                              | false    |
@@ -1488,8 +1488,8 @@ Collection can be created with a few features/functionalities:
 - royalties: owner can enable royalties to earn specified percentage per each NFT trade
 
 2 types of collections are supported:
-1. Generic collection
-2. Nestable collection (the same as generic but allows nesting NFTs under each other)
+1. Generic collection (based on [OpenZeppelins ERC-721](https://docs.openzeppelin.com/contracts/3.x/erc721) NFT standard)
+2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard)
 
 #### POST /nfts/collections
 
