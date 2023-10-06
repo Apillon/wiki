@@ -51,10 +51,10 @@ The flow of deploying a new website looks like this:
 
 You can also directly deploy uploaded files to production.
 
-### Standard flow example
+### Usage example
 
 ```ts
-import { Hosting } from "@apillon/sdk";
+import { Hosting, DeployToEnvironment, DeploymentStatus } from "@apillon/sdk";
 
 const hosting = new Hosting({
   apiKey: "",
@@ -63,94 +63,25 @@ const hosting = new Hosting({
 
 const website = hosting.website("uuid");
 await website.uploadFromFolder("./path/to/folder");
+
 const { deploymentId } = await website.deploy(
   DeployToEnvironment.DIRECTLY_TO_PRODUCTION
 );
-await website.getDeployStatus(deploymentId);
+const res = await website.getDeployStatus(deploymentId);
+if (res.deploymentStatus == DeploymentStatus.SUCCESSFUL) {
+  // done
+}
 ```
 
-### Initialization
+### Detailed docs
 
-> Create an instance of hosting module.
-
-```ts
-import { Hosting } from "@apillon/sdk";
-
-const hosting = new Hosting({
-  apiKey: "",
-  apiSecret: "",
-});
-```
-
-### List websites
-
-> Get a list of all available websites.
-
-```ts
-const websites = await hosting.list();
-```
-
-### website
-
-> Directly initialize website.
-
-```ts
-const website = hosting.website("uuid");
-```
-
-### Get website
-
-> Initialize and get information of a website.
-
-```ts
-const website = await hosting.website("uuid").get();
-```
-
-### Upload from folder
-
-> Upload new website files.
-
-```ts
-const website = hosting.website("uuid");
-await website.uploadFromFolder("./path/to/folder");
-```
-
-### Deploy
-
-> Deploy uploaded files to different environments.
-
-```ts
-import { DeployToEnvironment } from "@apillon/sdk";
-
-const website = hosting.website("uuid");
-const res = await website.deploy(DeployToEnvironment.TO_STAGING);
-console.log(res.deploymentId);
-```
-
-#### Environments Enum
-
-| Enum | Name                   | Description                                                             |
-| ---- | ---------------------- | ----------------------------------------------------------------------- |
-| 1    | TO_STAGING             | Deploys files to staging environment.                                   |
-| 2    | STAGING_TO_PRODUCTION  | Deploys files that are currently in staging environment to production.  |
-| 3    | DIRECTLY_TO_PRODUCTION | Deploys uploaded files directly to production environment.              |
-
-### Get deploy status
-
-> Gets deployment info.
-
-```ts
-const website = hosting.website("uuid");
-await website.getDeployStatus("uuid");
-```
+Detailed method documentation is available [here](https://sdk-docs.apillon.io).
 
 ## Storage
 
 Storage module encapsulates functionalities for Storage service available on Apillon dashboard.
 
-### Initialization
-
-> Create an instance of storage module.
+### Usage example
 
 ```ts
 import { Storage } from "@apillon/sdk";
@@ -159,26 +90,31 @@ const storage = new Storage({
   apiKey: "",
   apiSecret: "",
 });
-```
 
-### Bucket instance
-
-> Creates a bucket instance.
-
-```ts
-const bucket = storage.bucket("uuid");
-```
-
-### Get bucket
-
-> Gets bucket information.
-
-```ts
 const bucket = await storage.bucket("uuid").get();
 ```
 
+### Detailed docs
+
+Detailed method documentation is available [here](https://sdk-docs.apillon.io).
+
 ## NFT
 
+NFT module encapsulates functionalities for NFT service available on Apillon dashboard.
+
+### Usage example
+
+```ts
+import { Nft } from "@apillon/sdk";
+
+const nft = new Nft({
+  apiKey: "",
+  apiSecret: "",
+});
+
+const collection = await nft.collection("uuid").get();
 ```
 
-```
+### Detailed docs
+
+Detailed method documentation is available [here](https://sdk-docs.apillon.io).
