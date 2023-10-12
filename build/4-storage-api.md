@@ -431,6 +431,19 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
         "items": [
             ...
             {
+                "uuid": "d61753fd-26ba-45cb-9277-89e96d6cfd11",
+                "type": 1,
+                "name": "Folder 1",
+                "CID": null,
+                "createTime": "2023-10-12T12:20:54.000Z",
+                "updateTime": "2023-10-12T12:20:54.000Z",
+                "contentType": null,
+                "size": null,
+                "directoryUuid": null,
+                "link": null,
+                "fileStatus": null
+            },
+            {
                 "uuid": "63ace39b-ec7c-4889-8d94-83a2ad7fb154",
                 "type": 2,
                 "name": "My file.txt",
@@ -441,19 +454,6 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
                 "size": 6,
                 "directoryUuid": null,
                 "link": "https://ipfs-dev.apillon.io/ipfs/QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
-                "fileStatus": 3
-            },
-            {
-                "uuid": "0d224e20-26b9-47a6-8d27-279c5c5a9751",
-                "type": 2,
-                "name": "My file in folder.txt",
-                "CID": "QmSjhrQ1eGCCYoorv1qvuJnzmud11JJxjv8Rdere7A76Za",
-                "createTime": "2023-10-12T12:17:19.000Z",
-                "updateTime": "2023-10-12T12:17:42.000Z",
-                "contentType": "text/plain",
-                "size": 6,
-                "directoryUuid": null,
-                "link": "https://ipfs-dev.apillon.io/ipfs/QmSjhrQ1eGCCYoorv1qvuJnzmud11JJxjv8Rdere7A76Za",
                 "fileStatus": 3
             }
             ...
@@ -472,7 +472,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 
 > Gets details of a specific file inside a bucket.
 
-<div class="request-url">GET /storage/:bucketUuid/file/:id/detail</div>
+<div class="request-url">GET /storage/:bucketUuid/files/:id</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -482,7 +482,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 | Name       | Description                                                      | required |
 | ---------- | ---------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of a bucket. Key is displayed on developer dashboard. | true     |
-| id         | File internal ID, UUID or CID.                                   | true     |
+| id         | File UUID or CID.                                                | true     |
 
 #### Possible errors
 
@@ -492,7 +492,20 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
 
 #### Response fields
 
-Response `data` property contains two properties: `fileStatus` and `file`. File status tells the current status of the file relative to the entire flow the file goes through to be fully loaded and pinned on Crust Network, while `file` property contains file metadata fields.
+| Field         | Type       | Description                                                       |
+| ------------- | ---------- | ----------------------------------------------------------------- |
+| createTime    | `DateTime` | File create time                                                  |
+| updateTime    | `DateTime` | File last update time                                             |
+| fileUuid      | `string`   | File UUID property                                                |
+| CID           | `string`   | File content identifier - label used to point to content in IPFS. |
+| CIDv1         | `string`   | CID version 1                                                     |
+| name          | `string`   | File name                                                         |
+| contentType   | `string`   | File content type. Value is taken from file upload request        |
+| path          | `integer`  | Full path to file                                                 |
+| size          | `integer`  | File size in bytes                                                |
+| fileStatus    | `number`   | File statuses are described in below table                        |
+| directoryUuid | `string`   | Uuid of directory in which file is located                        |
+| link          | `string`   | Link on IPFS gateway.                                             |
 
 ##### File statuses
 
@@ -503,21 +516,6 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
 | 3      | File is transferred to IPFS node.                                 |
 | 4      | File is replicated to different IPFS nodes through Crust Network. |
 
-##### File metadata
-
-`CID`, `size`, and `downloadLink` are present if file is already loaded to IPFS.
-
-| Field                                                                    | Type      | Description                                          |
-| ------------------------------------------------------------------------ | --------- | ---------------------------------------------------- |
-| id                                                                       | `integer` | Apillon internal file ID                             |
-| status                                                                   | `integer` | Apillon internal file status                         |
-| fileUuid                                                                 | `string`  | File unique identifier                               |
-| name                                                                     | `string`  | File name                                            |
-| contentType                                                              | `string`  | File content type (MIME type)                        |
-| [CID](https://docs.ipfs.tech/concepts/content-addressing/#what-is-a-cid) | `string`  | File content identifier pointing to material in IPFS |
-| size                                                                     | `integer` | File size in bytes                                   |
-| downloadLink                                                             | `string`  | File link on Apillon IPFS gateway                    |
-
   </div>
   <div class="split_side">
     <br>
@@ -525,7 +523,7 @@ Response `data` property contains two properties: `fileStatus` and `file`. File 
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:id/detail" \
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/files/:id" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -536,21 +534,21 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 
 ```json
 {
-  "id": "5be33c54-2cc9-46f4-8f50-debc98866810",
+  "id": "1beec975-9836-48b2-a284-591ae01f7a58",
   "status": 200,
   "data": {
-    "fileStatus": 4,
-    "file": {
-      "id": 397,
-      "status": 5,
-      "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
-      "CID": "QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42",
-      "name": "My file.txt",
-      "contentType": "text/plain",
-      "size": 68,
-      "fileStatus": 4,
-      "downloadLink": "https://ipfs.apillon.io/ipfs/QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42"
-    }
+    "createTime": "2023-10-12T12:20:54.000Z",
+    "updateTime": "2023-10-12T12:21:17.000Z",
+    "fileUuid": "120afe0e-b146-45a5-82e0-52d2125df294",
+    "CID": "QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5",
+    "CIDv1": "bafybeiefrfkhkevhdvacfjds7gw7mh2wlnuo66aeyffrik7wao5tlvfy3q",
+    "name": "Hello.txt",
+    "contentType": "",
+    "path": "Folder 1/",
+    "size": 11,
+    "fileStatus": 3,
+    "link": "https://ipfs-dev.apillon.io/ipfs/QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5",
+    "directoryUuid": "d61753fd-26ba-45cb-9277-89e96d6cfd11"
   }
 }
 ```
@@ -562,10 +560,10 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 
 ### Delete file
 
-> Marks a file inside bucket for deletion by `id`, `fileUuid`, or `CID`. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
+> Marks a file inside bucket for deletion. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
-<div class="request-url">DELETE /storage/:bucketUuid/file/:id</div>
+<div class="request-url">DELETE /storage/buckets/:bucketUuid/files/:fileUuid</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -575,7 +573,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 | Name       | Description                                                    | required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
-| id         | File internal ID, UUID, or CID.                                | true     |
+| fileUuid   | File internal ID, UUID, or CID.                                | true     |
 
 #### Possible errors
 
@@ -586,9 +584,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/file/:
 
 #### Response fields
 
-The response of delete function is a record that has been marked for deletion.
-
-Returned fields are the same as fields that are returned in [GET file details API](#file-metadata).
+The response of delete function is a boolean value, depends if deletion was successful.
 
 **Note:** The `status` property of file is 8. This means the file is marked for deletion and will be deleted after a certain period.
 
@@ -599,7 +595,7 @@ Returned fields are the same as fields that are returned in [GET file details AP
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/file/:id" \
+curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucketUuid/files/:fileUuid" \
 --header "Authorization: Basic :credentials" \
 --data-raw ""
 ```
@@ -613,16 +609,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/:bucketUuid/fil
 {
   "id": "bc92ff8d-05f2-4380-bb13-75a1b6b7f388",
   "status": 200,
-  "data": {
-    "id": 397,
-    "status": 8,
-    "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
-    "CID": "QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42",
-    "name": "My file.txt",
-    "contentType": "text/plain",
-    "size": 68,
-    "fileStatus": 4
-  }
+  "data": true
 }
 ```
 
