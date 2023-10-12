@@ -28,11 +28,9 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 | orderBy | One or multiple properties, separated by a comma, used to order data.                             | false    |
 | desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.              | false    |
 
-#### Response fields
+#### Response fields (bucket)
 
-The `Data` property of API response contains two properties: `items` (records that match the current query) and `total` (number of all records. This information should be used for pagination: Round up (`total` / `limit`) = number of pages.
-
-Each item is an instance of bucket DTO, with below properties:
+Each item is an instance of bucket model, with below properties:
 
 | Field       | Type       | Description                                                                                 |
 | ----------- | ---------- | ------------------------------------------------------------------------------------------- |
@@ -112,13 +110,15 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 | name        | `string` | Bucket name.        | true     |
 | description | `string` | Bucket description. | false    |
 
+#### Possible errors
+
 | Code     | Description                             |
 | -------- | --------------------------------------- |
 | 42200003 | Request body is missing a `name` field. |
 
 #### Response
 
-Response is an instance of bucket DTO, described above.
+Response is an instance of [bucket](#response-fields-bucket), described above.
 
   </div>
   <div class="split_side">
@@ -127,18 +127,10 @@ Response is an instance of bucket DTO, described above.
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload" \
+curl --location --request POST "https://api.apillon.io/storage/buckets" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
---data-raw "{
-    \"files\": [
-        {
-            \"fileName\": \"My test file\",
-            \"contentType\": \"text/html\"
-        }
-    ]
-
-}"
+--data-raw "{ \"name\": \"My bucket\" }"
 ```
 
   </CodeGroupItem>
@@ -148,43 +140,18 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 ```json
 {
-  "id": "cbdc4930-2bbd-4b20-84fa-15daa4429952",
+  "id": "e50c8276-fd8d-47c4-b42a-bf19645a204b",
   "status": 201,
   "data": {
-    "sessionUuid": "3b6113bc-f265-4662-8cc5-ea86f06cc74b",
-    "files": [
-      {
-        "path": null,
-        "fileName": "My test file",
-        "contentType": "text/html",
-        "url": "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject",
-        "fileUuid": "4ef1177b-f7c9-4434-be56-a559cec0cc18"
-      }
-    ]
+    "createTime": "2023-10-12T11:49:49.551Z",
+    "updateTime": "2023-10-12T11:49:49.551Z",
+    "bucketUuid": "8218080f-1321-4687-9a89-200b06afb930",
+    "bucketType": 1,
+    "name": "My bucket",
+    "description": null,
+    "size": 0
   }
 }
-```
-
-**Example for uploading to signed URL:**
-
-  </CodeGroupItem>
-  </CodeGroup>
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL binary" active>
-
-```sh
-curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject" \
---data-binary "My test content"
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="cURL file from disk" active>
-
-```sh
-curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws.com/STORAGE_sessions/73/3b6113bc-f265-4662-8cc5-ea86f06cc74b/My%20test%20file?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQIMRRA6GJRL57L7G%2F20230215%2Feu-west-1%2Fs3%2Faws4_request&X-Amz-Date=20230215T114524Z&X-Amz-Expires=900&X-Amz-Signature=499367f6c6bff5be50686724475ac2fa6307b77b94fd1a25584c092fe74b0a58&X-Amz-SignedHeaders=host&x-id=PutObject" \
---header "Content-Type: text/plain" \
---data-binary ":full path to file"
 ```
 
   </CodeGroupItem>
@@ -210,9 +177,10 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 #### Body fields
 
-| Name  | Type    | Description              | Required |
-| ----- | ------- | ------------------------ | -------- |
-| files | `array` | Array of files metadata. | true     |
+| Name        | Type     | Description                                                                            | Required |
+| ----------- | -------- | -------------------------------------------------------------------------------------- | -------- |
+| files       | `array`  | Array of files metadata. Maximum 200 items.                                            | true     |
+| sessionUuid | `string` | Session unique key, which has to be specified to add more uploads to existing session. | true     |
 
 Each file metadata object in `files` array, contain below properties.
 
@@ -228,8 +196,8 @@ Each file metadata object in `files` array, contain below properties.
 | -------- | ------------------------------------------------------------------------------ |
 | 40406002 | Bucket does not exist.                                                         |
 | 42200040 | Request body is missing a `files` field.                                       |
+| 42200150 | `files` has invalid length. It should be between 1 and 200                     |
 | 42200008 | Request body file object is missing a `fileName` field.                        |
-| 40006002 | Bucket has reached max size limit.                                             |
 | 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it. |
 | 50006003 | Internal error - Apillon was unable to generate upload URL.                    |
 
@@ -360,9 +328,6 @@ Api respond with status `200 OK` , if operation is successfully executed.
 curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
---data-raw "{
-    \"directSync\": true
-}"
 ```
 
   </CodeGroupItem>
@@ -383,11 +348,11 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
   </div>
 </div>
 
-### Get bucket content
+### List bucket content
 
-> Gets directories and files in bucket. Items are paginated and can be filtered and ordered through query parameters.
+> Gets directories and files in bucket. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
 
-**Note: This endpoint returns files, that are successfully transferred to IPFS node. I.e. files with [fileStatus](#file-statuses) 3 or 4.**
+**Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
 <div class="request-url">GET /storage/:bucketUuid/content</div>
 
@@ -402,14 +367,11 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 #### Query parameters
 
-| Name        | Description                                                                               | Required |
-| ----------- | ----------------------------------------------------------------------------------------- | -------- |
-| search      | Filters file by file name.                                                                | false    |
-| directoryId | Gets files inside a specific directory.                                                   | false    |
-| page        | Files are paginated by default. This parameter is used to get files from a specific page. | false    |
-| limit       | Number of files on a page (default: 20).                                                  | false    |
-| orderBy     | One or multiple properties, separated by a comma, used to order data.                     | false    |
-| desc        | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.      | false    |
+All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+
+| Name          | Description                             | Required |
+| ------------- | --------------------------------------- | -------- |
+| directoryUuid | Gets files inside a specific directory. | false    |
 
 #### Possible errors
 
@@ -423,19 +385,19 @@ The `Data` property of API response contains two properties: `items` (records th
 
 Properties of each item:
 
-| Field             | Type       | Description                                                        |
-| ----------------- | ---------- | ------------------------------------------------------------------ |
-| id                | `integer`  | Item internal ID                                                   |
-| type              | `integer`  | Item type with possible values `1`(directory) and `2`(file)        |
-| name              | `string`   | Item (directory or file) name                                      |
-| createTime        | `DateTime` | Item create time                                                   |
-| updateTime        | `DateTime` | Item last update time                                              |
-| contentType       | `string`   | Item content type (MIME type)                                      |
-| size              | `integer`  | Item size in bytes                                                 |
-| parentDirectoryId | `integer`  | ID of directory where a file is located                            |
-| fileUuid          | `string`   | File unique identifier                                             |
-| CID               | `string`   | File content identifier - label used to point to material in IPFS. |
-| link              | `string`   | File link on Apillon IPFS gateway.                                 |
+| Field         | Type       | Description                                                       |
+| ------------- | ---------- | ----------------------------------------------------------------- |
+| uuid          | `string`   | Item UUID property                                                |
+| type          | `integer`  | Item type with possible values `1`(directory) and `2`(file)       |
+| name          | `string`   | Item (directory or file) name                                     |
+| CID           | `string`   | File content identifier - label used to point to content in IPFS. |
+| createTime    | `DateTime` | Item create time                                                  |
+| updateTime    | `DateTime` | Item last update time                                             |
+| contentType   | `string`   | Item content type (MIME type).                                    |
+| size          | `integer`  | Item size in bytes                                                |
+| directoryUuid | `string`   | Uuid of directory in which directory of file is located           |
+| link          | `string`   | Link on IPFS gateway.                                             |
+| fileStatus    | `number`   | Current [status](#file-statuses) of file                          |
 
   </div>
   <div class="split_side">
@@ -469,32 +431,30 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
         "items": [
             ...
             {
-                "type": 1,
-                "id": 11,
-                "status": 5,
-                "name": "My directory",
-                "CID": null,
-                "createTime": "2022-12-08T13:27:00.000Z",
-                "updateTime": "2023-01-10T12:18:55.000Z",
-                "contentType": null,
-                "size": null,
-                "parentDirectoryId": null,
-                "fileUuid": null,
-                "link": null
+                "uuid": "63ace39b-ec7c-4889-8d94-83a2ad7fb154",
+                "type": 2,
+                "name": "My file.txt",
+                "CID": "QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
+                "createTime": "2023-10-12T12:17:19.000Z",
+                "updateTime": "2023-10-12T12:17:42.000Z",
+                "contentType": "",
+                "size": 6,
+                "directoryUuid": null,
+                "link": "https://ipfs-dev.apillon.io/ipfs/QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
+                "fileStatus": 3
             },
             {
+                "uuid": "0d224e20-26b9-47a6-8d27-279c5c5a9751",
                 "type": 2,
-                "id": 397,
-                "status": 5,
-                "name": "My file.txt",
-                "CID": "QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42",
-                "createTime": "2023-01-19T10:10:01.000Z",
-                "updateTime": "2023-01-19T10:10:31.000Z",
+                "name": "My file in folder.txt",
+                "CID": "QmSjhrQ1eGCCYoorv1qvuJnzmud11JJxjv8Rdere7A76Za",
+                "createTime": "2023-10-12T12:17:19.000Z",
+                "updateTime": "2023-10-12T12:17:42.000Z",
                 "contentType": "text/plain",
-                "size": 68,
-                "parentDirectoryId": null,
-                "fileUuid": "0a775bfa-a0d0-4e0b-9a1e-e909e426bd11",
-                "link": "https://ipfs.apillon.io/ipfs/QmcG9r6Rdw9ZdJ4imGBWc6mi5VzWHQfkcLDMe2aP74eb42"
+                "size": 6,
+                "directoryUuid": null,
+                "link": "https://ipfs-dev.apillon.io/ipfs/QmSjhrQ1eGCCYoorv1qvuJnzmud11JJxjv8Rdere7A76Za",
+                "fileStatus": 3
             }
             ...
         ],
