@@ -1,6 +1,7 @@
 # Hosting API
 
-Hosting API provides endpoints, that can be used to implement [CI/CD](https://en.wikipedia.org/wiki/CI/CD).
+Hosting API provides endpoints for listing, creation and deployment of websites.
+API can be used to implement [CI/CD](https://en.wikipedia.org/wiki/CI/CD).
 To deploy page through Apillon API, follow below steps:
 
 1. Upload website files to Apillon cloud server.
@@ -24,18 +25,21 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 <div class="split_content">
 	<div class="split_side">
 
-#### Response fields
+#### Response fields (website)
 
-Each item is an instance of website DTO, with below properties:
+Each item is an instance of website class, with below properties:
 
-| Field       | Type       | Description                                                                                                              |
-| ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
-| websiteUuid | `string`   | Website unique identifier                                                                                                |
-| name        | `string`   | Website name                                                                                                             |
-| description | `string`   | Website description                                                                                                      |
-| domain      | `string`   | Website domain. This property needs to be specified, so that Apillon is able to create SSL Certificates for IPFS gateway |
-| createTime  | `DateTime` | Item create time                                                                                                         |
-| updateTime  | `DateTime` | Item last update time                                                                                                    |
+| Field          | Type       | Description                                                                                                              |
+| -------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
+| websiteUuid    | `string`   | Website unique identifier                                                                                                |
+| name           | `string`   | Website name                                                                                                             |
+| description    | `string`   | Website description                                                                                                      |
+| domain         | `string`   | Website domain. This property needs to be specified, so that Apillon is able to create SSL Certificates for IPFS gateway |
+| bucketUuid     | `string`   | Uuid of bucket for file upload                                                                                           |
+| ipnsStaging    | `string`   | Staging IPNS. Set if deployment to staging environment exists                                                            |
+| ipnsProduction | `string`   | Production IPNS.                                                                                                         |
+| createTime     | `DateTime` | Item create time                                                                                                         |
+| updateTime     | `DateTime` | Item last update time                                                                                                    |
 
   </div>
   <div class="split_side">
@@ -69,12 +73,15 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
         "items": [
             ...
             {
-                "websiteUuid": "851595b6-ac6d-11ed-96a4-02420a000705",
+                "createTime": "2023-10-11T10:51:13.000Z",
+                "updateTime": "2023-10-11T10:51:13.000Z",
+                "websiteUuid": "5fc7df41-f311-410d-8cb3-998198999a48",
                 "name": "My website",
                 "description": null,
-                "domain": "https://www.website.si",
-                "createTime": "2023-01-27T12:31:34.000Z",
-                "updateTime": "2023-02-14T13:43:10.000Z"
+                "domain": null,
+                "bucketUuid": "1938a45c-3a54-43ee-af08-3abe90265f46",
+                "ipnsStaging": null,
+                "ipnsProduction": null
             }
             ...
         ],
@@ -99,10 +106,13 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 #### Body fields
 
-| Name        | Type     | Description          | Required |
-| ----------- | -------- | -------------------- | -------- |
-| name        | `string` | Website name.        | true     |
-| description | `string` | Website description. | false    |
+| Name        | Type     | Description                                                                                                                    | Required |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| name        | `string` | Website name.                                                                                                                  | true     |
+| description | `string` | Website description.                                                                                                           | false    |
+| domain      | `string` | Domain, where website will be accessible. If this is not specified in this API call, it can be later set in developer console. | false    |
+
+#### Possible errors
 
 | Code     | Description                             |
 | -------- | --------------------------------------- |
@@ -110,7 +120,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 #### Response
 
-Response is an instance of website DTO, described above.
+Response is an instance of [website class](#response-fields-website), described above.
 
   </div>
   <div class="split_side">
@@ -123,7 +133,9 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data "{
-    \"name\": \"My website\"
+    \"name\": \"My awesome website\",
+    \"description\": \"My unstoppable website\",
+    \"domain\": \"example-domain.io\"
 }"
 ```
 
@@ -134,16 +146,16 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 
 ```json
 {
-  "id": "489f33ac-eef7-4599-b9c7-d6022f3dbf6b",
+  "id": "e37749a4-b6b1-47ce-8eaf-3a6a9da15be7",
   "status": 201,
   "data": {
-    "createTime": "2023-10-10T20:36:08.782Z",
-    "updateTime": "2023-10-10T20:36:08.782Z",
-    "websiteUuid": "5b8d1943-afd9-4eb7-ba88-bd73af1445fb",
-    "name": "My website",
-    "description": null,
-    "domain": null,
-    "bucketUuid": "9c9aec59-8ea1-4522-bfe0-37a69284c294",
+    "createTime": "2023-10-13T07:41:30.931Z",
+    "updateTime": "2023-10-13T07:41:30.931Z",
+    "websiteUuid": "1a15d258-bbc9-459f-b83f-97710da6b983",
+    "name": "My awesome website",
+    "description": "My unstoppable website",
+    "domain": "example-domain.io",
+    "bucketUuid": "cd299839-dae6-47d0-8fdc-40143163e156",
     "ipnsStaging": null,
     "ipnsProduction": null
   }
@@ -179,15 +191,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 
 #### Response fields
 
-| Field          | Type     | Description                                                              |
-| -------------- | -------- | ------------------------------------------------------------------------ |
-| websiteUuid    | `string` | Website unique identifier                                                |
-| name           | `string` | Website name                                                             |
-| description    | `string` | Website description                                                      |
-| domain         | `string` | Domain for production environment                                        |
-| bucketUuid     | `string` | UUID of bucket, for file upload                                          |
-| ipnsStaging    | `string` | IPNS name of staging version. Use this to access website on IPFS gateway |
-| ipnsProduction | `string` | IPNS name of production version                                          |
+Response is an instance of [website class](#response-fields-website), described above.
 
   </div>
   <div class="split_side">
@@ -207,16 +211,18 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 ```json
 {
-  "id": "0eb223ce-51c0-4a9b-96ce-331a1cd99603",
+  "id": "a299ed8f-b682-4411-9fd9-eb3a3da31887",
   "status": 200,
   "data": {
-    "websiteUuid": "a1d90d2c-f167-4889-8620-204862833851",
-    "name": "My test page",
-    "description": null,
-    "domain": "",
-    "bucketUuid": "57aef0fc-84cb-4564-9af2-0f7bfc0ef729",
-    "ipnsStaging": "k2k4r8p6fvcyq5qogaqdtvmqn5vyvyy3khut1llkrz13ls16ocp4gojx",
-    "ipnsProduction": "k2k4r8ng8nqexubrmbwnhsuu1d6n4ebgnxsbdcu9gxk8uv3l67098hge"
+    "createTime": "2023-10-13T07:41:30.000Z",
+    "updateTime": "2023-10-13T07:41:30.000Z",
+    "websiteUuid": "1a15d258-bbc9-459f-b83f-97710da6b983",
+    "name": "My awesome website",
+    "description": "My unstoppable website",
+    "domain": "example-domain.io",
+    "bucketUuid": "cd299839-dae6-47d0-8fdc-40143163e156",
+    "ipnsStaging": null,
+    "ipnsProduction": null
   }
 }
 ```
@@ -243,9 +249,10 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 #### Body fields
 
-| Name  | Type    | Description              | Required |
-| ----- | ------- | ------------------------ | -------- |
-| files | `array` | Array of files metadata. | true     |
+| Name        | Type     | Description                                                                                                               | Required |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------- | -------- |
+| files       | `array`  | Array of files metadata.                                                                                                  | true     |
+| sessionUuid | `string` | Session unique key. If not specified, API generates new one. It is possible to use same sessionUuid in multiple requests. | false    |
 
 Each file metadata object in `files` array, contain below properties.
 
@@ -262,15 +269,14 @@ Each file metadata object in `files` array, contain below properties.
 | 40406010 | Website does not exists                                     |
 | 42200040 | Request body is missing a `files` field.                    |
 | 42200008 | Request body file object is missing a `fileName` field.     |
-| 40006002 | Website has reached max size limit.                         |
 | 50006003 | Internal error - Apillon was unable to generate upload URL. |
 
 #### Response
 
-| Name        | Type     | Description                                                                         |
-| ----------- | -------- | ----------------------------------------------------------------------------------- |
-| sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files ti website |
-| files       | `array`  | Array of files metadata.                                                            |
+| Name        | Type     | Description                                                                          |
+| ----------- | -------- | ------------------------------------------------------------------------------------ |
+| sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files to website. |
+| files       | `array`  | Array of files metadata.                                                             |
 
 Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
 
@@ -382,10 +388,10 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 #### URL parameters
 
-| Name        | Description                                                                           | Required |
-| ----------- | ------------------------------------------------------------------------------------- | -------- |
-| websiteUuid | Unique key of website. Key is displayed in developer dashboard.                       | true     |
-| sessionUuid | Session uuid, recieved in [get URL for upload request](#post-storagebucketuuidupload) | true     |
+| Name        | Description                                                                                     | Required |
+| ----------- | ----------------------------------------------------------------------------------------------- | -------- |
+| websiteUuid | Unique key of website.                                                                          | true     |
+| sessionUuid | Session uuid, passed or recieved in [get URL for upload request](#post-storagebucketuuidupload) | true     |
 
 #### Possible errors
 
@@ -408,9 +414,6 @@ Api respond with status `200 OK` , if operation is successfully executed.
 curl --location --request POST "https://api.apillon.io/hosting/websites/:websiteUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
---data-raw "{
-    \"directSync\": true
-}"
 ```
 
   </CodeGroupItem>
@@ -456,7 +459,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 | Status | Description                                                                                                                                                      |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1      | Uploaded files are deployed to staging environment. Website will be available through staging IPNS link                                                          |
+| 1      | Uploaded files are deployed to staging(preview) environment. Website will be available through staging IPNS link                                                 |
 | 2      | Files from current staging environment are deployed to production environment. Website is pinned to CRUST, replicated and available through production IPNS link |
 | 3      | Same as `2`, only that the source are uploaded files, not files in staging environment.                                                                          |
 
@@ -480,14 +483,17 @@ In `production`, this CID is pinned to CRUST and replicated to other nodes.
 
 ##### Deployment fields
 
-| Field            | Type     | Description                                                                                   |
-| ---------------- | -------- | --------------------------------------------------------------------------------------------- |
-| id               | `number` | Deployment internal number                                                                    |
-| environment      | `number` | Environment to where website will be deployed                                                 |
-| deploymentStatus | `number` | Current status of deployment. Possible values are listed below.                               |
-| cid              | `string` | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
-| size             | `number` | Size of website                                                                               |
-| number           | `number` | Deployment serial number - for this environment                                               |
+| Field            | Type       | Description                                                                                   |
+| ---------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| deploymentUuid   | `string`   | Deployment unique identifier                                                                  |
+| environment      | `number`   | Environment to where website will be deployed                                                 |
+| deploymentStatus | `number`   | Current status of deployment. Possible values are listed below.                               |
+| cid              | `string`   | When deployment is successful, CID points to directory on IPFS, where this page is accessible |
+| cidv1            | `string`   | CID version 1                                                                                 |
+| size             | `number`   | Size of website                                                                               |
+| number           | `number`   | Deployment serial number - for this environment                                               |
+| createTime       | `DateTime` | Deployment create time                                                                        |
+| updateTime       | `DateTime` | Deployment last update time                                                                   |
 
 ##### Website deployment statuses
 
@@ -522,17 +528,18 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 ```json
 {
-  "id": "32eff81a-6b0b-4a92-a5cb-e5cebf6d6c28",
+  "id": "dfe79ed9-e2fe-4195-b829-053dee1e6fd1",
   "status": 200,
   "data": {
-    "id": 91,
-    "createTime": "2023-10-11T19:06:55.347Z",
-    "updateTime": "2023-10-11T19:06:55.347Z",
+    "createTime": "2023-10-13T12:23:51.721Z",
+    "updateTime": "2023-10-13T12:23:51.721Z",
+    "deploymentUuid": "583790dc-7b56-4563-8a33-d88243eed11e",
     "environment": 1,
     "deploymentStatus": 0,
     "cid": null,
+    "cidv1": null,
     "size": null,
-    "number": 5
+    "number": 1
   }
 }
 ```
@@ -560,7 +567,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 #### Response fields
 
-Each item in list is a [deployment DTO](#deployment-fields) instance.
+Each item in list is a [deployment](#deployment-fields) instance.
 
   </div>
   <div class="split_side">
@@ -594,24 +601,26 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
         "items": [
             ...
             {
-                "id": 90,
-                "createTime": "2023-10-11T19:04:40.000Z",
-                "updateTime": "2023-10-11T19:05:06.000Z",
-                "environment": 1,
-                "deploymentStatus": 100,
-                "cid": null,
-                "size": 11,
-                "number": 4
+                "createTime": "2023-10-13T12:28:39.000Z",
+                "updateTime": "2023-10-13T12:29:15.000Z",
+                "deploymentUuid": "12b47aef-6a01-4799-a4da-79ea7595237d",
+                "environment": 2,
+                "deploymentStatus": 10,
+                "cid": "QmTF31ediusaBTNn2Z1Jtr5fF1iVp9oDA8EWz9my6aVx8V",
+                "cidv1": "bafybeici3ivncsgfszf7tbmttayyjk6hs25354zs5nczujv44rco4qiv7y",
+                "size": 41,
+                "number": 1
             },
             {
-                "id": 91,
-                "createTime": "2023-10-11T19:06:55.000Z",
-                "updateTime": "2023-10-11T19:07:20.000Z",
+                "createTime": "2023-10-13T12:23:51.000Z",
+                "updateTime": "2023-10-13T12:24:17.000Z",
+                "deploymentUuid": "583790dc-7b56-4563-8a33-d88243eed11e",
                 "environment": 1,
                 "deploymentStatus": 10,
-                "cid": "QmeY1amT7yUcSzjehwH7LcEwKNdTZnZnSYLXPnABTzUq8d",
-                "size": 11,
-                "number": 5
+                "cid": "QmTF31ediusaBTNn2Z1Jtr5fF1iVp9oDA8EWz9my6aVx8V",
+                "cidv1": "bafybeici3ivncsgfszf7tbmttayyjk6hs25354zs5nczujv44rco4qiv7y",
+                "size": 41,
+                "number": 1
             }
             ...
         ],
@@ -629,17 +638,17 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get deployment.
 
-<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deploymentId</div>
+<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deployment_uuid</div>
 
 <div class="split_content">
 	<div class="split_side">
 
 #### URL parameters
 
-| Name         | Description                                                         | Required |
-| ------------ | ------------------------------------------------------------------- | -------- |
-| websiteUuid  | Website UUID, visible in developer console website overview         | true     |
-| deploymentId | Deployment internal number, returned from `deploy` website endpoint | true     |
+| Name            | Description                                                           | Required |
+| --------------- | --------------------------------------------------------------------- | -------- |
+| websiteUuid     | Website UUID, visible in developer console website overview           | true     |
+| deployment_uuid | Deployment unique identifier, returned from `deploy` website endpoint | true     |
 
 #### Possible errors
 
@@ -649,16 +658,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 #### Response fields
 
-`Data` property is a [deployment DTO](#deployment-fields) instance.
-
-Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
-
-| Status | Description           |
-| ------ | --------------------- |
-| 0      | Deployment initiated  |
-| 1      | Deploying             |
-| 10     | Deployment successful |
-| 100    | Deployment failed     |
+`Data` property is a [deployment](#deployment-fields) instance.
 
   </div>
   <div class="split_side">
@@ -681,14 +681,15 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
   "id": "2d7d1b0c-15b1-4816-9aec-857182c7b617",
   "status": 200,
   "data": {
-    "id": 91,
-    "createTime": "2023-10-11T19:06:55.000Z",
-    "updateTime": "2023-10-11T19:07:20.000Z",
+    "createTime": "2023-10-13T12:23:51.000Z",
+    "updateTime": "2023-10-13T12:24:17.000Z",
+    "deploymentUuid": "583790dc-7b56-4563-8a33-d88243eed11e",
     "environment": 1,
     "deploymentStatus": 10,
-    "cid": "QmeY1amT7yUcSzjehwH7LcEwKNdTZnZnSYLXPnABTzUq8d",
-    "size": 11,
-    "number": 5
+    "cid": "QmTF31ediusaBTNn2Z1Jtr5fF1iVp9oDA8EWz9my6aVx8V",
+    "cidv1": "bafybeici3ivncsgfszf7tbmttayyjk6hs25354zs5nczujv44rco4qiv7y",
+    "size": 41,
+    "number": 1
   }
 }
 ```

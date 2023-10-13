@@ -180,7 +180,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 | Name        | Type     | Description                                                                            | Required |
 | ----------- | -------- | -------------------------------------------------------------------------------------- | -------- |
 | files       | `array`  | Array of files metadata. Maximum 200 items.                                            | true     |
-| sessionUuid | `string` | Session unique key, which has to be specified to add more uploads to existing session. | true     |
+| sessionUuid | `string` | Session unique key, which has to be specified to add more uploads to existing session. | false    |
 
 Each file metadata object in `files` array, contain below properties.
 
@@ -350,11 +350,11 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 ### List bucket content
 
-> Gets directories and files in bucket. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
-<div class="request-url">GET /storage/:bucketUuid/content</div>
+<div class="request-url">GET /storage/buckets/:bucketUuid/content</div>
 
 <div class="split_content">
 	<div class="split_side">
@@ -371,7 +371,8 @@ All query parameters from [listing request](3-apillon-api.md#listing-requests) p
 
 | Name          | Description                             | Required |
 | ------------- | --------------------------------------- | -------- |
-| directoryUuid | Gets files inside a specific directory. | false    |
+| directoryUuid | Gets items inside a specific directory. | false    |
+| search        | Search items by name                    | false    |
 
 #### Possible errors
 
@@ -380,8 +381,6 @@ All query parameters from [listing request](3-apillon-api.md#listing-requests) p
 | 40406002 | Bucket does not exist. |
 
 #### Response fields
-
-The `Data` property of API response contains two properties: `items` (records that match the current query) and `total` (number of all records. This information should be used for pagination: Round up (`total` / `limit`) = number of pages.
 
 Properties of each item:
 
@@ -406,7 +405,7 @@ Properties of each item:
       <CodeGroupItem title="cURL basic" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/content" \
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/content" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -414,7 +413,7 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
   <CodeGroupItem title="cURL with params" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/content?orderBy=name&desc=false&limit=5&page=1" \
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/content?orderBy=name&desc=false&limit=5&page=1" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -455,6 +454,124 @@ curl --location --request GET "https://api.apillon.io/storage/:bucketUuid/conten
                 "directoryUuid": null,
                 "link": "https://ipfs-dev.apillon.io/ipfs/QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
                 "fileStatus": 3
+            }
+            ...
+        ],
+        "total": 10
+    }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### List files
+
+> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+
+**Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
+
+<div class="request-url">GET /storage/buckets/:bucketUuid/files</div>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name       | Description                                                    | Required |
+| ---------- | -------------------------------------------------------------- | -------- |
+| bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
+
+#### Query parameters
+
+All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+
+| Name   | Description                             | Required |
+| ------ | --------------------------------------- | -------- |
+| search | Search files by full path (path + name) | false    |
+
+#### Possible errors
+
+| Code     | Description            |
+| -------- | ---------------------- |
+| 40406002 | Bucket does not exist. |
+
+#### Response fields
+
+Properties of each item:
+
+| Field       | Type       | Description                                                       |
+| ----------- | ---------- | ----------------------------------------------------------------- |
+| createTime  | `DateTime` | File create time                                                  |
+| updateTime  | `DateTime` | File last update time                                             |
+| fileUuid    | `string`   | File UUID property                                                |
+| CID         | `string`   | File content identifier - label used to point to content in IPFS. |
+| CIDv1       | `string`   | CID version 1                                                     |
+| name        | `string`   | File name                                                         |
+| contentType | `string`   | File content type. Value is taken from file upload request        |
+| path        | `integer`  | Full path to file                                                 |
+| size        | `integer`  | File size in bytes                                                |
+| fileStatus  | `number`   | File statuses are described in below table                        |
+| link        | `string`   | Link on IPFS gateway.                                             |
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/files" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="cURL with params" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/files?search=Hello.txt" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+    "id": "c8c50b3b-91ff-42c7-b0af-f866ce23f18a",
+    "status": 200,
+    "data": {
+        "items": [
+            ...
+            {
+                "createTime": "2023-10-12T12:20:54.000Z",
+                "updateTime": "2023-10-13T06:08:00.000Z",
+                "fileUuid": "120afe0e-b146-45a5-82e0-52d2125df294",
+                "CID": "QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5",
+                "CIDv1": "bafybeiefrfkhkevhdvacfjds7gw7mh2wlnuo66aeyffrik7wao5tlvfy3q",
+                "name": "Hello.txt",
+                "contentType": "",
+                "path": "Folder 1/",
+                "size": 11,
+                "fileStatus": 3,
+                "link": "https://ipfs-dev.apillon.io/ipfs/QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5"
+            },
+            {
+                "createTime": "2023-10-12T12:17:19.000Z",
+                "updateTime": "2023-10-12T12:17:42.000Z",
+                "fileUuid": "63ace39b-ec7c-4889-8d94-83a2ad7fb154",
+                "CID": "QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
+                "CIDv1": "bafybeif2yft3qu7wfadsdaorhcfewz74skcsosqb7lrk3ac3doeb7kbbgi",
+                "name": "My file.txt",
+                "contentType": "",
+                "path": null,
+                "size": 6,
+                "fileStatus": 3,
+                "link": "https://ipfs-dev.apillon.io/ipfs/QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM"
             }
             ...
         ],
