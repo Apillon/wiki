@@ -11,22 +11,12 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 ### List buckets
 
-> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters.
+> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](3-apillon-api.md#listing-requests).
 
 #### GET /storage/buckets
 
 <div class="split_content">
 	<div class="split_side">
-
-#### Query parameters
-
-| Name    | Description                                                                                       | Required |
-| ------- | ------------------------------------------------------------------------------------------------- | -------- |
-| search  | Search by bucket name.                                                                            | false    |
-| page    | Buckets are paginated by default. This parameter is used to get collections from a specific page. | false    |
-| limit   | Number of items on a page (default: 20).                                                          | false    |
-| orderBy | One or multiple properties, separated by a comma, used to order data.                             | false    |
-| desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.              | false    |
 
 #### Response fields (bucket)
 
@@ -40,7 +30,7 @@ Each item is an instance of bucket model, with below properties:
 | bucketType  | `integer`  | Item type with possible values `1`(storage bucket), `2`(website bucket) and `3`(nft bucket) |
 | name        | `string`   | Bucket name                                                                                 |
 | description | `string`   | Bucket description                                                                          |
-| size        | `integer`  | Size of bucket                                                                              |
+| size        | `integer`  | Size of bucket in bytes                                                                     |
 
   </div>
   <div class="split_side">
@@ -690,20 +680,18 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Name       | Description                                                    | required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
-| fileUuid   | File internal ID, UUID, or CID.                                | true     |
+| fileUuid   | File unique identifier.                                        | true     |
 
 #### Possible errors
 
-| Code     | Description                  |
-| -------- | ---------------------------- |
-| 40406005 | File does not exist.         |
-| 40006009 | File is marked for deletion. |
+| Code     | Description                          |
+| -------- | ------------------------------------ |
+| 40406005 | File does not exist.                 |
+| 40006009 | File is already marked for deletion. |
 
 #### Response fields
 
 The response of delete function is a boolean value, depends if deletion was successful.
-
-**Note:** The `status` property of file is 8. This means the file is marked for deletion and will be deleted after a certain period.
 
   </div>
   <div class="split_side">
