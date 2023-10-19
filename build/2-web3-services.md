@@ -143,4 +143,4 @@ Coming soon, [stay tuned](https://discord.gg/yX3gTw36C4).
 
 ## Web3 Authentication
 
-Please read [our OAuth section](./4-apillon-oauth.md).
+Please read [our Authentication section](./4-web3-authentication.md).
