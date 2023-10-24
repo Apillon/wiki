@@ -285,6 +285,8 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
+\*\*Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards.
+
 <div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
 
 <div class="split_content">
@@ -296,6 +298,13 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 | ----------- | --------------------------------------------------------------- | -------- |
 | bucketUuid  | Unique key of bucket. Key is displayed in developer dashboard.  | true     |
 | sessionUuid | Session uuid, recieved in [upload to bucket](#upload-to-bucket) | true     |
+
+#### Body fields
+
+| Name              | Type      | Description                             | Required |
+| ----------------- | --------- | --------------------------------------- | -------- |
+| wrapWithDirectory | `boolean` | Wrap uploaded files to IPFS directory   | false    |
+| directoryPath     | `string`  | Path to wrapped directory inside bucket | false    |
 
 #### Possible errors
 
