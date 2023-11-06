@@ -29,15 +29,13 @@ async function openOAuthPopup() {
 
 window.addEventListener('message', async event => {
   if (!event.origin?.includes('apillon.io')) return;
-
   if (!event.data.verified) {
     return console.error('Invalid verification');
   }
-  const oauthAuthToken = event.data.data.userData;
-  // Close OAuth window
+  // Close OAuth popup window
   oAuthWindow?.close();
 
-  verifyUserLogin(oauthAuthToken);
+  verifyUserLogin(event.data.authToken);
 }, false);
 ```
 ## Server - Auth API endpoints
@@ -74,7 +72,7 @@ curl --location --request GET "https://api.apillon.io/auth/session-token" \
   "id": "0da29b5a-8a8b-473b-9f97-3183819263f4",
   "status": 200,
   "data": {
-    "session": "eyJhbGciOiJIUzI1..."
+    "sessionToken": "eyJhbGciOiJIUzI1..."
   }
 }
 ```
@@ -87,9 +85,9 @@ curl --location --request GET "https://api.apillon.io/auth/session-token" \
 
 ### Verify user login
 
-> After the user has completed the OAuth flow, verify they have successfully logged in with the generated OAuth token from the "message" event handler
+> After the user has completed the OAuth flow, verify they have successfully logged in with the generated OAuth token from the "message" event handler. As a response, receive the user's Apillon email address
 
-<div class="request-url">GET /auth/verify-login?token=OAUTH_TOKEN</div>
+<div class="request-url">POST /auth/verify-login</div>
 
 <div class="split_content">
   <div class="split_side">
@@ -98,9 +96,12 @@ curl --location --request GET "https://api.apillon.io/auth/session-token" \
         <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/auth/verify-login?token=OAUTH_TOKEN" \
+curl --location --request POST "https://api.apillon.io/auth/verify-login" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
+--data-raw "{
+    \"token\":  \"eyJhbGciOiJIUzI1...\"
+}"
 ```
 
   </CodeGroupItem>
@@ -116,7 +117,7 @@ curl --location --request GET "https://api.apillon.io/auth/verify-login?token=OA
   "id": "de2cf1e7-0dfe-4378-ab77-98cbc9a00496",
   "status": 200,
   "data": {
-    "verified": true
+    "email": "apillon-user@mail.com"
   }
 }
 ```
