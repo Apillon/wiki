@@ -32,6 +32,7 @@ Apillon offers a method for users to integrate an alternative authentication app
 
   Alternatively, if a user has imported their previously generated credentials into the Sporran wallet, they can log in directly with Sporran, without the need to provide the credentials in text or file format, or the mnemonic passphrase. This allows users to select the existing credential from their wallet and sign the request directly.
 
+> [For a step-by-step guide for the workflow, have a look at our related blog post](https://blog.apillon.io/guide-log-in-to-apillon-dashboard-using-kilt-decentralized-identity-af2c5b2b054e)
 ## Apillon Open Authentication (OAuth)
 The OAuth flow begins when the user interacts with the page, triggering an action that opens the Apillon OAuth popup window, initiating the OAuth process. Users can then prove their identity either by providing the credential generated through Apillon and stored by the user or by verifying their credentials directly through the Sporran wallet if they have already imported their credential.
 
