@@ -18,6 +18,14 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 <div class="split_content">
 	<div class="split_side">
 
+#### Query parameters
+
+All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+
+| Name       | Description                                                                   | Required |
+| ---------- | ----------------------------------------------------------------------------- | -------- |
+| bucketType | Type of bucket: `1`(storage bucket), `2`(website bucket) and `3`(nft bucket). | false    |
+
 #### Response fields (bucket)
 
 Each item is an instance of bucket model, with below properties:
