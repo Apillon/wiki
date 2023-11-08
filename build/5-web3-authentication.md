@@ -1,4 +1,4 @@
-# Apillon Web3 Authentication
+# Web3 Authentication
 
 ## Introduction
 Apillon offers a method for users to integrate an alternative authentication approach using a decentralized identity (DID) stored on the Kilt parachain. This decentralized identity includes a credential that comprises the user's email address, which can be attested by Apillon or SocialKYC. Any user can create their own decentralized identity, verify their email address through Apillon's OAuth protocol, and then use this identity and credential to verify their identity on third-party platforms.
@@ -33,6 +33,7 @@ Apillon offers a method for users to integrate an alternative authentication app
   Alternatively, if a user has imported their previously generated credentials into the Sporran wallet, they can log in directly with Sporran, without the need to provide the credentials in text or file format, or the mnemonic passphrase. This allows users to select the existing credential from their wallet and sign the request directly.
 
 > [For a step-by-step guide for the workflow, have a look at our related blog post](https://blog.apillon.io/guide-log-in-to-apillon-dashboard-using-kilt-decentralized-identity-af2c5b2b054e)
+
 ## Apillon Open Authentication (OAuth)
 The OAuth flow begins when the user interacts with the page, triggering an action that opens the Apillon OAuth popup window, initiating the OAuth process. Users can then prove their identity either by providing the credential generated through Apillon and stored by the user or by verifying their credentials directly through the Sporran wallet if they have already imported their credential.
 
