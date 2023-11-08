@@ -35,7 +35,7 @@ If you want to redeploy the website or app with new changes, repeat the process 
 
 **Note:** Repeat deployment to Apillon Hosting will continue spending the Hosting storage capacity. However, every 3 months, the capacity will be renewed after older versions are deleted.
 
-Learn more: [Web3 Hosting FAQ](https://medium.com/apillon/faq-apillon-web3-hosting-81d5477661e7)
+Learn more: [Web3 Hosting FAQ](https://blog.apillon.io/faq-apillon-web3-hosting-81d5477661e7)
 
 ## File deletion
 

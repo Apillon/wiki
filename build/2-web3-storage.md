@@ -28,4 +28,4 @@ However, to make the storage service more dynamic, Apillon artificially lowers t
 
 **Note:** These limitations are in the nature of the Apillon Closed Beta release, which is intended for testing purposes only. Once the Beta period is up, the limitations of Apillon Web3 services will be adjusted to more realistic production requirements.
 
-Learn more: [Web3 Storage FAQ](https://medium.com/apillon/faq-apillon-web3-storage-c99a9b0e8b12)
+Learn more: [Web3 Storage FAQ](https://blog.apillon.io/faq-apillon-web3-storage-c99a9b0e8b12)

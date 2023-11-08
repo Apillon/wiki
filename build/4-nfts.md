@@ -12,7 +12,7 @@ Apillon NFT Service currently runs on the Moonbeam and Astar parachains, and sup
 
 The ERC-721 standard packs any file format into permanently stored content on the blockchain. Thanks to Moonbeam’s and Astar’s EVM compatibility, it can be deployed quickly and efficiently with Apillon.
 
-[Learn more >](https://medium.com/apillon/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303#eb24)
+[Learn more >](https://blog.apillon.io/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303#eb24)
 
 ## NFT metadata
 
@@ -24,7 +24,7 @@ As an essential component of NFT collections, metadata should be managed and sto
 
 Apillon supports metadata that is structured according to the [official OpenSea metadata standard](https://docs.opensea.io/docs/metadata-standards).
 
-[Learn more >](https://medium.com/apillon/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303#a060)
+[Learn more >](https://blog.apillon.io/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303#a060)
 
 ## NFT deployment
 
@@ -50,4 +50,4 @@ Learn more:
 * [Guide: NFT Service prerequisites — Generate NFT art (with AI) and get files ready](https://blog.apillon.io/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303)
 * [Guide: NFT Service — Create and deploy NFT collection on Moonbeam](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756)
 * [Guide: NFT Service — Create and deploy NFT collection on Astar](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f)
-* [NFT Service on Moonbeam FAQ](https://medium.com/apillon/faq-apillon-nft-service-by-moonbeam-a64f0c3930b1)
+* [NFT Service on Moonbeam FAQ](https://blog.apillon.io/faq-apillon-nft-service-by-moonbeam-a64f0c3930b1)
