@@ -12,7 +12,14 @@ editLink: false
 			</div>
 			<p>Get to know the Apillon platform, its purpose, features, and benefits.</p>
 		</a>
-		<a class="homepage_item" href="/build/1-good-to-know.html">
+    <a class="homepage_item" href="/web3-services/1-good-to-know.html">
+			<div class="homepage_title">
+				<h2>Web3 Services</h2>
+				<img src="/assets/arrow-right.svg" />
+			</div>
+			<p>Familiarize yourself with all the Web3 services Apillon has to offer.</p>
+		</a>
+		<a class="homepage_item" href="/build/1-apillon-api.html">
 			<div class="homepage_title">
 				<h2>Build</h2>
 				<img src="/assets/arrow-right.svg" />

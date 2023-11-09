@@ -6,6 +6,8 @@ The provision of Apillon Web3 services comes with certain specifics that are imp
 
 Before jumping to the API section, please make sure you fully understand what to expect from each service so you can plan your Web3 application architecture and development accordingly.
 
+Apillon integrates multiple [Polkadot](https://polkadot.network/) parachains and offers access to them in a unified way via modules on the developer dashboard and through [Apillon APIs](/build/1-apillon-api.html).
+
 ## Concepts
 
 ### Centralized vs. decentralized
