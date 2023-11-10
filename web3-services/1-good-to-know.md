@@ -16,7 +16,7 @@ In the current state, Apillon is a Web3 hybrid platform, meaning that some servi
 
 That said, Apillon’s back end is designed to evolve towards fully decentralized service and an unstoppable way of operation with each new update, slowly removing the hybrid compromise and becoming a fully Web3 platform.
 
-If you are interested in the details of Apillon’s architecture and back-end, want to open a debate around it or contribute on [GitHub](https://github.com/Apillon-web3), feel free to get in touch in the development channel on [Apillon Discord](https://discord.gg/yX3gTw36C4).
+If you are interested in the details of Apillon’s architecture and back-end, want to open a debate around it or contribute on [GitHub](https://github.com/Apillon), feel free to get in touch in the development channel on [Apillon Discord](https://discord.gg/yX3gTw36C4).
 
 ### Production vs. Beta
 
@@ -52,4 +52,4 @@ Crust Network has three main functions: NFT and metaverse metadata storage, pers
 
 Storage buckets are Apillon’s Web3 Storage abstraction that allows developers to utilize IPFS and Crust to store files in an unstoppable, decentralized way.
 
-Learn more about [storage buckets](/build/2-web3-services.html#storage-bucket).
+Learn more about [storage buckets](/web3-services/1-good-to-know.html#storage-bucket).

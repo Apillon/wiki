@@ -21,7 +21,7 @@ export default defineUserConfig({
     ],
   ],
   theme: defaultTheme({
-    repo: "apillon-web3/wiki",
+    repo: "Apillon/wiki",
     themePlugins: {
       backToTop: true
     },

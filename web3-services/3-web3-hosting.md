@@ -2,7 +2,7 @@
 
 Apillon Web3 Hosting is a Web3-based storage service that allows you to increase the accessibility of your website or app and make it unstoppable, as it gets hosted on a decentralized network of nodes worldwide.
 
-Decentralized hosting of a website or an app on Apillon is very similar to the usage of storage buckets in [decentralized storage](/build/2-web3-services.html#web3-storage). It implements AWS S3 (as cache to optimize upload of large files), [IPFS](https://ipfs.tech/), and [Crust Network](https://crust.network/) (to pin files on multiple IPFS nodes).
+Decentralized hosting of a website or an app on Apillon is very similar to the usage of storage buckets in [decentralized storage](/web3-services/1-good-to-know.html#web3-storage). It implements AWS S3 (as cache to optimize upload of large files), [IPFS](https://ipfs.tech/), and [Crust Network](https://crust.network/) (to pin files on multiple IPFS nodes).
 
 ## Website/app hosting
 

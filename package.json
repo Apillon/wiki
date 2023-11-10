@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apillon-web3/wiki.git"
+    "url": "git+https://github.com/Apillon/wiki.git"
   },
   "keywords": [
     "apillon",
@@ -22,9 +22,9 @@
   "author": "Tadej Vengust (Apillon)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Apillon-web3/wiki/issues"
+    "url": "https://github.com/Apillon/wiki/issues"
   },
-  "homepage": "https://github.com/Apillon-web3/wiki#readme",
+  "homepage": "https://github.com/Apillon/wiki#readme",
   "devDependencies": {
     "@vuepress/plugin-search": "2.0.0-beta.66",
     "vuepress": "2.0.0-beta.66"

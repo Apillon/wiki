@@ -11,7 +11,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 ### List buckets
 
-> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](3-apillon-api.md#listing-requests).
+> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
 
 #### GET /storage/buckets
 
@@ -20,7 +20,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 #### Query parameters
 
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
 | Name       | Description                                                                   | Required |
 | ---------- | ----------------------------------------------------------------------------- | -------- |
@@ -357,7 +357,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 ### List bucket content
 
-> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
@@ -374,7 +374,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 #### Query parameters
 
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
 | Name          | Description                             | Required |
 | ------------- | --------------------------------------- | -------- |
@@ -476,7 +476,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ### List files
 
-> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
@@ -493,7 +493,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 #### Query parameters
 
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
 | Name   | Description                             | Required |
 | ------ | --------------------------------------- | -------- |

@@ -13,7 +13,7 @@ Become part of the Apillon community and stay up to date with the latest news.
 - [Medium](https://blog.apillon.io)
 - [LinkedIn](https://www.linkedin.com/company/apillon)
 - [YouTube](https://www.youtube.com/channel/UCH5DxaOQ1cdCgNb_nk-5_ug/about)
-- [GitHub](https://github.com/Apillon-web3)
+- [GitHub](https://github.com/Apillon)
 
 ## Apillon Ambassador program
 

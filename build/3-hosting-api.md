@@ -18,7 +18,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 ### List websites
 
-> API to list all websites in project. Items are paginated and can be filtered and ordered through query parameters as described [here](3-apillon-api.md#listing-requests) .
+> API to list all websites in project. Items are paginated and can be filtered and ordered through query parameters as described [here](1-apillon-api.md#listing-requests) .
 
 #### GET /hosting/websites
 
@@ -551,7 +551,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 ### List website deployments
 
-> API to list website deployments. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> API to list website deployments. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 #### GET /hosting/websites/:websiteUuid/deployments
 
