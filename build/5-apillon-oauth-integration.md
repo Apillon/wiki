@@ -1,21 +1,22 @@
 # Apillon OAuth Integration
 
-If you wish to integrate Apillon's OAuth protocol into your own project or website, you are able to do so. If you don't have an Apillon account or project already, you can get started on [our dashboard](https://app.apillon.io).
-After you have created a project, navigate to your project's [API keys](https://app.apillon.io/dashboard/api-keys) section under the project settings. You must generate an API key for the Authentication service with the **KEY_EXECUTE** permission included. This API key will be used to interact with Apillon's API, generate an OAuth session and verify a user login. Make sure you store your API key and your API key secret in a secure manner.
+You can easily integrate Apillon's OAuth protocol into your own project or website. If you don't have an Apillon account or project already, get started on the [Apillon dashboard](https://app.apillon.io).
+
+Once you have created a project, navigate to the project's [API keys](https://app.apillon.io/dashboard/api-keys) section in your project settings. Generate an API key for the Authentication service with the **KEY_EXECUTE** permission. This API key will be used to interact with Apillon's API, generate an OAuth session, and verify a user log-in. Make sure you store your API key and your API key secret in a secure manner.
 
 To integrate Apillon's OAuth protocol into your website, follow these steps:
 
-1. **Create an Apillon Account:** If you don't have an Apillon account or project, start by creating one on [our dashboard](https://app.apillon.io).
+1. **Create an Apillon Account:** If you don't have an Apillon account or project yet, create one on [the Apillon dashboard](https://app.apillon.io).
 
-2. **Generate an API Key:** After creating a project, go to your project's settings and navigate to the [API keys section](https://app.apillon.io/dashboard/api-keys). Generate an API key for the Authentication service with the KEY_EXECUTE permission.
+2. **Generate an API Key:** Go to your project's settings and navigate to the [API keys section](https://app.apillon.io/dashboard/api-keys). Generate an API key for the Authentication service with the KEY_EXECUTE permission.
 
-3. **Securely Store API Key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create OAuth sessions, and verify user logins. This should be done on the server-side, explained below.
+3. **Securely Store API Key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create OAuth sessions, and verify user log-ins. This should be done on the server side, as explained below.
 
 ## Client - OAuth popup & events
 
-To initiate the OAuth flow for the user, use the following code to open Apillon's OAuth website as a popup and prompt the user to complete the OAuth flow. The session token passed as a query parameter is obtained from the Apillon API (see Server section below).
+To initiate the OAuth flow for the user, use the following code to open Apillon's OAuth website as a pop-up and prompt your users to complete the OAuth flow. The session token passed as a query parameter is obtained from the Apillon API (see Server section below).
 
-Additionally, an event listener is added such that the main app/website can handle the successful completion of the OAuth flow by the user, which grants a user authentication token. The token is then used to verify the login through Apillon's API, which finally returns the user's email address from the Apillon app.
+Additionally, an event listener is added for the main app/website to handle the successful completion of the OAuth flow by the user, which grants an authentication token to the user. The token is then used to verify the login through Apillon's API, which finally returns the user's email address on Apillon.
 
 ```js
 async function openOAuthPopup() {
@@ -39,11 +40,11 @@ window.addEventListener('message', async event => {
 }, false);
 ```
 ## Server - Auth API endpoints
-The server-side part of the OAuth implementation contains the logic to query the Apillon API, obtain a session token to initiate the OAuth flow and verify the user login when the flow is finished.
+The server-side part of the OAuth implementation contains the logic to query the Apillon API, obtain a session token to initiate the OAuth flow, and verify the user log-in when the flow is finished.
 
 ### Obtain a session token
 
-> Obtain a session token from the Apillon API, used to interact with Apillon's OAuth protocol
+Obtain a session token from the Apillon API to interact with Apillon's OAuth protocol.
 
 <div class="request-url">GET /auth/session-token</div>
 
@@ -85,7 +86,7 @@ curl --location --request GET "https://api.apillon.io/auth/session-token" \
 
 ### Verify user login
 
-> After the user has completed the OAuth flow, verify they have successfully logged in with the generated OAuth token from the "message" event handler. As a response, receive the user's Apillon email address
+After the user has completed the OAuth flow, verify they have successfully logged in with the generated OAuth token from the "message" event handler. As a response, receive the user's Apillon email address.
 
 <div class="request-url">POST /auth/verify-login</div>
 
