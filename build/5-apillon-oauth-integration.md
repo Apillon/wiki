@@ -6,7 +6,7 @@ Once you have created a project, navigate to the project's [API keys](https://ap
 
 To integrate Apillon's OAuth protocol into your website, follow these steps:
 
-1. **Create an Apillon Account:** If you don't have an Apillon account or project yet, create one on [the Apillon dashboard](https://app.apillon.io).
+1. **Create an Apillon Account:** If you don't have an Apillon account or project yet, create one on the [Apillon dashboard](https://app.apillon.io).
 
 2. **Generate an API Key:** Go to your project's settings and navigate to the [API keys section](https://app.apillon.io/dashboard/api-keys). Generate an API key for the Authentication service with the KEY_EXECUTE permission.
 
