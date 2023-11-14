@@ -26,12 +26,5 @@ editLink: false
 			</div>
 			<p>Develop a Web3 product with step-by-step guides and tutorials.</p>
 		</a>
-		<a class="homepage_item" href="/maintain/">
-			<div class="homepage_title">
-				<h2>Maintain</h2>
-				<img src="/assets/arrow-right.svg" />
-			</div>
-			<p>Ensure your Web3 product performs well and keeps up with infrastructure updates.</p>
-		</a>
 	</div>
 </div>

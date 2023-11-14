@@ -59,7 +59,7 @@ export default defineUserConfig({
 
 //Generate Nav
 function generateNav(): NavbarGroup[] {
-  const folders = ["about", "web3-services", "build", "maintain"];
+  const folders = ["about", "web3-services", "build"];
   return folders.map((folder) => ({
     text: capitalize(folder),
     link: `/${folder}/`,
@@ -68,7 +68,7 @@ function generateNav(): NavbarGroup[] {
 }
 
 function generateSidebar(): { [route: string]: string[] } {
-  const folders = ["about", "web3-services", "build", "maintain"];
+  const folders = ["about", "web3-services", "build"];
   let fullSidebar = { "/": [] };
   const sidebarMap: any[] = [];
 
