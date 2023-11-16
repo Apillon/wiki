@@ -43,4 +43,4 @@ Once a user completes the verification process, the OAuth pop-up sends an event 
 
 After this, the web app obtains the user's Apillon account's email address and can use this information to provide access to any services the site offers, ensuring that the user has successfully verified their identity using verifiable credentials attested by Apillon.
 
-Projects, websites, or users interested in offering a decentralized log-in option via Apillon using a verifiable credential can follow the integration guide provided in the [integration section](/build/5-apillon-oauth-integration.html).
+Projects, websites, or users interested in offering a decentralized log-in option via Apillon using a verifiable credential can follow the integration guide provided in the [integration section](/build/7-apillon-oauth-integration.html).

@@ -12,6 +12,7 @@ To integrate Apillon's OAuth protocol into your website, follow these steps:
 
 3. **Securely Store API Key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create OAuth sessions, and verify user log-ins. This should be done on the server side, as explained below.
 
+> For a complete NodeJS demo of the whole OAuth flow, refer to [this Github repo](https://github.com/Apillon/oauth-demo)
 ## Client - OAuth popup & events
 
 To initiate the OAuth flow for the user, use the following code to open Apillon's OAuth website as a pop-up and prompt your users to complete the OAuth flow. The session token passed as a query parameter is obtained from the Apillon API (see Server section below).
@@ -30,8 +31,9 @@ async function openOAuthPopup() {
 
 window.addEventListener('message', async event => {
   if (!event.origin?.includes('apillon.io')) return;
+
   if (!event.data.verified) {
-    return console.error('Invalid verification');
+    throw new Error('Invalid OAuth verification');
   }
   // Close OAuth popup window
   oAuthWindow?.close();
