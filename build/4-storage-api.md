@@ -5,9 +5,10 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 **File upload process through Apillon Web3 Storage API**
 
 1. Request signed URL(s) for upload.
-2. File is uploaded to Apillon central server.
-3. File is transferred to IPFS and available through the Apillon gateway.
-4. File is replicated to different IPFS nodes globally via Crust Network.
+2. Upload file(s) to Apillon central server.
+3. Call [end upload session](#end-upload-session) to trigger transfer to IPFS
+4. File is transferred to IPFS and available through the Apillon gateway.
+5. File is replicated to different IPFS nodes globally via Crust Network.
 
 ### List buckets
 
@@ -161,6 +162,8 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 ### Upload to bucket
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
+
+\*\*Note: Once URLs for upload are acquired and files are uploaded to Apillon central server, call [end upload session](#end-upload-session), to trigger transfer of uploaded files inside session, to IPFS.
 
 <div class="request-url">POST /storage/:bucketUuid/upload</div>
 
