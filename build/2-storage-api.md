@@ -376,10 +376,10 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
-| Name          | Description                             | Required |
-| ------------- | --------------------------------------- | -------- |
-| directoryUuid | Gets items inside a specific directory. | false    |
-| search        | Search items by name                    | false    |
+| Name              | Description                             | Required |
+| ----------------- | --------------------------------------- | -------- |
+| directoryUuid     | Gets items inside a specific directory. | false    |
+| markedForDeletion | Include deleted buckets                 | false    |
 
 #### Possible errors
 
@@ -490,14 +490,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Name       | Description                                                    | Required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
-
-#### Query parameters
-
-All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
-
-| Name   | Description                             | Required |
-| ------ | --------------------------------------- | -------- |
-| search | Search files by full path (path + name) | false    |
 
 #### Possible errors
 

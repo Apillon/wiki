@@ -648,7 +648,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 | Name            | Description                                                           | Required |
 | --------------- | --------------------------------------------------------------------- | -------- |
 | websiteUuid     | Website UUID, visible in developer console website overview           | true     |
-| deployment_uuid | Deployment unique identifier, returned from `deploy` website endpoint | true     |
+| deploymentUuid  | Deployment unique identifier, returned from `deploy` website endpoint | true     |
 
 #### Possible errors
 
@@ -667,7 +667,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentUuid" \
 --header "Authorization: Basic :credentials"
 ```
 

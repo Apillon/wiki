@@ -136,14 +136,11 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 
 #### Query parameters
 
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
+
 | Name             | Description                                                                                           | Required |
 | ---------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | collectionStatus | Collection status. Find available statuses [here](#collection-statuses).                              | false    |
-| search           | Search by collection name.                                                                            | false    |
-| page             | Collections are paginated by default. This parameter is used to get collections from a specific page. | false    |
-| limit            | Number of files on a page (default: 20).                                                              | false    |
-| orderBy          | One or multiple properties, separated by a comma, used to order data.                                 | false    |
-| desc             | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                  | false    |
 
 #### Response
 
@@ -225,15 +222,12 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 #### Query parameters
 
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
+
 | Name              | Description                                                                                             | Required |
 | ----------------- | ------------------------------------------------------------------------------------------------------- | -------- |
 | transactionStatus | Transaction status.                                                                                     | false    |
 | transactionType   | Transaction type.                                                                                       | false    |
-| search            | Search by transaction hash.                                                                             | false    |
-| page              | Transactions are paginated by default. This parameter is used to get transactions from a specific page. | false    |
-| limit             | Number of transactions on a page (default: 20).                                                         | false    |
-| orderBy           | One or multiple properties, separated by a comma, used to order data.                                   | false    |
-| desc              | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                    | false    |
 
 #### Response Fields
 
