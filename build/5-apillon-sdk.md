@@ -1,6 +1,7 @@
 # Apillon SDK
 
-<div class="divider"></div>
+[![npm version](https://badge.fury.io/js/@apillon%2Fsdk.svg)](https://badge.fury.io/js/@apillon%2Fsdk)
+[![Twitter Follow](https://img.shields.io/twitter/follow/Apillon?style=social)](https://twitter.com/intent/follow?screen_name=Apillon)
 
 Libraries and tools for interacting with your Apillon integration.
 Apillon SDK reduces the amount of work required to use Apillons REST API. It reduces the boilerplate code you need to write

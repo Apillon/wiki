@@ -60,6 +60,16 @@ apillon -h
 apillon hosting -h
 npx @apillon/cli hosting deploy-website --help
 ```
+
+### Global list pagination options
+
+For commands that return a list of results, for example `apillon storage list-files`, or `apillon hosting list-websites`, there are global list pagination options that are available to use:
+
+- `-l, --limit <integer>`: Page limit
+- `-o, --order-by <string> `: Page order by
+- `-p, --page <integer>`: Page number
+- `-s, --search <string> `: Search by name or other object identifier
+
 # Commands
 
 The Apillon CLI currently supports the following commands:
@@ -80,22 +90,22 @@ apillon hosting list-websites --search "My-Website" --limit 1
 This command retrieves information about a specific website.
 
 **Options**
-- --uuid `<string>`: UUID of the website to get details for.
+- `--uuid <string>`: UUID of the website to get details for.
 
 #### `hosting deploy-website`
 This command deployes website from a local folder directly to Apillon hosting production environment.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
-- --uuid `<string>`: UUID of the website to upload files to.
-- -p, --preview: Deploy to staging environment instead.
+- `--uuid <string>`: UUID of the website to upload files to.
+- `-p, --preview`: Deploy to staging environment instead.
 
 #### `hosting upload`
-This command uploads files to the hosting environment.
+Upload a file folder to a website deployment bucket.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
-- --uuid `<string>`: UUID of the website to upload files to.
+- `--uuid <string>`: UUID of the website to upload files to.
 
 **Example**
 ```sh
@@ -106,8 +116,8 @@ apillon hosting upload --uuid your-website-uuid ./public_html
 This command deploys a website to the specified environment, from files already uploaded to the hosting bucket.
 
 **Options**
-- --uuid `<string>`: UUID of the website to deploy.
-- --env `<integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
+- `--uuid <string>`: UUID of the website to deploy.
+- `--env <integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
 
 **Example**
 ```sh
@@ -119,8 +129,8 @@ This command uploads website files and immediately deploys them to the specified
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
-- --uuid `<string>`: UUID of the website to upload files to and deploy.
-- --env `<integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
+- `--uuid <string>`: UUID of the website to upload files to and deploy.
+- `--env <integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
 
 **Example**
 ```sh
@@ -131,15 +141,15 @@ apillon hosting deploy-website ./public_html --uuid your-website-uuid --env 2
 This command lists all deployments for a specific website.
 
 **Options**
-- --env `<integer>`: The environment of the deployments (optional). Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
-- --status `<integer>`: The status of the deployments (DeploymentStatus enum, optional)
+- `--env <integer>`: The environment of the deployments (optional). Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
+- `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional)
 
 #### `hosting get-deployment`
 This command retrieves information about a specific deployment.
 
 **Options**
-- --website-uuid `<string>`: UUID of the website.
-- --deployment-uuid `<string>`: UUID of the deployment
+- `--website-uuid <string>`: UUID of the website.
+- `--deployment-uuid <string>`: UUID of the deployment
 
 ## `Storage`
 #### `storage list-buckets`
@@ -151,16 +161,16 @@ This command lists all storage buckets associated with your project.
 This command retrieves objects (files and directories) recursively from a specific bucket.
 
 **Options**
-- -b, --bucket-uuid `<string>`: UUID of the bucket to retrieve objects from.
-- -dir, --directory-uuid `<string>`: UUID of the directory to retreive objects from (optional, default root folder)
-- -del, --deleted: Include objects deleted from the bucket
+- `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve objects from.
+- `-dir, --directory-uuid <string>`: UUID of the directory to retreive objects from (optional, default root folder)
+- `-del, --deleted`: Include objects deleted from the bucket
 
 #### `storage list-files`
 This command retrieves files from a specific bucket.
 
 **Options**
-- -b, --bucket-uuid `<string>`: UUID of the bucket to retrieve files from.
-- -fs, --file-status `<integer>`: Filter by file status (FileStatus enum, optional)
+- `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve files from.
+- `-fs, --file-status <integer>`: Filter by file status (FileStatus enum, optional)
 
 **Example response**
 ```json
@@ -191,7 +201,7 @@ This command uploads files to a specified bucket.
 
 **Options**
 - `<file-path>`: Path to the folder containing your files.
-- -b, --bucket-uuid `<string>`: UUID of the bucket to upload files to.
+- `-b, --bucket-uuid <string>`: UUID of the bucket to upload files to.
 
 **Example**
 ```sh
@@ -202,16 +212,16 @@ apillon storage upload --uuid your-bucket-uuid ./my_folder
 This command retrieves information about a specific file in a bucket.
 
 **Options**
-- -b, --bucket-uuid `<string>`: UUID of the bucket.
-- --file-uuid `<string>`: UUID or CID of the file to retrieve.
+- `-b, --bucket-uuid <string>`: UUID of the bucket.
+- `--file-uuid <string>`: UUID or CID of the file to retrieve.
 
 #### `storage delete-file`
 
 This command deletes a specific file from a bucket.
 
 **Options**
-- -b, --bucket-uuid `<string>`: UUID of the bucket.
-- --file-uuid `<string>`: UUID or CID of the file to delete.
+- `-b, --bucket-uuid <string>`: UUID of the bucket.
+- `--file-uuid <string>`: UUID or CID of the file to delete.
 
 ## `NFTs`
 
@@ -243,39 +253,38 @@ This command mints NFTs for a collection with a specific UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: UUID of the collection to mint NFTs to.
-- -a, --address `<string>`: Address which will receive minted NFTs.
-- -q --quantity `<integer>`: Number of NFTs to mint.
+- `-a, --address <string>`: Address which will receive minted NFTs.
+- `-q --quantity <integer>`: Number of NFTs to mint.
 
 #### `nfts nest-mint-nft`
 This command nest mints NFT child collection to a parent collection with a specific UUID and parent NFT with id.
 
 **Options**
-- `-c, --parent-colleciton-uuid <collection-uuid>`: Child collection UUID.
-- --parent-collection-uuid `<string>`: Parent collection UUID to which child NFTs will be minted to.
-- -pid, --parent-nft-id `<string>`: Parent collection NFT id to which child NFTs will be minted to.
-- -q, --quantity `<integer>`: Number of child NFTs to mint.
+- `-c, --parent-colleciton-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
+- `-pid, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
+- `-q, --quantity <integer>`: Number of child NFTs to mint.
 
 #### `nfts burn-nft`
 This command burns NFT for a collection with a specific UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
-- -tid, --token-id `<integer>`: NFT id which will be burned.
+- `-tid, --token-id <integer>`: NFT id which will be burned.
 
 #### `nfts transfer-collection`
 This command transfers NFT collection ownership to a new wallet address.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
-- -a, --address `<string>`: Address which you want to transfer collection ownership to.
+- `-a, --address <string>`: Address which you want to transfer collection ownership to.
 
 #### `nfts list-transactions`
 This command lists NFT transactions for a specific collection UUID.
 
 **Options**
-- --uuid `<collection-uuid>`: Collection UUID.
-- --status `<integer>`: Transaction status (TransactionStatus enum, optional).
-- --type `<integer>`: Transaction type (TransactionType enum, optional).
+- `--uuid <collection-uuid>`: Collection UUID.
+- `--status <integer>`: Transaction status (TransactionStatus enum, optional).
+- `--type <integer>`: Transaction type (TransactionType enum, optional).
 
 
 ## Using in CI/CD tools
