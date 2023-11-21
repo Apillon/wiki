@@ -58,7 +58,7 @@ You can also directly deploy uploaded files to production.
 import { Hosting } from "@apillon/sdk";
 
 const hosting = new Hosting({ apillonConfig });
-await hosting.listWebsites();
+await hosting.listWebsites({ orderBy: 'createdTime' });
 const webpage1 = hosting.website('uuid');
 await webpage1.get();
 
@@ -81,15 +81,15 @@ Storage module encapsulates functionalities for Storage service available on Api
 import { Storage } from "@apillon/sdk";
 
 const storage = new Storage({ apillonConfig });
-await storage.listBuckets();
+await storage.listBuckets({ limit: 5 });
 const bucket = storage.bucket('uuid');
 await bucket.uploadFromFolder('folder_path');
-await bucket.getObjects({
+await bucket.listObjects({
   directoryUuid,
   markedForDeletion: false,
   limit: 5,
 });
-await bucket.getFiles({ fileStatus: FileStatus.UPLOADED });
+await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
 const file = await bucket.file(file_uuid).get();
 await bucket.deleteFile(file_uuid);
 ```
@@ -104,13 +104,31 @@ NFT module encapsulates functionalities for NFT service available on Apillon das
 import { Nft } from "@apillon/sdk";
 
 const nft = new Nft({ apillonConfig });
-await nft.listCollections();
-const collection = await nft.collection('uuid').get();
-await collection.mint(receiver, quantity);
-await collection.nestMint(collection.uuid, 1, quantity);
-await collection.burn(quantity);
-await collection.listTransactions();
-await collection.transferOwnership(to_address);
+  await nft.create({
+    collectionType: CollectionType.GENERIC,
+    chain: EvmChain.MOONBEAM,
+    name: 'SpaceExplorers',
+    symbol: 'SE',
+    description: 'A collection of unique space exploration NFTs.',
+    baseUri: 'https://moonbeamnfts.com/collections/spaceexplorers/',
+    baseExtension: 'json',
+    maxSupply: 1000,
+    isRevokable: false,
+    isSoulbound: false,
+    royaltiesAddress: '0x1234567890abcdef',
+    royaltiesFees: 5,
+    drop: true,
+    dropStart: 1679875200,
+    dropPrice: 0.05,
+    dropReserve: 100,
+  });
+  await nft.listCollections({ search: 'My NFT' });
+  const collection = await nft.collection('uuid').get();
+  await collection.mint(receiver, quantity);
+  await collection.nestMint(collection.uuid, 1, quantity);
+  await collection.burn(quantity);
+  await collection.listTransactions();
+  await collection.transferOwnership(to_address);
 ```
 
 ## Detailed docs
