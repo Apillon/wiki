@@ -66,9 +66,11 @@ npx @apillon/cli hosting deploy-website --help
 For commands that return a list of results, for example `apillon storage list-files`, or `apillon hosting list-websites`, there are global list pagination options that are available to use:
 
 - `-l, --limit <integer>`: Page limit
-- `-o, --order-by <string> `: Page order by
+- `-o, --order-by <string> `: Page order by (can be any property from the response data)
 - `-p, --page <integer>`: Page number
 - `-s, --search <string> `: Search by name or other object identifier
+
+> For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html)
 
 # Commands
 
