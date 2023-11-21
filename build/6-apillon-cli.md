@@ -79,6 +79,9 @@ apillon hosting list-websites --search "My-Website" --limit 1
 #### `hosting get-website`
 This command retrieves information about a specific website.
 
+**Options**
+- --uuid `<string>`: UUID of the website to get details for.
+
 #### `hosting deploy-website`
 This command deployes website from a local folder directly to Apillon hosting production environment.
 
@@ -88,7 +91,7 @@ This command deployes website from a local folder directly to Apillon hosting pr
 - -p, --preview: Deploy to staging environment instead.
 
 #### `hosting upload`
-This command uploads website files to a specified website.
+This command uploads files to the hosting environment.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
@@ -100,7 +103,7 @@ apillon hosting upload --uuid your-website-uuid ./public_html
 ```
 
 #### `hosting start-deployment`
-This command deploys a website to the specified environment.
+This command deploys a website to the specified environment, from files already uploaded to the hosting bucket.
 
 **Options**
 - --uuid `<string>`: UUID of the website to deploy.
@@ -108,36 +111,35 @@ This command deploys a website to the specified environment.
 
 **Example**
 ```sh
-apillon hosting deploy --uuid your-website-uuid production
+apillon hosting start-deployment --uuid your-website-uuid --env 3
 ```
 
-#### `hosting upload-deploy`
+#### `hosting deploy-website`
 This command uploads website files and immediately deploys them to the specified environment.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
 - --uuid `<string>`: UUID of the website to upload files to and deploy.
-- -- env `<integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
+- --env `<integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
 
 **Example**
 ```sh
-apillon hosting upload-deploy ./public_html --uuid your-website-uuid --env 2
+apillon hosting deploy-website ./public_html --uuid your-website-uuid --env 2
 ```
 
 #### `hosting list-deployments`
 This command lists all deployments for a specific website.
 
 **Options**
-- --uuid `<string>`: UUID of the website to upload list deployments for.
-- -- env `<integer>`: The environment of the deployments (optional). Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
-- -- status `<integer>`: The status of the deployments (DeploymentStatus enum, optional)
+- --env `<integer>`: The environment of the deployments (optional). Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
+- --status `<integer>`: The status of the deployments (DeploymentStatus enum, optional)
 
 #### `hosting get-deployment`
 This command retrieves information about a specific deployment.
 
 **Options**
 - --website-uuid `<string>`: UUID of the website.
-- -- deployment-uuid `<string>`: UUID of the deployment
+- --deployment-uuid `<string>`: UUID of the deployment
 
 ## `Storage`
 #### `storage list-buckets`
