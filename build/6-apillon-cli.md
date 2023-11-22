@@ -70,7 +70,7 @@ For commands that return a list of results, for example `apillon storage list-fi
 - `-p, --page <integer>`: Page number
 - `-s, --search <string> `: Search by name or other object identifier
 
-> For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html)
+> For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html). Note: CLI responses may be dfferent from API responses.
 
 # Commands
 
@@ -102,6 +102,11 @@ This command deployes website from a local folder directly to Apillon hosting pr
 - `--uuid <string>`: UUID of the website to upload files to.
 - `-p, --preview`: Deploy to staging environment instead.
 
+**Example**
+```sh
+apillon hosting deploy-website ./public_html --uuid your-website-uuid -p
+```
+
 #### `hosting upload`
 Upload a file folder to a website deployment bucket.
 
@@ -111,7 +116,7 @@ Upload a file folder to a website deployment bucket.
 
 **Example**
 ```sh
-apillon hosting upload --uuid your-website-uuid ./public_html
+apillon hosting upload ./public_html --uuid your-website-uuid
 ```
 
 #### `hosting start-deployment`
@@ -126,32 +131,34 @@ This command deploys a website to the specified environment, from files already 
 apillon hosting start-deployment --uuid your-website-uuid --env 3
 ```
 
-#### `hosting deploy-website`
-This command uploads website files and immediately deploys them to the specified environment.
-
-**Options**
-- `<file-path>`: Path to the folder containing your website files.
-- `--uuid <string>`: UUID of the website to upload files to and deploy.
-- `--env <integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
-
-**Example**
-```sh
-apillon hosting deploy-website ./public_html --uuid your-website-uuid --env 2
-```
-
 #### `hosting list-deployments`
 This command lists all deployments for a specific website.
 
 **Options**
-- `--env <integer>`: The environment of the deployments (optional). Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
-- `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional)
+- `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional).
+
+Available choices:
+```
+TO_STAGING = 1
+STAGING_TO_PRODUCTION = 2
+DIRECTLY_TO_PRODUCTION = 3
+```
+- `--env <integer>`: The environment of the deployments (DeploymentStatus enum, optional).
+
+Available choices:
+```
+INITIATED = 0
+IN_PROCESS = 1
+SUCCESSFUL = 10
+FAILED = 100
+```
 
 #### `hosting get-deployment`
 This command retrieves information about a specific deployment.
 
 **Options**
-- `--website-uuid <string>`: UUID of the website.
-- `--deployment-uuid <string>`: UUID of the deployment
+- `-w, --website-uuid <string>`: UUID of the website.
+- `-d, --deployment-uuid <string>`: UUID of the deployment
 
 ## `Storage`
 #### `storage list-buckets`
@@ -164,15 +171,23 @@ This command retrieves objects (files and directories) recursively from a specif
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve objects from.
-- `-dir, --directory-uuid <string>`: UUID of the directory to retreive objects from (optional, default root folder)
-- `-del, --deleted`: Include objects deleted from the bucket
+- `-d, --directory-uuid <string>`: UUID of the directory to retreive objects from (optional, default root folder)
+- `--deleted`: Include objects deleted from the bucket
 
 #### `storage list-files`
 This command retrieves files from a specific bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve files from.
-- `-fs, --file-status <integer>`: Filter by file status (FileStatus enum, optional)
+- `-s, --file-status <integer>`: Filter by file status (FileStatus enum, optional).
+
+Available choices:
+```
+UPLOAD_REQUEST_GENERATED = 1
+UPLOADED = 2
+AVAILABLE_ON_IPFS = 3
+AVAILABLE_ON_IPFS_AND_REPLICATED = 4
+```
 
 **Example response**
 ```json
@@ -207,7 +222,7 @@ This command uploads files to a specified bucket.
 
 **Example**
 ```sh
-apillon storage upload --uuid your-bucket-uuid ./my_folder
+apillon storage upload ./my_folder --bucket-uuid your-bucket-uuid
 ```
 #### `storage get-file`
 
@@ -215,7 +230,7 @@ This command retrieves information about a specific file in a bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
-- `--file-uuid <string>`: UUID or CID of the file to retrieve.
+- `-f, --file-uuid <string>`: UUID or CID of the file to retrieve.
 
 #### `storage delete-file`
 
@@ -223,7 +238,7 @@ This command deletes a specific file from a bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
-- `--file-uuid <string>`: UUID or CID of the file to delete.
+- `-f, --file-uuid <string>`: UUID or CID of the file to delete.
 
 ## `NFTs`
 
@@ -232,6 +247,16 @@ This command lists all NFT collections owned by the project related to the API k
 
 **Options**
 - `--status <integer>`: UUID of the collection to retrieve (CollectionStatus enum, optional).
+
+Available choices:
+```
+CREATED = 0
+DEPLOY_INITIATED = 1
+DEPLOYING = 2
+DEPLOYED = 3
+TRANSFERRED = 4
+FAILED = 5
+```
 
 #### `nfts get-collection`
 This command retrieves information about a specific NFT collection.
@@ -263,7 +288,7 @@ This command nest mints NFT child collection to a parent collection with a speci
 
 **Options**
 - `-c, --parent-colleciton-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
-- `-pid, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
+- `-p, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
 - `-q, --quantity <integer>`: Number of child NFTs to mint.
 
 #### `nfts burn-nft`
@@ -271,7 +296,7 @@ This command burns NFT for a collection with a specific UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
-- `-tid, --token-id <integer>`: NFT id which will be burned.
+- `-t, --token-id <integer>`: NFT id which will be burned.
 
 #### `nfts transfer-collection`
 This command transfers NFT collection ownership to a new wallet address.
@@ -286,8 +311,25 @@ This command lists NFT transactions for a specific collection UUID.
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
 - `--status <integer>`: Transaction status (TransactionStatus enum, optional).
+
+Available choices:
+```
+PENDING = 1
+CONFIRMED = 2
+FAILED = 3
+ERROR = 4
+```
 - `--type <integer>`: Transaction type (TransactionType enum, optional).
 
+Available choices:
+```
+DEPLOY_CONTRACT = 1
+TRANSFER_CONTRACT_OWNERSHIP = 2
+MINT_NFT = 3
+SET_COLLECTION_BASE_URI = 4
+BURN_NFT = 5
+NEST_MINT_NFT = 6
+```
 
 ## Using in CI/CD tools
 

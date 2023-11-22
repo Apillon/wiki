@@ -63,13 +63,17 @@ const webpage1 = hosting.website('uuid');
 await webpage1.get();
 
 await webpage1.uploadFromFolder('folder_path');
-await webpage1.deploy(DeployToEnvironment.STAGING_TO_PRODUCTION);
+await webpage1.deploy(DeployToEnvironment.TO_STAGING);
 await webpage1.listDeployments();
 const deployment = await webpage1.deployment(deployment_uuid).get();
 if (deployment.deploymentStatus === DeploymentStatus.SUCCESSFUL) {
   // done
 }
 ```
+
+### Detailed Hosting docs
+
+Detailed hosting SDK method, class and property documentation is available [here](https://sdk-docs.apillon.io/classes/Hosting.html).
 
 ## Storage
 
@@ -93,6 +97,10 @@ await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
 const file = await bucket.file(file_uuid).get();
 await bucket.deleteFile(file_uuid);
 ```
+
+### Detailed Storage docs
+
+Detailed Storage SDK method, class and property documentation is available [here](https://sdk-docs.apillon.io/classes/Storage.html).
 
 ## NFTs
 
@@ -131,6 +139,6 @@ const nft = new Nft({ apillonConfig });
   await collection.transferOwnership(to_address);
 ```
 
-## Detailed docs
+### Detailed NFT docs
 
-Detailed SDK method, class and property documentation is available [here](https://sdk-docs.apillon.io).
+Detailed NFT SDK method, class and property documentation is available [here](https://sdk-docs.apillon.io/classes/Nft.html).
