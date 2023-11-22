@@ -65,10 +65,10 @@ npx @apillon/cli hosting deploy-website --help
 
 For commands that return a list of results, for example `apillon storage list-files`, or `apillon hosting list-websites`, there are global list pagination options that are available to use:
 
-- `-l, --limit <integer>`: Page limit
-- `-o, --order-by <string> `: Page order by (can be any property from the response data)
-- `-p, --page <integer>`: Page number
-- `-s, --search <string> `: Search by name or other object identifier
+- `--limit <integer>`: Page limit
+- `--order-by <string> `: Page order by (can be any property from the response data)
+- `--page <integer>`: Page number
+- `--search <string> `: Search by name or other object identifier
 
 > For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html). Note: CLI responses may be dfferent from API responses.
 
@@ -76,26 +76,29 @@ For commands that return a list of results, for example `apillon storage list-fi
 
 The Apillon CLI currently supports the following commands:
 
-## `Hosting`
-
-To be able to deploy a website with Apillon CLI, you have to create a website deployment inside your project on [Apillon Developer dashboard](https://app.apillon.io/dashboard/service/hosting). Upon creating a website deployment, you will get the website UUID number, that you will need to run CLI hosting commands.
+## Hosting
 
 #### `hosting list-websites`
+Lists all websites associated with your project.
 
-This command lists all websites associated with your project.
-
+**Example**
 ```sh
 apillon hosting list-websites --search "My-Website" --limit 1
 ```
 
 #### `hosting get-website`
-This command retrieves information about a specific website.
+Retrieves information about a specific website.
 
 **Options**
 - `--uuid <string>`: UUID of the website to get details for.
 
+**Example**
+```sh
+apillon hosting get-website --uuid "123e4567-e89b-12d3-a456-426655440000"
+```
+
 #### `hosting deploy-website`
-This command deployes website from a local folder directly to Apillon hosting production environment.
+Deploys a website from a local folder directly to Apillon hosting production environment.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
@@ -104,11 +107,11 @@ This command deployes website from a local folder directly to Apillon hosting pr
 
 **Example**
 ```sh
-apillon hosting deploy-website ./public_html --uuid your-website-uuid -p
+apillon hosting deploy-website ./public_html --uuid "123e4567-e89b-12d3-a456-426655440000" -p
 ```
 
 #### `hosting upload`
-Upload a file folder to a website deployment bucket.
+Uploads a file folder to a website deployment bucket.
 
 **Options**
 - `<file-path>`: Path to the folder containing your website files.
@@ -116,26 +119,15 @@ Upload a file folder to a website deployment bucket.
 
 **Example**
 ```sh
-apillon hosting upload ./public_html --uuid your-website-uuid
+apillon hosting upload ./public_html --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `hosting start-deployment`
-This command deploys a website to the specified environment, from files already uploaded to the hosting bucket.
+Deploys a website to the specified environment, from files already uploaded to the hosting bucket.
 
 **Options**
 - `--uuid <string>`: UUID of the website to deploy.
-- `--env <integer>`: The environment to deploy to. Can be 1 - staging, 2 - staging to production, or 3 - direct to productiion.
-
-**Example**
-```sh
-apillon hosting start-deployment --uuid your-website-uuid --env 3
-```
-
-#### `hosting list-deployments`
-This command lists all deployments for a specific website.
-
-**Options**
-- `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional).
+- `--env <integer>`: The environment to deploy to.
 
 Available choices:
 ```
@@ -143,7 +135,17 @@ TO_STAGING = 1
 STAGING_TO_PRODUCTION = 2
 DIRECTLY_TO_PRODUCTION = 3
 ```
-- `--env <integer>`: The environment of the deployments (DeploymentStatus enum, optional).
+
+**Example**
+```sh
+apillon hosting start-deployment --uuid "123e4567-e89b-12d3-a456-426655440000" --env 1
+```
+
+#### `hosting list-deployments`
+Lists all deployments for a specific website.
+
+**Options**
+- `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional).
 
 Available choices:
 ```
@@ -153,29 +155,57 @@ SUCCESSFUL = 10
 FAILED = 100
 ```
 
+- `--env <integer>`: The environment of the deployments (DeploymentStatus enum, optional).
+
+Available choices:
+```
+TO_STAGING = 1
+STAGING_TO_PRODUCTION = 2
+DIRECTLY_TO_PRODUCTION = 3
+```
+
+**Example**
+```sh
+apillon hosting list-deployments --status 2 --env 1
+```
+
 #### `hosting get-deployment`
-This command retrieves information about a specific deployment.
+Retrieves information about a specific deployment.
 
 **Options**
 - `-w, --website-uuid <string>`: UUID of the website.
 - `-d, --deployment-uuid <string>`: UUID of the deployment
 
-## `Storage`
-#### `storage list-buckets`
+**Example**
+```sh
+apillon hosting get-deployment --website-uuid "123e4567-e89b-12d3-a456-426655440000" --deployment-uuid "987e6543-e21c-32f1-b123-426655441111"
+```
 
-This command lists all storage buckets associated with your project.
+## Storage Commands
+
+#### `storage list-buckets`
+Lists all storage buckets associated with your project.
+
+**Example**
+```sh
+apillon storage list-buckets
+```
 
 #### `storage list-objects`
-
-This command retrieves objects (files and directories) recursively from a specific bucket.
+Retrieves objects from a specific bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve objects from.
-- `-d, --directory-uuid <string>`: UUID of the directory to retreive objects from (optional, default root folder)
-- `--deleted`: Include objects deleted from the bucket
+- `-d, --directory-uuid <string>`: UUID of the directory to retrieve objects from (optional, default root folder).
+- `--deleted`: Include objects deleted from the bucket.
+
+**Example**
+```sh
+apillon storage list-objects --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --directory-uuid "987e6543-e21c-32f1-b123-426655441111"
+```
 
 #### `storage list-files`
-This command retrieves files from a specific bucket.
+Retrieves files from a specific bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve files from.
@@ -187,6 +217,11 @@ UPLOAD_REQUEST_GENERATED = 1
 UPLOADED = 2
 AVAILABLE_ON_IPFS = 3
 AVAILABLE_ON_IPFS_AND_REPLICATED = 4
+```
+
+**Example**
+```sh
+apillon storage list-files --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" -s 2
 ```
 
 **Example response**
@@ -214,7 +249,7 @@ AVAILABLE_ON_IPFS_AND_REPLICATED = 4
 ```
 
 #### `storage upload`
-This command uploads files to a specified bucket.
+Uploads files to a specified bucket.
 
 **Options**
 - `<file-path>`: Path to the folder containing your files.
@@ -222,28 +257,37 @@ This command uploads files to a specified bucket.
 
 **Example**
 ```sh
-apillon storage upload ./my_folder --bucket-uuid your-bucket-uuid
+apillon storage upload ./my_folder --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
-#### `storage get-file`
 
-This command retrieves information about a specific file in a bucket.
+#### `storage get-file`
+Retrieves information about a specific file in a bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
 - `-f, --file-uuid <string>`: UUID or CID of the file to retrieve.
 
-#### `storage delete-file`
+**Example**
+```sh
+apillon storage get-file --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --file-uuid "file_uuid_or_cid"
+```
 
-This command deletes a specific file from a bucket.
+#### `storage delete-file`
+Deletes a specific file from a bucket.
 
 **Options**
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
 - `-f, --file-uuid <string>`: UUID or CID of the file to delete.
 
-## `NFTs`
+**Example**
+```sh
+apillon storage delete-file --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --file-uuid "file_uuid_or_cid"
+```
+
+## NFT Commands
 
 #### `nfts list-collections`
-This command lists all NFT collections owned by the project related to the API key.
+Lists all NFT collections owned by the project related to the API key.
 
 **Options**
 - `--status <integer>`: UUID of the collection to retrieve (CollectionStatus enum, optional).
@@ -258,14 +302,24 @@ TRANSFERRED = 4
 FAILED = 5
 ```
 
+**Example**
+```sh
+apillon nfts list-collections --status 3
+```
+
 #### `nfts get-collection`
-This command retrieves information about a specific NFT collection.
+Retrieves information about a specific NFT collection.
 
 **Options**
 - `--uuid <collection-uuid>`: UUID of the collection to retrieve.
 
+**Example**
+```sh
+apillon nfts get-collection --uuid "123e4567-e89b-12d3-a456-426655440000"
+```
+
 #### `nfts create-collection`
-This command creates a new NFT collection. The JSON file needs to have the property structure as type `ICreateCollection`, which can be found in the SDK docs.
+Creates a new NFT collection. The JSON file needs to have the property structure as type `ICreateCollection`, which can be found in the [SDK docs](https://sdk-docs.apillon.io/interfaces/ICreateCollection.html). An example object can be also seen on the [NFT SDK docs](https://wiki.apillon.io/build/5-apillon-sdk.html#nfts).
 
 **Options**
 - `<file-path>`: Path to the JSON data file for the new collection.
@@ -276,37 +330,57 @@ apillon nfts create-collection ./nft-data.json
 ```
 
 #### `nfts mint-nft`
-This command mints NFTs for a collection with a specific UUID.
+Mints NFTs for a collection with a specific UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: UUID of the collection to mint NFTs to.
 - `-a, --address <string>`: Address which will receive minted NFTs.
-- `-q --quantity <integer>`: Number of NFTs to mint.
+- `-q --quantity <integer>`: Number of NFTs to mint. (default 1).
+
+**Example**
+```sh
+apillon nfts mint-nft --uuid "123e4567-e89b-12d3-a456-426655440000" --address "0xdAC17F958D2ee523a2206206994597C13D831ec7" --quantity 2
+```
 
 #### `nfts nest-mint-nft`
-This command nest mints NFT child collection to a parent collection with a specific UUID and parent NFT with id.
+Nest mints NFT child collection to a parent collection with a specific UUID and parent NFT with id.
 
 **Options**
-- `-c, --parent-colleciton-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
+- `-c, --parent-collection-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
 - `-p, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
-- `-q, --quantity <integer>`: Number of child NFTs to mint.
+- `-q, --quantity <integer>`: Number of child NFTs to mint (default 1).
+
+**Example**
+```sh
+apillon nfts nest-mint-nft --parent-collection-uuid "123e4567-e89b-12d3-a456-426655440000" --parent-nft-id 5 --quantity 2
+```
 
 #### `nfts burn-nft`
-This command burns NFT for a collection with a specific UUID.
+Burns an NFT for a collection with a specific UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
 - `-t, --token-id <integer>`: NFT id which will be burned.
 
+**Example**
+```sh
+apillon nfts burn-nft --uuid "123e4567-e89b-12d3-a456-426655440000" --token-id 123
+```
+
 #### `nfts transfer-collection`
-This command transfers NFT collection ownership to a new wallet address.
+Transfers NFT collection ownership to a new wallet address.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
 - `-a, --address <string>`: Address which you want to transfer collection ownership to.
 
+**Example**
+```sh
+apillon nfts transfer-collection --uuid "123e4567-e89b-12d3-a456-426655440000" --address "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+```
+
 #### `nfts list-transactions`
-This command lists NFT transactions for a specific collection UUID.
+Lists NFT transactions for a specific collection UUID.
 
 **Options**
 - `--uuid <collection-uuid>`: Collection UUID.
@@ -319,6 +393,7 @@ CONFIRMED = 2
 FAILED = 3
 ERROR = 4
 ```
+
 - `--type <integer>`: Transaction type (TransactionType enum, optional).
 
 Available choices:
@@ -329,6 +404,11 @@ MINT_NFT = 3
 SET_COLLECTION_BASE_URI = 4
 BURN_NFT = 5
 NEST_MINT_NFT = 6
+```
+
+**Example**
+```sh
+apillon nfts list-transactions --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 ## Using in CI/CD tools
