@@ -214,7 +214,7 @@ Files in request body are returned in response `data.files` property. Each file 
 | fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
-| path        | `string` | File path.                                                                                                                                                                                                                                                                                                                                  |
+| path        | `string` | File path on the storage bucket.                                                                                                                                                                                                                                                                                                                                  |
 
   </div>
   <div class="split_side">
@@ -293,7 +293,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
-\*\*Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards.
+**Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards. The directory path is mandatory when `wrapWithDirectory` option is set to true. Read more about this option on the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
 
 <div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
 
