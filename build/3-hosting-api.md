@@ -1,6 +1,6 @@
 # Hosting API
 
-Hosting API provides endpoints for listing, creation and deployment of websites.
+Hosting API provides endpoints for listing and deployment of websites.
 API can be used to implement [CI/CD](https://en.wikipedia.org/wiki/CI/CD).
 To deploy page through Apillon API, follow below steps:
 
@@ -12,7 +12,7 @@ To deploy page through Apillon API, follow below steps:
 
 2. Execute deployment to staging or production environment.
 
-**Note:** You should first create a website on the [Apillon dashboard](https://app.apillon.io/dashboard/service/hosting) or through the Apillon API.
+**Note:** You should first create a website on the [Apillon dashboard](https://app.apillon.io/dashboard/service/hosting).
 
 In all cURL examples, parameters with a colon as a prefix should be replaced with real values.
 
@@ -95,7 +95,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 	</div>
 </div>
 
-### Create new website
+<!-- ### Create new website
 
 > API for creating new website.
 
@@ -166,7 +166,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
   </CodeGroup>
 
   </div>
-</div>
+</div> -->
 
 ### Get website
 
