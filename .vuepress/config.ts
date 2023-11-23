@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { searchPlugin } from "@vuepress/plugin-search";
 import { NavbarGroup, defaultTheme, defineUserConfig } from "vuepress";
+import { registerComponentsPlugin } from "@vuepress/plugin-register-components";
 
 export default defineUserConfig({
   lang: "en-US",
@@ -23,11 +24,11 @@ export default defineUserConfig({
   theme: defaultTheme({
     repo: "Apillon/wiki",
     themePlugins: {
-      backToTop: true
+      backToTop: true,
     },
     docsDir: "",
     colorModeSwitch: false,
-    colorMode: 'dark',
+    colorMode: "dark",
     // theme-level locales config
     locales: {
       /**
@@ -53,9 +54,11 @@ export default defineUserConfig({
         },
       },
     }),
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, "./components"),
+    }) as any,
   ],
 });
-
 
 //Generate Nav
 function generateNav(): NavbarGroup[] {
@@ -73,9 +76,7 @@ function generateSidebar(): { [route: string]: string[] } {
   const sidebarMap: any[] = [];
 
   folders.map((folder) => {
-    sidebarMap.push(
-      generateSiteMap(folder, capitalize(folder))
-    );
+    sidebarMap.push(generateSiteMap(folder, capitalize(folder)));
   });
 
   folders.map((folder) => {
@@ -98,8 +99,12 @@ function generateSiteMap(folder, title) {
         fs.statSync(path.join(`${__dirname}/../${folder}`, item)).isDirectory()
     );
 
-  const foldersMap = folders?.length > 0 ? folders.map((f) =>
-    getSidebarSubfoder(`${folder}/${f}`, capitalize(folder))) : [];
+  const foldersMap =
+    folders?.length > 0
+      ? folders.map((f) =>
+          getSidebarSubfoder(`${folder}/${f}`, capitalize(folder))
+        )
+      : [];
 
   const folderFiles = getFolderFiles(folder);
 

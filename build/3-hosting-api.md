@@ -20,7 +20,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API to list all websites in project. Items are paginated and can be filtered and ordered through query parameters as described [here](1-apillon-api.md#listing-requests) .
 
-#### GET /hosting/websites
+<CodeDiv>GET /hosting/websites</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -99,7 +99,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 > API for creating new website.
 
-<div class="request-url">POST /hosting/websites</div>
+<CodeDiv>POST /hosting/websites</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -172,7 +172,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 
 > Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
 
-<div class="request-url">GET /hosting/websites/:websiteUuid</div>
+<CodeDiv>GET /hosting/websites/:websiteUuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -236,7 +236,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > API that creates file upload requests and returns URLs for files upload.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/upload</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/upload</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -381,7 +381,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -438,7 +438,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to trigger website deployment into specific environment.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/deploy</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/deploy</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -553,7 +553,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > API to list website deployments. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
-#### GET /hosting/websites/:websiteUuid/deployments
+<CodeDiv>GET /hosting/websites/:websiteUuid/deployments</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -638,7 +638,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get deployment.
 
-<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deployment_uuid</div>
+<CodeDiv>GET /hosting/websites/:websiteUuid/deployments/:deployment_uuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">

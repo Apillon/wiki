@@ -48,7 +48,7 @@ The server-side part of the OAuth implementation contains the logic to query the
 
 Obtain a session token from the Apillon API to interact with Apillon's OAuth protocol.
 
-<div class="request-url">GET /auth/session-token</div>
+<CodeDiv>GET /auth/session-token</CodeDiv>
 
 <div class="split_content">
   <div class="split_side">
@@ -90,7 +90,7 @@ curl --location --request GET "https://api.apillon.io/auth/session-token" \
 
 After the user has completed the OAuth flow, verify they have successfully logged in with the generated OAuth token from the "message" event handler. As a response, receive the user's Apillon email address.
 
-<div class="request-url">POST /auth/verify-login</div>
+<CodeDiv>POST /auth/verify-login</CodeDiv>
 
 <div class="split_content">
   <div class="split_side">

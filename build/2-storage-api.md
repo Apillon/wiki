@@ -13,7 +13,7 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 > API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
 
-#### GET /storage/buckets
+<CodeDiv>GET /storage/buckets</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -96,7 +96,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 > API for creating new storage bucket. NFT and website bucket are automatically generated, when new website or NFT collection is initialized.
 
-<div class="request-url">POST /storage/buckets</div>
+<CodeDiv>POST /storage/buckets</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -162,7 +162,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
-<div class="request-url">POST /storage/:bucketUuid/upload</div>
+<CodeDiv>POST /storage/:bucketUuid/upload</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -295,7 +295,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 **Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards. The directory path is mandatory when `wrapWithDirectory` option is set to true. Read more about this option on the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
 
-<div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
+<CodeDiv>POST /storage/:bucketUuid/upload/:sessionUuid/end</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -361,7 +361,7 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
-<div class="request-url">GET /storage/buckets/:bucketUuid/content</div>
+<CodeDiv>GET /storage/buckets/:bucketUuid/content</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -480,7 +480,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
-<div class="request-url">GET /storage/buckets/:bucketUuid/files</div>
+<CodeDiv>GET /storage/buckets/:bucketUuid/files</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -588,7 +588,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > Gets details of a specific file inside a bucket.
 
-<div class="request-url">GET /storage/:bucketUuid/files/:id</div>
+<CodeDiv>GET /storage/:bucketUuid/files/:id</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -679,7 +679,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 > Marks a file inside bucket for deletion. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
-<div class="request-url">DELETE /storage/buckets/:bucketUuid/files/:fileUuid</div>
+<CodeDiv>DELETE /storage/buckets/:bucketUuid/files/:fileUuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -736,7 +736,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 > Gets overall storage info for project.
 
-<div class="request-url">GET /storage/info</div>
+<CodeDiv>GET /storage/info</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
