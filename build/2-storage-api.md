@@ -214,7 +214,7 @@ Files in request body are returned in response `data.files` property. Each file 
 | fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
-| path        | `string` | File path on the storage bucket.                                                                                                                                                                                                                                                                                                                                  |
+| path        | `string` | File path on the storage bucket.                                                                                                                                                                                                                                                                                                            |
 
   </div>
   <div class="split_side">
@@ -778,4 +778,157 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
   </CodeGroupItem>
   </CodeGroup>
 	</div>
+</div>
+
+## IPNS
+
+### List IPNS names
+
+> API to list all ipns names in bucket. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
+
+<CodeDiv>GET /storage/buckets/:bucketUuid/ipns</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Query parameters
+
+All query parameters from [listing request](1-apillon-api.md#listing-requests).
+
+#### Response fields (ipns)
+
+Each item is an instance of ipns model, with below properties:
+
+| Field       | Type       | Description                                                    |
+| ----------- | ---------- | -------------------------------------------------------------- |
+| createTime  | `DateTime` | Item create time                                               |
+| updateTime  | `DateTime` | Item last update time                                          |
+| ipnsUuid    | `string`   | Ipns unique identifier                                         |
+| name        | `string`   | Ipns name                                                      |
+| description | `string`   | Ipns description                                               |
+| ipnsName    | `string`   | Ipns name, that is used to access ipns content on ipfs gateway |
+| ipnsValue   | `string`   | Ipfs value (CID), to which this ipns points                    |
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/ipns" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="cURL with params" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/ipns?search=ExampleIpns" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "8f72feea-63de-432e-b39e-5535b6d859db",
+  "status": 200,
+  "data": {
+    "items": [
+      {
+        "createTime": "2023-11-24T06:22:16.000Z",
+        "updateTime": "2023-11-24T06:22:16.000Z",
+        "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
+        "name": "Ipns from Apillon API",
+        "description": null,
+        "ipnsName": null,
+        "ipnsValue": null
+      }
+    ],
+    "total": 1
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### Create new IPNS
+
+> API for creating new IPNS record.
+
+\*\*Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it
+
+<CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Body fields
+
+| Name        | Type     | Description                                                                                                                                    | Required |
+| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| name        | `string` | Ipns name.                                                                                                                                     | true     |
+| description | `string` | Bucket description.                                                                                                                            | false    |
+| cid         | `string` | CID, to which this ipns name will point. If this property is specified, API executes ipns publish which sets ipnsName and ipnsValue properties | false    |
+
+#### Possible errors
+
+| Code     | Description                             |
+| -------- | --------------------------------------- |
+| 42200026 | Request body is missing a `name` field. |
+
+#### Response
+
+Response is an instance of [ipns](#response-fields-ipns), described above.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUuid/ipns" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"name\": \"Example ipns\",
+    \"cid\": \"Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L\"
+}"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "0f436448-7c05-4f29-ae49-c57f55e36705",
+  "status": 201,
+  "data": {
+    "createTime": "2023-11-24T12:14:31.127Z",
+    "updateTime": null,
+    "ipnsUuid": "0b3c4ca8-3054-42a2-b5d4-1665646bbaa0",
+    "projectUuid": "d7e9df40-7148-4f0d-a112-39bf32695ae4",
+    "bucketId": 11,
+    "name": "Example ipns",
+    "description": null,
+    "ipnsName": "k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk",
+    "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L"
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+
+  </div>
 </div>
