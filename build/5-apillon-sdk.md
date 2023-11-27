@@ -33,12 +33,17 @@ npm install @apillon/sdk
 import { Hosting } from "@apillon/sdk";
 
 const hosting = new Hosting({
-  apiKey: "",
-  apiSecret: "",
+  key: "",
+  secret: "",
 });
 ```
 
-Apillon SDK consists of different modules depending on which service you want to use. But all modules require the same initial config of `apiKey` and `apiSecret` shown above in `Hosting` module example.
+Apillon SDK consists of different modules depending on which service you want to use. All modules require the same initial config of `key` and `secret` shown above in `Hosting` module example.
+
+Alternatively, you can populate the `APILLON_API_KEY` and `APILLON_API_SECRET` environment variables.
+
+View each individual module examples in the sections below.
+
 
 ## Hosting
 
