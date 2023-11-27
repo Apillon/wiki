@@ -31,7 +31,6 @@ npx @apillon/cli <command> [options]
 
 > Note that when running without installation, you have to use `@apillon/cli` instead of `apillon` execution command.
 
-
 ### Global Options
 
 - `--api-url <api url>`: Apillon API URL (default: Production API URL, can be set via the `APILLON_API_URL` environment
@@ -79,14 +78,17 @@ The Apillon CLI currently supports the following commands:
 ## Hosting
 
 #### `hosting list-websites`
+
 Lists all websites associated with your project.
 
 **Example**
+
 ```sh
 apillon hosting list-websites --search "My-Website" --limit 1
 ```
 
 **Example response**
+
 ```json
 {
   "items": [
@@ -108,49 +110,61 @@ apillon hosting list-websites --search "My-Website" --limit 1
 ```
 
 #### `hosting get-website`
+
 Retrieves information about a specific website.
 
 **Options**
+
 - `--uuid <string>`: UUID of the website to get details for.
 
 **Example**
+
 ```sh
 apillon hosting get-website --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `hosting deploy-website`
+
 Deploys a website from a local folder directly to Apillon hosting production environment.
 
 **Options**
+
 - `<file-path>`: Path to the folder containing your website files.
 - `--uuid <string>`: UUID of the website to upload files to.
 - `-p, --preview`: Deploy to staging environment instead.
 
 **Example**
+
 ```sh
 apillon hosting deploy-website ./public_html --uuid "123e4567-e89b-12d3-a456-426655440000" -p
 ```
 
 #### `hosting upload`
+
 Uploads a local folder's contents to a website deployment bucket.
 
 **Options**
+
 - `<path>`: Path to the folder containing your website files.
 - `--uuid <string>`: UUID of the website to upload files to.
 
 **Example**
+
 ```sh
 apillon hosting upload ./public_html --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `hosting start-deployment`
+
 Deploys a website to the specified environment, from files already uploaded to the hosting bucket.
 
 **Options**
+
 - `--uuid <string>`: UUID of the website to deploy.
 - `--env <integer>`: The environment to deploy to.
 
 Available choices:
+
 ```
 TO_STAGING = 1
 STAGING_TO_PRODUCTION = 2
@@ -158,18 +172,22 @@ DIRECTLY_TO_PRODUCTION = 3
 ```
 
 **Example**
+
 ```sh
 apillon hosting start-deployment --uuid "123e4567-e89b-12d3-a456-426655440000" --env 1
 ```
 
 #### `hosting list-deployments`
+
 Lists all deployments for a specific website.
 
 **Options**
+
 - `--uuid <string>`: UUID of the website to list deployments for.
 - `--status <integer>`: The status of the deployments (DeploymentStatus enum, optional).
 
 Available choices:
+
 ```
 INITIATED = 0
 IN_PROCESS = 1
@@ -180,17 +198,20 @@ FAILED = 100
 - `--env <integer>`: The environment of the deployments (DeploymentStatus enum, optional).
 
 Available choices:
+
 ```
 STAGING = 2
 PRODUCTION = 3
 ```
 
 **Example**
+
 ```sh
 apillon hosting list-deployments --uuid "58a16026-1356-405b-97f9-efcc9dfac1dd" --order-by createTime --desc true
 ```
 
 **Example response**
+
 ```json
 {
   "items": [
@@ -213,13 +234,16 @@ apillon hosting list-deployments --uuid "58a16026-1356-405b-97f9-efcc9dfac1dd" -
 ```
 
 #### `hosting get-deployment`
+
 Retrieves information about a specific deployment.
 
 **Options**
+
 - `-w, --website-uuid <string>`: UUID of the website.
 - `-d, --deployment-uuid <string>`: UUID of the deployment
 
 **Example**
+
 ```sh
 apillon hosting get-deployment --website-uuid "123e4567-e89b-12d3-a456-426655440000" --deployment-uuid "987e6543-e21c-32f1-b123-426655441111"
 ```
@@ -227,14 +251,17 @@ apillon hosting get-deployment --website-uuid "123e4567-e89b-12d3-a456-426655440
 ## Storage Commands
 
 #### `storage list-buckets`
+
 Lists all storage buckets associated with your project.
 
 **Example**
+
 ```sh
 apillon storage list-buckets
 ```
 
 **Example response**
+
 ```json
 {
   "items": [
@@ -253,14 +280,17 @@ apillon storage list-buckets
 ```
 
 #### `storage list-objects`
+
 Retrieves objects (files and folders) from a specific bucket or bucket directory.
 
 **Options**
+
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve objects from.
 - `-d, --directory-uuid <string>`: UUID of the directory to retrieve objects from (optional, default root folder).
 - `--deleted`: Include objects deleted from the bucket.
 
 **Example**
+
 ```sh
 apillon storage list-objects --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --directory-uuid "987e6543-e21c-32f1-b123-426655441111"
 ```
@@ -291,13 +321,16 @@ apillon storage list-objects --bucket-uuid "123e4567-e89b-12d3-a456-426655440000
 ```
 
 #### `storage list-files`
+
 Retrieves files from a specific bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <string>`: UUID of the bucket to retrieve files from.
 - `-s, --file-status <integer>`: Filter by file status (FileStatus enum, optional).
 
 Available choices:
+
 ```
 UPLOAD_REQUEST_GENERATED = 1
 UPLOADED = 2
@@ -306,11 +339,13 @@ AVAILABLE_ON_IPFS_AND_REPLICATED = 4
 ```
 
 **Example**
+
 ```sh
 apillon storage list-files --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" -s 2
 ```
 
 **Example response**
+
 ```json
 {
   "items": [
@@ -334,37 +369,46 @@ apillon storage list-files --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" 
 ```
 
 #### `storage upload`
+
 Upload contents of a local folder to specified bucket.
 
 **Options**
+
 - `<folder-path>`: Path to the folder containing your files.
 - `-b, --bucket-uuid <string>`: UUID of the bucket to upload files to.
 
 **Example**
+
 ```sh
 apillon storage upload ./my_folder --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `storage get-file`
+
 Retrieves information about a specific file in a bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
 - `-f, --file-uuid <string>`: UUID or CID of the file to retrieve.
 
 **Example**
+
 ```sh
 apillon storage get-file --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --file-uuid "file_uuid_or_cid"
 ```
 
 #### `storage delete-file`
+
 Deletes a specific file from a bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <string>`: UUID of the bucket.
 - `-f, --file-uuid <string>`: UUID or CID of the file to delete.
 
 **Example**
+
 ```sh
 apillon storage delete-file --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --file-uuid "file_uuid_or_cid"
 ```
@@ -372,12 +416,15 @@ apillon storage delete-file --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ## NFT Commands
 
 #### `nfts list-collections`
+
 Lists all NFT collections owned by the project related to the API key.
 
 **Options**
+
 - `--status <integer>`: UUID of the collection to retrieve (CollectionStatus enum, optional).
 
 Available choices:
+
 ```
 CREATED = 0
 DEPLOY_INITIATED = 1
@@ -388,6 +435,7 @@ FAILED = 5
 ```
 
 **Example**
+
 ```sh
 apillon nfts list-collections --status 3
 ```
@@ -428,85 +476,106 @@ apillon nfts list-collections --status 3
 ```
 
 #### `nfts get-collection`
+
 Retrieves information about a specific NFT collection.
 
 **Options**
+
 - `--uuid <collection-uuid>`: UUID of the collection to retrieve.
 
 **Example**
+
 ```sh
 apillon nfts get-collection --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `nfts create-collection`
+
 Creates a new NFT collection. The JSON file needs to have the property structure as type `ICreateCollection`, which can be found in the [SDK docs](https://sdk-docs.apillon.io/interfaces/ICreateCollection.html). An example object can be also seen on the [NFT SDK docs](https://wiki.apillon.io/build/5-apillon-sdk.html#nfts).
 
 **Options**
+
 - `<file-path>`: Path to the JSON data file for the new collection.
 
 **Example**
+
 ```sh
 apillon nfts create-collection ./nft-data.json
 ```
 
 #### `nfts mint-nft`
+
 Mints NFTs for a collection with a specific UUID.
 
 **Options**
+
 - `--uuid <collection-uuid>`: UUID of the collection to mint NFTs to.
 - `-a, --address <string>`: Address which will receive minted NFTs.
 - `-q --quantity <integer>`: Number of NFTs to mint. (default 1).
 
 **Example**
+
 ```sh
 apillon nfts mint-nft --uuid "123e4567-e89b-12d3-a456-426655440000" --address "0xdAC17F958D2ee523a2206206994597C13D831ec7" --quantity 2
 ```
 
 #### `nfts nest-mint-nft`
+
 Nest mints NFT child collection to a parent collection with a specific UUID and parent NFT with id.
 
 **Options**
+
 - `-c, --parent-collection-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
 - `-p, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
 - `-q, --quantity <integer>`: Number of child NFTs to mint (default 1).
 
 **Example**
+
 ```sh
 apillon nfts nest-mint-nft --parent-collection-uuid "123e4567-e89b-12d3-a456-426655440000" --parent-nft-id 5 --quantity 2
 ```
 
 #### `nfts burn-nft`
+
 Burns an NFT for a collection with a specific UUID.
 
 **Options**
+
 - `--uuid <collection-uuid>`: Collection UUID.
 - `-t, --token-id <integer>`: NFT id which will be burned.
 
 **Example**
+
 ```sh
 apillon nfts burn-nft --uuid "123e4567-e89b-12d3-a456-426655440000" --token-id 123
 ```
 
 #### `nfts transfer-collection`
+
 Transfers NFT collection ownership to a new wallet address.
 
 **Options**
+
 - `--uuid <collection-uuid>`: Collection UUID.
 - `-a, --address <string>`: Address which you want to transfer collection ownership to.
 
 **Example**
+
 ```sh
 apillon nfts transfer-collection --uuid "123e4567-e89b-12d3-a456-426655440000" --address "0xdAC17F958D2ee523a2206206994597C13D831ec7"
 ```
 
 #### `nfts list-transactions`
+
 Lists NFT transactions for a specific collection UUID.
 
 **Options**
+
 - `--uuid <collection-uuid>`: Collection UUID.
 - `--status <integer>`: Transaction status (TransactionStatus enum, optional).
 
 Available choices:
+
 ```
 PENDING = 1
 CONFIRMED = 2
@@ -517,6 +586,7 @@ ERROR = 4
 - `--type <integer>`: Transaction type (TransactionType enum, optional).
 
 Available choices:
+
 ```
 DEPLOY_CONTRACT = 1
 TRANSFER_CONTRACT_OWNERSHIP = 2
@@ -527,6 +597,7 @@ NEST_MINT_NFT = 6
 ```
 
 **Example**
+
 ```sh
 apillon nfts list-transactions --uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
@@ -597,23 +668,24 @@ jobs:
           cp -r style dist/
           cp -r js dist/
 
-####
-## if you are using a framework for building web app, you can replace previous two step with the
-## appropriate command for generating static webpage, like an example bellow.
-## Find the correct command in your framework documentation. You may need to to change the
-## name of the source folder in the last step (CLI call)
-####
+      ####
+      ## if you are using a framework for building web app, you can replace previous two step with the
+      ## appropriate command for generating static webpage, like an example bellow.
+      ## Find the correct command in your framework documentation. You may need to to change the
+      ## name of the source folder in the last step (CLI call)
+      ####
 
       # - name: Build app
       #   run: npm run build
-
 
       - name: Deploy website
         env:
           APILLON_API_KEY: ${{ secrets.APILLON_API_KEY }}
           APILLON_API_SECRET: ${{ secrets.APILLON_API_SECRET }}
           WEBSITE_UUID: ${{ secrets.WEBSITE_UUID }}
-        run: npx --yes @apillon/cli hosting deploy-website ./dist --uuid $WEBSITE_UUID --key $APILLON_API_KEY --secret $APILLON_API_SECRET
+        run: |
+          npm i -g @apillon/cli
+          apillon hosting deploy-website ./dist --uuid $WEBSITE_UUID --key $APILLON_API_KEY --secret $APILLON_API_SECRET
 ```
 
 In this example, the GitHub Actions workflow is triggered when a push event occurs on the master branch. The workflow performs the following steps:
@@ -627,3 +699,5 @@ In this example, the GitHub Actions workflow is triggered when a push event occu
 Make sure to setup secret variables with the values from Apillon platform.
 
 That's it! You can now use this example as a starting point to deploy your website using the CLI tool in a CI/CD pipeline with GitHub Actions.
+
+You can also check a working example on [Github](https://github.com/Apillon/sdk/blob/master/.github/workflows/deploy-sdk-docs.yml)
