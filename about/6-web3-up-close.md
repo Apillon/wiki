@@ -113,23 +113,23 @@ Web3 project is a website, program, or app that’s built using decentralized te
 
 #### Web3 services
 
-[Web3 services](/build/2-web3-services.html) are features that are powered by blockchain technology instead of a centralized service provider. The Apillon platform delivers essential Web3 services for building websites, applications, and projects through simple API calls.
+[Web3 services](/web3-services/1-good-to-know.html) are features that are powered by blockchain technology instead of a centralized service provider. The Apillon platform delivers essential Web3 services for building websites, applications, and projects through simple API calls.
 
 #### Web3 Authentication
 
-[Web3 Authentication](/build/2-web3-services.html#web3-authentication) is a Web3 service that enables decentralized verification of unique sets of data, identities, and assets. The Apillon platform offers Web3 authentication services powered by KILT Protocol, which delivers secure identity solutions and credentials for enterprises and consumers.
+[Web3 Authentication](/web3-services/1-good-to-know.html#web3-authentication) is a Web3 service that enables decentralized verification of unique sets of data, identities, and assets. The Apillon platform offers Web3 authentication services powered by KILT Protocol, which delivers secure identity solutions and credentials for enterprises and consumers.
 
 #### Web3 Storage
 
-[Web3 Storage](/build/2-web3-services.html#web3-storage) is a Web3 service that connects to a decentralized network of computer nodes to store the files of a website or app, increasing accessibility and eliminating a single point of access. As the files get stored on a decentralized network of nodes, they become unstoppable. The Apillon platform delivers Web3 Storage service powered by Crust Network.
+[Web3 Storage](/web3-services/1-good-to-know.html#web3-storage) is a Web3 service that connects to a decentralized network of computer nodes to store the files of a website or app, increasing accessibility and eliminating a single point of access. As the files get stored on a decentralized network of nodes, they become unstoppable. The Apillon platform delivers Web3 Storage service powered by Crust Network.
 
 #### Web3 Hosting
 
-[Web3 Hosting](/build/2-web3-services.html#web3-hosting) is a Web3 service that connects to a decentralized network of computer nodes to host a website or app, increasing its accessibility and eliminating a single point of access. As the website or app gets hosted on a decentralized network of nodes, it becomes unstoppable. The Apillon platform delivers Web3 Hosting service powered by Crust Network.
+[Web3 Hosting](/web3-services/1-good-to-know.html#web3-hosting) is a Web3 service that connects to a decentralized network of computer nodes to host a website or app, increasing its accessibility and eliminating a single point of access. As the website or app gets hosted on a decentralized network of nodes, it becomes unstoppable. The Apillon platform delivers Web3 Hosting service powered by Crust Network.
 
 #### Web3 Computing
 
-[Web3 Computing](/build/2-web3-services.html#web3-computing) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
+[Web3 Computing](/web3-services/1-good-to-know.html#web3-computing) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
 
 #### unified service pricing
 
