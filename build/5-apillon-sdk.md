@@ -78,11 +78,16 @@ import * as fs from "fs";
 const hosting = new Hosting({
   key: "yourApiKey",
   secret: "yourApiSecret",
-  apiUrl: "https://api.apillon.io",
-  logLevel: LogLevel.VERBOSE,
+  logLevel: LogLevel.NONE,
 });
+
+// list all websites
 await hosting.listWebsites({ orderBy: "createdTime" });
+
+// create an instance of a website via uuid
 const webpage1 = hosting.website("uuid");
+
+// gets website information
 await webpage1.get();
 
 // Upload files from local folder
@@ -102,11 +107,18 @@ await webpage1.uploadFiles(
   { wrapWithDirectory: true, directoryPath: "main/subdir" }
 );
 
+// deploys uploaded files to staging environment
 await webpage1.deploy(DeployToEnvironment.TO_STAGING);
+
+// lists all deployments of a website
 await webpage1.listDeployments();
+
+// gets a specific deployment
 const deployment = await webpage1
   .deployment("3e0c66ea-317d-4e1f-bcd9-38026c3ea1ee")
   .get();
+
+// checks if deployment was successful
 if (deployment.deploymentStatus === DeploymentStatus.SUCCESSFUL) {
   // done
 }
@@ -127,10 +139,13 @@ import * as fs from "fs";
 const storage = new Storage({
   key: "yourApiKey",
   secret: "yourApiSecret",
-  apiUrl: "https://api.apillon.io",
-  logLevel: LogLevel.VERBOSE,
+  logLevel: LogLevel.NONE,
 });
+
+// list buckets
 await storage.listBuckets({ limit: 5 });
+
+// create and instance of a bucket directly through uuid
 const bucket = storage.bucket("uuid");
 
 // Upload files from local folder
@@ -149,13 +164,21 @@ await bucket.uploadFiles(
   // Upload the files in a new subdirectory in the bucket instead of in the root of the bucket
   { wrapWithDirectory: true, directoryPath: "main/subdir" }
 );
+
+// list objects (files, folders) in a bucket
 await bucket.listObjects({
   directoryUuid: "eaff2672-3012-46fb-9278-5efacc6cb616",
   markedForDeletion: false,
   limit: 5,
 });
+
+// list all files in a bucket no matter if they are in a folder or not
 await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
+
+// gets a specific file in a bucket directly through uuid
 const file = await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").get();
+
+// deletes a file via uuid
 await bucket.deleteFile("2195521d-15cc-4f6e-abf2-13866f9c6e03");
 ```
 
@@ -179,10 +202,11 @@ import {
 const nft = new Nft({
   key: "yourApiKey",
   secret: "yourApiSecret",
-  apiUrl: "https://api.apillon.io",
-  logLevel: LogLevel.VERBOSE,
+  logLevel: LogLevel.NONE,
 });
-await nft.create({
+
+// create a new collection
+const collection1 = await nft.create({
   collectionType: CollectionType.GENERIC,
   chain: EvmChain.MOONBEAM,
   name: "SpaceExplorers",
@@ -200,14 +224,35 @@ await nft.create({
   dropPrice: 0.05,
   dropReserve: 100,
 });
+
+// check if collection is deployed - available on chain
+if (collection1.collectionStatus == CollectionStatus.DEPLOYED) {
+  console.log("Collection deployed: ", collection1.transactionHash);
+}
+
+// search through collections
 await nft.listCollections({ search: "My NFT" });
+
+// create and instance of collection directly through uuid
 const collection = await nft.collection("uuid").get();
+
+// mint a new nft in the collection
 await collection.mint("0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD", 1);
+
+// nest mint a new nft if collection type is NESTABLE
 await collection.nestMint(collection.uuid, 1, 1);
+
+// burn/destroy a specific NFT by its ID if collection is set as revokable
 await collection.burn("1");
+
+// list confirmed transactions on a collection
 await collection.listTransactions({
   transactionStatus: TransactionStatus.CONFIRMED,
 });
+
+// transfer ownership of a collection away from apillon platform to an address
+// NOTE that this will disable the ability to mint/burn etc. from the SDK/API since only the owner
+// has this ability
 await collection.transferOwnership(
   "0x5BA8B0c24bA5307b67E619ad500a635204F73bF1"
 );
