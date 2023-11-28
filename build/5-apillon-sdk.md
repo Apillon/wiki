@@ -188,6 +188,10 @@ NFT module encapsulates functionalities for NFT service available on Apillon das
 
 For detailed NFT SDK method, class and property documentation visit [SDK NFT docs](https://sdk-docs.apillon.io/classes/Nft.html).
 
+::: warning
+When you transfer ownership of the collection to another account Apillon will lose the ability to perform actions in your name (mint, burn, etc.). Before you transfer ownership make sure you do not need those functionalities via Apillon anymore.
+:::
+
 ### Usage example
 
 ```ts
