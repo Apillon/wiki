@@ -81,7 +81,7 @@ const hosting = new Hosting({
   apiUrl: "https://api.apillon.io",
   logLevel: LogLevel.VERBOSE,
 });
-await hosting.listWebsites({ orderBy: "createdTime" });
+await hosting.listWebsites({ orderBy: "createTime" });
 const webpage1 = hosting.website("uuid");
 await webpage1.get();
 
