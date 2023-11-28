@@ -5,23 +5,22 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 **File upload process through Apillon Web3 Storage API**
 
 1. Request signed URL(s) for upload.
-2. Upload file(s) to Apillon central server.
-3. Call [end upload session](#end-upload-session) to trigger transfer to IPFS
-4. File is transferred to IPFS and available through the Apillon gateway.
-5. File is replicated to different IPFS nodes globally via Crust Network.
+2. File is uploaded to Apillon central server.
+3. File is transferred to IPFS and available through the Apillon gateway.
+4. File is replicated to different IPFS nodes globally via Crust Network.
 
 ### List buckets
 
-> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](3-apillon-api.md#listing-requests).
+> API to list all buckets in project. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
 
-#### GET /storage/buckets
+<CodeDiv>GET /storage/buckets</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
 
 #### Query parameters
 
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
 | Name       | Description                                                                   | Required |
 | ---------- | ----------------------------------------------------------------------------- | -------- |
@@ -97,7 +96,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 > API for creating new storage bucket. NFT and website bucket are automatically generated, when new website or NFT collection is initialized.
 
-<div class="request-url">POST /storage/buckets</div>
+<CodeDiv>POST /storage/buckets</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -163,9 +162,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
-\*\*Note: Once URLs for upload are acquired and files are uploaded to Apillon central server, call [end upload session](#end-upload-session), to trigger transfer of uploaded files inside session, to IPFS.
-
-<div class="request-url">POST /storage/:bucketUuid/upload</div>
+<CodeDiv>POST /storage/:bucketUuid/upload</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -217,7 +214,7 @@ Files in request body are returned in response `data.files` property. Each file 
 | fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
-| path        | `string` | File path.                                                                                                                                                                                                                                                                                                                                  |
+| path        | `string` | File path on the storage bucket.                                                                                                                                                                                                                                                                                                                                  |
 
   </div>
   <div class="split_side">
@@ -296,9 +293,9 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
 
-\*\*Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards.
+**Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards. The directory path is mandatory when `wrapWithDirectory` option is set to true. Read more about this option on the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
 
-<div class="request-url">POST /storage/:bucketUuid/upload/:sessionUuid/end</div>
+<CodeDiv>POST /storage/:bucketUuid/upload/:sessionUuid/end</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -360,11 +357,11 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 ### List bucket content
 
-> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
-<div class="request-url">GET /storage/buckets/:bucketUuid/content</div>
+<CodeDiv>GET /storage/buckets/:bucketUuid/content</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -377,12 +374,12 @@ curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/uploa
 
 #### Query parameters
 
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
 
-| Name          | Description                             | Required |
-| ------------- | --------------------------------------- | -------- |
-| directoryUuid | Gets items inside a specific directory. | false    |
-| search        | Search items by name                    | false    |
+| Name              | Description                             | Required |
+| ----------------- | --------------------------------------- | -------- |
+| directoryUuid     | Gets items inside a specific directory. | false    |
+| markedForDeletion | Include deleted buckets                 | false    |
 
 #### Possible errors
 
@@ -479,11 +476,11 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ### List files
 
-> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
-<div class="request-url">GET /storage/buckets/:bucketUuid/files</div>
+<CodeDiv>GET /storage/buckets/:bucketUuid/files</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -493,14 +490,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Name       | Description                                                    | Required |
 | ---------- | -------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of bucket. Key is displayed on developer dashboard. | true     |
-
-#### Query parameters
-
-All query parameters from [listing request](3-apillon-api.md#listing-requests) plus:
-
-| Name   | Description                             | Required |
-| ------ | --------------------------------------- | -------- |
-| search | Search files by full path (path + name) | false    |
 
 #### Possible errors
 
@@ -599,7 +588,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > Gets details of a specific file inside a bucket.
 
-<div class="request-url">GET /storage/:bucketUuid/files/:id</div>
+<CodeDiv>GET /storage/:bucketUuid/files/:id</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -690,7 +679,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 > Marks a file inside bucket for deletion. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
 > If file is marked for deletion, it will not be renewed on Crust Network.
 
-<div class="request-url">DELETE /storage/buckets/:bucketUuid/files/:fileUuid</div>
+<CodeDiv>DELETE /storage/buckets/:bucketUuid/files/:fileUuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -747,7 +736,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 > Gets overall storage info for project.
 
-<div class="request-url">GET /storage/info</div>
+<CodeDiv>GET /storage/info</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">

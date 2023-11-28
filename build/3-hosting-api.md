@@ -18,9 +18,9 @@ In all cURL examples, parameters with a colon as a prefix should be replaced wit
 
 ### List websites
 
-> API to list all websites in project. Items are paginated and can be filtered and ordered through query parameters as described [here](3-apillon-api.md#listing-requests) .
+> API to list all websites in project. Items are paginated and can be filtered and ordered through query parameters as described [here](1-apillon-api.md#listing-requests) .
 
-#### GET /hosting/websites
+<CodeDiv>GET /hosting/websites</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -99,7 +99,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 > API for creating new website.
 
-<div class="request-url">POST /hosting/websites</div>
+<CodeDiv>POST /hosting/websites</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -172,7 +172,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 
 > Endpoint to get website. Endpoint returns basic website data, along with IPNS links.
 
-<div class="request-url">GET /hosting/websites/:websiteUuid</div>
+<CodeDiv>GET /hosting/websites/:websiteUuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -236,7 +236,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > API that creates file upload requests and returns URLs for files upload.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/upload</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/upload</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -286,7 +286,7 @@ Files in request body are returned in response `data.files` property. Each file 
 | fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
-| path        | `string` | File path.                                                                                                                                                                                                                                                                                                                                  |
+| path        | `string` | File path on the hosting bucket.                                                                                                                                                                                                                                                                                                                                  |
 
   </div>
   <div class="split_side">
@@ -381,7 +381,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 > Transfer files to website bucket, which is used as source for deploy to staging(preview) environment.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/upload/:sessionUuid/end</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -438,7 +438,7 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 > Endpoint to trigger website deployment into specific environment.
 
-<div class="request-url">POST /hosting/websites/:websiteUuid/deploy</div>
+<CodeDiv>POST /hosting/websites/:websiteUuid/deploy</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -551,9 +551,9 @@ curl --location --request POST "https://api.apillon.io/hosting/websites/:website
 
 ### List website deployments
 
-> API to list website deployments. More about listing requests can be found [here](3-apillon-api.md#listing-requests)
+> API to list website deployments. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
-#### GET /hosting/websites/:websiteUuid/deployments
+<CodeDiv>GET /hosting/websites/:websiteUuid/deployments</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -638,7 +638,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 > Endpoint to get deployment.
 
-<div class="request-url">GET /hosting/websites/:websiteUuid/deployments/:deployment_uuid</div>
+<CodeDiv>GET /hosting/websites/:websiteUuid/deployments/:deployment_uuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -648,7 +648,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 | Name            | Description                                                           | Required |
 | --------------- | --------------------------------------------------------------------- | -------- |
 | websiteUuid     | Website UUID, visible in developer console website overview           | true     |
-| deployment_uuid | Deployment unique identifier, returned from `deploy` website endpoint | true     |
+| deploymentUuid  | Deployment unique identifier, returned from `deploy` website endpoint | true     |
 
 #### Possible errors
 
@@ -667,7 +667,7 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentId" \
+curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteUuid/deployments/:deploymentUuid" \
 --header "Authorization: Basic :credentials"
 ```
 

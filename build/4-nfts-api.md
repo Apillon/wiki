@@ -6,7 +6,7 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 
 > Get NFT collection by UUID
 
-#### GET /nfts/collections/:uuid
+<CodeDiv>GET /nfts/collections/:uuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -129,21 +129,18 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 
 > List NFT collections. Items are paginated and can be filtered and ordered through query parameters.
 
-#### GET /nfts/collections
+<CodeDiv>GET /nfts/collections</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
 
 #### Query parameters
 
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
+
 | Name             | Description                                                                                           | Required |
 | ---------------- | ----------------------------------------------------------------------------------------------------- | -------- |
 | collectionStatus | Collection status. Find available statuses [here](#collection-statuses).                              | false    |
-| search           | Search by collection name.                                                                            | false    |
-| page             | Collections are paginated by default. This parameter is used to get collections from a specific page. | false    |
-| limit            | Number of files on a page (default: 20).                                                              | false    |
-| orderBy          | One or multiple properties, separated by a comma, used to order data.                                 | false    |
-| desc             | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                  | false    |
 
 #### Response
 
@@ -212,7 +209,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 > List NFT collections. Items are paginated and can be filtered and ordered through query parameters.
 
-#### GET /nfts/collections/:uuid/transactions
+<CodeDiv>GET /nfts/collections/:uuid/transactions</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -225,15 +222,12 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 #### Query parameters
 
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
+
 | Name              | Description                                                                                             | Required |
 | ----------------- | ------------------------------------------------------------------------------------------------------- | -------- |
 | transactionStatus | Transaction status.                                                                                     | false    |
 | transactionType   | Transaction type.                                                                                       | false    |
-| search            | Search by transaction hash.                                                                             | false    |
-| page              | Transactions are paginated by default. This parameter is used to get transactions from a specific page. | false    |
-| limit             | Number of transactions on a page (default: 20).                                                         | false    |
-| orderBy           | One or multiple properties, separated by a comma, used to order data.                                   | false    |
-| desc              | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.                    | false    |
 
 #### Response Fields
 
@@ -323,7 +317,7 @@ Collection can be created with a few features/functionalities:
 1. Generic collection (based on [OpenZeppelins ERC-721](https://docs.openzeppelin.com/contracts/3.x/erc721) NFT standard)
 2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard)
 
-#### POST /nfts/collections
+<CodeDiv>POST /nfts/collections</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -444,7 +438,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
 
 > Transfer collection ownership from a wallet owned by caller to a new wallet address.
 
-#### POST /nfts/collections/:uuid/transfer
+<CodeDiv>POST/nfts/collections/:uuid/transfer</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -539,7 +533,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
 
 **Note:** if the collection is set as `drop` this endpoint can only mint reserved NFTs.
 
-#### POST /nfts/collections/:uuid/mint
+<CodeDiv>POST/nfts/collections/:uuid/mint</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -612,7 +606,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
 
 > Nest mint specified amount of NFTs under a parent NFT defined by the parent collection UUID and token id.
 
-#### POST /nfts/collections/:uuid/nest-mint
+<CodeDiv>POST/nfts/collections/:uuid/nest-mint</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -689,7 +683,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/next-mint' \
 
 **Note:** burning NFTs is only available if `isRevokable` is enabled on collection.
 
-#### POST /nfts/collections/:uuid/burn
+<CodeDiv>POST/nfts/collections/:uuid/burn</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">

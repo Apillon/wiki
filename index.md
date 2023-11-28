@@ -12,19 +12,19 @@ editLink: false
 			</div>
 			<p>Get to know the Apillon platform, its purpose, features, and benefits.</p>
 		</a>
-		<a class="homepage_item" href="/build/1-good-to-know.html">
+    <a class="homepage_item" href="/web3-services/1-good-to-know.html">
+			<div class="homepage_title">
+				<h2>Web3 Services</h2>
+				<img src="/assets/arrow-right.svg" />
+			</div>
+			<p>Familiarize yourself with all the Web3 services Apillon has to offer.</p>
+		</a>
+		<a class="homepage_item" href="/build/1-apillon-api.html">
 			<div class="homepage_title">
 				<h2>Build</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
 			<p>Develop a Web3 product with step-by-step guides and tutorials.</p>
-		</a>
-		<a class="homepage_item" href="/maintain/">
-			<div class="homepage_title">
-				<h2>Maintain</h2>
-				<img src="/assets/arrow-right.svg" />
-			</div>
-			<p>Ensure your Web3 product performs well and keeps up with infrastructure updates.</p>
 		</a>
 	</div>
 </div>
