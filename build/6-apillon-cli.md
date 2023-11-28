@@ -700,4 +700,4 @@ Make sure to setup secret variables with the values from Apillon platform.
 
 That's it! You can now use this example as a starting point to deploy your website using the CLI tool in a CI/CD pipeline with GitHub Actions.
 
-You can also check a working example on [Github](https://github.com/Apillon/sdk/blob/master/.github/workflows/deploy-sdk-docs.yml)
+You can also check a working example on [Github](https://github.com/Apillon/website-deploy-example/blob/main/.github/workflows/deploy.yml)
