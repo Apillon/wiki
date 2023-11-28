@@ -791,23 +791,35 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
 <div class="split_content">
 	<div class="split_side">
 
+#### URL parameters
+
+| Name       | Description                                                    | Required |
+| ---------- | -------------------------------------------------------------- | -------- |
+| bucketUuid | Unique key of storage bucket, from which ipnses will be listed | true     |
+
 #### Query parameters
 
-All query parameters from [listing request](1-apillon-api.md#listing-requests).
+All query parameters from [listing request](1-apillon-api.md#listing-requests) plus:
+
+| Name      | Description                                     | Required |
+| --------- | ----------------------------------------------- | -------- |
+| ipnsName  | List IPNS names with specific name              | false    |
+| ipnsValue | List IPNS names that points to this value (CID) | false    |
 
 #### Response fields (ipns)
 
 Each item is an instance of ipns model, with below properties:
 
-| Field       | Type       | Description                                                    |
-| ----------- | ---------- | -------------------------------------------------------------- |
-| createTime  | `DateTime` | Item create time                                               |
-| updateTime  | `DateTime` | Item last update time                                          |
-| ipnsUuid    | `string`   | Ipns unique identifier                                         |
-| name        | `string`   | Ipns name                                                      |
-| description | `string`   | Ipns description                                               |
-| ipnsName    | `string`   | Ipns name, that is used to access ipns content on ipfs gateway |
-| ipnsValue   | `string`   | Ipfs value (CID), to which this ipns points                    |
+| Field       | Type       | Description                                                                                      |
+| ----------- | ---------- | ------------------------------------------------------------------------------------------------ |
+| createTime  | `DateTime` | Item create time                                                                                 |
+| updateTime  | `DateTime` | Item last update time                                                                            |
+| ipnsUuid    | `string`   | Ipns unique identifier                                                                           |
+| name        | `string`   | Informational ipns name, which is set by user to easily organize it's ipns records               |
+| description | `string`   | Ipns description                                                                                 |
+| ipnsName    | `string`   | Ipns name, that is used to access ipns content on ipfs gateway                                   |
+| ipnsValue   | `string`   | Ipfs value (CID), to which this ipns points                                                      |
+| link        | `string`   | Ipns link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
 
   </div>
   <div class="split_side">
@@ -824,7 +836,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
   <CodeGroupItem title="cURL with params" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/ipns?search=ExampleIpns" \
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/ipns?ipnsName=k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -835,7 +847,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ```json
 {
-  "id": "8f72feea-63de-432e-b39e-5535b6d859db",
+  "id": "f0764846-41f4-4352-87b4-85f9c94a8af4",
   "status": 200,
   "data": {
     "items": [
@@ -846,10 +858,21 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
         "name": "Ipns from Apillon API",
         "description": null,
         "ipnsName": null,
-        "ipnsValue": null
+        "ipnsValue": null,
+        "link": null
+      },
+      {
+        "createTime": "2023-11-24T13:43:43.000Z",
+        "updateTime": "2023-11-24T13:43:45.000Z",
+        "ipnsUuid": "0b3c4ca8-3054-42a2-b5d4-1665646bbaa0",
+        "name": "Example ipns",
+        "description": null,
+        "ipnsName": "k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk",
+        "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
+        "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhscXQwN2xzOXV5ejE0MW9mcWNsOTlrNGI4ZTYzbnMxZmg1MmliMWJ3aDA5ejBrNnZqayIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMDk4MTg3Niwic3ViIjoiSVBGUy10b2tlbiJ9.LMRhNNtsYF-0NlIcXFL1O85I58bsC_zHlbAepPz0hVM"
       }
     ],
-    "total": 1
+    "total": 2
   }
 }
 ```
@@ -863,26 +886,33 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for creating new IPNS record.
 
-\*\*Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it
+\*\*Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
 
+#### URL parameters
+
+| Name       | Description                                                                                          | Required |
+| ---------- | ---------------------------------------------------------------------------------------------------- | -------- |
+| bucketUuid | Unique key of storage bucket in which ipns will be created. Key is displayed on developer dashboard. | true     |
+
 #### Body fields
 
-| Name        | Type     | Description                                                                                                                                    | Required |
-| ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| name        | `string` | Ipns name.                                                                                                                                     | true     |
-| description | `string` | Bucket description.                                                                                                                            | false    |
-| cid         | `string` | CID, to which this ipns name will point. If this property is specified, API executes ipns publish which sets ipnsName and ipnsValue properties | false    |
+| Name        | Type     | Description                                                                                                                                       | Required |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| name        | `string` | Ipns name.                                                                                                                                        | true     |
+| description | `string` | Ipns description.                                                                                                                                 | false    |
+| cid         | `string` | CID to which this ipns name will point. If this property is specified, API executes ipns publish which sets `ipnsName` and `ipnsValue` properties | false    |
 
 #### Possible errors
 
 | Code     | Description                             |
 | -------- | --------------------------------------- |
 | 42200026 | Request body is missing a `name` field. |
+| 40406002 | Bucket not found                        |
 
 #### Response
 
@@ -922,7 +952,8 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
     "name": "Example ipns",
     "description": null,
     "ipnsName": "k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk",
-    "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L"
+    "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
+    "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhscXQwN2xzOXV5ejE0MW9mcWNsOTlrNGI4ZTYzbnMxZmg1MmliMWJ3aDA5ejBrNnZqayIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMDk4MTg3Niwic3ViIjoiSVBGUy10b2tlbiJ9.LMRhNNtsYF-0NlIcXFL1O85I58bsC_zHlbAepPz0hVM"
   }
 }
 ```
@@ -931,4 +962,211 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
   </CodeGroup>
 
   </div>
+</div>
+
+### Get IPNS
+
+> API to get specific IPNS name by its uuid
+
+<CodeDiv>GET /storage/buckets/:bucketUuid/ipns/:ipnsUuid</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name       | Description                   | Required |
+| ---------- | ----------------------------- | -------- |
+| bucketUuid | Unique key of storage bucket. | true     |
+| ipnsUuid   | Unique key of IPNS name       | true     |
+
+#### Possible errors
+
+| Code     | Description    |
+| -------- | -------------- |
+| 40406012 | Ipns not found |
+
+#### Response fields (ipns)
+
+Response is an instance of [ipns](#response-fields-ipns), described above.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/ipns/:ipnsUuid" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "0f436448-7c05-4f29-ae49-c57f55e36705",
+  "status": 201,
+  "data": {
+    "createTime": "2023-11-24T12:14:31.127Z",
+    "updateTime": null,
+    "ipnsUuid": "0b3c4ca8-3054-42a2-b5d4-1665646bbaa0",
+    "projectUuid": "d7e9df40-7148-4f0d-a112-39bf32695ae4",
+    "bucketId": 11,
+    "name": "Example ipns",
+    "description": null,
+    "ipnsName": "k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk",
+    "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
+    "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhscXQwN2xzOXV5ejE0MW9mcWNsOTlrNGI4ZTYzbnMxZmg1MmliMWJ3aDA5ejBrNnZqayIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMDk4MTg3Niwic3ViIjoiSVBGUy10b2tlbiJ9.LMRhNNtsYF-0NlIcXFL1O85I58bsC_zHlbAepPz0hVM"
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### Publish IPNS
+
+> API for publishing IPNS on IPFS and linking it to CID.
+
+\*\*Note: Multiple IPNS records can point to the same CID.
+
+<CodeDiv>POST /storage/buckets/:bucketUuid/ipns/:ipnsUuid/publish</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name       | Description                                       | Required |
+| ---------- | ------------------------------------------------- | -------- |
+| bucketUuid | Unique key of storage bucket.                     | true     |
+| ipnsUuid   | Unique key of ipns record, that will be published | true     |
+
+#### Body fields
+
+| Name | Type     | Description                             | Required |
+| ---- | -------- | --------------------------------------- | -------- |
+| cid  | `string` | CID to which this ipns name will point. | true     |
+
+#### Possible errors
+
+| Code     | Description                    |
+| -------- | ------------------------------ |
+| 42200030 | Body is missing `CID` property |
+| 40406012 | Ipns not found                 |
+
+#### Response
+
+Response is an instance of [ipns](#response-fields-ipns) which was published. Properties are described above.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUuid/ipns/:ipnsUuid/publish" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{
+    \"cid\": \"Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L\"
+}"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "14bfe999-ffc4-477b-bf10-4fe9ba9ab90a",
+  "status": 200,
+  "data": {
+    "createTime": "2023-11-26T07:13:32.000Z",
+    "updateTime": "2023-11-26T07:13:32.000Z",
+    "ipnsUuid": "df5c47b4-e00b-4163-877e-7c78042e7666",
+    "name": "My 3 ipns",
+    "description": null,
+    "ipnsName": "k2k4r8jofss9us61kwlmq8flgdhj3a1tn5ikcc6m494kf2edifi2oh4z",
+    "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
+    "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8jofss9us61kwlmq8flgdhj3a1tn5ikcc6m494kf2edifi2oh4z/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhqb2Zzczl1czYxa3dsbXE4ZmxnZGhqM2ExdG41aWtjYzZtNDk0a2YyZWRpZmkyb2g0eiIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMTA3NTk3OCwic3ViIjoiSVBGUy10b2tlbiJ9.xJ0ZdUb0XqH9oe7AvG0yUnCnydKNoGlNnNsIYZEwAc0"
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+
+  </div>
+</div>
+
+### Delete IPNS
+
+> API to delete ipns record
+
+<CodeDiv>DELETE /storage/buckets/:bucketUuid/ipns/:ipnsUuid</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name       | Description                   | Required |
+| ---------- | ----------------------------- | -------- |
+| bucketUuid | Unique key of storage bucket. | true     |
+| ipnsUuid   | Unique key of ipns record     | true     |
+
+#### Possible errors
+
+| Code     | Description    |
+| -------- | -------------- |
+| 40406012 | Ipns not found |
+
+#### Response fields (ipns)
+
+Response is deleted ipns record, instance of [ipns](#response-fields-ipns), described above.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
+
+```sh
+curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucketUuid/ipns/:ipnsUuid" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "302f036b-5ca5-488c-bbd5-a7cdd7674898",
+  "status": 200,
+  "data": {
+    "createTime": "2023-11-24T06:22:16.000Z",
+    "updateTime": "2023-11-24T06:22:16.000Z",
+    "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
+    "name": "Ipns from Apillon API",
+    "description": null,
+    "ipnsName": null,
+    "ipnsValue": null
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
 </div>
