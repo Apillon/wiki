@@ -17,14 +17,14 @@ editLink: false
 				<h2>Web3 Services</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
-			<p>Familiarize yourself with all the Web3 services Apillon has to offer.</p>
+			<p>Integrate decentralized tech with ready-to-deploy services in a few-click fashion.</p>
 		</a>
 		<a class="homepage_item" href="/build/1-apillon-api.html">
 			<div class="homepage_title">
 				<h2>Build</h2>
 				<img src="/assets/arrow-right.svg" />
 			</div>
-			<p>Develop a Web3 product with step-by-step guides and tutorials.</p>
+			<p>Develop a decentralized project from scratch and plug into Web3 via Apillon APIs.</p>
 		</a>
 	</div>
 </div>
