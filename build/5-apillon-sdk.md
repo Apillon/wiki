@@ -82,7 +82,7 @@ const hosting = new Hosting({
 });
 
 // list all websites
-await hosting.listWebsites({ orderBy: "createdTime" });
+await hosting.listWebsites({ orderBy: "createTime" });
 
 // create an instance of a website via uuid
 const webpage1 = hosting.website("uuid");
