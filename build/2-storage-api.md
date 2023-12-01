@@ -814,12 +814,12 @@ Each item is an instance of ipns model, with below properties:
 | ----------- | ---------- | ------------------------------------------------------------------------------------------------ |
 | createTime  | `DateTime` | Item create time                                                                                 |
 | updateTime  | `DateTime` | Item last update time                                                                            |
-| ipnsUuid    | `string`   | Ipns unique identifier                                                                           |
+| ipnsUuid    | `string`   | IPNS unique identifier                                                                           |
 | name        | `string`   | Informational ipns name, which is set by user to easily organize it's ipns records               |
-| description | `string`   | Ipns description                                                                                 |
-| ipnsName    | `string`   | Ipns name, that is used to access ipns content on ipfs gateway                                   |
-| ipnsValue   | `string`   | Ipfs value (CID), to which this ipns points                                                      |
-| link        | `string`   | Ipns link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
+| description | `string`   | IPNS description                                                                                 |
+| ipnsName    | `string`   | IPNS name, that is used to access ipns content on ipfs gateway                                   |
+| ipnsValue   | `string`   | IPFS value (CID), to which this ipns points                                                      |
+| link        | `string`   | IPNS link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
 
   </div>
   <div class="split_side">
@@ -855,7 +855,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
         "createTime": "2023-11-24T06:22:16.000Z",
         "updateTime": "2023-11-24T06:22:16.000Z",
         "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
-        "name": "Ipns from Apillon API",
+        "name": "IPNS from Apillon API",
         "description": null,
         "ipnsName": null,
         "ipnsValue": null,
@@ -886,7 +886,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for creating new IPNS record.
 
-\*\*Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.
+**Note: IPNS becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
@@ -903,8 +903,8 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 | Name        | Type     | Description                                                                                                                                       | Required |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| name        | `string` | Ipns name.                                                                                                                                        | true     |
-| description | `string` | Ipns description.                                                                                                                                 | false    |
+| name        | `string` | IPNS name.                                                                                                                                        | true     |
+| description | `string` | IPNS description.                                                                                                                                 | false    |
 | cid         | `string` | CID to which this ipns name will point. If this property is specified, API executes ipns publish which sets `ipnsName` and `ipnsValue` properties | false    |
 
 #### Possible errors
@@ -984,7 +984,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Code     | Description    |
 | -------- | -------------- |
-| 40406012 | Ipns not found |
+| 40406012 | IPNS not found |
 
 #### Response fields (ipns)
 
@@ -1034,7 +1034,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for publishing IPNS on IPFS and linking it to CID.
 
-\*\*Note: Multiple IPNS records can point to the same CID.
+**Note: Multiple IPNS records can point to the same CID.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns/:ipnsUuid/publish</CodeDiv>
 
@@ -1059,7 +1059,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Code     | Description                    |
 | -------- | ------------------------------ |
 | 42200030 | Body is missing `CID` property |
-| 40406012 | Ipns not found                 |
+| 40406012 | IPNS not found                 |
 
 #### Response
 
@@ -1128,7 +1128,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Code     | Description    |
 | -------- | -------------- |
-| 40406012 | Ipns not found |
+| 40406012 | IPNS not found |
 
 #### Response fields (ipns)
 
@@ -1158,7 +1158,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
     "createTime": "2023-11-24T06:22:16.000Z",
     "updateTime": "2023-11-24T06:22:16.000Z",
     "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
-    "name": "Ipns from Apillon API",
+    "name": "IPNS from Apillon API",
     "description": null,
     "ipnsName": null,
     "ipnsValue": null
