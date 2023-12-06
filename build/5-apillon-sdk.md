@@ -179,7 +179,9 @@ await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
 const file = await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").get();
 
 // deletes a file via uuid
-await bucket.deleteFile("2195521d-15cc-4f6e-abf2-13866f9c6e03");
+await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").delete();
+// deletes a directory via uuid
+await bucket.directory("eddc52cf-92d2-436e-b6de-42d7cad621c3").delete();
 ```
 
 ## NFTs
