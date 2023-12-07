@@ -72,7 +72,7 @@ For commands that return a list of results, for example `apillon storage list-fi
 
 The Apillon CLI currently supports the following commands:
 
-## Hosting
+## Hosting Commands
 
 #### `hosting list-websites`
 
