@@ -736,6 +736,8 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 > Gets overall storage info for project.
 
+**Note: Available resources can be increased with subscription to paid plans.**
+
 <CodeDiv>GET /storage/info</CodeDiv>
 
 <div class="split_content">
@@ -743,10 +745,12 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 #### Response fields
 
-| Field            | Type      | Description                      |
-| ---------------- | --------- | -------------------------------- |
-| availableStorage | `integer` | Available storage space in bytes |
-| usedStorage      | `integer` | Used storage in bytes            |
+| Field              | Type      | Description                                                                                                                                                          |
+| ------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| availableStorage   | `integer` | Available storage space in bytes                                                                                                                                     |
+| usedStorage        | `integer` | Used storage in bytes. When `usedStorage` reaches available storage, upload to buckets will be blocked (error [40006003](1-apillon-api.md#not-enough-storage-space)) |
+| availableBandwidth | `integer` | Monthly available bandwidth (upload and download)                                                                                                                    |
+| usedBandwidth      | `integer` | Current month used bandwidth. If `usedBandwidth` reaches available, requests to ipfs gateway will be blocked                                                         |
 
   </div>
   <div class="split_side">
@@ -770,7 +774,138 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
   "status": 200,
   "data": {
     "availableStorage": 3221225472,
-    "usedStorage": 1221225466
+    "usedStorage": 1221225466,
+    "availableBandwidth": 3221225472,
+    "usedBandwidth": 56500
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### Get ipfs cluster info
+
+> Gets basic data of ipfs cluster used by the project. IPFS clusters contain multiple IPFS nodes, but exposes single gateway for accessing content via CID or IPNS.
+> Apillon clusters (gateways) are not publicly accessible
+
+**Note: Each projects has it's own secret for generation of tokens, to access content on ipfs gateway.**
+
+<CodeDiv>GET /storage/ipfs-cluster-info</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Response fields
+
+| Field            | Type     | Description                                                                                                                                               |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| secret           | `string` | Secret for this project, which can be used to generate tokens, to access content of ipfs gateway                                                          |
+| projectUuid      | `string` | Project unique identifier                                                                                                                                 |
+| ipfsGateway      | `string` | Gateway, which can be used to access content via CIDs. Example: https://ipfs-eu1.apillon.io/ipfs/CID                                                      |
+| ipnsGateway      | `string` | Gateway, which can be used to access content via IPNS name. Example: https://ipfs-eu1.apillon.io/ipns/IPNS                                                |
+| subdomainGateway | `string` | If specified, content on ipfs can be access as subdomain. Example: https://bafybeif7ahb2p7ww5jk65jkrxq4l577dxb53u5kh37aainaqhaldjopouq.ipfs.nectarnode.io |
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "0d7979c0-a00b-4502-9cb9-22228b24f71d",
+  "status": 200,
+  "data": {
+    "secret": "*********",
+    "ipfsGateway": "https://ipfs-eu1.apillon.io/ipfs/",
+    "ipnsGateway": "https://ipfs-eu1.apillon.io/ipns/",
+    "subdomainGateway": ""
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### Get or generate link for ipfs
+
+> Apillon IPFS gateways are private and can be only accessible with token. Token for specific address (CID), can be acquired via Apillon API request or it can be generated with the use of `secret` property, from above [request](#get-ipfs-cluster-info)
+
+<CodeDiv>GET /storage/link-on-ipfs/:cid</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name | Description                                                      | required |
+| ---- | ---------------------------------------------------------------- | -------- |
+| cid  | CID address of IPNS name. Api will automatically detect the type | true     |
+
+#### Response fields
+
+| Field | Type     | Description                                   |
+| ----- | -------- | --------------------------------------------- |
+| link  | `string` | Link, where requested content can be accessed |
+
+#### How to generate token programmatically
+
+Apillon IPFS gateways expects [JWT token](https://jwt.io/) which can be create using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
+
+JWT sign methods expects 3 parameters:
+
+1. JWT payload:
+
+```json
+{
+  "cid": "CID or IPNS address",
+  "project_uuid": "Change with projectUuid value"
+}
+```
+
+2. Secret: Use `secret` property from ipfs cluster info
+3. Subject: `IPFS-token`
+
+For each CID, new token should be generated.
+Append generated JWT to URL request as `token` query parameter.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/storage/link-on-ipfs/:cid" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "3a3ea750-3f3a-41e3-b5cb-a5543c2b2283",
+  "status": 200,
+  "data": {
+    "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8plzxzg7eji9ucbr1trn9teesc72h1odfsjjggf4nmmm6rjosiu/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhwbHp4emc3ZWppOXVjYnIxdHJuOXRlZXNjNzJoMW9kZnNqamdnZjRubW1tNnJqb3NpdSIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMTkyNTcxMCwic3ViIjoiSVBGUy10b2tlbiJ9.VpDmVUI0AW8lVX7Dk_bq1fWj2vmd7z-i_dFB3f9L_RA"
   }
 }
 ```
@@ -886,7 +1021,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for creating new IPNS record.
 
-\*\*Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.
+**Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
@@ -1034,7 +1169,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for publishing IPNS on IPFS and linking it to CID.
 
-\*\*Note: Multiple IPNS records can point to the same CID.
+**Note: Multiple IPNS records can point to the same CID.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns/:ipnsUuid/publish</CodeDiv>
 
