@@ -91,7 +91,7 @@ const webpage1 = hosting.website("uuid");
 await webpage1.get();
 
 // Upload files from local folder
-await webpage1.uploadFromFolder("./my-foler/files/");
+await webpage1.uploadFromFolder("./public");
 // Or alternatively, send file buffers as upload parameters
 const htmlBuffer = fs.readFileSync("./public/index.html");
 await webpage1.uploadFiles(
@@ -99,12 +99,9 @@ await webpage1.uploadFiles(
     {
       fileName: "index.html",
       contentType: "text/html",
-      path: null,
       content: htmlBuffer,
     },
-  ],
-  // Upload the files in a new subdirectory in the bucket instead of in the root of the bucket
-  { wrapWithDirectory: true, directoryPath: "main/subdir" }
+  ]
 );
 
 // deploys uploaded files to staging environment
@@ -149,20 +146,19 @@ await storage.listBuckets({ limit: 5 });
 const bucket = storage.bucket("uuid");
 
 // Upload files from local folder
-await bucket.uploadFromFolder("./my-foler/files/");
+await bucket.uploadFromFolder("./my-folder/files/");
 // Or alternatively, send file buffers as upload parameters
-const htmlBuffer = fs.readFileSync("./public/index.html");
+const pdfBuffer = fs.readFileSync("./my-folder/files/document.pdf");
 await bucket.uploadFiles(
   [
     {
-      fileName: "index.html",
-      contentType: "text/html",
-      path: null,
-      content: htmlBuffer,
+      fileName: "document.pdf",
+      contentType: "application/pdf",
+      content: pdfBuffer,
     },
   ],
   // Upload the files in a new subdirectory in the bucket instead of in the root of the bucket
-  { wrapWithDirectory: true, directoryPath: "main/subdir" }
+  { wrapWithDirectory: true, directoryPath: "main/documents" }
 );
 
 // list objects (files, folders) in a bucket
@@ -182,6 +178,39 @@ const file = await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").get();
 await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").delete();
 // deletes a directory via uuid
 await bucket.directory("eddc52cf-92d2-436e-b6de-42d7cad621c3").delete();
+```
+
+### IPNS methods
+
+The Storage module additionally contains methods for manipulating IPNS records for a specific storage any.
+
+For detailed IPNS SDK method, class and property documentation visit [SDK IPNS docs](https://sdk-docs.apillon.io/classes/Ipns.html).
+
+```ts
+import { Storage, LogLevel } from "@apillon/sdk";
+
+const storage = new Storage({
+  key: "yourApiKey",
+  secret: "yourApiSecret",
+  logLevel: LogLevel.NONE,
+});
+
+// create and instance of a bucket directly through uuid
+const bucket = storage.bucket("uuid");
+// list all existing IPNS records
+const ipnsNames = await bucket.listIpnsNames({ ipnsName: "Images IPNS" });
+// create a new IPNS record
+const newIpns = await bucket.createIpns({
+  name: "Music IPNS",
+  description: "IPNS for my music files",
+  cid: "QmS5NL2Rc6SCjFx7pvZHdTD8WGWjDt25WQskC7DsNKAatW",
+});
+// Get an IPNS record"s details by UUID
+const ipns = await bucket.ipns("ipns_uuid").get();
+// Publish an IPNS record to point to a given CID
+await ipns.publish("QmajaeC15ZpcnjBpX4ARRBU127fpcZ2svYEfEBhFRkRZbN");
+// delete an IPNS record from the bucket
+await ipns.delete();
 ```
 
 ## NFTs
