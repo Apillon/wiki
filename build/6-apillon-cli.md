@@ -788,9 +788,11 @@ jobs:
           APILLON_API_KEY: ${{ secrets.APILLON_API_KEY }}
           APILLON_API_SECRET: ${{ secrets.APILLON_API_SECRET }}
           WEBSITE_UUID: ${{ secrets.WEBSITE_UUID }}
-        run: |
-          npm i -g @apillon/cli
-          apillon hosting deploy-website ./dist --uuid $WEBSITE_UUID --key $APILLON_API_KEY --secret $APILLON_API_SECRET
+        run: npx --yes @apillon/cli hosting deploy-website ./dist --uuid $WEBSITE_UUID --key $APILLON_API_KEY --secret $APILLON_API_SECRET
+        # Or alternatively you can use the run configuration below
+        # run: |
+        #   npm i -g @apillon/cli
+        #   apillon hosting deploy-website ./dist --uuid $WEBSITE_UUID --key $APILLON_API_KEY --secret $APILLON_API_SECRET
 ```
 
 In this example, the GitHub Actions workflow is triggered when a push event occurs on the master branch. The workflow performs the following steps:
