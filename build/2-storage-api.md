@@ -830,6 +830,7 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
   "status": 200,
   "data": {
     "secret": "*********",
+    "project_uuid": "73f46f28-0d7c-43c4-9420-d4225b942ed1",
     "ipfsGateway": "https://ipfs-eu1.apillon.io/ipfs/",
     "ipnsGateway": "https://ipfs-eu1.apillon.io/ipns/",
     "subdomainGateway": ""
