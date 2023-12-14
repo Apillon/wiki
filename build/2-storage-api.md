@@ -190,14 +190,15 @@ Each file metadata object in `files` array, contain below properties.
 
 #### Possible errors
 
-| Code     | Description                                                                    |
-| -------- | ------------------------------------------------------------------------------ |
-| 40406002 | Bucket does not exist.                                                         |
-| 42200040 | Request body is missing a `files` field.                                       |
-| 42200150 | `files` has invalid length. It should be between 1 and 200                     |
-| 42200008 | Request body file object is missing a `fileName` field.                        |
-| 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it. |
-| 50006003 | Internal error - Apillon was unable to generate upload URL.                    |
+| Code     | Description                                                                           |
+| -------- | ------------------------------------------------------------------------------------- |
+| 40406002 | Bucket does not exist.                                                                |
+| 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it.        |
+| 40006020 | Html files are not allowed to upload to storage bucket in freemium subscription plan. |
+| 42200040 | Request body is missing a `files` field.                                              |
+| 42200150 | `files` has invalid length. It should be between 1 and 200                            |
+| 42200008 | Request body file object is missing a `fileName` field.                               |
+| 50006003 | Internal error - Apillon was unable to generate upload URL.                           |
 
 #### Response
 
@@ -791,7 +792,7 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
 > Gets basic data of ipfs cluster used by the project. IPFS clusters contain multiple IPFS nodes, but exposes single gateway for accessing content via CID or IPNS.
 > Apillon clusters (gateways) are not publicly accessible
 
-**Note: Each projects has it's own secret for generation of tokens, to access content on ipfs gateway.**
+**Note: Each projects has it's own secret for generation the tokens, to access content on ipfs gateway.**
 
 <CodeDiv>GET /storage/ipfs-cluster-info</CodeDiv>
 
@@ -800,13 +801,12 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
 
 #### Response fields
 
-| Field            | Type     | Description                                                                                                                                               |
-| ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| secret           | `string` | Secret for this project, which can be used to generate tokens, to access content of ipfs gateway                                                          |
-| projectUuid      | `string` | Project unique identifier                                                                                                                                 |
-| ipfsGateway      | `string` | Gateway, which can be used to access content via CIDs. Example: https://ipfs-eu1.apillon.io/ipfs/CID                                                      |
-| ipnsGateway      | `string` | Gateway, which can be used to access content via IPNS name. Example: https://ipfs-eu1.apillon.io/ipns/IPNS                                                |
-| subdomainGateway | `string` | If specified, content on ipfs can be access as subdomain. Example: https://bafybeif7ahb2p7ww5jk65jkrxq4l577dxb53u5kh37aainaqhaldjopouq.ipfs.nectarnode.io |
+| Field       | Type     | Description                                                                                      |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------ |
+| secret      | `string` | Secret for this project, which can be used to generate tokens, to access content of ipfs gateway |
+| projectUuid | `string` | Project unique identifier                                                                        |
+| ipfsGateway | `string` | Gateway, which can be used to access content via CIDs.                                           |
+| ipnsGateway | `string` | Gateway, which can be used to access content via IPNS name.                                      |
 
   </div>
   <div class="split_side">
@@ -831,9 +831,8 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
   "data": {
     "secret": "*********",
     "project_uuid": "73f46f28-0d7c-43c4-9420-d4225b942ed1",
-    "ipfsGateway": "https://ipfs-eu1.apillon.io/ipfs/",
-    "ipnsGateway": "https://ipfs-eu1.apillon.io/ipns/",
-    "subdomainGateway": ""
+    "ipfsGateway": "https://<CIDv1>.staging.nectarnode.io",
+    "ipnsGateway": "https://<IPNS>.staging.nectarnode.io"
   }
 }
 ```
@@ -845,7 +844,7 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
 
 ### Get or generate link for ipfs
 
-> Apillon IPFS gateways are private and can be only accessible with token. Token for specific address (CID), can be acquired via Apillon API request or it can be generated with the use of `secret` property, from above [request](#get-ipfs-cluster-info)
+> Apillon IPFS gateways are private and can be only accessible with token. Token for specific address (CID), can be acquired via Apillon API request or it can be generated with the use of `secret` and `project_uuid` properties, from above [request](#get-ipfs-cluster-info)
 
 <CodeDiv>GET /storage/link-on-ipfs/:cid</CodeDiv>
 
@@ -854,15 +853,15 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
 
 #### URL parameters
 
-| Name | Description                                                      | required |
-| ---- | ---------------------------------------------------------------- | -------- |
-| cid  | CID address of IPNS name. Api will automatically detect the type | true     |
+| Name | Description                                                                            | required |
+| ---- | -------------------------------------------------------------------------------------- | -------- |
+| cid  | Ipfs content identifier. Api will automatically detect the type (CIDv0, CIDv1 or IPNS) | true     |
 
 #### Response fields
 
-| Field | Type     | Description                                   |
-| ----- | -------- | --------------------------------------------- |
-| link  | `string` | Link, where requested content can be accessed |
+| Field | Type     | Description                                    |
+| ----- | -------- | ---------------------------------------------- |
+| link  | `string` | Link, where requested content can be accessed. |
 
 #### How to generate token programmatically
 
@@ -906,7 +905,7 @@ curl --location --request GET "https://api.apillon.io/storage/link-on-ipfs/:cid"
   "id": "3a3ea750-3f3a-41e3-b5cb-a5543c2b2283",
   "status": 200,
   "data": {
-    "link": "https://ipfs-eu1.apillon.io/ipns/k2k4r8plzxzg7eji9ucbr1trn9teesc72h1odfsjjggf4nmmm6rjosiu/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJrMms0cjhwbHp4emc3ZWppOXVjYnIxdHJuOXRlZXNjNzJoMW9kZnNqamdnZjRubW1tNnJqb3NpdSIsInByb2plY3RfdXVpZCI6ImQ3ZTlkZjQwLTcxNDgtNGYwZC1hMTEyLTM5YmYzMjY5NWFlNCIsImlhdCI6MTcwMTkyNTcxMCwic3ViIjoiSVBGUy10b2tlbiJ9.VpDmVUI0AW8lVX7Dk_bq1fWj2vmd7z-i_dFB3f9L_RA"
+    "link": "https://bafybeigjhyc2tpvqfqsuvf3byo4e4a4v6spi6jk4qqvvtlpca6rsaf2cqi.ipfs.nectarnode.io/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJiYWZ5YmVpZ2poeWMydHB2cWZxc3V2ZjNieW80ZTRhNHY2c3BpNmprNHFxdnZ0bHBjYTZyc2FmMmNxaSIsInByb2plY3RfdXVpZCI6IjE0NmM5ZWU5LTEwMDgtNDdiNS05ZTJjLTQxZmIyN2ExZjY1NSIsImlhdCI6MTcwMjU1NTA2Mywic3ViIjoiSVBGUy10b2tlbiJ9.07tHk5jAuAbcRaDxiiA9zHNWD71pxAcQX9v7LbhZ0-E"
   }
 }
 ```
