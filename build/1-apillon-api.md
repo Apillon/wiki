@@ -61,7 +61,14 @@ If a request is made with an API key that lacks permission for called endpoint, 
 
 ### Listing requests
 
-Endpoints starting with "List" are intended to list different data, where the response contains 2 properties: `items`(records that match the current query) and `total` (number of all records. This information should be used for pagination: Round up (`total` / `limit`) = number of pages.
+Endpoints starting with "List" are intended to list different data, where the response contains below properties.
+
+| Name  | Description                                             |
+| ----- | ------------------------------------------------------- |
+| items | Records on specified page, that match the current query |
+| total | Number of all records that match the query              |
+| limit | Number of items on a page (default: 20).                |
+| page  | Current page                                            |
 
 Listing endpoints by default supports below query parameters:
 
