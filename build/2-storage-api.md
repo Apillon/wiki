@@ -28,7 +28,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests) p
 
 #### Response fields (bucket)
 
-Each item is an instance of bucket model, with below properties:
+Each item is an instance of the bucket model with the below properties:
 
 | Field       | Type       | Description                                                                                 |
 | ----------- | ---------- | ------------------------------------------------------------------------------------------- |
@@ -94,7 +94,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 ### Create new bucket
 
-> API for creating new storage bucket. NFT and website bucket are automatically generated, when new website or NFT collection is initialized.
+> API for creating a new storage bucket. NFT and website buckets are automatically generated when a new website or NFT collection is initialized.
 
 <CodeDiv>POST /storage/buckets</CodeDiv>
 
@@ -116,7 +116,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 #### Response
 
-Response is an instance of [bucket](#response-fields-bucket), described above.
+A response is an instance of [bucket](#response-fields-bucket), described above.
 
   </div>
   <div class="split_side">
@@ -178,15 +178,15 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 | Name        | Type     | Description                                                                            | Required |
 | ----------- | -------- | -------------------------------------------------------------------------------------- | -------- |
 | files       | `array`  | Array of files metadata. Maximum 200 items.                                            | true     |
-| sessionUuid | `string` | Session unique key, which has to be specified to add more uploads to existing session. | false    |
+| sessionUuid | `string` | Session unique key, which must be specified to add more uploads to existing session.   | false    |
 
-Each file metadata object in `files` array, contain below properties.
+Each metadata object in the `files` array contains the properties below.
 
 | Name        | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                               | Required |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                                                                                     | true     |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                                                                                | false    |
-| path        | `string` | Virtual file path. Empty for root. Must not contain `fileName`. <br><br> The `path` field can be used to place file in virtual directories inside a bucket. If directories do not yet exist, they will be automatically generated.<br><br>For example, an `images/icons` path creates `images` directory in a bucket and `icons` directory inside it. File will then be created in the `icons` directory. | false    |
+| path        | `string` | Virtual file path. Empty for root. It must not contain `fileName`. <br><br> The `path` field can be used to place file in virtual directories inside a bucket. If directories do not yet exist, they will be automatically generated.<br><br>For example, an `images/icons` path creates an `images` directory in a bucket and an `icons` directory inside it. A file will then be created in the `icons` directory. | false    |
 
 #### Possible errors
 
@@ -194,7 +194,7 @@ Each file metadata object in `files` array, contain below properties.
 | -------- | ------------------------------------------------------------------------------------- |
 | 40406002 | Bucket does not exist.                                                                |
 | 40406009 | Bucket is marked for deletion. It is no longer possible to upload files to it.        |
-| 40006020 | Html files are not allowed to upload to storage bucket in freemium subscription plan. |
+| 40006020 | HTML files cannot be uploaded to storage bucket in freemium subscription plan.        |
 | 42200040 | Request body is missing a `files` field.                                              |
 | 42200150 | `files` has invalid length. It should be between 1 and 200                            |
 | 42200008 | Request body file object is missing a `fileName` field.                               |
@@ -207,7 +207,7 @@ Each file metadata object in `files` array, contain below properties.
 | sessionUuid | `string` | Session unique key, which is later used to end upload and transfer files to bucket |
 | files       | `array`  | Array of files metadata.                                                           |
 
-Files in request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
+Files in the request body are returned in response `data.files` property. Each file is equipped with `url` and `fileUuid`. All properties are displayed below.
 
 | Field       | Type     | Description                                                                                                                                                                                                                                                                                                                                 |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -292,9 +292,9 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 ### End upload session
 
-> Once files are uploaded to cloud server via received URL, trigger sync of files to IPFS and CRUST.
+> Once files are uploaded to the cloud server via the received URL, trigger file sync to IPFS and CRUST.
 
-**Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards. The directory path is mandatory when `wrapWithDirectory` option is set to true. Read more about this option on the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
+**Note: Files in session can be wrapped to CID on IPFS via the `wrapWithDirectory` body field. This means that the directory gets its own CID and its content cannot be modified afterwards. The directory path is mandatory when the `wrapWithDirectory` option is set to `true`. Read more about this option in the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/upload/:sessionUuid/end</CodeDiv>
 
@@ -319,12 +319,12 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 | Code     | Description                                    |
 | -------- | ---------------------------------------------- |
-| 40406004 | Session does not exists                        |
+| 40406004 | Session does not exist                         |
 | 40006001 | Files in this session were already transferred |
 
 #### Response
 
-Api respond with status `200 OK` , if operation is successfully executed.
+API responds with the status `200 OK` if operation is successfully executed.
 
   </div>
   <div class="split_side">
@@ -358,7 +358,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 ### List bucket content
 
-> List bucket directories and files in folder structure. Endpoint lists files and directories in single directory, if `directoryUuid` is not present, endpoint lists items in bucket root directory. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
+> Lists bucket directories and files in a folder structure. Endpoint lists files and directories in a single directory; if `directoryUuid` is not present, endpoint lists items in the bucket root directory. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
@@ -402,7 +402,7 @@ Properties of each item:
 | updateTime    | `DateTime` | Item last update time                                             |
 | contentType   | `string`   | Item content type (MIME type).                                    |
 | size          | `integer`  | Item size in bytes                                                |
-| directoryUuid | `string`   | Uuid of directory in which directory of file is located           |
+| directoryUuid | `string`   | Uuid of directory where the file directory is located             |
 | link          | `string`   | Link on IPFS gateway.                                             |
 | fileStatus    | `number`   | Current [status](#file-statuses) of file                          |
 
@@ -477,7 +477,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ### List files
 
-> List files inside bucket. This endpoint returns all files in flat structure and each file has a `path` property. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
+> Lists files inside a bucket. This endpoint returns all files in a flat structure and each file has a `path` property. More about listing requests can be found [here](1-apillon-api.md#listing-requests)
 
 **Note: This endpoint returns files from ended sessions. I.e. files with [fileStatus](#file-statuses) 2, 3 or 4.**
 
@@ -621,7 +621,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | path          | `integer`  | Full path to file                                                 |
 | size          | `integer`  | File size in bytes                                                |
 | fileStatus    | `number`   | File statuses are described in below table                        |
-| directoryUuid | `string`   | Uuid of directory in which file is located                        |
+| directoryUuid | `string`   | Uuid of directory where the file is located                       |
 | link          | `string`   | Link on IPFS gateway.                                             |
 
 ##### File statuses
@@ -630,7 +630,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | ------ | ----------------------------------------------------------------- |
 | 1      | Request for upload to Apillon storage was generated.              |
 | 2      | File is uploaded to Apillon central server.                       |
-| 3      | File is transferred to IPFS node.                                 |
+| 3      | File is transferred to the IPFS node.                             |
 | 4      | File is replicated to different IPFS nodes through Crust Network. |
 
   </div>
@@ -677,8 +677,8 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ### Delete file
 
-> Marks a file inside bucket for deletion. File will be completely deleted from the Apillon system and Apillon IPFS node after 3 months.
-> If file is marked for deletion, it will not be renewed on Crust Network.
+> Marks a file inside a bucket for deletion. The file will be completely deleted from the Apillon system and Apillon IPFS node after three (3) months.
+> If a file is marked for deletion, it will not be renewed on Crust Network.
 
 <CodeDiv>DELETE /storage/buckets/:bucketUuid/files/:fileUuid</CodeDiv>
 
@@ -701,7 +701,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 #### Response fields
 
-The response of delete function is a boolean value, depends if deletion was successful.
+The response of the delete function is a boolean value, depends on whether the deletion was successful.
 
   </div>
   <div class="split_side">
@@ -735,7 +735,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 ### Delete directory
 
-> Deletes a directory from the storage bucket
+> Deletes a directory from the storage bucket.
 
 <CodeDiv>DELETE storage/buckets/:bucketUuid/directories/:directoryUuid</CodeDiv>
 
@@ -758,7 +758,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 #### Response fields
 
-The response of delete function is a boolean value, depends if deletion was successful.
+The response of the delete function is a boolean value, depends on whether the deletion was successful.
 
   </div>
   <div class="split_side">
@@ -792,9 +792,9 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 
 ### Get storage info
 
-> Gets overall storage info for project.
+> Gets overall storage info for a project.
 
-**Note: Available resources can be increased with subscription to paid plans.**
+**Note: Available resources can be increased with a subscription to paid plans.**
 
 <CodeDiv>GET /storage/info</CodeDiv>
 
@@ -808,7 +808,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
 | availableStorage   | `integer` | Available storage space in bytes                                                                                                                                     |
 | usedStorage        | `integer` | Used storage in bytes. When `usedStorage` reaches available storage, upload to buckets will be blocked (error [40006003](1-apillon-api.md#not-enough-storage-space)) |
 | availableBandwidth | `integer` | Monthly available bandwidth (upload and download)                                                                                                                    |
-| usedBandwidth      | `integer` | Current month used bandwidth. If `usedBandwidth` reaches available, requests to ipfs gateway will be blocked                                                         |
+| usedBandwidth      | `integer` | Bandwidth used in current month. If `usedBandwidth` reaches available, requests to the IPFS gateway will be blocked                                                         |
 
   </div>
   <div class="split_side">
@@ -844,12 +844,12 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
 	</div>
 </div>
 
-### Get ipfs cluster info
+### Get IPFS cluster info
 
-> Gets basic data of ipfs cluster used by the project. IPFS clusters contain multiple IPFS nodes, but exposes single gateway for accessing content via CID or IPNS.
+> Gets basic data of an IPFS cluster used by the project. IPFS clusters contain multiple IPFS nodes but expose a single gateway for accessing content via CID or IPNS.
 > Apillon clusters (gateways) are not publicly accessible
 
-**Note: Each projects has it's own secret for generation the tokens, to access content on ipfs gateway.**
+**Note: Each project has its own secret for the generation of the tokens to access content on the IPFS gateway.**
 
 <CodeDiv>GET /storage/ipfs-cluster-info</CodeDiv>
 
@@ -860,10 +860,10 @@ curl --location --request GET "https://api.apillon.io/storage/info" \
 
 | Field       | Type     | Description                                                                                      |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------ |
-| secret      | `string` | Secret for this project, which can be used to generate tokens, to access content of ipfs gateway |
+| secret      | `string` | Secret for this project, which can be used to generate tokens to access content of IPFS gateway  |
 | projectUuid | `string` | Project unique identifier                                                                        |
-| ipfsGateway | `string` | Gateway, which can be used to access content via CIDs.                                           |
-| ipnsGateway | `string` | Gateway, which can be used to access content via IPNS name.                                      |
+| ipfsGateway | `string` | Gateway that can used to access content via CIDs.                                                |
+| ipnsGateway | `string` | Gateway that can be used to access content via IPNS name.                                        |
 
   </div>
   <div class="split_side">
@@ -899,9 +899,9 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
 	</div>
 </div>
 
-### Get or generate link for ipfs
+### Get or generate link for IPFS
 
-> Apillon IPFS gateways are private and can be only accessible with token. Token for specific address (CID), can be acquired via Apillon API request or it can be generated with the use of `secret` and `project_uuid` properties, from above [request](#get-ipfs-cluster-info)
+> Apillon IPFS gateways are private and can only be accessible with a token. A token for specific address (CID) can be acquired via Apillon API request or can be generated with by using the `secret` and `project_uuid` properties from above [request](#get-ipfs-cluster-info)
 
 <CodeDiv>GET /storage/link-on-ipfs/:cid</CodeDiv>
 
@@ -912,19 +912,19 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
 
 | Name | Description                                                                            | required |
 | ---- | -------------------------------------------------------------------------------------- | -------- |
-| cid  | Ipfs content identifier. Api will automatically detect the type (CIDv0, CIDv1 or IPNS) | true     |
+| cid  | Ipfs content identifier. API will automatically detect the type (CIDv0, CIDv1 or IPNS) | true     |
 
 #### Response fields
 
 | Field | Type     | Description                                    |
 | ----- | -------- | ---------------------------------------------- |
-| link  | `string` | Link, where requested content can be accessed. |
+| link  | `string` | Link where requested content can be accessed.  |
 
 #### How to generate token programmatically
 
-Apillon IPFS gateways expects [JWT token](https://jwt.io/) which can be create using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
+Apillon IPFS gateways accept [JWT token](https://jwt.io/), which can be creates using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
 
-JWT sign methods expects 3 parameters:
+The JWT sign method expects three (3) parameters:
 
 1. JWT payload:
 
@@ -935,11 +935,11 @@ JWT sign methods expects 3 parameters:
 }
 ```
 
-2. Secret: Use `secret` property from ipfs cluster info
+2. Secret: Use `secret` property from IPFS cluster info
 3. Subject: `IPFS-token`
 
-For each CID, new token should be generated.
-Append generated JWT to URL request as `token` query parameter.
+For each CID, a new token should be generated.
+Append the generated JWT to URL request as `token` query parameter.
 
   </div>
   <div class="split_side">
@@ -976,7 +976,7 @@ curl --location --request GET "https://api.apillon.io/storage/link-on-ipfs/:cid"
 
 ### List IPNS names
 
-> API to list all ipns names in bucket. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
+> API to list all IPNS names in a bucket. Items are paginated and can be filtered and ordered through query parameters. This is a [listing request](1-apillon-api.md#listing-requests).
 
 <CodeDiv>GET /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
@@ -987,7 +987,7 @@ curl --location --request GET "https://api.apillon.io/storage/link-on-ipfs/:cid"
 
 | Name       | Description                                                    | Required |
 | ---------- | -------------------------------------------------------------- | -------- |
-| bucketUuid | Unique key of storage bucket, from which ipnses will be listed | true     |
+| bucketUuid | Unique key of storage bucket, from which IPNS will be listed   | true     |
 
 #### Query parameters
 
@@ -996,22 +996,22 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests) p
 | Name      | Description                                     | Required |
 | --------- | ----------------------------------------------- | -------- |
 | ipnsName  | List IPNS names with specific name              | false    |
-| ipnsValue | List IPNS names that points to this value (CID) | false    |
+| ipnsValue | List IPNS names that point to this value (CID)  | false    |
 
 #### Response fields (ipns)
 
-Each item is an instance of ipns model, with below properties:
+Each item is an instance of the IPNF model, with the following properties:
 
 | Field       | Type       | Description                                                                                      |
 | ----------- | ---------- | ------------------------------------------------------------------------------------------------ |
 | createTime  | `DateTime` | Item create time                                                                                 |
 | updateTime  | `DateTime` | Item last update time                                                                            |
 | ipnsUuid    | `string`   | IPNS unique identifier                                                                           |
-| name        | `string`   | Informational ipns name, which is set by user to easily organize it's ipns records               |
+| name        | `string`   | Informational IPNS name, which is set by a user to easily organize the IPNS records              |
 | description | `string`   | IPNS description                                                                                 |
-| ipnsName    | `string`   | IPNS name, that is used to access ipns content on ipfs gateway                                   |
+| ipnsName    | `string`   | IPNS name used to access IPNS content on IPFs gateway                                            |
 | ipnsValue   | `string`   | IPFS value (CID), to which this ipns points                                                      |
-| link        | `string`   | IPNS link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
+| link        | `string`   | IPNS link to Apillon IPFS gateway, allowing to access content to which this IPNS points          |
 
   </div>
   <div class="split_side">
@@ -1076,9 +1076,9 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 ### Create new IPNS
 
-> API for creating new IPNS record.
+> API for creating a new IPNS record.
 
-**Note: Ipns becomes accesible on ipfs gateway, when some content (CID) is published to it. To access IPNS content on IPFS gateway, `ipnsName` should be used.**
+**Note: IPNS becomes accesible on the IPFS gateway when content with CID is published to it. To access IPNS content on the IPFS gateway, use `ipnsName`.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
@@ -1089,7 +1089,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 | Name       | Description                                                                                          | Required |
 | ---------- | ---------------------------------------------------------------------------------------------------- | -------- |
-| bucketUuid | Unique key of storage bucket in which ipns will be created. Key is displayed on developer dashboard. | true     |
+| bucketUuid | Unique key of storage bucket where IPNS will be created. Key is displayed on developer dashboard.    | true     |
 
 #### Body fields
 
@@ -1097,7 +1097,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | name        | `string` | IPNS name.                                                                                                                                        | true     |
 | description | `string` | IPNS description.                                                                                                                                 | false    |
-| cid         | `string` | CID to which this ipns name will point. If this property is specified, API executes ipns publish which sets `ipnsName` and `ipnsValue` properties | false    |
+| cid         | `string` | CID to which the IPNS name will point. If this property is specified, API executes IPNS publish, which sets the `ipnsName` and `ipnsValue` properties. | false    |
 
 #### Possible errors
 
@@ -1108,7 +1108,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 #### Response
 
-Response is an instance of [ipns](#response-fields-ipns), described above.
+Response is an instance of [IPNS](#response-fields-ipns) described above.
 
   </div>
   <div class="split_side">
@@ -1121,7 +1121,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
-    \"name\": \"Example ipns\",
+    \"name\": \"Example IPNS\",
     \"cid\": \"Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L\"
 }"
 ```
@@ -1158,7 +1158,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 ### Get IPNS
 
-> API to get specific IPNS name by its uuid
+> API to get specific IPNS name by its UUID.
 
 <CodeDiv>GET /storage/buckets/:bucketUuid/ipns/:ipnsUuid</CodeDiv>
 
@@ -1169,7 +1169,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Name       | Description                   | Required |
 | ---------- | ----------------------------- | -------- |
-| bucketUuid | Unique key of storage bucket. | true     |
+| bucketUuid | Unique key of storage bucket  | true     |
 | ipnsUuid   | Unique key of IPNS name       | true     |
 
 #### Possible errors
@@ -1178,9 +1178,9 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 | -------- | -------------- |
 | 40406012 | IPNS not found |
 
-#### Response fields (ipns)
+#### Response fields (IPNS)
 
-Response is an instance of [ipns](#response-fields-ipns), described above.
+Response is an instance of [IPNS](#response-fields-ipns) described above.
 
   </div>
   <div class="split_side">
@@ -1208,7 +1208,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
     "ipnsUuid": "0b3c4ca8-3054-42a2-b5d4-1665646bbaa0",
     "projectUuid": "d7e9df40-7148-4f0d-a112-39bf32695ae4",
     "bucketId": 11,
-    "name": "Example ipns",
+    "name": "Example IPNS",
     "description": null,
     "ipnsName": "k2k4r8lqt07ls9uyz141ofqcl99k4b8e63ns1fh52ib1bwh09z0k6vjk",
     "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
@@ -1238,13 +1238,13 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Name       | Description                                       | Required |
 | ---------- | ------------------------------------------------- | -------- |
 | bucketUuid | Unique key of storage bucket.                     | true     |
-| ipnsUuid   | Unique key of ipns record, that will be published | true     |
+| ipnsUuid   | Unique key of IPNS record that will be published  | true     |
 
 #### Body fields
 
 | Name | Type     | Description                             | Required |
 | ---- | -------- | --------------------------------------- | -------- |
-| cid  | `string` | CID to which this ipns name will point. | true     |
+| cid  | `string` | CID to which the IPNS name will point.  | true     |
 
 #### Possible errors
 
@@ -1255,7 +1255,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 #### Response
 
-Response is an instance of [ipns](#response-fields-ipns) which was published. Properties are described above.
+The response is an instance of [IPNS](#response-fields-ipns) that was published. Properties are described above.
 
   </div>
   <div class="split_side">
@@ -1285,7 +1285,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
     "createTime": "2023-11-26T07:13:32.000Z",
     "updateTime": "2023-11-26T07:13:32.000Z",
     "ipnsUuid": "df5c47b4-e00b-4163-877e-7c78042e7666",
-    "name": "My 3 ipns",
+    "name": "My 3 IPNS",
     "description": null,
     "ipnsName": "k2k4r8jofss9us61kwlmq8flgdhj3a1tn5ikcc6m494kf2edifi2oh4z",
     "ipnsValue": "/ipfs/Qma6zTc8ctd65U2SARH7Qkssm6KrwsqJnX1PtrSqhXcM9L",
@@ -1302,7 +1302,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 ### Delete IPNS
 
-> API to delete ipns record
+> API to delete IPNS record.
 
 <CodeDiv>DELETE /storage/buckets/:bucketUuid/ipns/:ipnsUuid</CodeDiv>
 
@@ -1313,8 +1313,8 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Name       | Description                   | Required |
 | ---------- | ----------------------------- | -------- |
-| bucketUuid | Unique key of storage bucket. | true     |
-| ipnsUuid   | Unique key of ipns record     | true     |
+| bucketUuid | Unique key of storage bucket  | true     |
+| ipnsUuid   | Unique key of IPNS record     | true     |
 
 #### Possible errors
 
@@ -1322,9 +1322,9 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 | -------- | -------------- |
 | 40406012 | IPNS not found |
 
-#### Response fields (ipns)
+#### Response fields (IPNS)
 
-Response is deleted ipns record, instance of [ipns](#response-fields-ipns), described above.
+The response is deleted IPNS record, an instance of [IPNS](#response-fields-ipns) described above.
 
   </div>
   <div class="split_side">
