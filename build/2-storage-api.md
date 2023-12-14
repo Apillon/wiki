@@ -162,7 +162,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets" \
 
 > API that creates file upload requests and returns URLs for file upload along with `sessionUuid`.
 
-<CodeDiv>POST /storage/:bucketUuid/upload</CodeDiv>
+<CodeDiv>POST /storage/buckets/:bucketUuid/upload</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -224,7 +224,7 @@ Files in request body are returned in response `data.files` property. Each file 
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload" \
+curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUuid/upload" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -296,7 +296,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 
 **Note: Files in session can be wrapped to CID on IPFS via `wrapWithDirectory` body field. This means that directory gets it's own CID and it's content cannot be modified afterwards. The directory path is mandatory when `wrapWithDirectory` option is set to true. Read more about this option on the [IPFS docs](https://dweb-primer.ipfs.io/files-on-ipfs/wrap-directories-around-content#explanation)**
 
-<CodeDiv>POST /storage/:bucketUuid/upload/:sessionUuid/end</CodeDiv>
+<CodeDiv>POST /storage/buckets/:bucketUuid/upload/:sessionUuid/end</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -333,7 +333,7 @@ Api respond with status `200 OK` , if operation is successfully executed.
           <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/storage/:bucketUuid/upload/:sessionUuid/end" \
+curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUuid/upload/:sessionUuid/end" \
 --header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 ```
@@ -589,7 +589,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > Gets details of a specific file inside a bucket.
 
-<CodeDiv>GET /storage/:bucketUuid/files/:id</CodeDiv>
+<CodeDiv>GET /storage/buckets/:bucketUuid/files/:fileUuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -599,7 +599,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Name       | Description                                                      | required |
 | ---------- | ---------------------------------------------------------------- | -------- |
 | bucketUuid | Unique key of a bucket. Key is displayed on developer dashboard. | true     |
-| id         | File UUID or CID.                                                | true     |
+| fileUuid   | File UUID or CID.                                                | true     |
 
 #### Possible errors
 
@@ -640,7 +640,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/files/:id" \
+curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUuid/files/:fileUuid" \
 --header "Authorization: Basic :credentials"
 ```
 
@@ -711,6 +711,63 @@ The response of delete function is a boolean value, depends if deletion was succ
 
 ```sh
 curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucketUuid/files/:fileUuid" \
+--header "Authorization: Basic :credentials" \
+--data-raw ""
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "bc92ff8d-05f2-4380-bb13-75a1b6b7f388",
+  "status": 200,
+  "data": true
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
+
+### Delete directory
+
+> Deletes a directory from the storage bucket
+
+<CodeDiv>DELETE storage/buckets/:bucketUuid/directories/:directoryUuid</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### URL parameters
+
+| Name          | Description                                                    | required |
+| ------------- | -------------------------------------------------------------- | -------- |
+| bucketUuid    | Unique key of bucket. Key is displayed on developer dashboard. | true     |
+| directoryUuid | Directory unique identifier.                                   | true     |
+
+#### Possible errors
+
+| Code     | Description                               |
+| -------- | ----------------------------------------- |
+| 40406003 | Directory does not exist.                 |
+| 40006007 | Directory is already marked for deletion. |
+
+#### Response fields
+
+The response of delete function is a boolean value, depends if deletion was successful.
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucketUuid/directories/:directoryUuid" \
 --header "Authorization: Basic :credentials" \
 --data-raw ""
 ```
@@ -949,12 +1006,12 @@ Each item is an instance of ipns model, with below properties:
 | ----------- | ---------- | ------------------------------------------------------------------------------------------------ |
 | createTime  | `DateTime` | Item create time                                                                                 |
 | updateTime  | `DateTime` | Item last update time                                                                            |
-| ipnsUuid    | `string`   | Ipns unique identifier                                                                           |
+| ipnsUuid    | `string`   | IPNS unique identifier                                                                           |
 | name        | `string`   | Informational ipns name, which is set by user to easily organize it's ipns records               |
-| description | `string`   | Ipns description                                                                                 |
-| ipnsName    | `string`   | Ipns name, that is used to access ipns content on ipfs gateway                                   |
-| ipnsValue   | `string`   | Ipfs value (CID), to which this ipns points                                                      |
-| link        | `string`   | Ipns link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
+| description | `string`   | IPNS description                                                                                 |
+| ipnsName    | `string`   | IPNS name, that is used to access ipns content on ipfs gateway                                   |
+| ipnsValue   | `string`   | IPFS value (CID), to which this ipns points                                                      |
+| link        | `string`   | IPNS link to Apillon IPFS gateway, where it is possible to see content to which this ipns points |
 
   </div>
   <div class="split_side">
@@ -990,7 +1047,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
         "createTime": "2023-11-24T06:22:16.000Z",
         "updateTime": "2023-11-24T06:22:16.000Z",
         "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
-        "name": "Ipns from Apillon API",
+        "name": "IPNS from Apillon API",
         "description": null,
         "ipnsName": null,
         "ipnsValue": null,
@@ -1038,8 +1095,8 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 | Name        | Type     | Description                                                                                                                                       | Required |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| name        | `string` | Ipns name.                                                                                                                                        | true     |
-| description | `string` | Ipns description.                                                                                                                                 | false    |
+| name        | `string` | IPNS name.                                                                                                                                        | true     |
+| description | `string` | IPNS description.                                                                                                                                 | false    |
 | cid         | `string` | CID to which this ipns name will point. If this property is specified, API executes ipns publish which sets `ipnsName` and `ipnsValue` properties | false    |
 
 #### Possible errors
@@ -1119,7 +1176,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Code     | Description    |
 | -------- | -------------- |
-| 40406012 | Ipns not found |
+| 40406012 | IPNS not found |
 
 #### Response fields (ipns)
 
@@ -1194,7 +1251,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | Code     | Description                    |
 | -------- | ------------------------------ |
 | 42200030 | Body is missing `CID` property |
-| 40406012 | Ipns not found                 |
+| 40406012 | IPNS not found                 |
 
 #### Response
 
@@ -1263,7 +1320,7 @@ curl --location --request POST "https://api.apillon.io/storage/buckets/:bucketUu
 
 | Code     | Description    |
 | -------- | -------------- |
-| 40406012 | Ipns not found |
+| 40406012 | IPNS not found |
 
 #### Response fields (ipns)
 
@@ -1293,7 +1350,7 @@ curl --location --request DELETE "https://api.apillon.io/storage/buckets/:bucket
     "createTime": "2023-11-24T06:22:16.000Z",
     "updateTime": "2023-11-24T06:22:16.000Z",
     "ipnsUuid": "9c0a0020-5d87-4112-a0ce-4033c037e31a",
-    "name": "Ipns from Apillon API",
+    "name": "IPNS from Apillon API",
     "description": null,
     "ipnsName": null,
     "ipnsValue": null
