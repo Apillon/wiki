@@ -4,7 +4,7 @@
 
 ## Endpoints
 
-List of endpoints the API is available at:
+The list of endpoints where API is available:
 
 | Environment | URL                    |
 | ----------- | ---------------------- |
@@ -31,12 +31,12 @@ API keys could be generated on the [developer dashboard](https://app.apillon.io/
 
 #### Authentication errors
 
-Every request goes through authentication middleware, where following errors can occur:
+Every request goes through authentication middleware, where the following errors can occur:
 | Status | Message | Description
 |-|-|-
 |400|Missing Authorization header|Request is missing authorization header.
-|400|Malformed Authorization header|Authorization header field has invalid form.
-|401|Invalid API key or API key secret|Authorization header is valid but credentials in it are not.
+|400|Malformed Authorization header|Authorization header field has an invalid form.
+|401|Invalid API key or API key secret|Authorization header is valid, but credentials in it are not.
 
 #### Authorization errors
 
@@ -50,31 +50,31 @@ There are three types of permissions that could be assigned to an API key:
 | 51   | KEY_WRITE   | Permission to create, modify or delete records |
 | 52   | KEY_READ    | Permission to read record                      |
 
-These permissions could be assigned to an API key for every attached service (e. g., Web3 Storage (Crust), Web3 Authentication (KILT), etc.).
+These permissions could be assigned to an API key for every attached service (e.g., Web3 Storage (Crust), Web3 Authentication (KILT), etc.).
 
-If a request is made with an API key that lacks permission for called endpoint, the following errors can occur:
+If a request is made with an API key that lacks permission for a called endpoint, the following errors can occur:
 
 | Status | Message                                                         | Description                                                                                                                                                |
 | ------ | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 403    | Insufficient permissions - missing `permission name` permission | API key lacks required permission for called service.                                                                                                      |
-| 403    | Insufficient permissions to access this record                  | API key has required permissions for endpoint, but it does not have the right to access addressed record (e. g., a record belongs to a different project). |
+| 403    | Insufficient permissions to access this record                  | API key has required permissions for endpoint, but it does not have the right to access the addressed record (i.e., a record belongs to a different project). |
 
 ### Listing requests
 
-Endpoints starting with "List" are intended to list different data, where the response contains below properties.
+Endpoints starting with "List" are intended to list different data, where the response contains the below properties.
 
 | Name  | Description                                             |
 | ----- | ------------------------------------------------------- |
-| items | Records on specified page, that match the current query |
+| items | Records on a specified page that match the current query|
 | total | Number of all records that match the query              |
 | limit | Number of items on a page (default: 20).                |
 | page  | Current page                                            |
 
-Listing endpoints by default supports below query parameters:
+Listing endpoints by default supports the query parameters below:
 
 | Name    | Description                                                                               | Required |
 | ------- | ----------------------------------------------------------------------------------------- | -------- |
-| search  | Search the items usually by name or by some other property, which specifies this item.    | false    |
+| search  | Search the items usually by name or some other property specifying this item.             | false    |
 | page    | Items are paginated by default. This parameter is used to get items from a specific page. | false    |
 | limit   | Number of items on a page (default: 20).                                                  | false    |
 | orderBy | One or multiple properties, separated by a comma, used to order data.                     | false    |
@@ -85,9 +85,9 @@ Listing endpoints by default supports below query parameters:
 <div class="split_content">
 	<div class="split_side">
 
-Every response has a unique ID which helps identify potential issues. It also includes a status code that can help identify the cause of a potential problem.
+Every response has a unique ID, which helps identify potential issues. It also includes a status code that can help identify the cause of a potential problem.
 
-Query requests through `GET` method can return status codes `200`, `400`, `401`, `403`, or `500`. Mutations through `POST`, `PUT` and `DELETE` can also return codes `201` and `422`. Invalid routes return status code `404`.
+Query requests through the `GET` method can return status codes `200`, `400`, `401`, `403`, or `500`. Mutations through `POST`, `PUT`, and `DELETE` can also return codes `201` and `422`. Invalid routes return status code `404`.
 
 A successful request includes a `data` key, which holds a valid response object.
 
@@ -124,11 +124,11 @@ List of responses:
 
 ### Error handling
 
-Request fails if response code is not 200 or 201. The Apillon API returns two types of errors.
+A request fails if response code is not 200 or 201. The Apillon API returns two types of errors.
 
 #### Code exception
 
-Errors include a unique code number, a property which caused the error, and an error message. The code number helps identify potential issues and points to their exact position in the system.
+Errors include a unique code number, a property that caused the error, and an error message. The code number helps identify potential issues and points to their exact position in the system.
 
 Fields in code exception:
 
@@ -168,11 +168,11 @@ Fields in code exception:
 <div class="split_content">
 	<div class="split_side">
 
-Unprocessable entity `422 Error status` includes an `errors` key, which holds a list of error objects.
+Unprocessable entity `422 Error status` includes an `errors` key containing a list of error objects.
 
-This error typically occurs when the request body is not valid (i. e., it is invalid or missing keys).
+This error typically occurs when the request body is not valid (i.e., it is invalid or missing keys).
 
-Errors include a unique code number, a property which caused the error, and an error message. The code number helps identify potential issues and points to their exact position in the system
+Errors include a unique code number, a property that caused the error, and an error message. The code number helps identify potential issues and points to their exact position in the system.
 
   </div>
 	<div class="split_side">
@@ -208,12 +208,12 @@ Fields in validation exception:
 
 ### Common errors
 
-Through whole Apillon API, same errors can occur. Reason behind it can be current subscription package limits or current credit balance.
+Through the whole Apillon API, the same errors can occur. The reason behind it can be current subscription package limits or current credit balance.
 
 #### Not enough storage space
 
-One of the limits, which is based on project subscription package, is available storage space (on IPFS node).
-If project reach storage space limit, below error will occur.
+One of the limits based on the project subscription package is available storage space (on the IPFS node).
+If a project reaches the storage space limit, the following error will occur.
 
 ```json
 {
@@ -226,8 +226,8 @@ If project reach storage space limit, below error will occur.
 
 #### Credit balance too low
 
-Some non recurrent actions requires payment with credit.
-If project credit balance is lower than price for executed action, API will return status 402 and below response.
+Some nonrecurrent actions require payment with credits.
+If a project's credit balance is lower than price of executed action, API will return status 402 and the following response.
 
 ```json
 {
