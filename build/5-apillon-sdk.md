@@ -292,3 +292,76 @@ await collection.transferOwnership(
   '0x5BA8B0c24bA5307b67E619ad500a635204F73bF1'
 );
 ```
+
+
+## Identity
+
+Identity module encapsulates functionalities for validating EVM and Polkadot wallet signatures, as well as fetching Polkadot Identity data for any wallet.
+
+For detailed hosting SDK method, class and property documentation visit [SDK identity docs](https://sdk-docs.apillon.io/classes/Identity.html).
+
+### Usage example
+
+```ts
+import { Identity } from './modules/identity/identity';
+import { LogLevel } from './types/apillon';
+
+// Note: for signature-related methods API config is not required
+const identity = new Identity({
+  key: 'yourApiKey',
+  secret: 'yourApiSecret',
+  logLevel: LogLevel.NONE,
+});
+
+// obtain on-chain identity data for a Polkadot wallet
+const { polkadot, subsocial } = await identity.getWalletIdentity(address);
+
+async function validateEvmWalletSignature() {
+  // generate a custom message to be signed by the user's wallet
+  const { message, timestamp } = await identity.generateSigningMessage(
+    'Custom display message here',
+  );
+
+  // alternatively, you can generate you own signing message with timestamp like this:
+  // const timestamp = new Date().getTime();
+  // const message = 'Message from my Dapp';
+  // const signingMessage = `${message}\n${timestamp}`;
+
+  const walletAddress = '0xa79bg13g2...';
+
+  // validate an EVM wallet's signature for a given message
+  const { isValid, address } = await identity.validateEvmWalletSignature({
+    message,
+    signature, // signature obtained from the user's wallet by the client app
+    walletAddress,
+    /*
+     * optional - check signature time validity by providing a timestamp
+     * which indicates when the signature was generated
+     */
+    timestamp,
+    // additionally, specify for how many minutes the timestamp is valid
+    signatureValidityMinutes: 15,
+  });
+
+  console.log(isValid); // true
+  console.log(address.toLowerCase() === walletAddress.toLowerCase()); // true
+}
+
+async function validatePolkadotWalletSignature() {
+  // If you wish to generate the message yourself and validate the timestamp,
+  // use a signing message as shown below:
+  const timestamp = new Date().getTime();
+  const message = 'Message from my Dapp';
+  const signingMessage = `${message}\n${timestamp}`;
+
+  // validate a Polkadot wallet's signature for a given signing message
+  const { isValid } = await identity.validatePolkadotWalletSignature({
+    message: signingMessage,
+    signature, // signature obtained from the user's wallet by the client app
+    walletAddress: '5HqHQDGcHqS...',
+    timestamp,
+    signatureValidityMinutes: 5,
+  });
+}
+
+```
