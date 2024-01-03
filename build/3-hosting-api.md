@@ -286,7 +286,7 @@ Files in request body are returned in response `data.files` property. Each file 
 | fileUuid    | `string` | File unique identifier used to query file status, etc.                                                                                                                                                                                                                                                                                      |
 | fileName    | `string` | Full name (name and extension) of file to be uploaded                                                                                                                                                                                                                                                                                       |
 | contentType | `string` | File [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)                                                                                                                                                                                                                                  |
-| path        | `string` | File path on the hosting bucket.                                                                                                                                                                                                                                                                                                                                  |
+| path        | `string` | File path on the hosting bucket.                                                                                                                                                                                                                                                                                                            |
 
   </div>
   <div class="split_side">
@@ -499,12 +499,22 @@ In `production`, this CID is pinned to CRUST and replicated to other nodes.
 
 Deployment goes through different stages and each stage updates `deploymentStatus`. Possible deployment statuses:
 
-| Status | Description           |
-| ------ | --------------------- |
-| 0      | Deployment initiated  |
-| 1      | In processing         |
-| 10     | Deployment successful |
-| 100    | Deployment failed     |
+| Status | Description                                   |
+| ------ | --------------------------------------------- |
+| 0      | Deployment initiated                          |
+| 1      | In processing                                 |
+| 2      | In review                                     |
+| 3      | Website approved. Deployment will be executed |
+| 10     | Deployment successful                         |
+| 100    | Deployment failed                             |
+| 101    | Deployment rejected                           |
+
+Deployments (to [environments](#environments) 1 and 3) in projects without subscription go to review (`deploymentStatus 3`).
+Review can take some time (up to 1 day) and if the website passes it, then the deployment continues.
+
+Websites with illegal/phishing content goes to status `101`. The project owner is notified via mail and most likely banned from Apillon platform.
+
+To speed up deployment process, make sure that project has one of subscription packages.
 
   </div>
   <div class="split_side">
@@ -645,10 +655,10 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 #### URL parameters
 
-| Name            | Description                                                           | Required |
-| --------------- | --------------------------------------------------------------------- | -------- |
-| websiteUuid     | Website UUID, visible in developer console website overview           | true     |
-| deploymentUuid  | Deployment unique identifier, returned from `deploy` website endpoint | true     |
+| Name           | Description                                                           | Required |
+| -------------- | --------------------------------------------------------------------- | -------- |
+| websiteUuid    | Website UUID, visible in developer console website overview           | true     |
+| deploymentUuid | Deployment unique identifier, returned from `deploy` website endpoint | true     |
 
 #### Possible errors
 
