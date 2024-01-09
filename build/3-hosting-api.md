@@ -191,7 +191,14 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
 
 #### Response fields
 
-Response is an instance of [website class](#response-fields-website), described above.
+Response is an instance of [website class](#response-fields-website), described above and additional properties described below. Those properties will receive value after deploy.
+
+| Field                | Type     | Description                                                    |
+| -------------------- | -------- | -------------------------------------------------------------- |
+| w3StagingLink        | `string` | Link to staging version of the website                         |
+| w3ProductionLink     | `string` | Link to production version of the website                      |
+| lastDeploymentUuid   | `string` | Website last deployment (to any environment) unique identifier |
+| lastDeploymentStatus | `string` | Status of last deployment                                      |
 
   </div>
   <div class="split_side">
@@ -222,7 +229,11 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
     "domain": "example-domain.io",
     "bucketUuid": "cd299839-dae6-47d0-8fdc-40143163e156",
     "ipnsStaging": null,
-    "ipnsProduction": null
+    "ipnsProduction": null,
+    "w3StagingLink": null,
+    "w3ProductionLink": null,
+    "lastDeploymentUuid": null,
+    "lastDeploymentStatus": null
   }
 }
 ```
