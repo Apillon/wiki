@@ -28,11 +28,11 @@ npm install @apillon/sdk
 ### Initialization
 
 ```ts
-import { Hosting } from '@apillon/sdk';
+import { Hosting } from "@apillon/sdk";
 
 const hosting = new Hosting({
-  key: '',
-  secret: '',
+  key: "",
+  secret: "",
 });
 ```
 
@@ -45,6 +45,14 @@ View each individual module examples in the sections below.
 ### Detailed docs
 
 This wiki only contains the basic installation and examples of SDK usage. For additional information on using the SDK, see the [Detailed SDK documentation](https://sdk-docs.apillon.io/).
+
+### Examples
+
+Examples for using Apillon can be found in a demo repo [here](https://github.com/Apillon/apillon-sdk-demo). Instructions on running the examples are in the [README file](https://github.com/Apillon/apillon-sdk-demo/blob/master/README.md).
+
+::: tip
+You can run examples directly in your browser via [CodeSandbox](https://codesandbox.io/p/github/Apillon/apillon-sdk-demo/master).
+:::
 
 ## Hosting
 
@@ -72,37 +80,35 @@ import {
   DeploymentStatus,
   Hosting,
   LogLevel,
-} from '@apillon/sdk';
-import * as fs from 'fs';
+} from "@apillon/sdk";
+import * as fs from "fs";
 
 const hosting = new Hosting({
-  key: 'yourApiKey',
-  secret: 'yourApiSecret',
+  key: "yourApiKey",
+  secret: "yourApiSecret",
   logLevel: LogLevel.NONE,
 });
 
 // list all websites
-await hosting.listWebsites({ orderBy: 'createTime' });
+await hosting.listWebsites({ orderBy: "createTime" });
 
 // create an instance of a website via uuid
-const webpage1 = hosting.website('uuid');
+const webpage1 = hosting.website("uuid");
 
 // gets website information
 await webpage1.get();
 
 // Upload files from local folder
-await webpage1.uploadFromFolder('./public');
+await webpage1.uploadFromFolder("./public");
 // Or alternatively, send file buffers as upload parameters
-const htmlBuffer = fs.readFileSync('./public/index.html');
-await webpage1.uploadFiles(
-  [
-    {
-      fileName: 'index.html',
-      contentType: 'text/html',
-      content: htmlBuffer,
-    },
-  ]
-);
+const htmlBuffer = fs.readFileSync("./public/index.html");
+await webpage1.uploadFiles([
+  {
+    fileName: "index.html",
+    contentType: "text/html",
+    content: htmlBuffer,
+  },
+]);
 
 // deploys uploaded files to staging environment
 await webpage1.deploy(DeployToEnvironment.TO_STAGING);
@@ -112,7 +118,7 @@ await webpage1.listDeployments();
 
 // gets a specific deployment
 const deployment = await webpage1
-  .deployment('3e0c66ea-317d-4e1f-bcd9-38026c3ea1ee')
+  .deployment("3e0c66ea-317d-4e1f-bcd9-38026c3ea1ee")
   .get();
 
 // checks if deployment was successful
@@ -130,12 +136,12 @@ For detailed storage SDK method, class and property documentation visit [SDK sto
 ### Usage example
 
 ```ts
-import { Storage, LogLevel, FileStatus } from '@apillon/sdk';
-import * as fs from 'fs';
+import { Storage, LogLevel, FileStatus } from "@apillon/sdk";
+import * as fs from "fs";
 
 const storage = new Storage({
-  key: 'yourApiKey',
-  secret: 'yourApiSecret',
+  key: "yourApiKey",
+  secret: "yourApiSecret",
   logLevel: LogLevel.NONE,
 });
 
@@ -143,27 +149,27 @@ const storage = new Storage({
 await storage.listBuckets({ limit: 5 });
 
 // create and instance of a bucket directly through uuid
-const bucket = storage.bucket('uuid');
+const bucket = storage.bucket("uuid");
 
 // Upload files from local folder
-await bucket.uploadFromFolder('./my-folder/files/');
+await bucket.uploadFromFolder("./my-folder/files/");
 // Or alternatively, send file buffers as upload parameters
-const pdfBuffer = fs.readFileSync('./my-folder/files/document.pdf');
+const pdfBuffer = fs.readFileSync("./my-folder/files/document.pdf");
 await bucket.uploadFiles(
   [
     {
-      fileName: 'document.pdf',
-      contentType: 'application/pdf',
+      fileName: "document.pdf",
+      contentType: "application/pdf",
       content: pdfBuffer,
     },
   ],
   // Upload the files in a new subdirectory in the bucket instead of in the root of the bucket
-  { wrapWithDirectory: true, directoryPath: 'main/documents' }
+  { wrapWithDirectory: true, directoryPath: "main/documents" }
 );
 
 // list objects (files, folders) in a bucket
 await bucket.listObjects({
-  directoryUuid: 'eaff2672-3012-46fb-9278-5efacc6cb616',
+  directoryUuid: "eaff2672-3012-46fb-9278-5efacc6cb616",
   markedForDeletion: false,
   limit: 5,
 });
@@ -172,12 +178,12 @@ await bucket.listObjects({
 await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
 
 // gets a specific file in a bucket directly through uuid
-const file = await bucket.file('2195521d-15cc-4f6e-abf2-13866f9c6e03').get();
+const file = await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").get();
 
 // deletes a file via uuid
-await bucket.file('2195521d-15cc-4f6e-abf2-13866f9c6e03').delete();
+await bucket.file("2195521d-15cc-4f6e-abf2-13866f9c6e03").delete();
 // deletes a directory via uuid
-await bucket.directory('eddc52cf-92d2-436e-b6de-42d7cad621c3').delete();
+await bucket.directory("eddc52cf-92d2-436e-b6de-42d7cad621c3").delete();
 ```
 
 ### IPNS methods
@@ -187,28 +193,28 @@ The Storage module additionally contains methods for manipulating IPNS records f
 For detailed IPNS SDK method, class and property documentation visit [SDK IPNS docs](https://sdk-docs.apillon.io/classes/Ipns.html).
 
 ```ts
-import { Storage, LogLevel } from '@apillon/sdk';
+import { Storage, LogLevel } from "@apillon/sdk";
 
 const storage = new Storage({
-  key: 'yourApiKey',
-  secret: 'yourApiSecret',
+  key: "yourApiKey",
+  secret: "yourApiSecret",
   logLevel: LogLevel.NONE,
 });
 
 // create and instance of a bucket directly through uuid
-const bucket = storage.bucket('uuid');
+const bucket = storage.bucket("uuid");
 // list all existing IPNS records
-const ipnsNames = await bucket.listIpnsNames({ ipnsName: 'Images IPNS' });
+const ipnsNames = await bucket.listIpnsNames({ ipnsName: "Images IPNS" });
 // create a new IPNS record
 const newIpns = await bucket.createIpns({
-  name: 'Music IPNS',
-  description: 'IPNS for my music files',
-  cid: 'QmS5NL2Rc6SCjFx7pvZHdTD8WGWjDt25WQskC7DsNKAatW',
+  name: "Music IPNS",
+  description: "IPNS for my music files",
+  cid: "QmS5NL2Rc6SCjFx7pvZHdTD8WGWjDt25WQskC7DsNKAatW",
 });
 // Get an IPNS record's details by UUID
-const ipns = await bucket.ipns('ipns_uuid').get();
+const ipns = await bucket.ipns("ipns_uuid").get();
 // Publish an IPNS record to point to a given CID
-await ipns.publish('QmajaeC15ZpcnjBpX4ARRBU127fpcZ2svYEfEBhFRkRZbN');
+await ipns.publish("QmajaeC15ZpcnjBpX4ARRBU127fpcZ2svYEfEBhFRkRZbN");
 // delete an IPNS record from the bucket
 await ipns.delete();
 ```
@@ -232,11 +238,11 @@ import {
   LogLevel,
   Nft,
   TransactionStatus,
-} from '@apillon/sdk';
+} from "@apillon/sdk";
 
 const nft = new Nft({
-  key: 'yourApiKey',
-  secret: 'yourApiSecret',
+  key: "yourApiKey",
+  secret: "yourApiSecret",
   logLevel: LogLevel.NONE,
 });
 
@@ -244,15 +250,15 @@ const nft = new Nft({
 const collection1 = await nft.create({
   collectionType: CollectionType.GENERIC,
   chain: EvmChain.MOONBEAM,
-  name: 'SpaceExplorers',
-  symbol: 'SE',
-  description: 'A collection of unique space exploration NFTs.',
-  baseUri: 'https://moonbeamnfts.com/collections/spaceexplorers/',
-  baseExtension: 'json',
+  name: "SpaceExplorers",
+  symbol: "SE",
+  description: "A collection of unique space exploration NFTs.",
+  baseUri: "https://moonbeamnfts.com/collections/spaceexplorers/",
+  baseExtension: "json",
   maxSupply: 1000,
   isRevokable: false,
   isSoulbound: false,
-  royaltiesAddress: '0x1234567890abcdef',
+  royaltiesAddress: "0x1234567890abcdef",
   royaltiesFees: 5,
   drop: true,
   dropStart: 1679875200,
@@ -262,23 +268,23 @@ const collection1 = await nft.create({
 
 // check if collection is deployed - available on chain
 if (collection1.collectionStatus == CollectionStatus.DEPLOYED) {
-  console.log('Collection deployed: ', collection1.transactionHash);
+  console.log("Collection deployed: ", collection1.transactionHash);
 }
 
 // search through collections
-await nft.listCollections({ search: 'My NFT' });
+await nft.listCollections({ search: "My NFT" });
 
 // create and instance of collection directly through uuid
-const collection = await nft.collection('uuid').get();
+const collection = await nft.collection("uuid").get();
 
 // mint a new nft in the collection
-await collection.mint('0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', 1);
+await collection.mint("0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD", 1);
 
 // nest mint a new nft if collection type is NESTABLE
 await collection.nestMint(collection.uuid, 1, 1);
 
 // burn/destroy a specific NFT by its ID if collection is set as revokable
-await collection.burn('1');
+await collection.burn("1");
 
 // list confirmed transactions on a collection
 await collection.listTransactions({
@@ -289,10 +295,9 @@ await collection.listTransactions({
 // NOTE that this will disable the ability to mint/burn etc. from the SDK/API since only the owner
 // has this ability
 await collection.transferOwnership(
-  '0x5BA8B0c24bA5307b67E619ad500a635204F73bF1'
+  "0x5BA8B0c24bA5307b67E619ad500a635204F73bF1"
 );
 ```
-
 
 ## Identity
 
@@ -303,13 +308,13 @@ For detailed hosting SDK method, class and property documentation visit [SDK ide
 ### Usage example
 
 ```ts
-import { Identity } from './modules/identity/identity';
-import { LogLevel } from './types/apillon';
+import { Identity } from "./modules/identity/identity";
+import { LogLevel } from "./types/apillon";
 
 // Note: for signature-related methods API config is not required
 const identity = new Identity({
-  key: 'yourApiKey',
-  secret: 'yourApiSecret',
+  key: "yourApiKey",
+  secret: "yourApiSecret",
   logLevel: LogLevel.NONE,
 });
 
@@ -319,7 +324,7 @@ const { polkadot, subsocial } = await identity.getWalletIdentity(address);
 async function validateEvmWalletSignature() {
   // generate a custom message to be signed by the user's wallet
   const { message, timestamp } = await identity.generateSigningMessage(
-    'Custom display message here',
+    "Custom display message here"
   );
 
   // alternatively, you can generate you own signing message with timestamp like this:
@@ -327,7 +332,7 @@ async function validateEvmWalletSignature() {
   // const message = 'Message from my Dapp';
   // const signingMessage = `${message}\n${timestamp}`;
 
-  const walletAddress = '0xa79bg13g2...';
+  const walletAddress = "0xa79bg13g2...";
 
   // validate an EVM wallet's signature for a given message
   const { isValid, address } = await identity.validateEvmWalletSignature({
@@ -351,17 +356,16 @@ async function validatePolkadotWalletSignature() {
   // If you wish to generate the message yourself and validate the timestamp,
   // use a signing message as shown below:
   const timestamp = new Date().getTime();
-  const message = 'Message from my Dapp';
+  const message = "Message from my Dapp";
   const signingMessage = `${message}\n${timestamp}`;
 
   // validate a Polkadot wallet's signature for a given signing message
   const { isValid } = await identity.validatePolkadotWalletSignature({
     message: signingMessage,
     signature, // signature obtained from the user's wallet by the client app
-    walletAddress: '5HqHQDGcHqS...',
+    walletAddress: "5HqHQDGcHqS...",
     timestamp,
     signatureValidityMinutes: 5,
   });
 }
-
 ```
