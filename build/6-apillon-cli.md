@@ -187,9 +187,12 @@ Available choices:
 
 ```
 INITIATED = 0
-IN_PROCESS = 1
+IN_PROGRESS = 1
+IN_REVIEW = 2
+APPROVED = 3
 SUCCESSFUL = 10
 FAILED = 100
+REJECTED = 101
 ```
 
 - `--env <integer>`: The environment of the deployments (DeploymentStatus enum, optional).
