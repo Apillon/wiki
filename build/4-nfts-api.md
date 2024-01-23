@@ -41,6 +41,7 @@ API is for creating and managing NFTs. To prepare images and metadata you can us
 | baseExtension    | `string`   | File extension that is auto appended after token id to form a full URL.                                |
 | isSoulbound      | `boolean`  | Soul bound tokens are NFTs that are bounded to wallet and not transferable.                            |
 | isRevokable      | `boolean`  | For revocable collection owner can destroy NFTs at any time.                                           |
+| isAutoIncrement  | `boolean`  | If set to false, enables minting NFTs with a custom token ID                                           |
 | royaltiesFees    | `number`   | Percentage (between 0 and 100) of each NFT sale sent to wallet specified under royalties address.      |
 | royaltiesAddress | `string`   | Address where royalties are sent to.                                                                   |
 | collectionStatus | `number`   | Apillon internal/database collection status.                                                           |
@@ -324,24 +325,25 @@ Collection can be created with a few features/functionalities:
 
 #### Body fields
 
-| Name             | Type      | Description                                                                              | Required |
-| ---------------- | --------- | ---------------------------------------------------------------------------------------- | -------- |
-| collectionType   | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable). | true     |
-| chain            | `number`  | Blockchain id on which you want to release your collection.                              | true     |
-| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                     | true     |
-| name             | `string`  | NFT collection name.                                                                     | true     |
-| description      | `string`  | NFT collection description.                                                              | false    |
-| maxSupply        | `number`  | Maximal number of NFTs ever in existence (0 stands for unlimited).                       | true     |
-| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).        | true     |
-| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                  | true     |
-| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                             | true     |
-| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.                | true     |
-| royaltiesAddress | `string`  | Address where royalties are sent to.                                                     | true     |
-| royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                       | true     |
-| drop             | `boolean` | Determines if collection is mintable by public.                                          | true     |
-| dropStart\*      | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.          | true     |
-| dropPrice\*      | `number`  | Price of NFT at mint stage.                                                              | true     |
-| dropReserve\*    | `number`  | Amount of NFTs reserved by owner.                                                        | true     |
+| Name             | Type      | Description                                                                                                | Required |
+| ---------------- | --------- | ---------------------------------------------------------------------------------------------------------- | -------- |
+| collectionType   | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable).                   | true     |
+| chain            | `number`  | Blockchain id on which you want to release your collection.                                                | true     |
+| symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                                       | true     |
+| name             | `string`  | NFT collection name.                                                                                       | true     |
+| description      | `string`  | NFT collection description.                                                                                | false    |
+| maxSupply        | `number`  | Maximal number of NFTs ever in existence (0 stands for unlimited).                                         | true     |
+| baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).                          | true     |
+| baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                                    | true     |
+| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                                               | true     |
+| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.                                  | true     |
+| royaltiesAddress | `string`  | Address where royalties are sent to.                                                                       | true     |
+| royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                                         | true     |
+| drop             | `boolean` | Determines if collection is mintable by public.                                                            | true     |
+| dropStart\*      | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.                            | true     |
+| dropPrice\*      | `number`  | Price of NFT at mint stage.                                                                                | true     |
+| dropReserve\*    | `number`  | Amount of NFTs reserved by owner.                                                                          | true     |
+| isAutoIncrement  | `boolean` | If set to false, enables minting NFTs with a custom token ID, otherwise defaults to isAutoIncrement = true | false    |
 
 **Notes:**
 
