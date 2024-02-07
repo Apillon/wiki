@@ -237,3 +237,7 @@ If a project's credit balance is lower than price of executed action, API will r
     ...
 }
 ```
+
+## API Code Examples
+
+Examples for using the Apillon API in PHP, .NET (C#) and Python can be found on [our code examples github repo](https://github.com/Apillon/code-examples)
