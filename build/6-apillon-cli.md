@@ -376,11 +376,14 @@ Upload contents of a local folder to specified bucket.
 
 - `<folder-path>`: Path to the folder containing your files.
 - `-b, --bucket-uuid <string>`: UUID of the bucket to upload files to.
+- `-w, --wrap`: Wrap uploaded files to an IPFS directory
+- `-p, --path <string>`: Path to upload files to (e.g. main/subdir). Required when --wrap is supplied.
+- `--await`: await file CIDs to be resolved
 
 **Example**
 
 ```sh
-apillon storage upload ./my_folder --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
+apillon storage upload ./my_folder --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --wrap --path "main/subdir"
 ```
 
 #### `storage get-file`
