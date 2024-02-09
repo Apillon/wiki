@@ -441,7 +441,7 @@ Lists all IPNS records for a specific bucket.
 
 **Example**
 ```sh
-apillon ipns list --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
+apillon storage ipns list --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 **Example response**
@@ -487,7 +487,7 @@ Creates a new IPNS record for a specific bucket.
 
 **Example**
 ```sh
-apillon ipns create --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --name "my-ipns-record" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
+apillon storage ipns create --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --name "my-ipns-record" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
 ```
 
 #### `storage ipns get`
@@ -498,7 +498,7 @@ Retrieves information about a specific IPNS record.
 
 **Example**
 ```sh
-apillon ipns get --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
+apillon storage ipns get --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `storage ipns publish`
@@ -510,7 +510,7 @@ Publishes an IPNS record to IPFS and links it to a CID.
 
 **Example**
 ```sh
-apillon ipns publish --ipns-uuid "123e4567-e89b-12d3-a456-426655440000" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
+apillon storage ipns publish --ipns-uuid "123e4567-e89b-12d3-a456-426655440000" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
 ```
 
 #### `storage ipns delete`
@@ -521,7 +521,7 @@ Deletes an IPNS record from a specific bucket.
 
 **Example**
 ```sh
-apillon ipns delete --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
+apillon storage ipns delete --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 ## NFT Commands
