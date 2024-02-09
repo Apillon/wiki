@@ -494,6 +494,7 @@ apillon storage ipns create --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 Retrieves information about a specific IPNS record.
 
 **Options**
+- `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 
 **Example**
@@ -505,6 +506,7 @@ apillon storage ipns get --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
 Publishes an IPNS record to IPFS and links it to a CID.
 
 **Options**
+- `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 - `-c, --cid <string>`: CID to which this IPNS name will point.
 
@@ -517,6 +519,7 @@ apillon storage ipns publish --ipns-uuid "123e4567-e89b-12d3-a456-426655440000" 
 Deletes an IPNS record from a specific bucket.
 
 **Options**
+- `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 
 **Example**
