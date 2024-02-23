@@ -13,15 +13,20 @@ The Computing Contracts API provides functionality for managing computing contra
 
 #### Body fields
 
-| Field             | Type     | Description                                        | Required                                                                                     |
-|-------------------|----------|----------------------------------------------------|----------------------------------------------------------------------------------------------|
-| bucket_uuid       | `string` | UUID of the bucket for storing encrypted files from the computing contract. If this is not provided, a new bucket will be created      | No       |
+| Field             | Type     | Description                                                                                                                            | Required |
+|-------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------- |----------|
 | contractType      | `number` | Type of the computing contract. Available options: 1 = SCHRODINGER                                                                     | Yes      |
 | name              | `string` | Name of the computing contract                                                                                                         | Yes      |
 | description       | `string` | Description of the computing contract                                                                                                  | No       |
-| nftContractAddress| `string` | Contract address of the NFT collection whose tokens will be used for file decryption                                                   | No       |
-| nftChainRpcUrl    | `string` | RPC URL of the blockchain the NFT contract resides on                                                                                  | Yes      |
-| restrictToOwner   | `boolean`| If true, only the owner can encrypt files via the contract (Default: true)                                                             | Yes      |
+| bucket_uuid       | `string` | UUID of the bucket for storing encrypted files from the computing contract. If this is not provided, a new bucket will be created      | No       |
+
+> Data specific for Schrodinger's NFT contract type
+
+| Field             | Type     | Description                                                                                              | Required |
+|-------------------|----------|----------------------------------------------------------------------------------------------------------|----------|
+| contractData.nftContractAddress| `string` | Contract address of the NFT collection whose tokens will be used for file decryption        | No       |
+| contractData.nftChainRpcUrl    | `string` | RPC URL of the blockchain the NFT contract resides on                                       | Yes      |
+| contractData.restrictToOwner   | `boolean`| If true, only the owner can encrypt files via the contract (Default: true)                  | Yes      |
 
 #### Possible Errors
 
@@ -33,7 +38,8 @@ The Computing Contracts API provides functionality for managing computing contra
 | 42200204 | Contract name not present                                |
 | 42200205 | Contract name not valid (length in range 1-255)          |
 | 42200206 | Contract description not valid (length in range 1-1000)  |
-| 42200161 | NFT RPC URL not present                                  |
+| 42200210 | Computing field not present                              |
+| 42200211 | Computing contract data not valid                        |
 | 50012003 | Error deploying contract                                 |
 
 #### Response
@@ -55,9 +61,11 @@ curl --location --request POST "https://api.apillon.io/computing/contracts" \
   \"description\": \"This contract is used for encrypting files associated with NFTs.\",
   \"bucket_uuid\": \"def456...\",
   \"contractType\": 1,
-  \"nftContractAddress\": \"0x123456789abcdef0123456789abcdef0123456789\",
-  \"nftChainRpcUrl\": \"https://rpc.api.moonbeam.network/\",
-  \"restrictToOwner\": false
+  \"contractData\": {
+    \"nftContractAddress\": \"0x123456789abcdef0123456789abcdef0123456789\",
+    \"nftChainRpcUrl\": \"https://rpc.api.moonbeam.network/\",
+    \"restrictToOwner\": false
+  }
 }"
 ```
 
@@ -406,7 +414,7 @@ curl --location --request POST "https://api.apillon.io/computing/contracts/defa1
 
 ## Encrypt Content
 
-> Encrypt content associated with a computing contract.
+> Encrypt content with the private key which is securely stored on the Schrodinger contract.
 
 <CodeDiv>POST /computing/contracts/:uuid/encrypt</CodeDiv>
 
@@ -434,7 +442,7 @@ curl --location --request POST "https://api.apillon.io/computing/contracts/defa1
 
 #### Response
 
-The encrypted content
+The encrypted content, which has been encrypted via the encryption key stored on the schrodinger contract
 
   </div>
   <div class="split_side">
@@ -474,7 +482,7 @@ f4-40de-8470-a2e8497e15ad/encrypt" \
 
 ## Assign CID to NFT
 
-> Assign a content identifier (CID) to an NFT within a computing contract.
+> Assign a content identifier (CID) to an NFT within a computing contract. The given token ID represents the NFT which will be used to decrypt the content which is stored as the given CID on IPFS.
 
 <CodeDiv>POST /computing/contracts/:uuid/assign-cid-to-nft</CodeDiv>
 
