@@ -15,4 +15,4 @@ The main topics you can explore are:
   - [Web3 and Apillon explained](/about/6-web3-up-close.html): An introduction into Web3, Polkadot, and the Apillon platform.
 - **Community**
   - [Join Apillon community](/about/7-community.html#join-apillon-community) Follow our communication channels and never miss an update.
-  - [Apillon Ambassador program](/about/7-community.html#apillon-ambassador-program) Add your share to the growth of Apillon as brand ambassador.
+  <!-- - [Apillon Ambassador program](/about/7-community.html#apillon-ambassador-program) Add your share to the growth of Apillon as brand ambassador. -->

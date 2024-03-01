@@ -15,7 +15,7 @@ Become part of the Apillon community and stay up to date with the latest news.
 - [YouTube](https://www.youtube.com/channel/UCH5DxaOQ1cdCgNb_nk-5_ug/about)
 - [GitHub](https://github.com/Apillon)
 
-## Apillon Ambassador program
+<!-- ## Apillon Ambassador program
 
 ### Overview
 
@@ -112,7 +112,7 @@ Each program tier requires a set of tasks to be done and deliverables to be prov
 
 ### How to apply
 
-After submitting your application [here](https://surveys.apillon.io/), you’ll receive a return email with next steps and guidelines. Then, Apillon’s community manager will set up a short call with you to see if we are the right match to work together.
+After submitting your application [here](https://surveys.apillon.io/), you’ll receive a return email with next steps and guidelines. Then, Apillon’s community manager will set up a short call with you to see if we are the right match to work together. -->
 
 ## Polkadot Treasury Proposal
 
