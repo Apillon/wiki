@@ -429,9 +429,9 @@ curl --location --request POST "https://api.apillon.io/computing/contracts/defa1
 
 #### Body fields
 
-| Field     | Type     | Description                        | Required |
-|-----------|----------|------------------------------------|----------|
-| content   | `string` | Content to be encrypted            | Yes      |
+| Field     | Type     | Description                                                                                   | Required |
+|-----------|----------|-----------------------------------------------------------------------------------------------|----------|
+| content   | `string` | Content to be encrypted. If the content is an image, the format needs to be base64.           | Yes      |
 
 #### Possible errors
 
