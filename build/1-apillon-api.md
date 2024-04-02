@@ -54,21 +54,21 @@ These permissions could be assigned to an API key for every attached service (e.
 
 If a request is made with an API key that lacks permission for a called endpoint, the following errors can occur:
 
-| Status | Message                                                         | Description                                                                                                                                                |
-| ------ | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 403    | Insufficient permissions - missing `permission name` permission | API key lacks required permission for called service.                                                                                                      |
+| Status | Message                                                         | Description                                                                                                                                                   |
+| ------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 403    | Insufficient permissions - missing `permission name` permission | API key lacks required permission for called service.                                                                                                         |
 | 403    | Insufficient permissions to access this record                  | API key has required permissions for endpoint, but it does not have the right to access the addressed record (i.e., a record belongs to a different project). |
 
 ### Listing requests
 
 Endpoints starting with "List" are intended to list different data, where the response contains the below properties.
 
-| Name  | Description                                             |
-| ----- | ------------------------------------------------------- |
-| items | Records on a specified page that match the current query|
-| total | Number of all records that match the query              |
-| limit | Number of items on a page (default: 20).                |
-| page  | Current page                                            |
+| Name  | Description                                              |
+| ----- | -------------------------------------------------------- |
+| items | Records on a specified page that match the current query |
+| total | Number of all records that match the query               |
+| limit | Number of items on a page (default: 20).                 |
+| page  | Current page                                             |
 
 Listing endpoints by default supports the query parameters below:
 
@@ -237,6 +237,56 @@ If a project's credit balance is lower than price of executed action, API will r
     ...
 }
 ```
+
+## Project
+
+Api key is created inside a project and can be used to get project details through Apillon API.
+
+### Credit balance
+
+> API to get project credit balance
+
+<CodeDiv>GET /project/credit</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Response fields
+
+| Name    | Type     | Description                                                                                          |
+| ------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| balance | `number` | Current credit balance - amount of credits in project, that can be used to perform different actions |
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL basic" active>
+
+```sh
+curl --location --request GET "https://api.apillon.io/project/credit" \
+--header "Authorization: Basic :credentials"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "ec700ddd-4a0d-4d6d-b3ba-64b7ab031c4b",
+  "status": 200,
+  "data": {
+    "balance": 120
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+	</div>
+</div>
 
 ## API Code Examples
 
