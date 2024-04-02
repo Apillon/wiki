@@ -9,8 +9,8 @@ as well as compresses multi step flows into single operations.
 
 ## Requirements
 
-- npm 8.4.0 or higher
-- node.js 16.17.0 or higher
+- npm 10.0.0 or higher
+- node.js 20.0.0 or higher
 - Apillon API key and secret
 
 ## Getting started
