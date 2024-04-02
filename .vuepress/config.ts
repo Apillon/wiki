@@ -137,24 +137,24 @@ function getFolderFiles(folder) {
 
   files = files.map((file) => `/${folder}/${file}`);
 
-  files
-    .sort((a, b) => {
-      const ma = a.replace(`\/${folder}/`, "").replace(".md", "");
-      const mb = b.replace(`\/${folder}/`, "").replace(".md", "");
-      if (!ma) {
-        return -1;
-      } else if (mb) {
-        return ma - mb;
-      } else {
-        return 1;
-      }
-    })
-    .sort((a, b) => {
-      const ma = a.replace(`\/${folder}/`, "");
-      if (ma === "index.md") {
-        return -1;
-      }
-    });
+  files.sort((a, b) => {
+    const ma = parseInt(a.replace(`/${folder}/`, "").replace(".md", ""));
+    const mb = parseInt(b.replace(`/${folder}/`, "").replace(".md", ""));
+    if (!ma) {
+      return -1;
+    } else if (!mb) {
+      return 1;
+    } else {
+      return ma - mb;
+    }
+  });
+
+  files.sort((a, b) => {
+    const ma = a.replace(`/${folder}/`, "");
+    if (ma === "index.md") {
+      return -1;
+    }
+  });
 
   return files;
 }
