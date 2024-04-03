@@ -306,7 +306,7 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 
 > API endpoint that creates NFT collection and deploys it on selected network.
 
-Collection can be created with a few features/functionalities:
+An NFT Collection can be created with a few features/functionalities:
 
 - drop: collection can be minted/purchased by users
 - revokable: NFTs can be revoked by collection owner who can burn them
@@ -316,9 +316,13 @@ Collection can be created with a few features/functionalities:
 2 types of collections are supported:
 
 1. Generic collection (based on [OpenZeppelins ERC-721](https://docs.openzeppelin.com/contracts/3.x/erc721) NFT standard)
-2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard)
+2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard - EVM only)
 
-<CodeDiv>POST /nfts/collections</CodeDiv>
+Additionally, 2 chain types/environments are supported: EVM and Substrate.
+
+#### Create Substrate NFT Collection
+<br>
+<CodeDiv>POST /nfts/collections/substrate</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -328,22 +332,19 @@ Collection can be created with a few features/functionalities:
 | Name             | Type      | Description                                                                                                | Required |
 | ---------------- | --------- | ---------------------------------------------------------------------------------------------------------- | -------- |
 | collectionType   | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable).                   | true     |
-| chain            | `number`  | Blockchain id on which you want to release your collection.                                                | true     |
+| chain            | `number`  | Blockchain ID on which you want to release your collection. Options: (`8` - Astar)                        | true     |
 | symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                                       | true     |
 | name             | `string`  | NFT collection name.                                                                                       | true     |
 | description      | `string`  | NFT collection description.                                                                                | false    |
 | maxSupply        | `number`  | Maximal number of NFTs ever in existence (0 stands for unlimited).                                         | true     |
 | baseUri          | `string`  | Base URI for collection metadata (token id and file extension is appended to it).                          | true     |
 | baseExtension    | `string`  | File extension that is auto appended after token id to form a full URL.                                    | true     |
-| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time.                                               | true     |
-| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable.                                  | true     |
 | royaltiesAddress | `string`  | Address where royalties are sent to.                                                                       | true     |
 | royaltiesFees    | `number`  | Percentage of royalties earned per each NFT trade.                                                         | true     |
 | drop             | `boolean` | Determines if collection is mintable by public.                                                            | true     |
 | dropStart\*      | `number`  | UNIX timestamp (in seconds) which determines public mint opening date and time.                            | true     |
 | dropPrice\*      | `number`  | Price of NFT at mint stage.                                                                                | true     |
 | dropReserve\*    | `number`  | Amount of NFTs reserved by owner.                                                                          | true     |
-| isAutoIncrement  | `boolean` | If set to false, enables minting NFTs with a custom token ID, otherwise defaults to isAutoIncrement = true | false    |
 
 **Notes:**
 
@@ -370,21 +371,19 @@ Response payload is described [under Response Fields above](#get-nft-collection)
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io/nfts/collections' \
+curl --location 'https://api.apillon.io/nfts/collections/substrate' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{
     "collectionType": 1,
-    "chain": 1287,
+    "chain": 8,
     "symbol": "NFT",
     "name": "NFT Collection",
     "description": "NFT Collection description",
     "maxSupply": 1000,
     "baseUri": "https://ipfs.apillon.io/metadata/",
     "baseExtension": "json",
-    "isRevokable": true,
-    "isSoulbound": false,
-    "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
+    "royaltiesAddress": "5TdmScYtgDGg13mG1pvQ5zAooMXMK45bHBt3meGDXrNBKua",
     "royaltiesFees": 10,
     "drop": true,
     "dropStart": 1687251003,
@@ -405,6 +404,7 @@ curl --location 'https://api.apillon.io/nfts/collections' \
   "data": {
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
+    "chain": 8,
     "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
@@ -415,18 +415,124 @@ curl --location 'https://api.apillon.io/nfts/collections' \
     "baseUri": "https://ipfs.apillon.io/metadata/",
     "baseExtension": ".json",
     "isSoulbound": false,
+    "isRevokable": false,
+    "royaltiesFees": 0.1,
+    "royaltiesAddress": "5TdmScYtgDGg13mG1pvQ5zAooMXMK45bHBt3meGDXrNBKua",
+    "collectionStatus": 0,
+    "contractAddress": "XjuXMnFxcJoAgMCdUQKvvt2Daykq4H9rsCfYEVpF6noFP5u",
+    "transactionHash": "0xb59d8497feb121b0ca0b8480df72a456333edddc68ad65f23b6b8b9028e3a6b3",
+    "deployerAddress": "WmMcyrPY4fivB5FUPN85QPhCMKtnrjmUyAgtXC2oW2XbcnY",
+    "drop": true,
+    "dropStart": 1687251003,
+    "dropPrice": 0.1,
+    "dropReserve": 5
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
+
+#### Create EVM NFT Collection
+<br>
+<CodeDiv>POST /nfts/collections/evm</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Body fields
+
+All the fields from [substrate collection](/build/4-nfts-api.html#create-substrate-nft-collection), plus:
+
+| Name             | Type      | Description                                                                                                | Required |
+| ---------------- | --------- | ---------------------------------------------------------------------------------------------------------- | -------- |
+| chain            | `number`  | Blockchain ID on which you want to release your collection. Options: (`1284` - Moonbeam, `1287` - Moonbase, `592` - Astar)                        | true     |
+| isRevokable      | `boolean` | For revocable collection owner can destroy NFTs at any time. (default: false)                              | true     |
+| isSoulbound      | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable. (default: false)                 | true     |
+| isAutoIncrement  | `boolean` | If set to false, enables minting NFTs with a custom token ID, otherwise defaults to isAutoIncrement = true | false    |
+
+#### Possible errors
+
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
+
+| Code     | Description                                   |
+| -------- | --------------------------------------------- |
+| 40012002 | Collection quota reached                      |
+| 50012003 | Failed deploying NFT contract on chain.       |
+| 50012010 | Failed to create bucket for storing metadata. |
+
+#### Response
+
+Response payload is described [under Response Fields above](#get-nft-collection).
+
+  </div>
+  <div class="split_side">
+
+<CodeGroup>
+    <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location 'https://api.apillon.io/nfts/collections/evm' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic :credentials' \
+--data '{
+    "collectionType": 1,
+    "chain": 1287,
+    "symbol": "NFT",
+    "name": "NFT Collection",
+    "description": "NFT Collection description",
+    "maxSupply": 1000,
+    "baseUri": "https://ipfs.apillon.io/metadata/",
+    "baseExtension": "json",
+    "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
+    "royaltiesFees": 10,
+    "drop": true,
+    "dropStart": 1687251003,
+    "dropReserve": 5,
+    "dropPrice": 0.1,
     "isRevokable": true,
+    "isSoulbound": true
+}'
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
+  "status": 200,
+  "data": {
+    "createTime": "2023-06-13T10:15:58.000Z",
+    "updateTime": "2023-06-13T10:15:58.000Z",
+    "chain": 1287,
+    "collectionType": 1,
+    "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
+    "symbol": "NFT",
+    "name": "NFT Collection",
+    "description": "NFT Collection Description",
+    "maxSupply": 1000,
+    "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
+    "baseUri": "https://ipfs.apillon.io/metadata/",
+    "baseExtension": ".json",
+    "isSoulbound": false,
+    "isRevokable": false,
     "royaltiesFees": 0.1,
     "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
     "collectionStatus": 0,
     "contractAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557",
     "transactionHash": "0x6b97424de3367cd0335b08265787b83053b62bee2d1c8bec1f776936bea4fb26",
     "deployerAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
-    "chain": 1287,
     "drop": true,
     "dropStart": 1687251003,
     "dropPrice": 0.1,
-    "dropReserve": 5
+    "dropReserve": 5,
+    "isRevokable": true,
+    "isSoulbound": true
   }
 }
 ```

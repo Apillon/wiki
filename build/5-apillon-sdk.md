@@ -245,11 +245,11 @@ import {
 const nft = new Nft({
   key: 'yourApiKey',
   secret: 'yourApiSecret',
-  logLevel: LogLevel.VERBOSE,
+  logLevel: LogLevel.NONE,
 });
 
 // create a new collection
-const collection1 = await nft.create({
+let collection = await nft.create({
   collectionType: CollectionType.GENERIC,
   chain: EvmChain.MOONBEAM,
   name: 'SpaceExplorers',
@@ -268,20 +268,31 @@ const collection1 = await nft.create({
   dropPrice: 0.05,
   dropReserve: 100,
 });
+// or create a substrate collection
+const substrateCollection = await nft.createSubstrate({
+  collectionType: CollectionType.GENERIC,
+  chain: EvmChain.MOONBEAM,
+  name: 'SpaceExplorers',
+  symbol: 'SE',
+  ...
+});
 
 // check if collection is deployed - available on chain
-if (collection1.collectionStatus == CollectionStatus.DEPLOYED) {
-  console.log('Collection deployed: ', collection1.transactionHash);
+if (collection.collectionStatus == CollectionStatus.DEPLOYED) {
+  console.log('Collection deployed: ', collection.transactionHash);
 }
 
 // search through collections
 await nft.listCollections({ search: 'My NFT' });
 
 // create and instance of collection directly through uuid
-const collection = await nft.collection('uuid').get();
+collection = await nft.collection('uuid').get();
 
 // mint a new nft in the collection
-await collection.mint('0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', 1);
+await collection.mint({
+  receivingAddress: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD',
+  quantity: 1,
+});
 
 // nest mint a new nft if collection type is NESTABLE
 await collection.nestMint(collection.uuid, 1, 1);
@@ -301,7 +312,6 @@ await collection.transferOwnership(
   '0x5BA8B0c24bA5307b67E619ad500a635204F73bF1'
 );
 ```
-
 
 ## Identity
 
