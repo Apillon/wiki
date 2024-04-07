@@ -245,7 +245,7 @@ import {
 const nft = new Nft({
   key: 'yourApiKey',
   secret: 'yourApiSecret',
-  logLevel: LogLevel.NONE,
+  logLevel: LogLevel.VERBOSE,
 });
 
 // create a new collection
@@ -322,8 +322,7 @@ For detailed hosting SDK method, class and property documentation visit [SDK ide
 ### Usage example
 
 ```ts
-import { Identity } from './modules/identity/identity';
-import { LogLevel } from './types/apillon';
+import { Identity, LogLevel } from '@apillon/sdk';
 
 // Note: for signature-related methods API config is not required
 const identity = new Identity({
@@ -391,6 +390,8 @@ The Computing module provides functionalities for managing computing contracts, 
 ### Usage example
 
 ```ts
+import { Computing } from '@apillon/sdk';
+
 const computing = new Computing({
   key: 'yourApiKey',
   secret: 'yourApiSecret',
@@ -398,14 +399,16 @@ const computing = new Computing({
 
 // List all computing contracts
 const contracts = await computing.listContracts();
-console.log(contracts);
 
 // Create a new computing contract
 const newContract = await computing.createContract({
   name: 'New Contract',
   description: 'Description of the new contract',
-  nftContractAddress: '0xabc...',
-  nftChainRpcUrl: ChainRpcUrl.ASTAR,
+  bucket_uuid,
+  contractData: {
+    nftContractAddress: '0xabc...',
+    nftChainRpcUrl: ChainRpcUrl.ASTAR,
+  },
 });
 
 // Interact with a specific computing contract
@@ -413,11 +416,9 @@ const contract = computing.contract(newContract.uuid);
 
 // Get details of the contract
 const contractDetails = await contract.get();
-console.log(contractDetails);
 
 // List transactions of the contract
 const transactions = await contract.listTransactions();
-console.log(transactions);
 
 // Encrypt a file and upload it to the associated bucket
 const encryptionResult = await contract.encryptFile({
@@ -425,7 +426,6 @@ const encryptionResult = await contract.encryptFile({
   content: Buffer.from('Hello, world!'),
   nftId: 1, // NFT ID used for decryption authentication
 });
-console.log(encryptionResult);
 
 // Transfer ownership of the contract
 const newOwnerAddress = '0xNewOwnerAddress';
@@ -433,4 +433,40 @@ const successResult = await contract.transferOwnership(newOwnerAddress);
 console.log(
   `Ownership transfer was ${successResult ? 'successful' : 'unsuccessful'}.`,
 );
+```
+
+## Social
+
+The Social module provides functionalities for managing social hubs and channels within the Apillon platform. This includes creating, listing, and interacting with hubs and channels. In the background it utilizes Grill.chat, a mobile-friendly, anonymous chat application powered by Subsocial.
+
+### Usage example
+
+```ts
+import { Social } from '@apillon/sdk';
+
+const social = new Social({ key: 'yourApiKey', secret: 'yourApiSecret' });
+// Create a new hub
+const hub = await social.createHub({
+  name: 'Apillon Hub',
+  about: 'Hub for Apillon channels',
+  tags: 'apillon,web3,build',
+});
+
+// Get a specific hub by UUID
+const hubDetails = await social.hub(hub.uuid).get();
+// List all Hubs
+const hubs = await social.listHubs();
+
+// Create a new channel within a hub
+const channel = await social.createChannel({
+  title: 'Web3 Channel',
+  body: "Let's discuss Web3",
+  tags: 'web3,crypto',
+  hubUuid: hub.uuid,
+});
+
+// Get a specific channel by UUID
+const channelDetails = await social.channel(channel.uuid).get();
+// List all channels within a Hub
+const channels = await social.listChannels({ hubUuid: hub.uuid });
 ```
