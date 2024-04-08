@@ -1,7 +1,5 @@
 # Web3 Social
 
-## Introduction
-
 Apillon offers web3 alternatives for social networking between end users. This is powered by [subsocial network](https://subsocial.network/).
 
 Currently Apillon offers web3 chat alternative called [grill chat](https://grillapp.net/c/hot-chats) that allows anonymous chatting which content can be displayed anywhere integrating the subsocial grill chat.
