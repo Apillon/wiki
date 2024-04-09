@@ -72,13 +72,14 @@ Endpoints starting with "List" are intended to list different data, where the re
 
 Listing endpoints by default supports the query parameters below:
 
-| Name    | Description                                                                               | Required |
-| ------- | ----------------------------------------------------------------------------------------- | -------- |
-| search  | Search the items usually by name or some other property specifying this item.             | false    |
-| page    | Items are paginated by default. This parameter is used to get items from a specific page. | false    |
-| limit   | Number of items on a page (default: 20).                                                  | false    |
-| orderBy | One or multiple properties, separated by a comma, used to order data.                     | false    |
-| desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.      | false    |
+| Name    | Description                                                                                   | Required |
+| ------- | ----------------------------------------------------------------------------------------------| -------- |
+| search  | Search the items usually by name or some other property specifying this item.                 | false    |
+| page    | Items are paginated by default. This parameter is used to get items from a specific page.     | false    |
+| limit   | Number of items on a page (default: 20).                                                      | false    |
+| orderBy | One or multiple properties, separated by a comma, used to order data.                         | false    |
+| desc    | `Boolean` values, mapped to the index of the `orderBy` parameter. Defaults to false.          | false    |
+| status  | Integer values, to filter by the entity's status (each entity has corresponding status codes) | false    |
 
 ### Responses
 

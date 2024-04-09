@@ -1,19 +1,19 @@
 # Social API
 
-Social API provides endpoints to list, get and create subsocial entities used in [Grill widget](https://github.com/dappforce/grillchat/tree/main/integration).
-Space and post are main entities used by it, which is a bit confusing for developer who is trying to include Grill widget into the website.
-Apillon changes naming of these entities into hub and channel, and takes care of whole blockchain and ipfs part and the result is a simple configuration that can be used to configure Grill widget on website.
+The Social API provides endpoints to list, get and create subsocial entities used in tge [Grill widget](https://github.com/dappforce/grillchat/tree/main/integration).
+Spaces and posts are the main entities provided by it, which may be a bit unfamiliar to a developer who is trying to include the Grill widget into a website.
+Apillon changes the naming of these entities into **Hub** and **Channel**, and takes care of the whole blockchain and IPFS aspect, the result being a simple configuration which can be used to setup a Grill widget on any website.
 
-**Note:** You can create channels and hubs in [Apillon dashboard](https://app.apillon.io/dashboard/service/social).
+**Note:** You can also create channels and hubs in the [Apillon dashboard](https://app.apillon.io/dashboard/service/social).
 
-Use Social API to create hubs and channels from your application. For example: you can create channel (chatroom) for each nft in your marketplace.
+Use the Social API to create hubs and channels from your application. For example: you can create a channel (chatroom) for each NFT collection in your marketplace.
 
 In all cURL examples, parameters with a colon as a prefix should be replaced with real values.
 
 ## Channels
 
-By default, channel is created inside a hub, so a hub can contain multiple channels. Grill widget displays hub as a list of channels inside it, and a channel is displayed as a chatroom.
-Channel can be created inside Apillon default hub or you can create your own hub and channels in it.
+By default, a channel is created inside a hub, therefore a hub can contain multiple channels. The grill widget displays hubs as a list of channels inside it, and a channel is displayed as a chatroom.
+A channel can be created inside Apillon's default hub or you can create your own hub and create channels within it.
 
 ### List channels
 
@@ -39,6 +39,7 @@ Each item is an instance of channel class, with below properties:
 | Field       | Type       | Description                                                             |
 | ----------- | ---------- | ----------------------------------------------------------------------- |
 | channelUuid | `string`   | Channel unique identifier                                               |
+| hubUuid     | `string`   | Unique identifier of the channel's parent Hub                           |
 | channelId   | `number`   | Channel id on Subsocial chain. This id is used in widget.               |
 | status      | `number`   | Channel status (`1: draft - deploying to chain, 5: active, 100: error`) |
 | title       | `string`   | Channel name                                                            |
@@ -73,26 +74,27 @@ curl --location --request GET "https://api.apillon.io/social/channels?search=My"
 
 ```json
 {
-    "id": "d9ee5982-4292-40ee-b94f-b5c234fecb98",
-    "status": 200,
-    "data": {
-        "items": [
-            {
-                "channelUuid": "6f08bafe-bfd2-4151-bae1-99e515bd6c55",
-                "channelId": null,
-                "status": 1,
-                "title": "My ApillonAPI channel",
-                "body": "ApillonAPI channel",
-                "tags": null,
-                "createTime": "2024-03-05T13:23:20.000Z",
-                "updateTime": "2024-03-05T13:23:20.000Z",
-            },
-            ...
-        ],
-        "total": 4,
-        "page": 1,
-        "limit": 20
-    }
+  "id": "d9ee5982-4292-40ee-b94f-b5c234fecb98",
+  "status": 200,
+  "data": {
+    "items": [
+      {
+        "channelUuid": "6f08bafe-bfd2-4151-bae1-99e515bd6c55",
+        "hubUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
+        "channelId": 512,
+        "status": 1,
+        "title": "My ApillonAPI channel",
+        "body": "ApillonAPI channel",
+        "tags": "web3,fun",
+        "createTime": "2024-03-05T13:23:20.000Z",
+        "updateTime": "2024-03-05T13:23:20.000Z",
+      },
+      ...
+    ],
+    "total": 4,
+    "page": 1,
+    "limit": 20
+  }
 }
 ```
 
@@ -103,7 +105,7 @@ curl --location --request GET "https://api.apillon.io/social/channels?search=My"
 
 ### Get channel
 
-> Endpoint to get channel. Endpoint returns basic channel data.
+> Endpoint to get a single channel. Returns basic channel data.
 
 <CodeDiv>GET /social/channels/:channelUuid</CodeDiv>
 
@@ -152,9 +154,9 @@ curl --location --request GET "https://api.apillon.io/social/channels/:channelUu
     "updateTime": "2024-03-05T13:23:20.000Z",
     "title": "My ApillonAPI channel",
     "body": "ApillonAPI channel",
-    "tags": null,
+    "tags": "web3,fun",
     "channelUuid": "6f08bafe-bfd2-4151-bae1-99e515bd6c55",
-    "channelId": null
+    "channelId": 512
   }
 }
 ```
@@ -175,18 +177,18 @@ curl --location --request GET "https://api.apillon.io/social/channels/:channelUu
 
 #### Body fields
 
-| Name    | Type     | Description                                                                        | Required |
-| ------- | -------- | ---------------------------------------------------------------------------------- | -------- |
-| title   | `string` | Channel name.                                                                      | true     |
-| body    | `string` | Channel content/description                                                        | false    |
-| tags    | `string` | Comma separated tags                                                               | false    |
-| hubUuid | `string` | Hub unique identifier - if not specified the channel is created inside Apillon hub | false    |
+| Name    | Type     | Description                                                                          | Required |
+| ------- | -------- | -------------------------------------------------------------------------------------| -------- |
+| title   | `string` | Channel name                                                                         | true     |
+| body    | `string` | Channel content/description                                                          | true     |
+| tags    | `string` | Comma separated tags                                                                 | false    |
+| hubUuid | `string` | Hub unique identifier - if not specified the channel is created inside a default hub | false    |
 
 #### Possible errors
 
 | Code     | Description                                                                                                |
 | -------- | ---------------------------------------------------------------------------------------------------------- |
-| 40419001 | Specified hub does not exists                                                                              |
+| 40419001 | Specified hub does not exist                                                                               |
 | 42219002 | Body is missing required properties                                                                        |
 | 50019004 | Parent hub is in invalid state. It is probably not yet transmitted and confirmed on the chain (status = 1) |
 | 50019003 | Internal error - Apillon was unable to create channel.                                                     |
@@ -229,6 +231,7 @@ curl --location --request POST "https://api.apillon.io/social/channels" \
     "body": "Lets talk about apillon API",
     "tags": "Apillon,API,WEB3",
     "channelUuid": "c1d709b8-16fb-493e-a317-16d8b8ce623d",
+    "hubUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "channelId": null
   }
 }
@@ -292,27 +295,27 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
 
 ```json
 {
-    "id": "88b3140f-035e-446d-bda7-1f95e7343619",
-    "status": 200,
-    "data": {
-        "items": [
-            {
-                "hubUuid": "7b59dc14-5ea1-48df-b4c9-a8395690d225",
-                "hubId": "55545",
-                "status": 5,
-                "createTime": "2024-03-05T12:18:20.000Z",
-                "updateTime": "2024-03-05T13:21:25.000Z",
-                "name": "Apillon API hub",
-                "about": "Apillon API hub",
-                "tags": null,
-                "numOfChannels": 4
-            }
-            ...
-        ],
-        "total": 3,
-        "page": 1,
-        "limit": 20
-    }
+  "id": "88b3140f-035e-446d-bda7-1f95e7343619",
+  "status": 200,
+  "data": {
+    "items": [
+      {
+        "hubUuid": "7b59dc14-5ea1-48df-b4c9-a8395690d225",
+        "hubId": "55545",
+        "status": 5,
+        "createTime": "2024-03-05T12:18:20.000Z",
+        "updateTime": "2024-03-05T13:21:25.000Z",
+        "name": "Apillon API hub",
+        "about": "Apillon API hub",
+        "tags": "web3,fun",
+        "numOfChannels": 4
+      }
+      ...
+    ],
+    "total": 3,
+    "page": 1,
+    "limit": 20
+  }
 }
 ```
 
@@ -372,7 +375,7 @@ curl --location --request GET "https://api.apillon.io/social/hubs/:hubUuid" \
     "updateTime": "2024-03-05T13:21:25.000Z",
     "name": "Apillon API hub",
     "about": "Apillon API hub",
-    "tags": null,
+    "tags": "web3,fun",
     "hubUuid": "7b59dc14-5ea1-48df-b4c9-a8395690d225",
     "hubId": "55545"
   }
@@ -386,7 +389,7 @@ curl --location --request GET "https://api.apillon.io/social/hubs/:hubUuid" \
 
 ### Create hub
 
-> API that creates hub and transmits it to blockchain. Transaction can take a while and until confirmed, hub has `status` 1.
+> Endpoint to create a hub and transmit it to blockchain. Transaction can take a while and until confirmed, the hub has `status` 1 (Draft).
 
 <CodeDiv>POST /social/hubs</CodeDiv>
 
