@@ -508,7 +508,6 @@ Properties of each item:
 | updateTime  | `DateTime` | File last update time                                             |
 | fileUuid    | `string`   | File UUID property                                                |
 | CID         | `string`   | File content identifier - label used to point to content in IPFS. |
-| CIDv1       | `string`   | CID version 1                                                     |
 | name        | `string`   | File name                                                         |
 | contentType | `string`   | File content type. Value is taken from file upload request        |
 | path        | `integer`  | Full path to file                                                 |
@@ -552,7 +551,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
                 "updateTime": "2023-10-13T06:08:00.000Z",
                 "fileUuid": "120afe0e-b146-45a5-82e0-52d2125df294",
                 "CID": "QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5",
-                "CIDv1": "bafybeiefrfkhkevhdvacfjds7gw7mh2wlnuo66aeyffrik7wao5tlvfy3q",
                 "name": "Hello.txt",
                 "contentType": "",
                 "path": "Folder 1/",
@@ -565,7 +563,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
                 "updateTime": "2023-10-12T12:17:42.000Z",
                 "fileUuid": "63ace39b-ec7c-4889-8d94-83a2ad7fb154",
                 "CID": "QmaufbAR2dX62TSiYYJUS5sV9KNFZLnxgP4ZMkKFoJhSAM",
-                "CIDv1": "bafybeif2yft3qu7wfadsdaorhcfewz74skcsosqb7lrk3ac3doeb7kbbgi",
                 "name": "My file.txt",
                 "contentType": "",
                 "path": null,
@@ -615,7 +612,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 | updateTime    | `DateTime` | File last update time                                             |
 | fileUuid      | `string`   | File UUID property                                                |
 | CID           | `string`   | File content identifier - label used to point to content in IPFS. |
-| CIDv1         | `string`   | CID version 1                                                     |
 | name          | `string`   | File name                                                         |
 | contentType   | `string`   | File content type. Value is taken from file upload request        |
 | path          | `integer`  | Full path to file                                                 |
@@ -657,8 +653,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
     "createTime": "2023-10-12T12:20:54.000Z",
     "updateTime": "2023-10-12T12:21:17.000Z",
     "fileUuid": "120afe0e-b146-45a5-82e0-52d2125df294",
-    "CID": "QmXKvPVY6jJ7e4oL3QcYjKFw6Bg7EKzzJAXCgXYjuCSyq5",
-    "CIDv1": "bafybeiefrfkhkevhdvacfjds7gw7mh2wlnuo66aeyffrik7wao5tlvfy3q",
+    "CID": "bafybeiefrfkhkevhdvacfjds7gw7mh2wlnuo66aeyffrik7wao5tlvfy3q",
     "name": "Hello.txt",
     "contentType": "",
     "path": "Folder 1/",

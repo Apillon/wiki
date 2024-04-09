@@ -1,6 +1,6 @@
 # NFTs API
 
-API is for creating and managing NFTs. To prepare images and metadata you can use storage API. To learn more about metadata standards you can visit: https://docs.opensea.io/docs/metadata-standards
+API is for creating and managing NFTs. To prepare images and metadata for your NFT collection you can use the Storage API. To learn more about metadata standards you can visit: [https://docs.opensea.io/docs/metadata-standards](https://docs.opensea.io/docs/metadata-standards)
 
 ### Get NFT Collection
 
@@ -315,7 +315,7 @@ An NFT Collection can be created with a few features/functionalities:
 
 2 types of collections are supported:
 
-1. Generic collection (based on [OpenZeppelins ERC-721](https://docs.openzeppelin.com/contracts/3.x/erc721) NFT standard)
+1. Generic collection, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
 2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard - EVM only)
 
 Additionally, 2 chain types/environments are supported: EVM and Substrate.

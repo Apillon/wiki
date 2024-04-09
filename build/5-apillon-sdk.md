@@ -271,7 +271,7 @@ let collection = await nft.create({
 // or create a substrate collection
 const substrateCollection = await nft.createSubstrate({
   collectionType: CollectionType.GENERIC,
-  chain: EvmChain.MOONBEAM,
+  chain: SubstrateChain.ASTAR,
   name: 'SpaceExplorers',
   symbol: 'SE',
   ...
