@@ -161,7 +161,7 @@ void main() async {
 
   // Create a new NFT collection
   var collection = await nft.create(ICreateCollection(
-    chain: EvmChain.moonbase,
+    chain1: EvmChain.moonbase,
     collectionType1: CollectionType.generic,
     name: 'Space Explorers',
     description: 'A collection of space explorers',
@@ -178,7 +178,7 @@ void main() async {
   print('Collection created: ${collection.uuid}');
   // or create a substrate collection
   var substrateCollection = await nft.createSubstrate({
-    chain: SubstrateChain.astar,
+    chain1: SubstrateChain.astar,
     collectionType1: CollectionType.generic,
     name: 'SpaceExplorers',
     symbol: 'SE',
