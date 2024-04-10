@@ -59,7 +59,7 @@ void main() async {
   ));
 
   // List all buckets
-  var buckets = await storage.listBuckets(ICollectionFilters());
+  var buckets = await storage.listBuckets(IApillonPagination());
   print('Buckets:');
   for (var bucket in buckets) {
     print('${bucket.name} - ${bucket.uuid}');
@@ -72,7 +72,7 @@ void main() async {
   print('Bucket Details: ${bucketDetails.name}, Size: ${bucketDetails.size}');
 
   // List files in the bucket
-  var files = await storage.bucket(bucketUuid).listFiles(ICollectionFilters());
+  var files = await storage.bucket(bucketUuid).listFiles(IBucketFilesRequest());
   print('Files in bucket:');
   for (var file in files) {
     print('${file.name} - ${file.uuid}');
@@ -116,7 +116,7 @@ void main() async {
   var bucketUuid = 'eaff2672-3012-46fb-9278-5efacc6cb616';
 
   // List all existing IPNS records in a bucket
-  var ipnsRecords = await storage.bucket(bucketUuid).listIpnsNames(ICollectionFilters());
+  var ipnsRecords = await storage.bucket(bucketUuid).listIpnsNames(IPNSListRequest());
   print('IPNS Records:');
   for (var record in ipnsRecords) {
     print('${record.name} - ${record.uuid}');
@@ -160,22 +160,30 @@ void main() async {
   ));
 
   // Create a new NFT collection
-  var collection = await nft.createCollection(ICreateCollection(
+  var collection = await nft.create(ICreateCollection(
     chain1: EvmChain.moonbase,
     collectionType1: CollectionType.generic,
-    name: 'SDK Test',
-    description: 'Created from SDK tests',
-    symbol: 'SDKT',
-    royaltiesFees: 0,
-    royaltiesAddress: '0x0000000000000000000000000000000000000000',
+    name: 'Space Explorers',
+    description: 'A collection of space explorers',
+    symbol: 'SE',
+    royaltiesFees: 3,
+    royaltiesAddress: '0x95B8c6b9225456107649776EF8aAF20C42d58814',
     baseUri: 'https://test.com/metadata/',
     baseExtension: '.json',
-    maxSupply: 5,
+    maxSupply: 50,
     isRevokable: false,
     isSoulbound: false,
     drop: false,
   ));
   print('Collection created: ${collection.uuid}');
+  // or create a substrate collection
+  var substrateCollection = await nft.createSubstrate({
+    chain1: SubstrateChain.astar,
+    collectionType1: CollectionType.generic,
+    name: 'SpaceExplorers',
+    symbol: 'SE',
+    ...
+  });
 
   // Mint a new NFT in the collection
   var mintResult = await nft.collection(collection.uuid).mint(IMintNftData(
