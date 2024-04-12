@@ -603,7 +603,7 @@ apillon nfts get-collection --uuid "123e4567-e89b-12d3-a456-426655440000"
 
 #### `nfts create-collection`
 
-Creates a new NFT collection. The JSON file needs to have the property structure as type `ICreateCollection`, which can be found in the [SDK docs](https://sdk-docs.apillon.io/interfaces/ICreateCollection.html). An example object can be also seen on the [NFT SDK docs](https://wiki.apillon.io/build/5-apillon-sdk.html#nfts).
+Creates a new NFT collection. The JSON file needs to have the property structure as type [ICreateCollection](https://sdk-docs.apillon.io/interfaces/ICreateCollection.html) for EVM and [ICreateSubstrateCollection](https://sdk-docs.apillon.io/interfaces/ICreateSubstrateCollection.html) for Substrate collections. An example object can be also seen on the [NFT SDK docs](https://wiki.apillon.io/build/5-apillon-sdk.html#nfts).
 
 **Options**
 
