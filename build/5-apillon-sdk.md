@@ -179,6 +179,10 @@ await bucket.listObjects({
 // list all files in a bucket no matter if they are in a folder or not
 await bucket.listFiles({ fileStatus: FileStatus.UPLOADED });
 
+// generate an IPFS link for a CID
+const cid = 'bafybeigjhyc2tpvqfqsuvf3byo4e4a4v6spi6jk4qqvvtlpca6rsaf2cqi';
+const link = await storage.generateIpfsLink(cid);
+
 // gets a specific file in a bucket directly through uuid
 const file = await bucket.file('2195521d-15cc-4f6e-abf2-13866f9c6e03').get();
 
