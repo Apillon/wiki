@@ -58,6 +58,7 @@ export default defineUserConfig({
       componentsDir: path.resolve(__dirname, "./components"),
     }) as any,
   ],
+  clientConfigFile: path.resolve(__dirname, './clientAppEnhance.js'),
 });
 
 //Generate Nav
