@@ -2,7 +2,7 @@
 
 Apillon NFT service supports drag-and-drop compilation, deployment, and minting of non-fungible assets.
 
-The service is currenly supported by the [Moonbeam Network](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756) and [Astar Network](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f) for EVM and Astar network for substrate based NFTs.
+The service is currently supported by the [Moonbeam Network](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756) and [Astar Network](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f) for EVM and Astar network for substrate based NFTs.
 
 ## NFT files
 
