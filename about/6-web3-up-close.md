@@ -4,7 +4,7 @@
 
 ## Polkadot, a complete service stack for Web3 builders
 
-Polkadot is a “blockchain of blockchains,” allowing many different types of chains to work and interact securely together within the same ecosystem. The network has already contributed great promise and significant progress by encouraging individual sovereignty over personal and business data. Andmore importantly, the integration of diverse parachains into a scalable and flexible network set a new standard for Web3 builders.
+Polkadot is a “blockchain of blockchains,” allowing many different types of chains to work and interact securely together within the same ecosystem. The network has already contributed great promise and significant progress by encouraging individual sovereignty over personal and business data. And more importantly, the integration of diverse parachains into a scalable and flexible network set a new standard for Web3 builders.
 
 ### Evolution of blockchain applications
 
@@ -49,7 +49,7 @@ In a decentralized network, there is no single central authority that controls a
 
 #### nodes
 
-Nodes create, receive and communicate information that they then store or relay to other nodes. The definition of a node is directly tied to the type of network it participates in – in a blockchain network, blockchain nodes are devices, usually computers, that run the blockchain’s software to validate and broadcast transactions as well as secure the network. Blockchain nodes communicate with each other, and the more nodes there are, the more decentralized the blockchain network is.
+Nodes create, receive, and communicate information that they then store or relay to other nodes. The definition of a node is directly tied to the type of network it participates in – in a blockchain network, blockchain nodes are devices, usually computers, that run the blockchain’s software to validate and broadcast transactions as well as secure the network. Blockchain nodes communicate with each other, and the more nodes there are, the more decentralized the blockchain network is.
 
 #### decentralized application
 
@@ -75,7 +75,7 @@ Contrary to files, websites, or apps that are stored and hosted on central serve
 
 #### heterogenous sharding of Polkadot
 
-Polkadot is a sharded blockchain. Connecting several blockchains into a unified network, Polkadot Network allows the separate chains to securely process transactions and exchange data at the same time. Each chain can be optimized for a specific use case while still being able to communicate with the other chains in the network. This unique model is called Polkadot’s heterogeneous sharding model.
+Polkadot is a sharded blockchain. Connecting several blockchains into a unified network, the Polkadot Network allows the separate chains to securely process transactions and exchange data at the same time. Each chain can be optimized for a specific use case while still being able to communicate with the other chains in the network. This unique model is called Polkadot’s heterogeneous sharding model.
 
 #### relay chain
 
@@ -91,7 +91,7 @@ Founded by [Gavin Wood](https://en.wikipedia.org/wiki/Gavin_Wood), [Web3 Foundat
 
 #### Substrate
 
-[Substrate](https://substrate.io/) is an open-source and future-proof blockchain framework developed by Parity Tecnologies. It helps developers build blockchains that can work independently from one another while connecting to the main relay chain. Substrate was designed to power the Polkadot Network and a multi-chain, decentralized web.
+[Substrate](https://substrate.io/) is an open-source and future-proof blockchain framework developed by Parity Technologies. It helps developers build blockchains that can work independently from one another while connecting to the main relay chain. Substrate was designed to power the Polkadot Network and a multi-chain, decentralized web.
 
 #### Phala Network
 
@@ -131,7 +131,7 @@ Web3 project is a website, program, or app that’s built using decentralized te
 
 [Web3 Computing](/web3-services/1-good-to-know.html#web3-computing) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
 
-#### unified service pricing
+#### Unified service pricing
 
 Unified service pricing is a reliable business model that enables the user to predict the cost of services and pay for multiple services in a single transaction. The Apillon platform delivers various Web3 services at stable monthly pricing with DOT and fiat that allows users to devote more time to developing new products as they don’t have to deal with the typically unstable pricing of Web3 services. [Read more >](https://blog.apillon.io/what-is-apillons-unified-pricing-and-why-does-it-matter-45832a14cc94)
 
