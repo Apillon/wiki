@@ -30,7 +30,7 @@ API is for creating and managing NFTs. To prepare images and metadata for your N
 | ---------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
 | createTime       | `DateTime` | Collection create time.                                                                                |
 | updateTime       | `DateTime` | Collection last update time.                                                                           |
-| collectionType   | `number`   | Type of smart contract to use for collection. Available types are described [here](#collection-types). |
+| collectionType   | `number`   | Type of smart contract to use for collection. Available types are described [here](#collection-type). |
 | collectionUuid   | `string`   | Unique key of a collection.                                                                            |
 | symbol           | `string`   | NFT collection symbol (usually 3-4 characters long).                                                   |
 | name             | `string`   | NFT collection name.                                                                                   |
@@ -316,7 +316,7 @@ An NFT Collection can be created with a few features/functionalities:
 2 types of collections are supported:
 
 1. Generic collection, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
-2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/general-overview/rmrk-legos/nestable) NFT standard - EVM only)
+2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/nestable) NFT standard - EVM only)
 
 Additionally, 2 chain types/environments are supported: EVM and Substrate.
 
