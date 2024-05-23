@@ -66,7 +66,7 @@ For commands that return a list of results, for example `apillon storage list-fi
 - `--page <integer>`: Page number
 - `--search <string> `: Search by name or other object identifier
 
-> For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html). Note: CLI responses may be dfferent from API responses.
+> For example responses and for an overview of all properties, refer to [the Apillon API wiki](https://wiki.apillon.io/build/1-apillon-api.html). Note: CLI responses may be different from API responses.
 
 # Commands
 
@@ -782,8 +782,8 @@ jobs:
 
       ####
       ## if you are using a framework for building web app, you can replace previous two step with the
-      ## appropriate command for generating static webpage, like an example bellow.
-      ## Find the correct command in your framework documentation. You may need to to change the
+      ## appropriate command for generating static webpage, like the example below.
+      ## Find the correct command in your framework documentation. You may need to change the
       ## name of the source folder in the last step (CLI call)
       ####
 
