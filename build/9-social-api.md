@@ -1,6 +1,6 @@
 # Social API
 
-The Social API provides endpoints to list, get and create subsocial entities used in tge [Grill widget](https://github.com/dappforce/grillchat/tree/main/integration).
+The Social API provides endpoints to list, get and create subsocial entities used in the [Grill widget](https://github.com/dappforce/grillchat/tree/main/integration).
 Spaces and posts are the main entities provided by it, which may be a bit unfamiliar to a developer who is trying to include the Grill widget into a website.
 Apillon changes the naming of these entities into **Hub** and **Channel**, and takes care of the whole blockchain and IPFS aspect, the result being a simple configuration which can be used to setup a Grill widget on any website.
 
