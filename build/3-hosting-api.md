@@ -402,7 +402,7 @@ curl --location --request PUT "https://sync-to-ipfs-queue.s3.eu-west-1.amazonaws
 | Name        | Description                                                                                     | Required |
 | ----------- | ----------------------------------------------------------------------------------------------- | -------- |
 | websiteUuid | Unique key of website.                                                                          | true     |
-| sessionUuid | Session uuid, passed or recieved in [get URL for upload request](#post-storagebucketuuidupload) | true     |
+| sessionUuid | Session uuid, passed or received in [get URL for upload request](#post-storagebucketuuidupload) | true     |
 
 #### Possible errors
 
@@ -525,7 +525,7 @@ Review can take some time (up to 1 day) and if the website passes it, then the d
 
 Websites with illegal/phishing content goes to status `101`. The project owner is notified via mail and most likely banned from Apillon platform.
 
-To speed up deployment process, make sure that project has one of subscription packages.
+To speed up deployment process, make sure that project has one of the subscription packages.
 
   </div>
   <div class="split_side">

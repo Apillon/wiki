@@ -917,7 +917,7 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
 
 #### How to generate token programmatically
 
-Apillon IPFS gateways accept [JWT token](https://jwt.io/), which can be creates using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
+Apillon IPFS gateways accept [JWT token](https://jwt.io/), which can be created using [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
 
 The JWT sign method expects three (3) parameters:
 
@@ -1073,7 +1073,7 @@ curl --location --request GET "https://api.apillon.io/storage/buckets/:bucketUui
 
 > API for creating a new IPNS record.
 
-**Note: IPNS becomes accesible on the IPFS gateway when content with CID is published to it. To access IPNS content on the IPFS gateway, use `ipnsName`.**
+**Note: IPNS becomes accessible on the IPFS gateway when content with CID is published to it. To access IPNS content on the IPFS gateway, use `ipnsName`.**
 
 <CodeDiv>POST /storage/buckets/:bucketUuid/ipns</CodeDiv>
 
