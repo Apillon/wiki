@@ -768,7 +768,7 @@ curl --location --request POST "https://api.apillon.io/hosting/short-url" \
   "data": {
     "id": "A74WF",
     "targetUrl": "https://ipfs.apillon.io/ipfs/abc",
-    "url": "https://go.nectarnode.io/A74WF"
+    "url": "https://go.web3approved.com/A74WF"
   }
 }
 ```

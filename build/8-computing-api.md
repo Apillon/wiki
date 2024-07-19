@@ -94,7 +94,7 @@ curl --location --request POST "https://api.apillon.io/computing/contracts" \
       "nftContractAddress": "0xB601A99a1D1...",
       "nftChainRpcUrl": "https://rpc.api.moonbeam.network/",
       "restrictToOwner": false,
-      "ipfsGatewayUrl": "https://ipfs.nectarnode.io/ipfs",
+      "ipfsGatewayUrl": "https://ipfs.web3approved.com/ipfs",
       "clusterId": "0x0000000000000000000000000000000000000000000000000000000000000001"
     }
   }
@@ -249,7 +249,7 @@ curl --location --request GET "https://api.apillon.io/computing/contracts/defa12
     "transactionHash": "0x4ea088f466eb08dc27d9d079cba1c5a35aeb1b5ff342b73bd456b9625dcd7093",
     "data": {
       "clusterId": "0x0000000000000000000000000000000000000000000000000000000000000001",
-      "ipfsGatewayUrl": "https://ipfs.nectarnode.io/ipfs",
+      "ipfsGatewayUrl": "https://ipfs.web3approved.com/ipfs",
       "nftChainRpcUrl": "https://rpc.api.moonbeam.network/",
       "restrictToOwner": false,
       "nftContractAddress": "0xB601A99a1D1804c13780F9e53d661d8bEe6D3bF0"
