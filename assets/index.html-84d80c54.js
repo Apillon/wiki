@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-8daa1a0e","path":"/","title":"","lang":"en-US","frontmatter":{"pageClass":"homepage","lastUpdated":false,"editLink":false},"headers":[],"git":{"updatedTime":1721631015000,"contributors":[{"name":"Tadej Vengust","email":"vengust.tadej@gmail.com","commits":1}]},"filePathRelative":"index.md"}');export{e as data};
