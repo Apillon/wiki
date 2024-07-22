@@ -883,8 +883,8 @@ curl --location --request GET "https://api.apillon.io/storage/ipfs-cluster-info"
   "data": {
     "secret": "*********",
     "project_uuid": "73f46f28-0d7c-43c4-9420-d4225b942ed1",
-    "ipfsGateway": "https://<CIDv1>.staging.nectarnode.io",
-    "ipnsGateway": "https://<IPNS>.staging.nectarnode.io"
+    "ipfsGateway": "https://<CIDv1>.staging.web3approved.com",
+    "ipnsGateway": "https://<IPNS>.staging.web3approved.com"
   }
 }
 ```
@@ -957,7 +957,7 @@ curl --location --request GET "https://api.apillon.io/storage/link-on-ipfs/:cid"
   "id": "3a3ea750-3f3a-41e3-b5cb-a5543c2b2283",
   "status": 200,
   "data": {
-    "link": "https://bafybeigjhyc2tpvqfqsuvf3byo4e4a4v6spi6jk4qqvvtlpca6rsaf2cqi.ipfs.nectarnode.io/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJiYWZ5YmVpZ2poeWMydHB2cWZxc3V2ZjNieW80ZTRhNHY2c3BpNmprNHFxdnZ0bHBjYTZyc2FmMmNxaSIsInByb2plY3RfdXVpZCI6IjE0NmM5ZWU5LTEwMDgtNDdiNS05ZTJjLTQxZmIyN2ExZjY1NSIsImlhdCI6MTcwMjU1NTA2Mywic3ViIjoiSVBGUy10b2tlbiJ9.07tHk5jAuAbcRaDxiiA9zHNWD71pxAcQX9v7LbhZ0-E"
+    "link": "https://bafybeigjhyc2tpvqfqsuvf3byo4e4a4v6spi6jk4qqvvtlpca6rsaf2cqi.ipfs.web3approved.com/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaWQiOiJiYWZ5YmVpZ2poeWMydHB2cWZxc3V2ZjNieW80ZTRhNHY2c3BpNmprNHFxdnZ0bHBjYTZyc2FmMmNxaSIsInByb2plY3RfdXVpZCI6IjE0NmM5ZWU5LTEwMDgtNDdiNS05ZTJjLTQxZmIyN2ExZjY1NSIsImlhdCI6MTcwMjU1NTA2Mywic3ViIjoiSVBGUy10b2tlbiJ9.07tHk5jAuAbcRaDxiiA9zHNWD71pxAcQX9v7LbhZ0-E"
   }
 }
 ```

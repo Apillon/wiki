@@ -719,3 +719,61 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
   </CodeGroup>
   </div>
 </div>
+
+### Generate short URL
+
+> Endpoint to generate a short URL for an IPFS link
+
+<CodeDiv>POST /hosting/short-url</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Body fields
+
+| Name           | Description                                                           | Required |
+| -------------- | --------------------------------------------------------------------- | -------- |
+| targetUrl      | The target URL of the website the short URL will point to             | true     |
+
+#### Response fields
+
+| Field     | Type     | Description                                   |
+| ----------| -------- | --------------------------------------------- |
+| id        | `string` | The short URL slug                            |
+| url       | `string` | The full short URL                            |
+| targetUrl | `string` | The target URL which the short link points to |
+
+  </div>
+  <div class="split_side">
+    <br>
+      <CodeGroup>
+      <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location --request POST "https://api.apillon.io/hosting/short-url" \
+--header "Authorization: Basic :credentials" \
+--header "Content-Type: application/json" \
+--data-raw "{ \"targetUrl\": \"https://ipfs.apillon.io/ipfs/abc\" }"
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "2d7d1b0c-15b1-4816-9aec-857182c7b617",
+  "status": 201,
+  "data": {
+    "id": "A74WF",
+    "targetUrl": "https://ipfs.apillon.io/ipfs/abc",
+    "url": "https://go.web3approved.com/A74WF"
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
