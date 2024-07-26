@@ -36,7 +36,8 @@ Each item is an instance of website class, with below properties:
 | description    | `string`   | Website description                                                                                                      |
 | domain         | `string`   | Website domain. This property needs to be specified, so that Apillon is able to create SSL Certificates for IPFS gateway |
 | bucketUuid     | `string`   | Uuid of bucket for file upload                                                                                           |
-| ipnsStaging    | `string`   | Staging IPNS. Set if deployment to staging environment exists                                                            |
+| cidStaging     | `string`   | Staging ipfs CID. Set if deployment to staging environment exists                                                        |
+| cidProduction  | `string`   | Production ipfs CID. Set if deployment to production environment exists                                                  |
 | ipnsProduction | `string`   | Production IPNS.                                                                                                         |
 | createTime     | `DateTime` | Item create time                                                                                                         |
 | updateTime     | `DateTime` | Item last update time                                                                                                    |
@@ -80,7 +81,6 @@ curl --location --request GET "https://api.apillon.io/storage/buckets?search=My 
                 "description": null,
                 "domain": null,
                 "bucketUuid": "1938a45c-3a54-43ee-af08-3abe90265f46",
-                "ipnsStaging": null,
                 "ipnsProduction": null
             }
             ...
@@ -156,7 +156,6 @@ curl --location --request POST "https://api.apillon.io/hosting/websites" \
     "description": "My unstoppable website",
     "domain": "example-domain.io",
     "bucketUuid": "cd299839-dae6-47d0-8fdc-40143163e156",
-    "ipnsStaging": null,
     "ipnsProduction": null
   }
 }
@@ -228,7 +227,8 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
     "description": "My unstoppable website",
     "domain": "example-domain.io",
     "bucketUuid": "cd299839-dae6-47d0-8fdc-40143163e156",
-    "ipnsStaging": null,
+    "cidStaging": null,
+    "cidProduction": null,
     "ipnsProduction": null,
     "w3StagingLink": null,
     "w3ProductionLink": null,
@@ -731,14 +731,14 @@ curl --location --request GET "https://api.apillon.io/hosting/websites/:websiteU
 
 #### Body fields
 
-| Name           | Description                                                           | Required |
-| -------------- | --------------------------------------------------------------------- | -------- |
-| targetUrl      | The target URL of the website the short URL will point to             | true     |
+| Name      | Description                                               | Required |
+| --------- | --------------------------------------------------------- | -------- |
+| targetUrl | The target URL of the website the short URL will point to | true     |
 
 #### Response fields
 
 | Field     | Type     | Description                                   |
-| ----------| -------- | --------------------------------------------- |
+| --------- | -------- | --------------------------------------------- |
 | id        | `string` | The short URL slug                            |
 | url       | `string` | The full short URL                            |
 | targetUrl | `string` | The target URL which the short link points to |
