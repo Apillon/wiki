@@ -6,7 +6,7 @@ Apillon's embedded wallet service offers a revolutionary approach by combining W
 
 ## What is an Embedded Wallet?
 
-An embedded wallet removes the need for traditional wallet downloads and installations. By integrating directly into apps or websites via an SDK, it simplifies the user experience significantly. Users can log in with their email and a verification code, eliminating the need for mnemonic phrases. It is called an embedded wallet because it exists within the dapp itself and the user does require to have their own wallet, such as a browser extension or a mobile app.
+A wallet is a type of a user interface that allows you to easily generate and sign transactions using your private key. As such, a wallet also takes care of storing your private key. An embedded wallet removes the need for traditional wallet downloads and installations. By integrating directly into apps or websites via an SDK, it simplifies the user experience significantly. Users can log in with their email and a verification code, eliminating the need for mnemonic phrases. It is called an embedded wallet because it exists within the dapp itself and the user does require to have their own wallet, such as a browser extension or a mobile app.
 
 ## How It Works
 
