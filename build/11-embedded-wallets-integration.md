@@ -1,24 +1,24 @@
-# Embedded Wallet Integration
+# Embedded Wallet integration
 
-If you want to learn more about Apillon's embedded wallet service, take a look at the [embedded wallet service wiki page](/web3-services/8-embedded-wallets.md).
+If you want to learn more about Apillon's Embedded Wallet Service, visit the [embedded wallet service wiki page](/web3-services/8-embedded-wallets.md).
 
 To get started with integrating embedded wallets into your dapp, follow these steps:
 
-1. **Create an Apillon Account:** If you don't have an Apillon account or project yet, create one on the [Apillon dashboard](https://app.apillon.io).
+1. **Create an Apillon account:** If you don't have an Apillon account or project yet, create one on the [Apillon dashboard](https://app.apillon.io).
 
-2. **Open the embedded wallet page and generate an API key:** Go to the [embedded wallet page](https://app-dev.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and generate an API key for the Wallet service with the KEY_EXECUTE permission.
+2. **Open the Embedded Wallet page and generate an API key:** Go to the [Embedded Eallet page](https://app-dev.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and generate an API key for the Wallet service with the KEY_EXECUTE permission.
 
-3. **Securely Store API Key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create sessions, and verify user emails. This should be done on the server side.
+3. **Securely store API key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create sessions, and verify user emails. This should be done on the server side.
 
-## Integrating Embedded Wallet with Apillon's Frontend SDK
+## Integrating Embedded Wallet with Apillon's front-end SDK
 
 **Overview**
 
-Apillon’s frontend SDK allows developers to seamlessly integrate embedded wallets into their dApps. This guide provides detailed instructions on implementing and configuring the embedded wallet using various SDK packages.
+Apillon’s front-end SDK allows developers to seamlessly integrate embedded wallets into their dapps. This guide provides detailed instructions on implementing and configuring the embedded wallet using various SDK packages.
 
 #### Embedded Wallet UI
 
-The UI package offers a default interface for managing connected accounts and handling transaction confirmations. It utilizes React and HeadlessUI (Tailwind).
+The UI package offers a default interface for managing connected accounts and handling transaction confirmations. It utilizes React and Headless UI (Tailwind).
 
 **Initialization**
 
@@ -50,7 +50,7 @@ initializeApp('#open-wallet-button-selector', {
 });
 ```
 
-### Embedded App Wallet SDK
+### Embedded Wallet SDK
 
 The core SDK revolves around the `EmbeddedWallet` class, offering methods for Oasis Sapphire chain authentication and wallet management.
 
@@ -132,25 +132,25 @@ const testContract = new ethers.Contract(
 ```
 
 ### Calling the Apillon API
-For interacting with the Oasis Sapphire account manager smart contract, you require a session token which can be obtained from the Apillon API through the endpoint `GET https://api.apillon.io/embedded-wallet/session-token`.
+To interact with the Oasis Sapphire account manager's smart contract, you require a session token that can be obtained from the Apillon API through the endpoint `GET https://api.apillon.io/embedded-wallet/session-token`.
 
 The session token can then be used to call the following endpoints:
-- `POST /embedded-wallet/signature` - Obtain a signature which should be passed as a return result of the "onGetSignature" callback.
+- `POST /embedded-wallet/signature` - Obtain a signature which should be passed as the return result of the "onGetSignature" callback.
 - `POST /embedded-wallet/otp/generate` - Optional - Send a verification code to verify the user's email
 - `POST /embedded-wallet/otp/validate` - Optional - Validate the email address after the user has entered the verification code.
 
-For more info view the section below about the API endpoints.
+For more information, see the section below about the API endpoints.
 
 ::: tip
-It is recommended to use a backend service to call the /session-token endpoint in order to not expose your API key on the client. The rest of the endpoints can be called from your frontend by using the session token, however for safety it is still recommended to call the Apillon API from a backend service.
+To avoid exposing your API key to the client, it is recommended that you use a back-end service to call the /session-token endpoint. The rest of the endpoints can be called from your front end by using the session token; however, for safety reasons, it is recommended to call the Apillon API from a back-end service.
 :::
 
 ## Apillon API endpoints
 The following API endpoints will be used during the embedded wallet generation flow.
 
-### Get session token
+### Get a session token
 
-> Obtain a session token from the Apillon API. The session token is used to be able to obtain a contract signature and to verify a user's email by calling the API from the frontend.
+> Obtain a session token from the Apillon API. The session token is used to obtain a contract signature and to verify the user's email by calling the API from the front end.
 > This endpoint requires the EXECUTE permission for the wallet service.
 
 <CodeDiv>GET /embedded-wallet/session-token</CodeDiv>
@@ -201,7 +201,7 @@ If your workflow takes longer than a few minutes to complete, it is recommended 
 
 ### Generate contract signature
 
-> This endpoint generates a signature which is used to authorize the account manager smart contract to create a new wallet on behalf of the user who requested it on your dapp.
+> This endpoint generates a signature that is used to authorize the account manager's smart contract to create a new wallet on behalf of the user who requested it on your dapp.
 
 <CodeDiv>POST /embedded-wallet/signature</CodeDiv>
 
@@ -216,7 +216,7 @@ If your workflow takes longer than a few minutes to complete, it is recommended 
 
 #### Response fields
 
-Each item is an instance of channel class, with below properties:
+Each item is an instance of channel class, with the below properties:
 
 | Field       | Type       | Description                                                                  |
 | ----------- | ---------- | -----------------------------------------------------------------------------|
@@ -258,9 +258,9 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/signature
 	</div>
 </div>
 
-### Send email validation code
+### Send an email validation code
 
-> This endpoint sends a verificaiton code to the email address the user has entered. This is the default method used to send verification codes, which you are able to overwrite.
+> This endpoint sends a verification code to the email address the user has entered. This is the default method used to send verification codes, which you are can also overwrite.
 
 <CodeDiv>POST /embedded-wallet/otp/generate</CodeDiv>
 
@@ -276,7 +276,7 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/signature
 
 #### Response fields
 
-Each item is an instance of channel class, with below properties:
+Each item is an instance of channel class, with the below properties:
 
 | Field       | Type       | Description                                                                  |
 | ----------- | ---------- | -----------------------------------------------------------------------------|
@@ -321,7 +321,7 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/gener
 
 ### Validate email
 
-> This endpoint can be used to check if the entered email verification code is correct, if you had previously used the otp/generate endpoint
+> This endpoint can be used to check if the entered email verification code is correct if you had previously used the otp/generate endpoint
 
 <CodeDiv>POST /embedded-wallet/otp/validate</CodeDiv>
 
@@ -374,4 +374,4 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/valid
 
 
 ## Examples and demo apps
-TODO: publish to github
+TODO: publish to GitHub
