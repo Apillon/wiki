@@ -6,7 +6,7 @@ To get started with integrating embedded wallets into your dapp, follow these st
 
 1. **Create an Apillon account:** If you don't have an Apillon account or project yet, create one on the [Apillon dashboard](https://app.apillon.io).
 
-2. **Open the Embedded Wallet page and generate an API key:** Go to the [Embedded Eallet page](https://app-dev.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and generate an API key for the Wallet service with the KEY_EXECUTE permission.
+2. **Open the Embedded Wallet page and generate an API key:** Go to the [Embedded Wallet page](https://app-dev.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and generate an API key for the Wallet service with the KEY_EXECUTE permission.
 
 3. **Securely store API key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create sessions, and verify user emails. This should be done on the server side.
 
@@ -31,7 +31,7 @@ Use `initializeApp()` to set up the SDK and UI. Configuration options include ne
 **Example:**
 
 ```javascript
-import { initializeApp } from '@embedded-wallet/ui';
+import { initializeApp } from '@apillon/wallet-ui';
 
 initializeApp('#open-wallet-button-selector', {
   disableAutoBroadcastAfterSign: false,
@@ -69,7 +69,7 @@ Initialize `EmbeddedWallet` with `initializeOnWindow()`, providing configuration
 **Example:**
 
 ```typescript
-import { initializeOnWindow, getEmbeddedWallet } from '@embedded-wallet/sdk';
+import { initializeOnWindow, getEmbeddedWallet } from '@apillon/wallet-sdk';
 
 initializeOnWindow({
   production: true,
@@ -125,7 +125,7 @@ The SDK can be integrated with Ethers.js for additional functionality.
 **Example:**
 
 ```typescript
-import { OasisEthersSigner } from '@embedded-wallet/sdk';
+import { OasisEthersSigner } from '@apillon/wallet-sdk';
 const signer = new OasisEthersSigner(ethProvider);
 
 // Sign message
