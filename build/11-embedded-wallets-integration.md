@@ -131,7 +131,14 @@ const testContract = new ethers.Contract(
 );
 ```
 
-### Calling the Apillon API
+### Examples and demo apps
+- [Backend app demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/embedded-wallet-demo-api)
+- [Frontend app demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/embedded-wallet-demo)
+- [React demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/react-test)
+- [Vue demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/vue-test)
+
+
+## Embedded Wallet API
 To interact with the Oasis Sapphire account manager's smart contract, you require a session token that can be obtained from the Apillon API through the endpoint `GET https://api.apillon.io/embedded-wallet/session-token`.
 
 The session token can then be used to call the following endpoints:
@@ -145,7 +152,7 @@ For more information, see the section below about the API endpoints.
 To avoid exposing your API key to the client, it is recommended that you use a back-end service to call the /session-token endpoint. The rest of the endpoints can be called from your front end by using the session token; however, for safety reasons, it is recommended to call the Apillon API from a back-end service.
 :::
 
-## Apillon API endpoints
+## API endpoints
 The following API endpoints will be used during the embedded wallet generation flow.
 
 ### Get a session token
@@ -373,5 +380,8 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/valid
 </div>
 
 
-## Examples and demo apps
-TODO: publish to GitHub
+## Github repositories and packages
+- [Embedded Wallet SDK](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
+- [Embedded Wallet UI](https://github.com/Apillon/embedded-wallet/tree/main/packages/ui)
+- [Embedded Wallet React UI](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk-react)
+- [Embedded Wallet Vue UI](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk-vue)
