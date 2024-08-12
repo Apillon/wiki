@@ -20,6 +20,10 @@ Apillon’s front-end SDK allows developers to seamlessly integrate embedded wal
 
 The UI package offers a default interface for managing connected accounts and handling transaction confirmations. It utilizes React and Headless UI (Tailwind).
 
+::: tip
+For detailed technical documentation about the embedded wallet UI, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/ui)
+:::
+
 **Initialization**
 
 Use `initializeApp()` to set up the SDK and UI. Configuration options include network settings, email verification methods, and UI-specific adjustments.
@@ -53,6 +57,10 @@ initializeApp('#open-wallet-button-selector', {
 ### Embedded Wallet SDK
 
 The core SDK revolves around the `EmbeddedWallet` class, offering methods for Oasis Sapphire chain authentication and wallet management.
+
+::: tip
+For detailed technical documentation about the embedded wallet SDK, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
+:::
 
 **Initialization**
 
