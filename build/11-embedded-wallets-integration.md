@@ -10,51 +10,13 @@ To get started with integrating embedded wallets into your dapp, follow these st
 
 3. **Securely store API key:** It's crucial to securely store your API key and its secret. These will be used to interact with Apillon's API, create sessions, and verify user emails. This should be done on the server side.
 
-## Integrating Embedded Wallet with Apillon's front-end SDK
+## Embedded Wallet JS SDK
 
 **Overview**
 
 Apillon’s front-end SDK allows developers to seamlessly integrate embedded wallets into their dapps. This guide provides detailed instructions on implementing and configuring the embedded wallet using various SDK packages.
 
-#### Embedded Wallet UI
-
-The UI package offers a default interface for managing connected accounts and handling transaction confirmations. It utilizes React and Headless UI (Tailwind).
-
-::: tip
-For detailed technical documentation about the embedded wallet UI, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/ui)
-:::
-
-**Initialization**
-
-Use `initializeApp()` to set up the SDK and UI. Configuration options include network settings, email verification methods, and UI-specific adjustments.
-
-**Example:**
-
-```javascript
-import { initializeApp } from '@apillon/wallet-ui';
-
-initializeApp('#open-wallet-button-selector', {
-  disableAutoBroadcastAfterSign: false,
-  disableDefaultActivatorStyle: false,
-  accountManagerAddress: '0xF35C3eB93c6D3764A7D5efC6e9DEB614779437b1',
-  networks: [
-    {
-      name: 'Moonbeam Testnet',
-      id: 1287,
-      rpcUrl: 'https://rpc.testnet.moonbeam.network',
-      explorerUrl: 'https://moonbase.moonscan.io',
-    },
-    {
-      name: 'Amoy',
-      id: 80002,
-      rpcUrl: 'https://rpc-amoy.polygon.technology',
-      explorerUrl: 'https://www.oklink.com/amoy',
-    },
-  ],
-});
-```
-
-### Embedded Wallet SDK
+The packages include core Typescript implementation, React wrapper, Vue wrapper, and a default wallet user interface package.
 
 The core SDK revolves around the `EmbeddedWallet` class, offering methods for Oasis Sapphire chain authentication and wallet management.
 
@@ -66,17 +28,25 @@ For detailed technical documentation about the embedded wallet SDK, visit [the g
 
 Initialize `EmbeddedWallet` with `initializeOnWindow()`, providing configuration options such as production URLs, account manager address, network IDs, and custom signature callbacks.
 
+::: warning
+By default, Oasis Sapphire mainnet is used. For developing, **test** option must be added so that testnet is used instead.
+:::
+
 **Example:**
 
 ```typescript
-import { initializeOnWindow, getEmbeddedWallet } from '@apillon/wallet-sdk';
+import { initializeOnWindow } from "@apillon/wallet-sdk";
 
 initializeOnWindow({
-  production: true,
-  accountManagerAddress: '0x5C3512312312312312312312312312312365D4bC',
+  test: true,
+  accountManagerAddress: "0xF35C3eB93c6D3764A7D5efC6e9DEB614779437b1",
   defaultNetworkId: 1287,
   networkConfig: {
-    /* Custom network configurations */
+    /* Custom network configuration */
+    1287: {
+      rpcUrl: "https://rpc.testnet.moonbeam.network",
+      explorerUrl: "https://moonbase.moonscan.io",
+    },
   },
   onGetSignature: async (gaslessData) => {
     // Custom signature generation logic
@@ -87,69 +57,210 @@ initializeOnWindow({
 });
 ```
 
-#### Auth Methods
+### Embedded Wallet UI
 
-- `register`: Create a new wallet.
-- `authenticate`: Verify account credentials.
+The UI package offers a default interface for managing connected accounts and handling transaction confirmations. If your project requires advanced customizations though, embedded wallet should be used directly with the core SDK. You can roll your own entire UI implementation.
 
-#### Transaction Methods
+The default UI is included with our React and Vue packages.
 
-- `signMessage`
-- `signPlainTransaction`
-- `broadcastTransaction`
-- `signContractWrite`
-- `contractRead`
+::: tip
+For detailed technical documentation about the embedded wallet UI, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/ui)
+:::
 
-### Events and Transaction Confirmation
+**Initialization**
 
-The SDK exposes several events:
+Use `initializeApp('.selector', options)` to set up both the SDK and UI. Configuration options include core options and some additional UI-specific adjustments.
 
-- `signatureRequest`
-- `txApprove`
-- `txSubmitted`
-- `txDone`
-- `dataUpdated`
+The UI includes a wallet modal activator by default, inserted on DOM element specified by the first parameter.
 
-**Example of Event Handling:**
+**Example:**
 
-```typescript
-wallet.events.on('txSubmitted', tx => {
-  console.log(tx);
+```javascript
+import { initializeApp } from "@apillon/wallet-ui";
+
+initializeApp("#open-wallet-button-selector", { ... });
+```
+
+### React
+
+```tsx
+import { WalletWidget } from "@apillon/wallet-react";
+
+<WalletWidget
+  test
+  accountManagerAddress="0xF35C3eB93c6D3764A7D5efC6e9DEB614779437b1"
+  isAuthEmail={false}
+  defaultNetworkId={1287}
+  networks={[
+    {
+      name: "Moonbeam Testnet",
+      id: 1287,
+      rpcUrl: "https://rpc.testnet.moonbeam.network",
+      explorerUrl: "https://moonbase.moonscan.io",
+    },
+  ]}
+/>;
+```
+
+### Vue
+
+```vue
+<script setup>
+import { WalletWidget } from "@apillon/wallet-vue";
+</script>
+
+<template>
+  <WalletWidget
+    test
+    accountManagerAddress="0xF35C3eB93c6D3764A7D5efC6e9DEB614779437b1"
+  />
+</template>
+```
+
+## Blockchain interaction
+
+The SDK exposes core methods for interacting with blockchain.
+Additionally, there are adapters that offer support for standard and most popular web3 libraries.
+
+::: tip
+For detailed technical documentation about the embedded wallet SDK, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
+:::
+
+```ts
+import { getEmbeddedWallet, ERC20Abi } from "@apillon/wallet-sdk";
+
+const wallet = getEmbeddedWallet();
+
+// Sign message
+const msg = await wallet?.signMessage({
+  mustConfirm: true,
+  strategy: "passkey",
+  message: "Sign this message",
+});
+
+// Contract write
+await wallet?.signPlainTransaction({
+  mustConfirm: true,
+  strategy: "passkey",
+  tx: {
+    to: "0xCbc06F10A16cB36e6719BCdC231F8935Dd035efw",
+    data: "0x",
+    gasLimit: 1_000_000,
+    value: "5000000000000000",
+    chainId: 23295,
+    gasPrice: 100_000_000_000,
+  },
 });
 ```
 
-### Using with Ethers.js
+### EIP-1193
 
-The SDK can be integrated with Ethers.js for additional functionality.
+Probably the easeiest way to get started with embedded wallet on an existing project.
+Get the provider with `getProvider()` that adheres to EIP-1193 and use it as an injected wallet provider.
+
+```ts
+import { getProvider as getEmbeddedProvider } from '@apillon/wallet-sdk';
+
+const p = getEmbeddedProvider();
+
+// Plain provider requests
+const accounts = await p.request({ method: 'eth_requestAccounts' });
+await p.request({
+  method: 'eth_sign',
+  params: [accounts[0], `0xTest message`],
+});
+
+// With ethers.js
+new ethers.providers.Web3Provider(getEmbeddedProvider(), 'any');
+
+// With wagmi
+const wagmiConfig = {
+  ...,
+  connectors: [
+    new InjectedConnector({
+      chains,
+      options: {
+        getProvider() {
+          return getEmbeddedProvider() as any;
+        },
+      },
+    }),
+  ],
+}
+```
+
+### Ethers.js
+
+The SDK can be integrated with Ethers.js using `OasisEthersSigner`. This allows you to use its API for blockchain interaction.
 
 **Example:**
 
 ```typescript
-import { OasisEthersSigner } from '@apillon/wallet-sdk';
+import { OasisEthersSigner } from "@apillon/wallet-sdk";
 const signer = new OasisEthersSigner(ethProvider);
 
 // Sign message
-const signed = await signer.signMessage('Please sign here');
+const signed = await signer.signMessage("Please sign here");
 
 // Use contract
 const testContract = new ethers.Contract(
-  '0xb1051231231231231231231231231231234D0663',
+  "0xb1051231231231231231231231231231234D0663",
   contractAbi,
   signer
 );
 ```
 
+### Viem
+
+Similarly, the SDK can be integrated with Viem, using `EmbeddedViemAdapter`.
+
+```ts
+import { EmbeddedViemAdapter } from "@apillon/wallet-sdk";
+import {
+  createPublicClient,
+  createWalletClient,
+  getContract,
+  http,
+} from "viem";
+import { moonbaseAlpha } from "viem/chains";
+
+const adapter = new EmbeddedViemAdapter();
+const acc = adapter.getAccount();
+
+// Sign
+const signed = await acc.signMessage({ message: "Please sign here via viem" });
+
+// Use contract
+const testContract = getContract({
+  address: "0xb1058eD01451B947A836dA3609f88C91804D0663",
+  abi: contractAbi,
+  client: {
+    public: createPublicClient({
+      chain: moonbaseAlpha,
+      transport: http(),
+    }),
+    wallet: createWalletClient({
+      chain: moonbaseAlpha,
+      transport: http("https://rpc.testnet.moonbeam.network"),
+      account: acc,
+    }),
+  },
+});
+```
+
 ### Examples and demo apps
+
 - [Backend app demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/embedded-wallet-demo-api)
 - [Frontend app demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/embedded-wallet-demo)
 - [React demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/react-test)
 - [Vue demo](https://github.com/Apillon/embedded-wallet/tree/main/apps/vue-test)
 
-
 ## Embedded Wallet API
+
 To interact with the Oasis Sapphire account manager's smart contract, you require a session token that can be obtained from the Apillon API through the endpoint `GET https://api.apillon.io/embedded-wallet/session-token`.
 
 The session token can then be used to call the following endpoints:
+
 - `POST /embedded-wallet/signature` - Obtain a signature which should be passed as the return result of the "onGetSignature" callback.
 - `POST /embedded-wallet/otp/generate` - Optional - Send a verification code to verify the user's email
 - `POST /embedded-wallet/otp/validate` - Optional - Validate the email address after the user has entered the verification code.
@@ -161,6 +272,7 @@ To avoid exposing your API key to the client, it is recommended that you use a b
 :::
 
 ## API endpoints
+
 The following API endpoints will be used during the embedded wallet generation flow.
 
 ### Get a session token
@@ -175,9 +287,9 @@ The following API endpoints will be used during the embedded wallet generation f
 
 #### Response fields
 
-| Field       | Type       | Description            |
-| ----------- | ---------- | -----------------------|
-| token       | `string`   | The JWT session token  |
+| Field | Type     | Description           |
+| ----- | -------- | --------------------- |
+| token | `string` | The JWT session token |
 
   </div>
   <div class="split_side">
@@ -200,7 +312,7 @@ curl --location --request GET "https://api.apillon.io/embedded-wallet/session-to
   "id": "d9ee5982-4292-40ee-b94f-b5c234fecb98",
   "status": 200,
   "data": {
-    "token": "eyJhbGciOiJIUzI1NiIs...",
+    "token": "eyJhbGciOiJIUzI1NiIs..."
   }
 }
 ```
@@ -225,19 +337,19 @@ If your workflow takes longer than a few minutes to complete, it is recommended 
 
 #### Body parameters
 
-| Name    | Description                                             |
-| ------- | ------------------------------------------------------- |
-| token   | The JWT token obtained from the /session-token endpoint |
+| Name  | Description                                             |
+| ----- | ------------------------------------------------------- |
+| token | The JWT token obtained from the /session-token endpoint |
 
 #### Response fields
 
 Each item is an instance of channel class, with the below properties:
 
-| Field       | Type       | Description                                                                  |
-| ----------- | ---------- | -----------------------------------------------------------------------------|
-| signature   | `string`   | The oasis sapphire contract call authorization signature                     |
-| gasPrice    | `string`   | The gas price parameter that needs to be passed to the contract              |
-| timestamp   | `number`   | Timestamp when the signature was created. Needs to be passed to the contract |
+| Field     | Type     | Description                                                                  |
+| --------- | -------- | ---------------------------------------------------------------------------- |
+| signature | `string` | The oasis sapphire contract call authorization signature                     |
+| gasPrice  | `string` | The gas price parameter that needs to be passed to the contract              |
+| timestamp | `number` | Timestamp when the signature was created. Needs to be passed to the contract |
 
   </div>
   <div class="split_side">
@@ -263,7 +375,7 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/signature
   "data": {
     "signature": "b548e319...",
     "gasPrice": "21000000",
-    "timestamp": 1721819352076,
+    "timestamp": 1721819352076
   }
 }
 ```
@@ -284,19 +396,19 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/signature
 
 #### Body parameters
 
-| Name    | Description                                             |
-| ------- | ------------------------------------------------------- |
-| token   | The JWT token obtained from the /session-token endpoint |
-| email   | The email address the user has entered into the dapp    |
+| Name  | Description                                             |
+| ----- | ------------------------------------------------------- |
+| token | The JWT token obtained from the /session-token endpoint |
+| email | The email address the user has entered into the dapp    |
 
 #### Response fields
 
 Each item is an instance of channel class, with the below properties:
 
-| Field       | Type       | Description                                                                  |
-| ----------- | ---------- | -----------------------------------------------------------------------------|
-| email       | `string`   | The email address where the verification code was sent                       |
-| expireTime  | `string`   | An ISO format date which shows when the verification code expires            |
+| Field      | Type     | Description                                                       |
+| ---------- | -------- | ----------------------------------------------------------------- |
+| email      | `string` | The email address where the verification code was sent            |
+| expireTime | `string` | An ISO format date which shows when the verification code expires |
 
   </div>
   <div class="split_side">
@@ -324,7 +436,7 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/gener
   "status": 200,
   "data": {
     "email": "dapp-user@apillon.io",
-    "expireTime": "2024-07-24T11:14:04.139Z",
+    "expireTime": "2024-07-24T11:14:04.139Z"
   }
 }
 ```
@@ -345,11 +457,11 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/gener
 
 #### Body parameters
 
-| Name    | Description                                                     |
-| ------- | ----------------------------------------------------------------|
-| token   | The JWT token obtained from the /session-token endpoint         |
-| email   | The email address the user has entered into the dapp            |
-| code    | The email validation code the user has enetered into the dapp   |
+| Name  | Description                                                   |
+| ----- | ------------------------------------------------------------- |
+| token | The JWT token obtained from the /session-token endpoint       |
+| email | The email address the user has entered into the dapp          |
+| code  | The email validation code the user has enetered into the dapp |
 
 The response is a true/false value, indicating whether the validation is successful based on the entered email and verification code.
 
@@ -387,8 +499,8 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/valid
 	</div>
 </div>
 
-
 ## Github repositories and packages
+
 - [Embedded Wallet SDK](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
 - [Embedded Wallet UI](https://github.com/Apillon/embedded-wallet/tree/main/packages/ui)
 - [Embedded Wallet React UI](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk-react)
