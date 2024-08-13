@@ -6,12 +6,12 @@ Apillon's Embedded Wallet Service offers a revolutionary approach by combining W
 
 ## What is an Embedded Wallet?
 
-A wallet is a type of user interface that allows you to quickly generate and sign transactions using your private key. As such, a wallet also takes care of storing your private key. However, an embedded wallet removes the need for traditional wallet downloads and installations. Integrating it directly into apps or websites via an SDK simplifies and enhances the UX of the onboarding process significantly. Users can log in with their email addresses and a verification code, eliminating the need for mnemonic phrases. It is called an embedded wallet because it exists within the dapp itself and because the user is required to have his own wallet, such as a browser extension or a mobile app.
+A wallet is a type of user interface that allows you to quickly generate and sign transactions using your private key. As such, a wallet also takes care of storing your private key. However, an embedded wallet removes the need for traditional wallet downloads and installations. Integrating it directly into apps or websites via an SDK simplifies and enhances the UX of the onboarding process significantly. Users can log in with their email addresses and a verification code, eliminating the need for mnemonic phrases. It is called an embedded wallet because it exists within the dapp itself and because the user is not required to have his own wallet, such as a browser extension or a mobile app.
 
 ## How it works
 
 1. **Integration**: Developers use an SDK to embed the wallet into their apps or websites.
-2. **Authentication**: Users log in using email and a verification code, bypassing mnemonic phrases.
+2. **Authentication**: Users register using their email and a verification code and log in using their email and passkey, bypassing mnemonic phrases.
 3. **Decentralization**: Private keys are generated, encrypted, and stored securely using confidential smart contracts by Oasis.
 4. **Transaction security**: Transactions are signed within the smart contract and sent to a blockchain node, ensuring the private key is never exposed.
 
