@@ -1,5 +1,5 @@
 
-# Decentralized Cloud Functions
+# Web3 Cloud Functions
 
 ## Introduction
 
