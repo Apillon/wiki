@@ -1,4 +1,4 @@
-# Embedded Wallet integration
+# Embedded Wallet Integration
 
 If you want to learn more about Apillon's Embedded Wallet Service, visit the [embedded wallet service wiki page](/web3-services/8-embedded-wallets.md).
 
