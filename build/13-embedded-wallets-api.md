@@ -1,24 +1,16 @@
 # Embedded Wallets API
 
-To interact with the Oasis Sapphire account manager's smart contract, you require a session token that can be obtained from the Apillon API through the endpoint `GET https://api.apillon.io/embedded-wallet/session-token`.
-
-The session token can then be used to call the following endpoints:
-
-- `POST /embedded-wallet/signature` - Obtain a signature which should be passed as the return result of the "onGetSignature" callback.
-- `POST /embedded-wallet/otp/generate` - Optional - Send a verification code to verify the user's email
-- `POST /embedded-wallet/otp/validate` - Optional - Validate the email address after the user has entered the verification code.
-
-For more information, see the section below about the API endpoints.
+To interact with the Oasis Sapphire account manager's smart contract, you need to first create an Embedded Wallet Integration through the [Apillon Developer Console](https://app.apillon.io/dashboard/service/embedded-wallet).
 
 ::: tip
-To avoid exposing your API key to the client, it is recommended that you use a back-end service to call the /session-token endpoint. The rest of the endpoints can be called from your front end by using the session token; however, for safety reasons, it is recommended to call the Apillon API from a back-end service.
+To avoid having your integration UUID abused and to prevent unauthorized access, it is highly recommended to add a set of whitelisted domains to your integration. After this is configured, signature generation will only be possible for via the whitelisted domains.
 :::
 
 ## API endpoints
 
 The following API endpoints will be used during the embedded wallet generation flow.
 
-### Get a session token
+<!-- ### Get a session token
 
 > Obtain a session token from the Apillon API. The session token is used to obtain a contract signature and to verify the user's email by calling the API from the front end.
 > This endpoint requires the EXECUTE permission for the wallet service.
@@ -68,7 +60,7 @@ curl --location --request GET "https://api.apillon.io/embedded-wallet/session-to
 ::: tip
 If your workflow takes longer than a few minutes to complete, it is recommended to refresh the session token by calling this endpoint before calling the other endpoints, since the token is short-lived for security reasons
 :::
-
+ -->
 ### Generate contract signature
 
 > This endpoint generates a signature that is used to authorize the account manager's smart contract to create a new wallet on behalf of the user who requested it on your dapp.
@@ -82,7 +74,6 @@ If your workflow takes longer than a few minutes to complete, it is recommended 
 
 | Name              | Description                                                                   |
 | ----------------- | ----------------------------------------------------------------------------- |
-| token             | The JWT token obtained from the /session-token endpoint                       |
 | data              | The data to be signed - usually passed by default by the SDK                  |
 | integration_uuid  | The integration UUID, obtained from the Apillon Developer Console             |
 
@@ -105,7 +96,7 @@ Each item is an instance of channel class, with the below properties:
 ```sh
 curl --location --request POST "https://api.apillon.io/embedded-wallet/signature" \
 --header "Content-Type: application/json" \
---data-raw "{\"token\": \"eyJhbGciOiJIUzI1NiIs...\", \"data\": \"0x0000000...\", \"integration_uuid\": \"d9ee5982-4292-40ee-b94f-b5c234fecb98\"}"
+--data-raw "{\"data\": \"0x0000000...\", \"integration_uuid\": \"d9ee5982-4292-40ee-b94f-b5c234fecb98\"}"
 ```
 
   </CodeGroupItem>
@@ -143,7 +134,6 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/signature
 
 | Name  | Description                                             |
 | ----- | ------------------------------------------------------- |
-| token | The JWT token obtained from the /session-token endpoint |
 | email | The email address the user has entered into the dapp    |
 
 #### Response fields
@@ -165,7 +155,6 @@ Each item is an instance of channel class, with the below properties:
 curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/generate" \
 --header "Content-Type: application/json" \
 --data-raw "{
-    \"token\": \"eyJhbGciOiJIUzI1NiIs...\",
     \"email\": \"dapp-user@apillon.io\"
 }"
 ```
@@ -204,7 +193,6 @@ curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/gener
 
 | Name  | Description                                                   |
 | ----- | ------------------------------------------------------------- |
-| token | The JWT token obtained from the /session-token endpoint       |
 | email | The email address the user has entered into the dapp          |
 | code  | The email validation code the user has enetered into the dapp |
 
@@ -220,7 +208,6 @@ The response is a true/false value, indicating whether the validation is success
 curl --location --request POST "https://api.apillon.io/embedded-wallet/otp/validate" \
 --header "Content-Type: application/json" \
 --data-raw "{
-    \"token\": \"eyJhbGciOiJIUzI1NiIs...\",
     \"email\": \"dapp-user@apillon.io\",
     \"code\": \"5QJ18Z\",
 }"
