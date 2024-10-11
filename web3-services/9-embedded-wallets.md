@@ -2,63 +2,65 @@
 
 ## Introduction
 
-Apillon's Embedded Wallet Service offers a revolutionary approach by combining Web2 onboarding simplicity, hardware wallet security, and hot wallet convenience. It provides an intuitive, secure, and decentralized solution for managing crypto assets directly within applications.
+**Apillon's Embedded Wallet Service** redefines crypto asset management by blending the simplicity of Web2 onboarding with the security of hardware wallets and the convenience of hot wallets. It offers a secure, non-custodial, and fully decentralized solution for managing crypto assets seamlessly within applications.
 
 ## What is an Embedded Wallet?
 
-A wallet is a type of user interface that allows you to quickly generate and sign transactions using your private key. As such, a wallet also takes care of storing your private key. However, an embedded wallet removes the need for traditional wallet downloads and installations. Integrating it directly into apps or websites via an SDK simplifies and enhances the UX of the onboarding process significantly. Users can log in with their email addresses and a verification code, eliminating the need for mnemonic phrases. It is called an embedded wallet because it exists within the dapp itself and because the user is not required to have his own wallet, such as a browser extension or a mobile app.
+An embedded wallet is an in-app wallet that provides a streamlined experience for generating and signing transactions with your private key, without requiring separate downloads or installations. By integrating directly into applications via an SDK, embedded wallets simplify onboarding, allowing users to log in with just their email and a verification code. This setup eliminates mnemonic phrases, making the experience accessible and secure.
 
-## How it works
+## How it Works
 
-1. **Integration**: Developers use an SDK to embed the wallet into their apps or websites.
-2. **Authentication**: Users register using their email and a verification code and log in using their email and passkey, bypassing mnemonic phrases.
-3. **Decentralization**: Private keys are generated, encrypted, and stored securely using confidential smart contracts by Oasis.
-4. **Transaction security**: Transactions are signed within the smart contract and sent to a blockchain node, ensuring the private key is never exposed.
+1. **Integration**: Developers integrate the wallet using a lightweight SDK.
+2. **Authentication**: Users register with an email and verification code, bypassing mnemonic phrases. They log in using an email and passkey.
+3. **Decentralization**: Private keys are securely generated, encrypted, and managed within confidential smart contracts powered by [Oasis Protocol](https://oasisprotocol.org/).
+4. **Transaction Security**: Transactions are signed within the smart contract, with user authentication ensuring that private keys are never exposed.
 
 ## Security of Embedded Wallets
 
-- **Passkey authentication**: This method enhances security by allowing users to log in using passkeys, which are unique cryptographic keys stored securely on the user's device. Passkeys enable users to gain access to their wallets using their biometric data (fingerprint, face scan, etc.), enhancing security even further.
-- **Decentralized key management**: Private keys are managed through Oasis’s confidential smart contracts, ensuring they are never exposed to or stored by a third party.
-- **Protection against phishing**: Passkey authentication helps prevent phishing attacks by eliminating the need for password-based logins. It is usable only within the website where it was generated.
+- **Passkey Authentication**: Users log in using passkeys—unique cryptographic keys stored securely on their devices, which allow biometric data (fingerprint, face scan) for verification, ensuring top-level security.
+- **Decentralized Key Management**: Managed by Oasis’s confidential smart contracts, private keys are never exposed or accessible to third parties.
+- **Phishing Protection**: Passkey authentication prevents phishing attacks by eliminating password-based logins, usable only on the original website.
 
 ## Workflow
 
-1. **User onboarding**: A new user logs into the app using their email and generates a passkey.
-2. **Wallet generation**: The SDK requests a new wallet from the Oasis Network, where a smart contract generates and stores the private key in an encrypted manner. If the email and passkey have already been used to generate a wallet, the same wallet is returned to the client.
-3. **Transaction signing**: Transactions are securely signed by the smart contract and sent to the blockchain. This way, the private key only exists within the confidential smart contract.
+1. **User Onboarding**: New users log in with their email and create a passkey.
+2. **Wallet Generation**: The SDK requests a wallet from the Oasis Network, where a smart contract securely generates and encrypts the private key.
+3. **Transaction Signing**: Transactions are securely signed by the smart contract, ensuring the private key remains within the encrypted environment.
 
 ## Comparison with Other Providers
 
-| Provider      | Wallet Name          | Security Method                         | Auth. Methods                | Private Key Exposure     | Wallet Scope | Decentralization                      |
-|---------------|----------------------|-----------------------------------------|------------------------------|--------------------------|--------------|---------------------------------------|
-| thirdweb      | In-App Wallet        | Shamir's Secret Sharing with HSM        | Email, Social Media          | In the browser           | Per app      | 2/3 keys saved by thirdweb            |
-| Dynamic.xyz   | Email, Social Wallet | Outsourced to Turnkey - secure enclaves | Passkey, Email, Social Media | Never, but allows export | Per app      | Private key stored by Turnkey         |
-| Coinbase      | Embedded Wallet      | Multi-party Computation                 | Passkey                      | Never, but allows export | Per app      | Private key stored by Coinbase        |
-| Apillon       | Embedded Wallet      | Oasis Confidential Smart Contract       | Passkey, Email, Password     | Never, but allows export | Global       | Fully decentralized via Oasis         |
+| Provider        | Wallet Name          | Security Method                         | Authentication Methods       | Private Key Exposure | Wallet Scope | Decentralization              |
+| --------------- | -------------------- | --------------------------------------- | ---------------------------- | -------------------- | ------------ | ----------------------------- |
+| **thirdweb**    | In-App Wallet        | Shamir's Secret Sharing with HSM        | Email, Social Media          | Exposed in browser   | Per app      | 2/3 keys managed by thirdweb  |
+| **Dynamic.xyz** | Email, Social Wallet | Outsourced to Turnkey - secure enclaves | Passkey, Email, Social Media | None; allows export  | Per app      | Stored by Turnkey             |
+| **Coinbase**    | Embedded Wallet      | Multi-party Computation                 | Passkey                      | None; allows export  | Per app      | Stored by Coinbase            |
+| **Apillon**     | Embedded Wallet      | Oasis Confidential Smart Contract       | Passkey, Email, Password     | None; allows export  | Global       | Fully decentralized via Oasis |
 
 ## Passkeys
 
-Passkeys are unique cryptographic keys stored securely on a user’s device, offering a user-friendly and secure method for accessing wallets without traditional passwords. These keys utilize biometric authentication methods, such as fingerprint or facial recognition, to verify the user's identity.
+Passkeys are secure cryptographic keys stored on a user’s device, enabling wallet access through biometric methods without traditional passwords. This allows for a secure and user-friendly experience that prioritizes privacy.
 
-### How Passkeys work
+### How Passkeys Work
 
-When a user sets up a passkey, their device generates a cryptographic key pair: a public key, which is shared with the service, and a private key, which remains on the device. The private key is securely stored and protected by the device's hardware. When logging in, the user provides a biometric confirmation, such as a fingerprint scan or facial recognition, which unlocks the private key to sign a login request. This signed request is then sent to the service for verification using the public key.
+Upon setting up a passkey, the user’s device generates a cryptographic key pair: a public key (shared with the service) and a private key (stored on the device). When logging in, the user authenticates biometrically, which unlocks the private key to sign the login request. The service verifies this signed request using the public key.
 
 ### Benefits of Passkeys
 
-1. **Enhanced security**: The private key never leaves the user's device, reducing the risk of theft or interception.
-2. **User convenience**: Biometric authentication simplifies the login process, eliminating the need to remember and manage complex passwords.
-3. **Phishing protection**: Since the private key is not shared or transmitted, it cannot be phished or stolen by malicious actors. The passkey works only on the website where it was created, meaning that the passkey cannot access anything on a different website.
+1. **Enhanced Security**: The private key remains on the device, reducing risk of theft.
+2. **User Convenience**: Biometric login removes the need to remember passwords.
+3. **Phishing Protection**: The private key is non-transferrable, making it immune to phishing attacks.
 
-By using passkeys, Apillon ensures that users’ wallets are protected with strong, biometric-based security, providing a seamless and secure user experience.
+Apillon’s passkeys ensure wallets are protected with advanced biometric-based security, creating a seamless user experience.
 
 ## Advantages of Apillon’s Embedded Wallet Service
 
-- **Seamless user experience**: Easy onboarding without wallet downloads.
-- **Enhanced security**: Decentralized private key management with end-to-end encryption.
-- **Global scope**: Unlike some providers, Apillon’s embedded wallets are not restricted to specific apps or sites, allowing for broader usability.
-- **Confidential smart contracts**: Ensure that private keys are never exposed, maintaining a high level of security.
+- **Seamless User Experience**: Simplifies onboarding, requiring no wallet downloads.
+- **Secure Wallet Setup**: No mnemonic keys are required. Passkeys offer protection, and private keys are exportable as needed.
+- **Multiple Authentication Options**: Users can set up passkeys, email verification, and additional methods to ensure flexible access.
+- **High-Level Security**: End-to-end encryption and decentralized key management.
+- **Global Scope**: Apillon’s wallets work across applications, unlike some limited alternatives.
+- **Confidential Smart Contracts**: Private keys remain secure and confidential within Oasis-managed smart contracts.
 
 ## Conclusion
 
-Apillon’s Embedded Wallet Service on the Oasis Network offers a unique blend of user-friendly onboarding, robust security, and decentralization. It eliminates the need for cumbersome wallet downloads and mnemonic phrases, providing a seamless and secure experience for managing crypto assets directly within applications. By leveraging Oasis’s confidential smart contracts, Apillon ensures that users’ private keys are never exposed, providing a level of security comparable to hardware wallets.
+Apillon’s Embedded Wallet Service on the Oasis Network combines user-friendly onboarding, top-tier security, and decentralization. It removes the need for wallet downloads and mnemonic phrases, offering a smooth and secure way to manage crypto assets within applications. With Oasis’s confidential smart contracts, Apillon protects users’ private keys, delivering security on par with hardware wallets.
