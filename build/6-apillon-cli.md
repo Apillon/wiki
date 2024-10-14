@@ -97,7 +97,7 @@ apillon hosting list-websites --search "My-Website" --limit 1
       "description": "My own website",
       "domain": "https://my-website.com",
       "bucketUuid": "47251013-37c6-4b30-be2b-8583dea25c4c",
-      "ipnsStaging": "k2k4r8ob2rf35wbmhhtzbq6nd4lhwv...",
+      "cidStaging": "bafybeidwxptqhokkmwgtzrjgj2pvcapmyce...",
       "ipnsProduction": "k2k4r8pple7phwm9azqgxshxdzy..."
     },
     ...
@@ -432,12 +432,15 @@ apillon storage delete-directory --bucket-uuid "123e4567-e89b-12d3-a456-42665544
 ### IPNS Commands
 
 #### `storage ipns list`
+
 Lists all IPNS records for a specific bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 
 **Example**
+
 ```sh
 apillon storage ipns list --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
@@ -475,52 +478,64 @@ apillon storage ipns list --bucket-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `storage ipns create`
+
 Creates a new IPNS record for a specific bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-n, --name <name>`: Name of the IPNS record.
 - `-d, --description <description>`: Description of the IPNS record (optional).
 - `-c, --cid <cid>`: CID to which this IPNS name will point.
 
 **Example**
+
 ```sh
 apillon storage ipns create --bucket-uuid "123e4567-e89b-12d3-a456-426655440000" --name "my-ipns-record" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
 ```
 
 #### `storage ipns get`
+
 Retrieves information about a specific IPNS record.
 
 **Options**
+
 - `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 
 **Example**
+
 ```sh
 apillon storage ipns get --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
 
 #### `storage ipns publish`
+
 Publishes an IPNS record to IPFS and links it to a CID.
 
 **Options**
+
 - `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 - `-c, --cid <string>`: CID to which this IPNS name will point.
 
 **Example**
+
 ```sh
 apillon storage ipns publish --ipns-uuid "123e4567-e89b-12d3-a456-426655440000" --cid "QmWX5CcNvnaVmgGBn4o82XW9uW1uLvsHQDdNrANrQeSdXm"
 ```
 
 #### `storage ipns delete`
+
 Deletes an IPNS record from a specific bucket.
 
 **Options**
+
 - `-b, --bucket-uuid <uuid>`: UUID of the bucket.
 - `-i, --ipns-uuid <uuid>`: UUID of the IPNS record.
 
 **Example**
+
 ```sh
 apillon storage ipns delete --ipns-uuid "123e4567-e89b-12d3-a456-426655440000"
 ```
@@ -786,10 +801,8 @@ jobs:
       ## Find the correct command in your framework documentation. You may need to change the
       ## name of the source folder in the last step (CLI call)
       ####
-
       # - name: Build app
       #   run: npm run build
-
       - name: Deploy website
         env:
           APILLON_API_KEY: ${{ secrets.APILLON_API_KEY }}
