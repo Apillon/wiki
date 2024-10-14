@@ -1,4 +1,4 @@
-# Cloud Function API
+# Cloud Functions API
 
 The Cloud Function API provides an interface for developers to deploy, manage, and execute decentralized cloud functions on the Apillon platform. These endpoints allow you to create cloud functions, manage jobs, and configure runtime environments.
 
@@ -236,7 +236,13 @@ curl --location --request GET "https://api.apillon.io/acurast/cloud-functions/d1
 
 > Create a job/deployment for a specific cloud function.
 
+
 <CodeDiv>POST /acurast/cloud-functions/:function_uuid/jobs</CodeDiv>
+
+::: warning
+The deployed code should be made on top of this Node.js template: [https://github.com/Apillon/cloud-function-template](https://github.com/Apillon/cloud-function-template)
+If it does not contain the boilerplate code, the deployment will not be accessible via the provided API gateway URL.
+:::
 
 <div class="split_content">
 	<div class="split_side">
