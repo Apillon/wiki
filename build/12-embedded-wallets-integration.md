@@ -164,12 +164,6 @@ Add widget to your html:
       explorerUrl: "https://moonbase.moonscan.io",
     },
     {
-      name: "Celo Alfajores Testnet",
-      id: 44787,
-      rpcUrl: "https://alfajores-forno.celo-testnet.org",
-      explorerUrl: "https://explorer.celo.org/alfajores",
-    },
-    {
       name: "Amoy",
       id: 80002,
       rpcUrl: "https://rpc-amoy.polygon.technology",
@@ -184,7 +178,7 @@ Add widget to your html:
 
 ```js
 <WalletWidget
-  :clientId="clientId"
+  clientId="clientId"
   :defaultNetworkId="1287"
   :networks="[
     {
@@ -192,12 +186,6 @@ Add widget to your html:
       id: 1287,
       rpcUrl: 'https://rpc.testnet.moonbeam.network',
       explorerUrl: 'https://moonbase.moonscan.io',
-    },
-    {
-      name: 'Celo Alfajores Testnet',
-      id: 44787,
-      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
-      explorerUrl: 'https://explorer.celo.org/alfajores',
     },
     {
       name: 'Amoy',
@@ -225,12 +213,6 @@ Add widget to your html:
       explorerUrl: "https://moonbase.moonscan.io",
     },
     {
-      name: "Celo Alfajores Testnet",
-      id: 44787,
-      rpcUrl: "https://alfajores-forno.celo-testnet.org",
-      explorerUrl: "https://explorer.celo.org/alfajores",
-    },
-    {
       name: "Amoy",
       id: 80002,
       rpcUrl: "https://rpc-amoy.polygon.technology",
@@ -245,7 +227,7 @@ Add widget to your html:
   
 ```js
 <WalletWidget
-  :clientId="clientId"
+  clientId="clientId"
   :defaultNetworkId="1287"
   :networks="[
     {
@@ -253,12 +235,6 @@ Add widget to your html:
       id: 1287,
       rpcUrl: 'https://rpc.testnet.moonbeam.network',
       explorerUrl: 'https://moonbase.moonscan.io',
-    },
-    {
-      name: 'Celo Alfajores Testnet',
-      id: 44787,
-      rpcUrl: 'https://alfajores-forno.celo-testnet.org',
-      explorerUrl: 'https://explorer.celo.org/alfajores',
     },
     {
       name: 'Amoy',
@@ -275,11 +251,14 @@ Add widget to your html:
 
 ### Setup parameters
 
-| Field                       | Type        | Description                                                                                                                                        |
-| --------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| clientId                    | `string`    | Client ID that you get from creating new embedded wallet on the [Apillon dashboard](<(https://app.apillon.io/dashboard/service/embedded-wallet)>). |
-| defaultNetworkId (optional) | `number`    | Chain ID set as default when opening wallet.                                                                                                       |
-| networks                    | `Network[]` | Array of network specifications                                                                                                                    |
+| Field                        | Type        | Description                                                                                                                                        |
+| ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| clientId                     | `string`    | Client ID that you get from creating new embedded wallet on the [Apillon dashboard](<(https://app.apillon.io/dashboard/service/embedded-wallet)>). |
+| defaultNetworkId (optional)  | `number`    | Chain ID set as default when opening wallet.                                                                                                       |
+| networks                     | `Network[]` | Array of network specifications                                                                                                                    |
+| broadcastAfterSign           | `boolean`   | Automatically broadcast with SDK after confirming a transaction.                                                                                   |
+| disableDefaultActivatorStyle | `boolean`   | Remove styles from "open wallet" button                                                                                                            |
+| authFormPlaceholder          | `string`    | Placeholder displayed in input for username/email                                                                                                  |
 
 #### Network Object
 
@@ -292,49 +271,114 @@ Add widget to your html:
 
 ## Use wallet
 
-To access wallet signer and wallet information we provide basic imports:
+To access wallet signer and wallet information we provide core imports (hooks/composables):
 
   <CodeGroup>
   <CodeGroupItem title="react.js" active>
 
-```ts
-import { useWallet, useAccount } from "@apillon/wallet-react";
+```tsx
+import { useAccount, useContract, useWallet } from "@apillon/wallet-react";
+
+export default function Component() {
+  const { username, address, getBalance } = useAccount();
+  const { wallet, signMessage, sendTransaction } = useWallet();
+
+  const { read, write } = useContract({
+    abi: [
+      "function claim() public",
+      "function balanceOf(address) view returns (uint256)",
+      "function transfer(address to, uint256 amount) public returns (bool)",
+    ],
+    address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
+    chainId: 1287,
+  });
+
+  return <></>;
+}
 ```
 
   </CodeGroupItem>
     <CodeGroupItem title="vue.js">
 
-```ts
-import { useWallet, useAccount } from "@apillon/wallet-vue";
+```vue
+<script lang="ts" setup>
+import { useAccount, useContract, useWallet } from "@apillon/wallet-vue";
+
+const { username, address, getBalance } = useAccount();
+const { wallet, signMessage, sendTransaction } = useWallet();
+
+const { read, write } = useContract({
+  abi: [
+    "function claim() public",
+    "function balanceOf(address) view returns (uint256)",
+    "function transfer(address to, uint256 amount) public returns (bool)",
+  ],
+  address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
+  chainId: 1287,
+});
+</script>
+
+<template>
+  <div></div>
+</template>
 ```
 
   </CodeGroupItem>
   <CodeGroupItem title="next.js">
 
-```ts
-import { useWallet, useAccount } from "@apillon/wallet-react";
+```tsx
+import { useAccount, useContract, useWallet } from "@apillon/wallet-react";
+
+export default function Component() {
+  const { username, address, getBalance } = useAccount();
+  const { wallet, signMessage, sendTransaction } = useWallet();
+
+  const { read, write } = useContract({
+    abi: [
+      "function claim() public",
+      "function balanceOf(address) view returns (uint256)",
+      "function transfer(address to, uint256 amount) public returns (bool)",
+    ],
+    address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
+    chainId: 1287,
+  });
+
+  return <></>;
+}
 ```
 
   </CodeGroupItem>
     <CodeGroupItem title="nuxt">
   
-```ts
-import { useWallet, useAccount } from "@apillon/wallet-vue";
+```vue
+<script lang="ts" setup>
+import { useAccount, useContract, useWallet } from "@apillon/wallet-vue";
+
+const { username, address, getBalance } = useAccount();
+const { wallet, signMessage, sendTransaction } = useWallet();
+
+const { read, write } = useContract({
+abi: [
+"function claim() public",
+"function balanceOf(address) view returns (uint256)",
+"function transfer(address to, uint256 amount) public returns (bool)",
+],
+address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
+chainId: 1287,
+});
+</script>
+
+<template>
+  <div></div>
+</template>
 ```
 
   </CodeGroupItem>
   </CodeGroup>
 
-and exposing information via:
-
-```ts
-const { username, address } = useAccount();
-const { wallet } = useWallet();
-```
-
 ### Ethers 5 and 6
 
-To use with [ethers](https://ethers.org/) library we provide you with a specialized ethers signer.
+To use with [ethers](https://ethers.org/) library we provide a specialized ethers signer.
 
 ```ts
 import { EmbeddedEthersSigner } from "@apillon/wallet-sdk";
@@ -343,18 +387,22 @@ import { EmbeddedEthersSigner } from "@apillon/wallet-sdk";
 You can create a signer like with any other ethers signer as such:
 
 ```ts
-const signer = new EmbeddedEthersSigner(wallet.getRpcProviderForChainId(1287));
+const signer = new EmbeddedEthersSigner();
+
+// eg. sign a message
+await signer.signMessage("test message");
 ```
 
 ### Viem
 
-To use [viem](https://viem.sh/) we provide you with a specialized viem adapter.
+To use [viem](https://viem.sh/) we provide a specialized Viem adapter.
 
 ```ts
 import { EmbeddedViemAdapter } from "@apillon/wallet-sdk";
+import { moonbaseAlpha } from "viem/chains";
 ```
 
-Use can use the adapter like any other:
+Use can use the adapter to get the user's account and use it with Viem:
 
 ```ts
 const adapter = new EmbeddedViemAdapter();
@@ -365,6 +413,41 @@ const walletClient = createWalletClient({
   transport: http(),
   account,
 });
+
+// eg. sign a message
+await account.signMessage({ message: "test message" });
+
+// eg. send a plain transaction
+await walletClient.sendRawTransaction({
+  serializedTransaction: await walletClient.signTransaction(
+    await walletClient.prepareTransactionRequest({
+      to: "...",
+      value: parseUnits("0.01", 18),
+    })
+  ),
+});
+```
+
+### Wagmi
+
+We provide an **EIP-1193** provider that can be used with [Wagmi](https://wagmi.sh/) or any other integration that supports it.
+
+```ts
+import { getProvider as getEmbeddedProvider } from "@apillon/wallet-sdk";
+
+const wagmiConfig = {
+  /* ... */
+  connectors: [
+    new InjectedConnector({
+      chains,
+      options: {
+        getProvider() {
+          return getEmbeddedProvider() as any;
+        },
+      },
+    }),
+  ],
+};
 ```
 
 ## Create custom UI
@@ -379,24 +462,35 @@ For detailed technical documentation about the embedded wallet SDK, visit [the g
 
 ### React
 
+- [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/react-test/src/TestSdk.tsx)
 - [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/react-test/src/TestEthers5.tsx)
 - [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/react-test/src/TestEthers6.tsx)
 - [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/react-test/src/TestViem.tsx)
 
 ### Next.js
 
+- [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/next-test/src/components/TestSdk.tsx)
 - [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/next-test/src/components/TestEthers5.tsx)
 - [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/next-test/src/components/TestEthers6.tsx)
 - [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/next-test/src/components/TestViem.tsx)
 
 ### Vue.js
 
-- [Vue.js Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestEthers5.vue)
-- [Vue.js Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestEthers6.vue)
-- [Vue.js Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestViem.vue)
+- [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestSdk.vue)
+- [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestEthers5.vue)
+- [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestEthers6.vue)
+- [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/vue-test/src/TestViem.vue)
 
 ### Nuxt
 
-- [Nuxt Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestEthers5.vue)
-- [Nuxt Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestEthers6.vue)
-- [Nuxt Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestViem.vue)
+- [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestSdk.vue)
+- [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestEthers5.vue)
+- [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestEthers6.vue)
+- [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestViem.vue)
+
+### Plain JavaScript
+
+- [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/sdk.ts)
+- [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/ethers5.ts)
+- [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/ethers6.ts)
+- [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/viem.ts)
