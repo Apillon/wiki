@@ -106,6 +106,13 @@ npm install @apillon/wallet-vue
 ```
 
   </CodeGroupItem>
+  <CodeGroupItem title="TypeScript">
+  
+```sh
+npm install @apillon/wallet-ui
+```
+
+  </CodeGroupItem>
   </CodeGroup>
 
 Installing wallet package also installs the core wallet package `@apillon/wallet-sdk`. In usage bellow you will see some imports from this package.
@@ -145,6 +152,13 @@ import { WalletWidget } from "@apillon/wallet-vue";
 ```
 
   </CodeGroupItem>
+    <CodeGroupItem title="TypeScript">
+  
+```ts
+import { EmbeddedWalletUI } from "@apillon/wallet-ui";
+```
+
+  </CodeGroupItem>
   </CodeGroup>
 
 Add widget to your html:
@@ -152,7 +166,7 @@ Add widget to your html:
   <CodeGroup>
   <CodeGroupItem title="react.js" active>
 
-```js
+```tsx
 <WalletWidget
   clientId={"YOUR INTEGRATION ID HERE"}
   defaultNetworkId={1287}
@@ -176,7 +190,7 @@ Add widget to your html:
   </CodeGroupItem>
     <CodeGroupItem title="vue.js">
 
-```js
+```tsx
 <WalletWidget
   clientId="clientId"
   :defaultNetworkId="1287"
@@ -195,13 +209,12 @@ Add widget to your html:
     },
   ]"
 />
-
 ```
 
   </CodeGroupItem>
   <CodeGroupItem title="next.js">
 
-```js
+```tsx
 <WalletWidget
   clientId={"YOUR INTEGRATION ID HERE"}
   defaultNetworkId={1287}
@@ -225,7 +238,7 @@ Add widget to your html:
   </CodeGroupItem>
     <CodeGroupItem title="nuxt">
   
-```js
+```tsx
 <WalletWidget
   clientId="clientId"
   :defaultNetworkId="1287"
@@ -247,9 +260,33 @@ Add widget to your html:
 ```
 
   </CodeGroupItem>
+  <CodeGroupItem title="TypeScript">
+
+```ts
+EmbeddedWalletUI("#wallet", {
+  clientId: "clientId",
+  defaultNetworkId: 1287,
+  networks: [
+    {
+      name: "Moonbeam Testnet",
+      id: 1287,
+      rpcUrl: "https://rpc.testnet.moonbeam.network",
+      explorerUrl: "https://moonbase.moonscan.io",
+    },
+    {
+      name: "Amoy",
+      id: 80002,
+      rpcUrl: "https://rpc-amoy.polygon.technology",
+      explorerUrl: "https://www.oklink.com/amoy",
+    },
+  ],
+});
+```
+
+  </CodeGroupItem>
   </CodeGroup>
 
-### Setup parameters
+### Parameters
 
 | Field                        | Type        | Description                                                                                                                                        |
 | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -450,6 +487,84 @@ const wagmiConfig = {
 };
 ```
 
+### TypeScript
+
+Embedded wallet can be used with plain TypeScript by interacting with the wallet SDK directly.
+
+::: tip
+Find out more about the SDK in [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
+:::
+
+```html
+<button id="sdk-sign">(SDK) Sign message</button>
+<button id="sdk-native-transfer">(SDK) Transfer native balance</button>
+<button id="sdk-contract-transfer">(SDK) Contract write (transfer)</button>
+```
+
+```ts
+import { getEmbeddedWallet } from "@apillon/wallet-sdk";
+
+// eg. sign a message
+document.getElementById("sdk-sign")?.addEventListener("click", async () => {
+  const w = getEmbeddedWallet();
+
+  if (w) {
+    await w.signMessage({
+      message: "test message",
+      mustConfirm: true,
+    });
+  }
+});
+
+// eg. send a plain transaction
+document.getElementById('sdk-native-transfer')?.addEventListener('click', async () => {
+  const w = getEmbeddedWallet();
+
+  if (w) {
+    const result = await w.signPlainTransaction({
+      tx: {
+        to: '...',
+        value: '10000000',
+      },
+      mustConfirm: true,
+    });
+
+    console.log(result);
+
+    if (result) {
+      console.log(await w.broadcastTransaction(result.signedTxData, result.chainId));
+    }
+  }
+});
+
+// eg. contract write
+document.getElementById('sdk-contract-transfer')?.addEventListener('click', async () => {
+  const w = getEmbeddedWallet();
+
+  if (w) {
+    const result = await w.signContractWrite({
+      contractAbi: [
+        'function claim() public',
+        'function balanceOf(address) view returns (uint256)',
+        'function transfer(address to, uint256 amount) public returns (bool)',
+      ],
+      contractAddress: '0x67b9DA16d0Adf2dF05F0564c081379479d0448f8',
+      contractFunctionName: 'transfer',
+      contractFunctionValues: ['...', '10000000'],
+      chainId: 1287,
+      mustConfirm: true,
+    });
+
+    console.log(result);
+
+    if (result) {
+      console.log(await w.broadcastTransaction(result.signedTxData, result.chainId, 'JS transfer'));
+    }
+  }
+});
+
+```
+
 ## Create custom UI
 
 All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. Sdk exposes all the core methods of the wallet and you can create completely custom UI of the wallet on top of it.
@@ -488,7 +603,7 @@ For detailed technical documentation about the embedded wallet SDK, visit [the g
 - [Ethers 6 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestEthers6.vue)
 - [Viem example](https://github.com/Apillon/embedded-wallet/blob/main/apps/nuxt-test/components/TestViem.vue)
 
-### Plain JavaScript
+### TypeScript
 
 - [SDK example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/sdk.ts)
 - [Ethers 5 example](https://github.com/Apillon/embedded-wallet/blob/main/apps/js-test/src/ethers5.ts)
