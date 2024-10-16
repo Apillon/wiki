@@ -14,9 +14,9 @@ If you want to learn more about Apillon's Embedded Wallet Service, visit the [em
 
 ## Prerequisites
 
-### React.js
+### React
 
-A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. Buffer, Crypto).
+A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
 
 ```sh
 npm install -D vite-plugin-node-polyfills
@@ -36,9 +36,9 @@ export default defineConfig({
 
 To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global css file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953).
 
-### Vue.js
+### Vue
 
-A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. Buffer, Crypto).
+A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
 
 ```sh
 npm install -D vite-plugin-node-polyfills
@@ -56,7 +56,7 @@ export default defineConfig({
 
 ### Nuxt
 
-When using Vite as the build tool, a Vite plugin is required for running and building Nuxt apps with Embedded Wallet. This plugin enables Node API in the browser (eg. Buffer, Crypto).
+When using Vite as the build tool, a Vite plugin is required for running and building Nuxt apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
 
 ```sh
 npm i -D vite-plugin-node-polyfills
@@ -75,32 +75,33 @@ export default defineNuxtConfig({
 });
 ```
 
+The Embedded wallet integration includes a style (css) file imported in javascript.
+Nuxt tries, but can't resolve this import.
+To avoid errors, the Embedded wallet dependency needs to be added to the [build.transpile](https://nuxt.com/docs/api/nuxt-config#transpile) setting.
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  build: {
+    transpile: ["@apillon/wallet-vue"],
+  },
+
+  /* ... */
+});
+```
+
 ## Installation
 
   <CodeGroup>
-  <CodeGroupItem title="react.js" active>
+  <CodeGroupItem title="React / Next.js" active>
 
 ```sh
 npm install @apillon/wallet-react
 ```
 
   </CodeGroupItem>
-    <CodeGroupItem title="vue.js">
+    <CodeGroupItem title="Vue / Nuxt">
 
-```sh
-npm install @apillon/wallet-vue
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="next.js">
-
-```sh
-npm install @apillon/wallet-react
-```
-
-  </CodeGroupItem>
-    <CodeGroupItem title="nuxt">
-  
 ```sh
 npm install @apillon/wallet-vue
 ```
@@ -124,29 +125,15 @@ Replace parameters with however you want to setup your wallet.
 Import wallet widget:
 
   <CodeGroup>
-  <CodeGroupItem title="react.js" active>
+  <CodeGroupItem title="React / Next.js" active>
 
 ```ts
 import { WalletWidget } from "@apillon/wallet-react";
 ```
 
   </CodeGroupItem>
-    <CodeGroupItem title="vue.js">
+    <CodeGroupItem title="Vue / Nuxt">
 
-```ts
-import { WalletWidget } from "@apillon/wallet-vue";
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="next.js">
-
-```ts
-import { WalletWidget } from "@apillon/wallet-react";
-```
-
-  </CodeGroupItem>
-    <CodeGroupItem title="nuxt">
-  
 ```ts
 import { WalletWidget } from "@apillon/wallet-vue";
 ```
@@ -164,7 +151,7 @@ import { EmbeddedWalletUI } from "@apillon/wallet-ui";
 Add widget to your html:
 
   <CodeGroup>
-  <CodeGroupItem title="react.js" active>
+  <CodeGroupItem title="React / Next.js" active>
 
 ```tsx
 <WalletWidget
@@ -188,56 +175,8 @@ Add widget to your html:
 ```
 
   </CodeGroupItem>
-    <CodeGroupItem title="vue.js">
+    <CodeGroupItem title="Vue / Nuxt">
 
-```tsx
-<WalletWidget
-  clientId="clientId"
-  :defaultNetworkId="1287"
-  :networks="[
-    {
-      name: 'Moonbeam Testnet',
-      id: 1287,
-      rpcUrl: 'https://rpc.testnet.moonbeam.network',
-      explorerUrl: 'https://moonbase.moonscan.io',
-    },
-    {
-      name: 'Amoy',
-      id: 80002,
-      rpcUrl: 'https://rpc-amoy.polygon.technology',
-      explorerUrl: 'https://www.oklink.com/amoy',
-    },
-  ]"
-/>
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="next.js">
-
-```tsx
-<WalletWidget
-  clientId={"YOUR INTEGRATION ID HERE"}
-  defaultNetworkId={1287}
-  networks={[
-    {
-      name: "Moonbeam Testnet",
-      id: 1287,
-      rpcUrl: "https://rpc.testnet.moonbeam.network",
-      explorerUrl: "https://moonbase.moonscan.io",
-    },
-    {
-      name: "Amoy",
-      id: 80002,
-      rpcUrl: "https://rpc-amoy.polygon.technology",
-      explorerUrl: "https://www.oklink.com/amoy",
-    },
-  ]}
-/>
-```
-
-  </CodeGroupItem>
-    <CodeGroupItem title="nuxt">
-  
 ```tsx
 <WalletWidget
   clientId="clientId"
@@ -311,7 +250,7 @@ EmbeddedWalletUI("#wallet", {
 To access wallet signer and wallet information we provide core imports (hooks/composables):
 
   <CodeGroup>
-  <CodeGroupItem title="react.js" active>
+  <CodeGroupItem title="React / Next.js" active>
 
 ```tsx
 import { useAccount, useContract, useWallet } from "@apillon/wallet-react";
@@ -330,18 +269,38 @@ export default function Component() {
     chainId: 1287,
   });
 
+  // using wallet core SDK
+  const getWalletUserExists = (username: string) => {
+    return wallet.userExists(username);
+  };
+
+  // sign a message
+  const onSignMessage = await (msg: string) => {
+    await signMessage(msg);
+  };
+
+  // contract read
+  const logContractBalance = async (address: string) => {
+    console.log(await read("balanceOf", [address]));
+  };
+
+  // contract write
+  const onContractTransfer = async (address: string, amount: string) => {
+    await write("transfer", [address, amount], "Token transfer");
+  };
+
   return <></>;
 }
 ```
 
   </CodeGroupItem>
-    <CodeGroupItem title="vue.js">
+    <CodeGroupItem title="Vue / Nuxt">
 
 ```vue
 <script lang="ts" setup>
 import { useAccount, useContract, useWallet } from "@apillon/wallet-vue";
 
-const { username, address, getBalance } = useAccount();
+const { info, getBalance } = useAccount();
 const { wallet, signMessage, sendTransaction } = useWallet();
 
 const { read, write } = useContract({
@@ -353,56 +312,26 @@ const { read, write } = useContract({
   address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
   chainId: 1287,
 });
-</script>
 
-<template>
-  <div></div>
-</template>
-```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="next.js">
-
-```tsx
-import { useAccount, useContract, useWallet } from "@apillon/wallet-react";
-
-export default function Component() {
-  const { username, address, getBalance } = useAccount();
-  const { wallet, signMessage, sendTransaction } = useWallet();
-
-  const { read, write } = useContract({
-    abi: [
-      "function claim() public",
-      "function balanceOf(address) view returns (uint256)",
-      "function transfer(address to, uint256 amount) public returns (bool)",
-    ],
-    address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
-    chainId: 1287,
-  });
-
-  return <></>;
+// using wallet core SDK
+function getWalletUserExists(username: string) {
+  return wallet.value.userExists(username);
 }
-```
 
-  </CodeGroupItem>
-    <CodeGroupItem title="nuxt">
-  
-```vue
-<script lang="ts" setup>
-import { useAccount, useContract, useWallet } from "@apillon/wallet-vue";
+// sign a message
+async function onSignMessage(msg: string) {
+  await signMessage(msg);
+}
 
-const { username, address, getBalance } = useAccount();
-const { wallet, signMessage, sendTransaction } = useWallet();
+// contract read
+async function logContractBalance(address: string) {
+  console.log(await read("balanceOf", [address]));
+}
 
-const { read, write } = useContract({
-abi: [
-"function claim() public",
-"function balanceOf(address) view returns (uint256)",
-"function transfer(address to, uint256 amount) public returns (bool)",
-],
-address: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
-chainId: 1287,
-});
+// contract write
+async function onContractTransfer(address: string, amount: string) {
+  await write("transfer", [address, amount], "Token transfer");
+}
 </script>
 
 <template>
@@ -501,10 +430,12 @@ Find out more about the SDK in [the github repository](https://github.com/Apillo
 <button id="sdk-contract-transfer">(SDK) Contract write (transfer)</button>
 ```
 
+<CodeGroup>
+<CodeGroupItem title="Sign message" active>
+
 ```ts
 import { getEmbeddedWallet } from "@apillon/wallet-sdk";
 
-// eg. sign a message
 document.getElementById("sdk-sign")?.addEventListener("click", async () => {
   const w = getEmbeddedWallet();
 
@@ -515,55 +446,81 @@ document.getElementById("sdk-sign")?.addEventListener("click", async () => {
     });
   }
 });
-
-// eg. send a plain transaction
-document.getElementById('sdk-native-transfer')?.addEventListener('click', async () => {
-  const w = getEmbeddedWallet();
-
-  if (w) {
-    const result = await w.signPlainTransaction({
-      tx: {
-        to: '...',
-        value: '10000000',
-      },
-      mustConfirm: true,
-    });
-
-    console.log(result);
-
-    if (result) {
-      console.log(await w.broadcastTransaction(result.signedTxData, result.chainId));
-    }
-  }
-});
-
-// eg. contract write
-document.getElementById('sdk-contract-transfer')?.addEventListener('click', async () => {
-  const w = getEmbeddedWallet();
-
-  if (w) {
-    const result = await w.signContractWrite({
-      contractAbi: [
-        'function claim() public',
-        'function balanceOf(address) view returns (uint256)',
-        'function transfer(address to, uint256 amount) public returns (bool)',
-      ],
-      contractAddress: '0x67b9DA16d0Adf2dF05F0564c081379479d0448f8',
-      contractFunctionName: 'transfer',
-      contractFunctionValues: ['...', '10000000'],
-      chainId: 1287,
-      mustConfirm: true,
-    });
-
-    console.log(result);
-
-    if (result) {
-      console.log(await w.broadcastTransaction(result.signedTxData, result.chainId, 'JS transfer'));
-    }
-  }
-});
-
 ```
+
+</CodeGroupItem>
+<CodeGroupItem title="Plain transaction">
+
+```ts
+import { getEmbeddedWallet } from "@apillon/wallet-sdk";
+
+document
+  .getElementById("sdk-native-transfer")
+  ?.addEventListener("click", async () => {
+    const w = getEmbeddedWallet();
+
+    if (w) {
+      const result = await w.signPlainTransaction({
+        tx: {
+          to: "...",
+          value: "10000000",
+        },
+        mustConfirm: true,
+      });
+
+      console.log(result);
+
+      if (result) {
+        console.log(
+          await w.broadcastTransaction(result.signedTxData, result.chainId)
+        );
+      }
+    }
+  });
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Contract transfer" active>
+
+```ts
+import { getEmbeddedWallet } from "@apillon/wallet-sdk";
+
+document
+  .getElementById("sdk-contract-transfer")
+  ?.addEventListener("click", async () => {
+    const w = getEmbeddedWallet();
+
+    if (w) {
+      const result = await w.signContractWrite({
+        contractAbi: [
+          "function claim() public",
+          "function balanceOf(address) view returns (uint256)",
+          "function transfer(address to, uint256 amount) public returns (bool)",
+        ],
+        contractAddress: "0x67b9DA16d0Adf2dF05F0564c081379479d0448f8",
+        contractFunctionName: "transfer",
+        contractFunctionValues: ["...", "10000000"],
+        chainId: 1287,
+        mustConfirm: true,
+      });
+
+      console.log(result);
+
+      if (result) {
+        console.log(
+          await w.broadcastTransaction(
+            result.signedTxData,
+            result.chainId,
+            "JS transfer"
+          )
+        );
+      }
+    }
+  });
+```
+
+</CodeGroupItem>
+</CodeGroup>
 
 ## Create custom UI
 
