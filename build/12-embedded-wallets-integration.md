@@ -229,7 +229,7 @@ EmbeddedWalletUI("#wallet", {
 
 | Field                        | Type        | Description                                                                                                                                        |
 | ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| clientId                     | `string`    | Client ID that you get from creating new embedded wallet on the [Apillon dashboard](<(https://app.apillon.io/dashboard/service/embedded-wallet)>). |
+| clientId                     | `string`    | UUID of the integration that you obtain when creating it on the [Apillon embedded wallet dashboard](https://app.apillon.io/dashboard/service/embedded-wallet).            |
 | defaultNetworkId (optional)  | `number`    | Chain ID set as default when opening wallet.                                                                                                       |
 | networks                     | `Network[]` | Array of network specifications                                                                                                                    |
 | broadcastAfterSign           | `boolean`   | Automatically broadcast with SDK after confirming a transaction.                                                                                   |
