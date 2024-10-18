@@ -4,17 +4,17 @@ To get started with integrating embedded wallets into your dapp, follow these st
 
 1. **Create an Apillon account:** If you don't have an Apillon account or project yet, create one on the [Apillon dashboard](https://app.apillon.io).
 
-2. **Open the Embedded Wallet page and create a new embedded wallet integration:** Go to the [Embedded Wallet page](https://app.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and create a new embedded wallet integration. `Integration UUID` is needed for the integration.
+2. **Open the Embedded Wallet page and create a new embedded wallet integration:** Go to the [Embedded Wallet page](https://app.apillon.io/dashboard/service/embedded-wallet) on the Apillon developer console and create a new embedded wallet integration. `Integration UUID` is needed for using the SDK.
 
 3. **Setup whitelist:** Input the domains on which you allow the integration to work on. Leave empty if you allow all website (this is not recommended).
 
 ::: tip
-If you want to learn more about Apillon's Embedded Wallet Service, visit the [embedded wallet service wiki page](/web3-services/8-embedded-wallets.md).
+If you want to learn more about Apillon's Embedded Wallet Service, visit the [embedded wallet service wiki page](/web3-services/9-embedded-wallets.md).
 :::
 
 ## Prerequisites
 
-### React
+### React, Vue
 
 A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
 
@@ -34,29 +34,17 @@ export default defineConfig({
 
 ### Next.js
 
-To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global css file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953).
-
-### Vue
-
-A Vite plugin is required for running and building Vite apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
-
-```sh
-npm install -D vite-plugin-node-polyfills
-```
-
-```ts
-// vite.config.ts
-import { defineConfig } from "vite";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
-
-export default defineConfig({
-  plugins: [nodePolyfills() /* ... */],
-});
-```
+To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global CSS file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953).
 
 ### Nuxt
 
 When using Vite as the build tool, a Vite plugin is required for running and building Nuxt apps with Embedded Wallet. This plugin enables Node API in the browser (eg. buffer, crypto).
+
+::: warning
+The Embedded wallet integration includes a style (CSS) file imported through JavaScript.
+Nuxt fails to resolve this import by default.
+To avoid errors, the Embedded wallet dependency needs to be added to the [build.transpile](https://nuxt.com/docs/api/nuxt-config#transpile) setting.
+:::
 
 ```sh
 npm i -D vite-plugin-node-polyfills
@@ -68,24 +56,11 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineNuxtConfig({
   vite: {
-    plugins: [nodePolyfills()],
+    plugins: [nodePolyfills() /* ... */],
   },
-
-  /* ... */
-});
-```
-
-The Embedded wallet integration includes a style (css) file imported in javascript.
-Nuxt tries, but can't resolve this import.
-To avoid errors, the Embedded wallet dependency needs to be added to the [build.transpile](https://nuxt.com/docs/api/nuxt-config#transpile) setting.
-
-```ts
-// nuxt.config.ts
-export default defineNuxtConfig({
   build: {
     transpile: ["@apillon/wallet-vue"],
   },
-
   /* ... */
 });
 ```
@@ -108,7 +83,7 @@ npm install @apillon/wallet-vue
 
   </CodeGroupItem>
   <CodeGroupItem title="TypeScript">
-  
+
 ```sh
 npm install @apillon/wallet-ui
 ```
@@ -116,60 +91,31 @@ npm install @apillon/wallet-ui
   </CodeGroupItem>
   </CodeGroup>
 
-Installing wallet package also installs the core wallet package `@apillon/wallet-sdk`. In usage bellow you will see some imports from this package.
+Installing the wallet UI also installs the core wallet package `@apillon/wallet-sdk` as a dependency.
+
+In the usage examples below you will see some imports from this package.
 
 ## Add wallet widget
 
-Replace parameters with however you want to setup your wallet.
-
-Import wallet widget:
-
-  <CodeGroup>
-  <CodeGroupItem title="React / Next.js" active>
-
-```ts
-import { WalletWidget } from "@apillon/wallet-react";
-```
-
-  </CodeGroupItem>
-    <CodeGroupItem title="Vue / Nuxt">
-
-```ts
-import { WalletWidget } from "@apillon/wallet-vue";
-```
-
-  </CodeGroupItem>
-    <CodeGroupItem title="TypeScript">
-  
-```ts
-import { EmbeddedWalletUI } from "@apillon/wallet-ui";
-```
-
-  </CodeGroupItem>
-  </CodeGroup>
-
-Add widget to your html:
+Replace the parameters with however you wish to setup your wallet.
 
   <CodeGroup>
   <CodeGroupItem title="React / Next.js" active>
 
 ```tsx
+import { WalletWidget } from "@apillon/wallet-react";
+
 <WalletWidget
-  clientId={"YOUR INTEGRATION ID HERE"}
+  clientId={"YOUR INTEGRATION UUID HERE"}
   defaultNetworkId={1287}
   networks={[
     {
-      name: "Moonbeam Testnet",
+      name: "Moonbase Testnet",
       id: 1287,
       rpcUrl: "https://rpc.testnet.moonbeam.network",
       explorerUrl: "https://moonbase.moonscan.io",
     },
-    {
-      name: "Amoy",
-      id: 80002,
-      rpcUrl: "https://rpc-amoy.polygon.technology",
-      explorerUrl: "https://www.oklink.com/amoy",
-    },
+    /* ... */
   ]}
 />
 ```
@@ -178,22 +124,19 @@ Add widget to your html:
     <CodeGroupItem title="Vue / Nuxt">
 
 ```tsx
+import { WalletWidget } from "@apillon/wallet-vue";
+
 <WalletWidget
-  clientId="clientId"
+  clientId="YOUR INTEGRATION UUID HERE"
   :defaultNetworkId="1287"
   :networks="[
     {
-      name: 'Moonbeam Testnet',
+      name: 'Moonbase Testnet',
       id: 1287,
       rpcUrl: 'https://rpc.testnet.moonbeam.network',
       explorerUrl: 'https://moonbase.moonscan.io',
     },
-    {
-      name: 'Amoy',
-      id: 80002,
-      rpcUrl: 'https://rpc-amoy.polygon.technology',
-      explorerUrl: 'https://www.oklink.com/amoy',
-    },
+    /* ... */
   ]"
 />
 ```
@@ -202,23 +145,20 @@ Add widget to your html:
   <CodeGroupItem title="TypeScript">
 
 ```ts
+import { EmbeddedWalletUI } from "@apillon/wallet-ui";
+
 EmbeddedWalletUI("#wallet", {
-  clientId: "clientId",
+  clientId: "YOUR INTEGRATION UUID HERE",
   defaultNetworkId: 1287,
   networks: [
     {
-      name: "Moonbeam Testnet",
+      name: "Moonbase Testnet",
       id: 1287,
       rpcUrl: "https://rpc.testnet.moonbeam.network",
       explorerUrl: "https://moonbase.moonscan.io",
     },
-    {
-      name: "Amoy",
-      id: 80002,
-      rpcUrl: "https://rpc-amoy.polygon.technology",
-      explorerUrl: "https://www.oklink.com/amoy",
-    },
-  ],
+    /* ... */
+  ]
 });
 ```
 
@@ -227,23 +167,31 @@ EmbeddedWalletUI("#wallet", {
 
 ### Parameters
 
-| Field                        | Type        | Description                                                                                                                                        |
-| ---------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| clientId                     | `string`    | UUID of the integration that you obtain when creating it on the [Apillon embedded wallet dashboard](https://app.apillon.io/dashboard/service/embedded-wallet).            |
-| defaultNetworkId (optional)  | `number`    | Chain ID set as default when opening wallet.                                                                                                       |
-| networks                     | `Network[]` | Array of network specifications                                                                                                                    |
-| broadcastAfterSign           | `boolean`   | Automatically broadcast with SDK after confirming a transaction.                                                                                   |
-| disableDefaultActivatorStyle | `boolean`   | Remove styles from "open wallet" button                                                                                                            |
-| authFormPlaceholder          | `string`    | Placeholder displayed in input for username/email                                                                                                  |
+| Field                        | Type        | Required | Description                                                                                                                                        |
+| ---------------------------- | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| clientId                     | `string`    | Yes      | UUID of the integration that you obtain when creating it on the [Apillon embedded wallet dashboard](https://app.apillon.io/dashboard/service/embedded-wallet).            |
+| defaultNetworkId  | `number`    | No       | Chain ID set as default when opening wallet.                                                                                                       |
+| networks                     | `Network[]` | No       | Array of network specifications                                                                                                                    |
+| broadcastAfterSign           | `boolean`   | No       | Automatically broadcast with SDK after confirming a transaction.                                                                                   |
+| disableDefaultActivatorStyle | `boolean`   | No       | Remove styles from "open wallet" button                                                                                                            |
+| authFormPlaceholder          | `string`    | No       | Placeholder displayed in input for username/email                                                                                                  |
 
 #### Network Object
 
-| Field       | Type     | Description            |
-| ----------- | -------- | ---------------------- |
-| name        | `string` | Network name.          |
-| id          | `number` | Chain ID.              |
-| rpcUrl      | `string` | URL to RPC.            |
-| explorerUrl | `string` | URL to block explorer. |
+The Network Object defines the properties required to connect to a blockchain network.
+
+::: tip
+To find the information for your desired network, visit [chainlist.org](https://chainlist.org).
+:::
+
+| Field       | Type     | Description                             |
+| ----------- | -------- | ----------------------------------------|
+| name        | `string` | The name of the network                 |
+| id          | `number` | The unique Chain ID of the network      |
+| rpcUrl      | `string` | The URL to the network's RPC server     |
+| explorerUrl | `string` | The URL to the network's block explorer |
+
+
 
 ## Use wallet
 
@@ -524,7 +472,7 @@ document
 
 ## Create custom UI
 
-All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. Sdk exposes all the core methods of the wallet and you can create completely custom UI of the wallet on top of it.
+All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. The SDK exposes all the core methods of the wallet and you can create completely custom UI of the wallet on top of it.
 
 ::: tip
 For detailed technical documentation about the embedded wallet SDK, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
