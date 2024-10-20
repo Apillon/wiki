@@ -46,7 +46,7 @@ Instead, the governance aspect is focused on the product, i.e., the Apillon plat
 
 ### Incentivization
 
-The second NCTR token’s utility is aimed at incentivizing both tokenomics actors in various ways while promoting Web3 adoption. Adoption is, therefore, the main measured KPI, and when achieved, it awards NCTR tokens to rightful recipients.
+The second NCTR token’s utility is aimed at incentivizing both tokenomics actors in various ways while promoting Web3 adoption. Adoption is, therefore, the main measured KPI, and when achieved, NCTR tokens are awarded NCTR to rightful recipients.
 
 Incentivization through NCTR spans several use cases, including proof of adoption (PoA), prebuilt solutions grants, prebuilt solutions marketplace, SDK grands, protocol integration grants, bug bounties, authorship royalties, referral earnings, and many more.
 
@@ -55,7 +55,7 @@ Incentivization through NCTR spans several use cases, including proof of adoptio
 Besides providing few-click-deploy Web3 services and straightforward APIs to integrated parachains, Apillon offers an underlying payments module that simplifies the use of Web3 technologies.
 The payments module removes the need for developers to acquire and maintain a positive balance of tokens to pay for underlying services. This way, Apillon can charge for its services in a traditional Saas model, where users pay monthly subscriptions with fiat using credit cards and unlock access to a fixed amount of Web3 services and features.
 The secondary path to pay for Apillon services is through the NCTR token.
-The Governance and Incentivization utilities of the NCTR token deliver a fantastic opportunity for synergy between NCTR payments and product governance.
+The NCTR token's governance and incentivization utilities of the NCTR token deliver a fantastic opportunity for synergy between NCTR payments and product governance.
 
 ## Tokenomics
 
@@ -67,8 +67,8 @@ Total supply: 150,000,000 NCTR
 
 ### Tokenomics Whitepaper
 
-Learn more about the NCTR token, its role in the Apillon business model, and the general tokenomics.
+Learn more about the NCTR token, its role in the Apillon business model, and general tokenomics.
 
-[Access Apillon's NCTR Tokenomics Whitepaper here](https://ipfs.apillon.io/ipfs/bafybeicg6pozb3f6tucqcdaozqqrtkwtiwa7c6dllu223kmnfsev5ep2m4)
+[Access Apillon's NCTR Tokenomics Whitepaper here](https://go.web3approved.com/tokenomics)
 
 [Become a part of the Apillon Community](https://discord.gg/yX3gTw36C4)
