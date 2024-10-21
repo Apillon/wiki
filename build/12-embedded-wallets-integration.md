@@ -478,6 +478,12 @@ All the functionalities of embedded wallets are contained in base package `@apil
 For detailed technical documentation about the embedded wallet SDK, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
 :::
 
+## NPM Packages
+- [Embedded Wallet SDK (@apillon/wallet-sdk)](https://www.npmjs.com/package/@apillon/wallet-sdk)
+- [Embedded Wallet UI (@apillon/wallet-ui)](https://www.npmjs.com/package/@apillon/wallet-ui)
+- [Embedded Wallet React UI (@apillon/wallet-react)](https://www.npmjs.com/package/@apillon/wallet-react)
+- [Embedded Wallet Vue UI (@apillon/wallet-vue)](https://www.npmjs.com/package/@apillon/wallet-vue)
+
 ## Examples
 
 ### React
