@@ -6,7 +6,7 @@ The Cloud Function API provides an interface for developers to deploy, manage, a
 
 > Create a new cloud function to be executed on decentralized processors.
 
-<CodeDiv>POST /acurast/cloud-functions</CodeDiv>
+<CodeDiv>POST /cloud-functions</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -34,7 +34,7 @@ The Cloud Function API provides an interface for developers to deploy, manage, a
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/acurast/cloud-functions" \
+curl --location --request POST "https://api.apillon.io/cloud-functions" \
 --header "Authorization: Bearer :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -73,7 +73,7 @@ curl --location --request POST "https://api.apillon.io/acurast/cloud-functions" 
 
 > Retrieve a list of cloud functions associated with a project.
 
-<CodeDiv>GET /acurast/cloud-functions</CodeDiv>
+<CodeDiv>GET /cloud-functions</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -103,7 +103,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests)
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/acurast/cloud-functions?project_uuid=abc123-project" \
+curl --location --request GET "https://api.apillon.io/cloud-functions?project_uuid=abc123-project" \
 --header "Authorization: Bearer :credentials"
 ```
 
@@ -144,7 +144,7 @@ curl --location --request GET "https://api.apillon.io/acurast/cloud-functions?pr
 
 > Get the details of a specific cloud function by its UUID.
 
-<CodeDiv>GET /acurast/cloud-functions/:function_uuid</CodeDiv>
+<CodeDiv>GET /cloud-functions/:function_uuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -187,7 +187,7 @@ curl --location --request GET "https://api.apillon.io/acurast/cloud-functions?pr
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET "https://api.apillon.io/acurast/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6" \
+curl --location --request GET "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6" \
 --header "Authorization: Bearer :credentials"
 ```
 
@@ -237,7 +237,7 @@ curl --location --request GET "https://api.apillon.io/acurast/cloud-functions/d1
 > Create a job/deployment for a specific cloud function.
 
 
-<CodeDiv>POST /acurast/cloud-functions/:function_uuid/jobs</CodeDiv>
+<CodeDiv>POST /cloud-functions/:function_uuid/jobs</CodeDiv>
 
 ::: warning
 The deployed code should be made on top of this Node.js template: [https://github.com/Apillon/cloud-function-template](https://github.com/Apillon/cloud-function-template)
@@ -278,7 +278,7 @@ If it does not contain the boilerplate code, the deployment will not be accessib
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/jobs" \
+curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/jobs" \
 --header "Authorization: Bearer :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -321,7 +321,7 @@ curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d
 
 > Set the environment variables for a specific cloud function.
 
-<CodeDiv>POST /acurast/cloud-functions/:function_uuid/environment</CodeDiv>
+<CodeDiv>POST /cloud-functions/:function_uuid/environment</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -352,7 +352,7 @@ curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/environment" \
+curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/environment" \
 --header "Authorization: Bearer :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
@@ -386,7 +386,7 @@ curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d
 
 > Delete a specific job using its unique identifier.
 
-<CodeDiv>DELETE /acurast/jobs/:job_uuid</CodeDiv>
+<CodeDiv>DELETE /cloud-functions/jobs/:job_uuid</CodeDiv>
 
 <div class="split_content">
 	<div class="split_side">
@@ -412,7 +412,7 @@ curl --location --request POST "https://api.apillon.io/acurast/cloud-functions/d
       <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request DELETE "https://api.apillon.io/acurast/jobs/e3c86bb2-4190-4bda-9c8a-3852b6d04971" \
+curl --location --request DELETE "https://api.apillon.io/cloud-functions/jobs/e3c86bb2-4190-4bda-9c8a-3852b6d04971" \
 --header "Authorization: Bearer :credentials"
 ```
 
