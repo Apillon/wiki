@@ -611,7 +611,6 @@ Beside validation errors (with 422 http status code) these are the error codes m
 |----------|-----------------------------------------------|
 | 40012002 | Collection quota reached                      |
 | 50012003 | Failed deploying NFT contract on chain.       |
-| 50012010 | Failed to create bucket for storing metadata. |
 
 #### Response
 
