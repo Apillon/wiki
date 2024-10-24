@@ -315,8 +315,8 @@ An NFT Collection can be created with a few features/functionalities:
 
 2 types of collections are supported:
 
-1. Generic collection, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
-2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/nestable) NFT standard - EVM only)
+1. Generic collection, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard / Native NFTs for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
+2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/nestable) NFT standard and [Unique Native NFTs](https://docs.unique.network/reference/blockchain/nesting.html))
 
 Additionally, 2 chain types/environments are supported: EVM and Substrate.
 
@@ -519,8 +519,6 @@ curl --location 'https://api.apillon.io/nfts/collections/evm' \
     "bucketUuid": "a9425ff7-4802-4a38-b771-84a790112c30",
     "baseUri": "https://ipfs.apillon.io/metadata/",
     "baseExtension": ".json",
-    "isSoulbound": false,
-    "isRevokable": false,
     "royaltiesFees": 0.1,
     "royaltiesAddress": "0x4156edbafc5091507de2dd2a53ded551a346f83b",
     "collectionStatus": 0,
@@ -533,6 +531,179 @@ curl --location 'https://api.apillon.io/nfts/collections/evm' \
     "dropReserve": 5,
     "isRevokable": true,
     "isSoulbound": true
+  }
+}
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  </div>
+</div>
+
+
+#### Create Unique NFT Collection
+<br>
+<CodeDiv>POST /nfts/collections/unique</CodeDiv>
+
+<div class="split_content">
+	<div class="split_side">
+
+#### Body fields
+
+| Name           | Type      | Description                                                                                | Required |
+|----------------|-----------|--------------------------------------------------------------------------------------------|----------|
+| collectionType | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable).   | true     |
+| symbol         | `string`  | NFT collection symbol (usually 3-4 characters long).                                       | true     |
+| name           | `string`  | NFT collection name.                                                                       | true     |
+| description    | `string`  | NFT collection description.                                                                | false    |
+| maxSupply      | `number`  | Maximal number of NFTs ever in existence (0 stands for unlimited).                         | true     |
+| isRevokable    | `boolean` | For revocable collection owner can destroy NFTs at any time. (default: false)              | true     |
+| isSoulbound    | `boolean` | Soul bound tokens are NFTs that are bound to wallet and not transferable. (default: false) | true     |
+| metadata       | `object`  | Object containing metadata for different token ids (more details bellow).                  | true     |
+
+#### Metadata field
+Metadata field is an object with token ids as keys and token metadata as values. Here are the fields for each token metadata:
+
+| Name              | Type     | Description                                                                             | Required   |
+|-------------------|----------|-----------------------------------------------------------------------------------------|------------|
+| name              | `string` | NFT name.                                                                               | true       |
+| description       | `string` | NFT description.                                                                        | false      |
+| image             | `string` | NFT image URL.                                                                          | true       |
+| image_details     | `object` | Additional details about the image from the image field (see table bellow).             | false      |
+| attributes        | `array`  | Array of NFT attributes (see table bellow).                                             | true       |
+| animation_url     | `string` | NFT animation URL.                                                                      | false      |
+| animation_details | `object` | Additional details about the animation from the animation_url field (see table bellow). | false      |
+| youtube_url       | `string` | URL to a YouTube video associated with the NFT.                                         | false      |
+| created_by        | `string` | Address of the creator of the NFT.                                                      | false      |
+| external_url      | `string` | URL to an external resource providing more information about the NFT.                   | false      |
+| background_color  | `string` | Background color of the NFT.                                                            | false      |
+| locale            | `string` | Locale of the NFT.                                                                      | false      |
+
+##### Metadata field attributes
+Attributes field of metadata field is an array of NFT traits described bellow:
+
+| Name          | Type      | Description                                       | Required |
+|---------------|-----------|---------------------------------------------------|----------|
+| value         | `string`  | Trait value.                                      | true     |
+| trait_type    | `string`  | Name of the trait.                                | true     |
+| display_type  | `string`  | Type for displaying trait (`number`, `date`,...). | false    |
+
+##### Metadata field image_details and animation_details
+| Name   | Type     | Description                                                                              | Required |
+|--------|----------|------------------------------------------------------------------------------------------|----------|
+| name   | `string` | Name of the image (for captions, etc.).                                                  | false    |
+| type   | `enum`   | Type of content (`image`,`animation`,`video`,`audio`,`spatial`,`pdf`,`document`,`other`) | false    |
+| bytes  | `number` | Size of the image file in bytes.                                                         | false    |
+| format | `string` | Format of the image file (e.g., PNG, JPEG).                                              | false    |
+| sha256 | `string` | SHA-256 hash of the image file.                                                          | false    |
+| width  | `number` | Width of the image in pixels.                                                            | false    |
+| height | `number` | Height of the image in pixels.                                                           | false    |
+| order  | `number` | Order of the image.                                                                      | false    |
+
+You can find more information about metadata in [Unique docs](https://docs.unique.network/reference/schemas/#nft-token-schema-v2-detailed-description).
+
+
+#### Possible errors
+
+Beside validation errors (with 422 http status code) these are the error codes may be returned:
+
+| Code     | Description                                   |
+|----------|-----------------------------------------------|
+| 40012002 | Collection quota reached                      |
+| 50012003 | Failed deploying NFT contract on chain.       |
+| 50012010 | Failed to create bucket for storing metadata. |
+
+#### Response
+
+Response payload is described [under Response Fields above](#get-nft-collection).
+
+  </div>
+  <div class="split_side">
+
+<CodeGroup>
+    <CodeGroupItem title="cURL" active>
+
+```sh
+curl --location 'https://api.apillon.io/nfts/collections/unique' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic :credentials' \
+--data '{
+    "collectionType": 1,
+    "symbol": "NFT",
+    "name": "NFT Collection",
+    "description": "NFT Collection description",
+    "maxSupply": 1000,
+    "isRevokable": true,
+    "isSoulbound": true,
+    "metadata": {
+        "1": {
+            "name": "name",
+            "description": "description",
+            "image": "image",
+            "attributes": [
+                {
+                    "value": "value",
+                    "trait_type": "trait_type",
+                    "display_type": "display_type"
+                }
+            ]
+        },
+        "2": {
+            "name": "name",
+            "description": "description",
+            "image": "image",
+            "attributes": [
+                {
+                    "value": "value",
+                    "trait_type": "trait_type",
+                    "display_type": "display_type"
+                },
+                {
+                    "value": "value",
+                    "trait_type": "trait_type",
+                    "display_type": "display_type"
+                }
+            ]
+        },
+    }
+}'
+```
+
+  </CodeGroupItem>
+  </CodeGroup>
+  <CodeGroup>
+  <CodeGroupItem title="Response">
+
+```json
+{
+  "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
+  "status": 200,
+  "data": {
+    "createTime": "2023-06-13T10:15:58.000Z",
+    "updateTime": "2023-06-13T10:15:58.000Z",
+    "chain": 11,
+    "collectionType": 1,
+    "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
+    "symbol": "NFT",
+    "name": "NFT Collection",
+    "description": "NFT Collection Description",
+    "maxSupply": 1000,
+    "bucketUuid": null,
+    "baseUri": null,
+    "baseExtension": "",
+    "royaltiesFees": 0,
+    "royaltiesAddress": null,
+    "collectionStatus": 0,
+    "contractAddress": "XjuXMnFxcJoAgMCdUQKvvt2Daykq4H9rsCfYEVpF6noFP5u",
+    "transactionHash": "0xb59d8497feb121b0ca0b8480df72a456333edddc68ad65f23b6b8b9028e3a6b3",
+    "deployerAddress": "WmMcyrPY4fivB5FUPN85QPhCMKtnrjmUyAgtXC2oW2XbcnY",
+    "drop": false,
+    "dropStart": 0,
+    "dropPrice": 0,
+    "dropReserve": 0,
+    "isRevokable": true,
+    "isSoulbound": true,
+    "isAutoIncrement": true
   }
 }
 ```
