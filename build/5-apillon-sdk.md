@@ -439,6 +439,49 @@ console.log(
 );
 ```
 
+## Cloud Functions
+
+The Cloud Functions module provides functionalities for managing cloud functions, including creating functions, listing functions, and interacting with specific functions for operations like job creation and environment variable management.
+
+### Usage example
+
+```ts
+import { CloudFunctions } from '@apillon/sdk';
+
+const cloudFunctions = new CloudFunctions({ key: 'yourApiKey', secret: 'yourApiSecret' });
+
+// Create a new cloud function
+const newCloudFunction = await cloudFunctions.createCloudFunction({
+  name: 'My Cloud Function',
+  description: 'Description of my cloud function',
+});
+
+// List all cloud functions
+const { items: cloudFunctionsList } = await cloudFunctions.listCloudFunctions();
+
+// Get details of a specific cloud function
+const cloudFunctionDetails = await cloudFunctions.cloudFunction(newCloudFunction.uuid).get();
+
+// Create a job for the cloud function
+const newJob = await cloudFunctions.cloudFunction(newCloudFunction.uuid).createJob({
+  name: 'My Job',
+  scriptCid: 'QmYtHkLrtGEybxXg53swTHuKPYMXQCbHGeBqpYjYbaVyFV',
+});
+
+// Set environment variables for the cloud function
+const environmentVariables = [
+  { key: 'VAR1', value: 'value1' },
+  { key: 'VAR2', value: 'value2' },
+];
+await cloudFunctions.cloudFunction(newCloudFunction.uuid).setEnvironment(environmentVariables);
+
+// List jobs for the cloud function
+const { jobs: cloudFunctionJobs } = await cloudFunctions.cloudFunction(newCloudFunction.uuid).get();
+
+// Delete a job for the cloud function
+await cloudFunctionJobs[0].delete();
+```
+
 ## Social
 
 The Social module provides functionalities for managing social hubs and channels within the Apillon platform. This includes creating, listing, and interacting with hubs and channels. In the background it utilizes Grill.chat, a mobile-friendly, anonymous chat application powered by Subsocial.

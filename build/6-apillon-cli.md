@@ -756,6 +756,108 @@ apillon nfts list-transactions --uuid "123e4567-e89b-12d3-a456-426655440000"
 }
 ```
 
+## Cloud Function Commands
+
+The Apillon CLI provides a set of commands to manage cloud functions on the Apillon platform. These commands allow you to create, list, and manage cloud functions and their associated jobs.
+
+#### `cloud-functions list`
+
+Lists all cloud functions available in your project.
+
+**Example**
+
+```sh
+apillon cloud-functions list --limit 10 --page 1
+```
+
+#### `cloud-functions get`
+
+Retrieves details of a specific cloud function.
+
+**Options**
+
+- `--uuid <cloud-function-uuid>`: UUID of the cloud function to retrieve.
+
+**Example**
+
+```sh
+apillon cloud-functions get --uuid "123e4567-e89b-12d3-a456-426655440000"
+```
+
+#### `cloud-functions create`
+
+Creates a new cloud function.
+
+**Options**
+
+- `--name <name>`: Name of the cloud function.
+- `--description <description>`: Description of the cloud function (optional).
+
+**Example**
+
+```sh
+apillon cloud-functions create --name "MyFunction" --description "This is a test function"
+```
+
+#### `cloud-functions create-job`
+
+Creates a job for a cloud function from a script file.
+
+**Options**
+
+- `--uuid <cloud-function-uuid>`: UUID of the cloud function.
+- `--name <job-name>`: Name of the job.
+- `--script <path>`: Path to the script file.
+
+**Example**
+
+```sh
+apillon cloud-functions create-job --uuid "123e4567-e89b-12d3-a456-426655440000" --name "MyJob" --script "./path/to/script.js"
+```
+
+#### `cloud-functions set-environment`
+
+Sets environment variables for a cloud function.
+
+**Options**
+
+- `--uuid <cloud-function-uuid>`: UUID of the cloud function.
+- `--variables <variables>`: Environment variables in key=value format, separated by commas.
+
+**Example**
+
+```sh
+apillon cloud-functions set-environment --uuid "123e4567-e89b-12d3-a456-426655440000" --variables "KEY1=value1,KEY2=value2"
+```
+
+#### `cloud-functions list-jobs`
+
+Lists all jobs for a specific cloud function.
+
+**Options**
+
+- `--uuid <cloud-function-uuid>`: UUID of the cloud function.
+
+**Example**
+
+```sh
+apillon cloud-functions list-jobs --uuid "123e4567-e89b-12d3-a456-426655440000"
+```
+
+#### `cloud-functions delete-job`
+
+Deletes a job from a cloud function.
+
+**Options**
+
+- `-j, --job-uuid <job-uuid>`: UUID of the job to delete.
+
+**Example**
+
+```sh
+apillon cloud-functions delete-job --job-uuid "987e6543-e21c-32f1-b123-426655441111"
+```
+
 ## Using in CI/CD tools
 
 CLI is particularly useful for CI/CD builds and pipelines.
