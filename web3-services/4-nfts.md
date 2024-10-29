@@ -2,16 +2,21 @@
 
 Apillon NFT service supports drag-and-drop compilation, deployment, and minting of non-fungible assets.
 
-The service is currently supported by the [Moonbeam Network](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756) and [Astar Network](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f) for EVM and Astar network for substrate based NFTs.
+Service currently supports creating NFT collections on multiple EVM and substrate chains:
+ - [Moonbeam Network](https://blog.apillon.io/guide-nft-service-pt-2-create-and-deploy-nft-collection-on-moonbeam-2d7eedf79756) (EVM and Substrate based NFTs)
+ - [Astar Network](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f) (Substrate based NFTs)
+ - [Unique Network](https://blog.apillon.io/guide-nft-service-create-and-deploy-nft-collection-on-astar-3d6674994b0f) (Substrate based NFTs)
 
-## NFT files
+## NFT media
 
-NFT files are at the front and center of an NFT collection.
+NFT media are at the front and center of an NFT collection.
 
-Apillon NFT Service currently runs on the Moonbeam and Astar parachains, and supports
-[ERC-721](https://eips.ethereum.org/EIPS/eip-721) and [ERC-6059](https://eips.ethereum.org/EIPS/eip-6059) standards for NFTs on EVM and [PSP-34](https://github.com/w3f/PSPs/blob/master/PSPs/psp-34.md) standard for substrate.
+Apillon NFT Service currently runs on the Moonbeam, Astar and Unique parachains, and supports
+[ERC-721](https://eips.ethereum.org/EIPS/eip-721) and [ERC-6059](https://eips.ethereum.org/EIPS/eip-6059) standards for NFTs on EVM and [PSP-34](https://github.com/w3f/PSPs/blob/master/PSPs/psp-34.md) standard and [Unique Native NFTs](https://docs.unique.network/about/nft-features/native.html) for substrate.
 
 The ERC-721 standard packs any file format into permanently stored content on the blockchain. Thanks to Moonbeam’s and Astar’s EVM compatibility, it can be deployed quickly and efficiently with Apillon.
+
+Native NFTs on Unique Network are streamlined, blockchain-integrated tokens that offer simplicity, speed, cost-efficiency, and enhanced security, eliminating the complexities of traditional smart contract-based NFTs.
 
 [Learn more >](https://blog.apillon.io/guide-nft-service-pt-1-generate-nft-art-with-ai-and-get-files-ready-200168b6b303#eb24)
 
@@ -21,7 +26,7 @@ NFT metadata is the backbone of an NFT collection and communicates the essential
 
 It can also include certain attributes that make an NFT one of a kind.
 
-As an essential component of NFT collections, metadata should be managed and stored carefully. To ensure its permanent access free of third-party intervention, Apillon stores it on a decentralized network with [Apillon Web3 Storage bucket](/web3-services/1-good-to-know.html#web3-storage), [Crust Network](https://crust.network/), and [IPFS](https://ipfs.tech/).
+As an essential component of NFT collections, metadata should be managed and stored carefully. To ensure its permanent access free of third-party intervention, Apillon stores it either on-chain via [Unique metadata schema](https://docs.unique.network/reference/schemas/#unique-metadata-schema-v2) or on a decentralized network with [Apillon Web3 Storage bucket](/web3-services/1-good-to-know.html#web3-storage), [Crust Network](https://crust.network/), and [IPFS](https://ipfs.tech/).
 
 Apillon supports metadata that is structured according to the [official OpenSea metadata standard](https://docs.opensea.io/docs/metadata-standards).
 
