@@ -858,6 +858,25 @@ Deletes a job from a cloud function.
 apillon cloud-functions delete-job --job-uuid "987e6543-e21c-32f1-b123-426655441111"
 ```
 
+## Indexing Commands
+
+#### `indexing deploy`
+
+Deploy a local squid indexer repository to an Apillon indexer with a specific UUID.
+The CLI zips files that were added to tar.gz archive, which is created in the builds/ directory.
+The compressed file is uploaded to S3, and the deployment is started. The deployment can take some time, and progress can be monitored on the [Apillon developer console](https://app.apillon.io/dashboard/service/indexing).
+
+**Options**
+
+- `<path>`: Path to local squid repository (indexer source code).
+- `-i <indexer-uuid>`: UUID of the indexer to be deployed.
+
+**Example**
+
+```sh
+apillon indexing deploy ./local-path -i "7af5bea4-7989-41fe-958a-dfe7fa8ff72d"
+```
+
 ## Using in CI/CD tools
 
 CLI is particularly useful for CI/CD builds and pipelines.
