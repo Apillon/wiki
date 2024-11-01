@@ -6,9 +6,9 @@ Apillon's Cloud Function service provides developers with the ability to deploy 
 
 ## What is Acurast?
 
-Acurast is a decentralized, serverless cloud framework that separates the layers of cloud infrastructure into distinct components: consensus, execution, and application. By using mobile devices as decentralized processors, Acurast enables verifiable and confidential computations. This design allows developers to deploy applications without needing to rely on centralized systems, ensuring privacy and data verifiability throughout the entire process.
+Acurast the phone powered decentralized serverless cloud. Leveraging the advantages of mobile phones provided by the Acurast community across the globe, Acurast enables verifiable and confidential computations. Developers can deploy applications without needing to rely on centralized systems, ensuring privacy and data verifiability throughout the entire process.
 
-Through Acurast, developers can run decentralized applications (dApps) that interact seamlessly with both Web3 and Web2 systems. Acurast matches computational jobs to a network of processors using its consensus layer, ensuring secure and efficient task execution. [Learn more](https://docs.acurast.com/).
+Through Acurast, developers can run decentralized applications that interact seamlessly with both Web3 and Web2 systems. Acurast matches computational jobs to a network of Processors providing the requested compute power using through the Acurast protocol, ensuring secure and efficient deployments. [Learn more](https://docs.acurast.com/).
 
 ## Core Features of Apillon's Cloud Function Service
 
