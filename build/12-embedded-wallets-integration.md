@@ -34,7 +34,10 @@ export default defineConfig({
 
 ### Next.js
 
-To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global CSS file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953).
+To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global CSS file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953)
+
+Embedded wallet relies on browser APIs and it doesn't make sense to run it server-side.
+To avoid errors, the component including `<WalletWidget />` should be marked with `'use client';`
 
 ### Nuxt
 
@@ -200,6 +203,18 @@ To find the information for your desired network, visit [chainlist.org](https://
 | rpcUrl      | `string` | The URL to the network's RPC server     |
 | explorerUrl | `string` | The URL to the network's block explorer |
 
+### Button style
+
+You can style the activator button by targeting `#oaw-wallet-widget-btn` css ID.
+Use `disableDefaultActivatorStyle` option to make the button unstyled.
+
+You can also hide the activator button (`display: none;`) and open the wallet programmatically, eg. from a menu item or your own button.
+
+```ts
+// const wallet = getEmbeddedWallet();
+wallet.events.emit("open", true);
+```
+
 ## Use wallet
 
 To access wallet signer and wallet information we provide core imports (hooks/composables):
@@ -211,7 +226,7 @@ To access wallet signer and wallet information we provide core imports (hooks/co
 import { useAccount, useContract, useWallet } from "@apillon/wallet-react";
 
 export default function Component() {
-  const { username, address, getBalance } = useAccount();
+  const { info, getBalance } = useAccount();
   const { wallet, signMessage, sendTransaction } = useWallet();
 
   const { read, write } = useContract({
@@ -229,8 +244,14 @@ export default function Component() {
     return wallet.userExists(username);
   };
 
+  // get account info
+  const getAccountInfo() = async () => {
+    console.log(info.address);
+    console.log(await getBalance());
+  }
+
   // sign a message
-  const onSignMessage = await (msg: string) => {
+  const onSignMessage = async (msg: string) => {
     await signMessage(msg);
   };
 
@@ -271,6 +292,12 @@ const { read, write } = useContract({
 // using wallet core SDK
 function getWalletUserExists(username: string) {
   return wallet.value.userExists(username);
+}
+
+// get account info
+async function getAccountInfo() {
+  console.log(info.address);
+  console.log(await getBalance());
 }
 
 // sign a message
