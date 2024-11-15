@@ -22,13 +22,21 @@ A Vite plugin is required for running and building Vite apps with Embedded Walle
 npm install -D vite-plugin-node-polyfills
 ```
 
+HTTPS needs to be configured even for localhost, so that authentication can work accross multiple domains.
+This can be achieved with vite-plugin-mkcert Vite plugin.
+
+```sh
+npm i vite-plugin-mkcert -D
+```
+
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
+import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig({
-  plugins: [nodePolyfills() /* ... */],
+  plugins: [nodePolyfills(), mkcert() /* ... */],
 });
 ```
 
@@ -38,6 +46,13 @@ To use the Embedded wallet UI, your Next app has to be in `app router` mode. Whe
 
 Embedded wallet relies on browser APIs and it doesn't make sense to run it server-side.
 To avoid errors, the component including `<WalletWidget />` should be marked with `'use client';`
+
+HTTPS needs to be configured even for localhost, so that authentication can work accross multiple domains.
+In Next.js you can do this by adding `--experimental-https` to dev command.
+
+```sh
+next dev --experimental-https
+```
 
 ### Nuxt
 
@@ -75,6 +90,30 @@ To avoid errors, wrap the wallet with `<ClientOnly />`.
     <WalletWidget clientId="..." />
   </ClientOnly>
 </template>
+```
+
+HTTPS needs to be configured even for localhost, so that authentication can work accross multiple domains.
+In Nuxt.js you can do this by:
+
+- add `--https` to dev command
+
+- install [mkcert](https://github.com/FiloSottile/mkcert)
+
+- make a localhost certificate in project folder: `mkcert localhost`
+
+- edit `nuxt.config.ts` to use the certificate for the dev server
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  // ...
+  devServer: {
+    https: {
+      key: "localhost-key.pem",
+      cert: "localhost.pem",
+    },
+  },
+});
 ```
 
 ## Installation
