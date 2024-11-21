@@ -482,6 +482,42 @@ const { jobs: cloudFunctionJobs } = await cloudFunctions.cloudFunction(newCloudF
 await cloudFunctionJobs[0].delete();
 ```
 
+## RPCs
+
+The RPC module provides functionalities for managing RPC API keys and listing available endpoints. This module is essential for interacting with the Apillon platform's RPC services dynamically.
+
+### Usage example
+
+```typescript
+import { Rpc } from '@apillon/sdk';
+import { getConfig } from './helpers/helper';
+
+// Initialize the RPC module
+const rpc = new Rpc({
+  key: 'yourApiKey',
+  secret: 'yourApiSecret',
+});
+
+// Create a new API key
+const apiKey = await rpc.createApiKey({
+  name: 'Test API Key',
+  description: 'Test Description',
+});
+console.log('API Key created:', apiKey.name);
+
+// List all API keys
+const { items } = await rpc.listApiKeys();
+console.log('Total API Keys:', items.length);
+
+// Get a specific API key by ID
+const apiKey = await rpc.apiKey(apiKeyId).get();
+console.log('API Key UUID:', apiKey.uuid);
+
+// List all available endpoints
+const endpoints = await rpc.listEndpoints();
+console.log('Total Endpoints:', endpoints.length);
+```
+
 ## Social
 
 The Social module provides functionalities for managing social hubs and channels within the Apillon platform. This includes creating, listing, and interacting with hubs and channels. In the background it utilizes Grill.chat, a mobile-friendly, anonymous chat application powered by Subsocial.
