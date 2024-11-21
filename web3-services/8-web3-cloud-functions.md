@@ -40,6 +40,41 @@ The Cloud Function service integrates smoothly with various blockchain ecosystem
 
 7. **Load Balancing**: Apillon implements a load balancing mechanism that distributes jobs across multiple processors. If a processor becomes overloaded or inaccessible, Apillon automatically switches to an alternative processor, ensuring uninterrupted service and optimal performance.
 
+## Cloud Function Performance and Scalability
+
+Apillon Cloud Functions are designed to offer robust performance and scalability to meet the needs of various applications. Here are the key details regarding the computational power and parallel execution capabilities:
+
+1. **CPU and RAM Specifications**:
+Each cloud function's CPU and RAM are fully dependent on the phone's capacity, allowing for flexible resource allocation. The Acurast protocol guarantees full uptime and ensures timely execution, with no maximum bundle sizes for applications.
+Developers can specify the required CPU and RAM for their functions during the deployment process, ensuring that the allocated resources match the needs of their applications.
+
+2. **Parallel Execution**:
+Apillon supports the parallel execution of cloud functions across multiple devices, similar to AWS Lambda. This means that a single function can be executed simultaneously on different processors, enhancing performance and reducing execution time.
+The number of devices that can run in parallel depends on the availability of processors in the decentralized network. Apillon's load balancing mechanism ensures optimal distribution of tasks across available devices, maximizing efficiency and reliability.
+
+3. **Scalability**:
+The decentralized nature of Apillon's Cloud Function service allows it to scale dynamically based on demand. Scalability is achieved by deploying to multiple instances and executing in parallel automatically, similar to AWS Lambda. As more devices join the network, the overall computational capacity increases, enabling the system to handle larger workloads and more concurrent executions.
+Apillon's architecture ensures that even during peak usage times, the system can maintain high performance and responsiveness by leveraging the distributed network of processors.
+
+## Using Cloud Functions
+
+### Deploying a Cloud Function
+
+To get started with Apillon Cloud Functions, you can use our developer console and access the [Cloud Functions service](https://app.apillon.io/dashboard/service/cloud-functions).
+Alternatively, you can use the [Cloud Functions API](/build/11-cloud-functions-api.md), our [Cloud Functions SDK](/build/5-apillon-sdk.html#cloud-functions), or our [CLI tool](/build/6-apillon-cli.html#cloud-function-commands) to create, deploy and manage your cloud functions.
+
+We have created a [sample project](https://github.com/Apillon/cloud-function-template) that provides you with a boilerplate example of a cloud function you can deploy.
+You are able to modify, build and deploy this template based on your needs. You may also browse through other examples provided by Acurast on their [GitHub repository](https://github.com/Acurast/acurast-example-apps).
+
+All the code details are available in the project's [README](https://github.com/Apillon/cloud-function-template/blob/main/README.md).
+
+You can read more about cloud function deployment on the [Acurast documentation](https://docs.acurast.com/developers/on-demand-deployments).
+
+### Monitoring and Managing Cloud Functions
+
+You can monitor and manage your cloud functions via the [Cloud Functions service](https://app.apillon.io/dashboard/service/cloud-functions) in the developer console.
+Apillon offers you a way to view the status of your cloud functions, view the deployment history, roll back to an older version and view the usage graph which also shows the number of executions and the error rate.
+
 ## Conclusion
 
 Apillon’s Cloud Function service provides a groundbreaking solution for developers seeking decentralized computing. By leveraging mobile devices and Acurast’s secure, verifiable compute architecture, Apillon allows developers to deploy unstoppable, cross-chain applications in a simple, seamless manner. Key benefits include easy integration with Web3 platforms, real-time monitoring, environment management, job versioning, and load balancing—all ensuring a reliable, privacy-focused, and scalable solution for decentralized computing.
