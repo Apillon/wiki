@@ -31,7 +31,7 @@ The Infrastructure API provides an interface for managing essential infrastructu
 | 40405001 | Project owner not found                  |
 | 50000001 | Internal server error                    |
 | 422001101| RPC API key name is missing              |
-    
+
   </div>
   <div class="split_side">
     <br>
@@ -40,7 +40,7 @@ The Infrastructure API provides an interface for managing essential infrastructu
 
 ```sh
 curl --location --request POST "https://api.apillon.io/rpc/api-key" \
---header "Authorization: Bearer :credentials" \
+--header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"name\": \"RPC API Key\",
@@ -104,7 +104,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests)
 
 ```sh
 curl --location --request GET "https://api.apillon.io/rpc/api-key" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
 </CodeGroupItem>
@@ -194,7 +194,7 @@ curl --location --request GET "https://api.apillon.io/rpc/api-key" \
 
 ```sh
 curl --location --request GET "https://api.apillon.io/rpc/api-key/:id" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
   </CodeGroupItem>
@@ -274,7 +274,7 @@ curl --location --request GET "https://api.apillon.io/rpc/api-key/:id" \
 
 ```sh
 curl --location --request GET "https://api.apillon.io/rpc/endpoints" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
 </CodeGroupItem>

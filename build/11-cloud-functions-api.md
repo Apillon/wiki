@@ -35,7 +35,7 @@ The Cloud Function API provides an interface for developers to deploy, manage, a
 
 ```sh
 curl --location --request POST "https://api.apillon.io/cloud-functions" \
---header "Authorization: Bearer :credentials" \
+--header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"name\": \"My Cloud Function\",
@@ -104,7 +104,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests)
 
 ```sh
 curl --location --request GET "https://api.apillon.io/cloud-functions?project_uuid=abc123-project" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
   </CodeGroupItem>
@@ -188,7 +188,7 @@ curl --location --request GET "https://api.apillon.io/cloud-functions?project_uu
 
 ```sh
 curl --location --request GET "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
   </CodeGroupItem>
@@ -279,7 +279,7 @@ If it does not contain the boilerplate code, the deployment will not be accessib
 
 ```sh
 curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/jobs" \
---header "Authorization: Bearer :credentials" \
+--header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"name\": \"Price fetcher\",
@@ -353,7 +353,7 @@ curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-
 
 ```sh
 curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-4d18-4ef7-9f59-87348590d5a6/environment" \
---header "Authorization: Bearer :credentials" \
+--header "Authorization: Basic :credentials" \
 --header "Content-Type: application/json" \
 --data-raw "{
     \"variables\": [{ \"key\": \"API_KEY\", \"value\": \"12345\" }]
@@ -413,7 +413,7 @@ curl --location --request POST "https://api.apillon.io/cloud-functions/d1e8b9f2-
 
 ```sh
 curl --location --request DELETE "https://api.apillon.io/cloud-functions/jobs/e3c86bb2-4190-4bda-9c8a-3852b6d04971" \
---header "Authorization: Bearer :credentials"
+--header "Authorization: Basic :credentials"
 ```
 
   </CodeGroupItem>
