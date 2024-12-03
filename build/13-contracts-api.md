@@ -1,13 +1,13 @@
 # Contracts API
 
-API for creation and management of smart contracts through Apillon wallets on all supported EVM chains.
+API for creation and management of smart contracts through Apillon wallets on supported EVM chains.
 
-Enables developers without blockchain experience to automate, scale, efficiently manage, secure, and ensure transparency 
-in smart contract operations on the blockchain through simple API calls.
+Enables developers (even without blockchain experience) to deploy, automate, scale, and efficiently manage smart contracts
+on the blockchain through simple API calls.
 
 ### Get Contract
 
-> Get contracts (available for deploy) by UUID
+> Get contract (available for deploy) by UUID
 
 <CodeDiv>GET /contracts/:uuid</CodeDiv>
 
@@ -26,25 +26,28 @@ in smart contract operations on the blockchain through simple API calls.
 | -------- |---------------------|
 | 40421001 | Contract not found. |
 
-#### Response
+#### Response Fields
+Contract that can be used to create an instance of deployed contract.
 
-Response is a list of items (shorter version) described [under Response Fields above](#response-fields-2).
+| Name            | Type       | Description                                         |
+| --------------- |------------|-----------------------------------------------------|
+| contractUuid    | `string`   | Unique identifier for the contract.                 |
+| contractType    | `number`   | Type identifier of the contract (described bellow). |
+| chainType       | `number`   | Type of blockchain the contract is deployed on.     |
+| name            | `string`   | Name of the contract.                               |
+| description     | `string`   | Description of the contract.                        |
+| contractVersion | `string`   | Version of the contract.                            |
+| createTime      | `DateTime` | Creation time of the contract.                      |
+| updateTime      | `DateTime` | Update time of the contract.                        |
 
-Item is a shorter version because it is a flat object and it doesn't include nested `contractVersion` (with `abi`,
-`methods` and `contract`), instead it exposes some details from this table:
+##### Contract Types
 
-##### Response Fields
-
-| Name            | Type              | Description                                         |
-| --------------- |-------------------|-----------------------------------------------------|
-| contractUuid    | `string`          | Unique identifier for the contract.                 |
-| contractType    | `number`          | Type identifier of the contract (described bellow). |
-| chainType       | `number`          | Type of blockchain the contract is deployed on.     |
-| name            | `string`          | Name of the contract.                               |
-| description     | `string`          | Description of the contract.                        |
-| contractVersion | `ContractVersion` | Version of the contract (if available).             |
-| createTime      | `DateTime`        | Creation time of the contract.                      |
-| updateTime      | `DateTime`        | Update time of the contract.                        |
+| Name      | Value | Description                   |
+|-----------|-------|-------------------------------|
+| OTHER     | 1     | Other Contracts               |
+| ERC_20    | 2     | ERC-20 Compatible Contracts   |
+| ERC_721   | 3     | ERC-721 Compatible Contracts  |
+| ERC_1155  | 4     | ERC-1155 Compatible Contracts |
 
 ##### Contract Version
 Version of the contract used for deploying.
@@ -58,6 +61,7 @@ Version of the contract used for deploying.
 | updateTime          | `DateTime`  | Contract last update time.                             |
 
 ###### Contract ABI
+ABI for deployable contract.
 
 | Name            | Type           | Description                                  |
 | --------------- | -------------- | -------------------------------------------- |
@@ -67,6 +71,7 @@ Version of the contract used for deploying.
 | outputs         | `Output[]`     | List of output parameters for the function.  |
 
 ###### Contract Method
+Methods of deployable contract.
 
 | Name          | Type       | Description                          |
 | ------------- | ---------- | ------------------------------------ |
@@ -75,6 +80,7 @@ Version of the contract used for deploying.
 | description   | `string`   | Description of the method.           |
 | createTime    | `DateTime` | Creation time of the method.         |
 | updateTime    | `DateTime` | Update time of the method.           |
+
 
   </div>
   <div class="split_side">
@@ -292,7 +298,9 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests), 
 #### Response Fields
 Endpoint returns ABI methods as an array.
 
-Array item(s) format depends on value of `solidityJson` passed as query parameter (human-readable ABI or ABI in Solidity JSON format).
+Array item(s) format depends on value of `solidityJson` passed as query parameter:
+- Human-readable ABI (solidityJson=false)
+- ABI in Solidity JSON format (solidityJson=true)
 
 </div>
 </div>
@@ -300,7 +308,7 @@ Array item(s) format depends on value of `solidityJson` passed as query paramete
 
 ### Deploy Contract
 
-> Deploy a new contract
+> Deploy an instance of contract
 
 <CodeDiv>POST /contracts/:uuid/deploy</CodeDiv>
 
@@ -423,7 +431,7 @@ curl --location 'https://api.apillon.io/contracts/:uuid/deploy' \
 
 #### Response Fields
 
-| Name                 | Type                         | Description                                                            |
+| Field                | Type                         | Description                                                            |
 |----------------------|------------------------------|------------------------------------------------------------------------|
 | contractUuid         | `string`                     | Unique identifier of the contract.                                     |
 | projectUuid          | `string`                     | Unique identifier of the project.                                      |
@@ -441,19 +449,6 @@ curl --location 'https://api.apillon.io/contracts/:uuid/deploy' \
 | createTime           | `DateTime`                   | Collection create time.                                                |
 | updateTime           | `DateTime`                   | Collection last update time.                                           |
 
-###### Contract
-Contract details can be found under contractVersion.contract. 
-
-| Name            | Type       | Description                                         |
-| --------------- |------------|-----------------------------------------------------|
-| contractUuid    | `string`   | Unique identifier for the contract.                 |
-| contractType    | `number`   | Type identifier of the contract (described bellow). |
-| chainType       | `number`   | Type of blockchain the contract is deployed on.     |
-| name            | `string`   | Name of the contract.                               |
-| description     | `string`   | Description of the contract.                        |
-| contractVersion | `string`   | Version of the contract.                            |
-| createTime      | `DateTime` | Creation time of the contract.                      |
-| updateTime      | `DateTime` | Update time of the contract.                        |
 
 </div>
   <div class="split_side">
@@ -603,15 +598,6 @@ curl --location 'https://api.apillon.io/contracts/deployed/:uuid' --header 'Auth
 | Moonbase   | 1287   | Moonbase Network |
 | Moonbeam   | 1284   | Moonbeam Network |
 
-###### Contract Types
-
-| Name      | Value | Description                   |
-|-----------|-------|-------------------------------|
-| OTHER     | 1     | Other Contracts               |
-| ERC_20    | 2     | ERC-20 Compatible Contracts   |
-| ERC_721   | 3     | ERC-721 Compatible Contracts  |
-| ERC_1155  | 4     | ERC-1155 Compatible Contracts |
-
 ##### Contract Statuses
 
 | Name             | Value | Description                     |
@@ -635,6 +621,7 @@ curl --location 'https://api.apillon.io/contracts/deployed/:uuid' --header 'Auth
 ### List Deployed Contracts
 
 > Get a list of deployed contracts
+
 > Items are paginated and can be filtered and ordered through query parameters.
 
 <CodeDiv>GET /contracts/deployed</CodeDiv>
@@ -652,7 +639,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests) p
 
 #### Response
 
-Response is a list of items (shorter version) described [under Response Fields above](#response-fields-2).
+Response is a list of items (shorter version) described [under Response Fields above](#response-fields).
 
 Item is a shorter version because it is a flat object and it doesn't include nested `contractVersion` (with `abi`, 
 `methods` and `contract`), instead it exposes some details from this table:
@@ -742,7 +729,7 @@ curl --location 'https://api.apillon.io/contracts/deployed' --header 'Authorizat
 
 ### Call Deployed Contract
 
-> Execute a function on a deployed contract
+> Execute a write function on a deployed contract
 
 <CodeDiv>POST /contracts/deployed/:uuid/call</CodeDiv>
 
@@ -776,10 +763,9 @@ NOTE: See contract ABI for available methods and arguments required for calling 
 | 50021006 | Contract address missing.                 |
 
 #### Response
-A response is an instance of the newly created [contract](/build/8-computing-api.html#response-fields-computing-contract).
+Response contains transaction details.
 
 ##### Response Fields
-Response with transaction details.
 
 | Name              | Type        | Description                                   |
 |-------------------|-------------| --------------------------------------------- |
@@ -792,7 +778,7 @@ Response with transaction details.
 | transactionHash   | `string`    | Hash of the transaction.                      |
 | referenceTable    | `string`    | Reference table for the transaction metadata. |
 | referenceId       | `string`    | Reference identifier for related data.        |
-| data              | `null`      | Additional transaction data (if any).         |
+| data              | `any`       | Additional transaction data (if any).         |
 | projectUuid       | `string`    | Unique identifier of the project.             |
 
 </div>
@@ -931,9 +917,7 @@ curl --location --request GET 'https://api.apillon.io/contracts/deployed/:uuid/a
 | 40300000  | Not allowed to access deployed contract.  |
 
 #### Response
-Endpoint returns archived contract.
-
-Array item(s) format depends on value of `solidityJson` passed as query parameter (human-readable ABI or ABI in Solidity JSON format).
+Response includes details about archived contract.
 
 ##### Response Fields
 
@@ -1002,7 +986,7 @@ curl --location --request GET 'https://api.apillon.io/contracts/deployed/:uuid/a
 
 ### List Contract Transactions
 
-> Get a list of transactions for a deployed contract
+> Get a list of transactions for deployed contract
 
 <CodeDiv>GET /contracts/deployed/:uuid/transactions</CodeDiv>
 
@@ -1034,9 +1018,24 @@ Endpoint returns transactions for deployed contract based on filters.
 
 ##### Response Fields
 
-| Name                  | Type               | Description                                   |
-| --------------------- |--------------------| --------------------------------------------- |
-| createTime            | `DateTime`         | Creation time of the contract.                |
+| Name                    | Type       | Description                         |
+|-------------------------|------------|-------------------------------------|
+| `contractUuid`          | `string`   | UUID of the contract.               | 
+| `projectUuid`           | `string`   | UUID of the associated project.     | 
+| `name`                  | `string`   | Name of the contract.               | 
+| `description`           | `string`   | Description of the contract.        | 
+| `chainType`             | `number`   | Type of blockchain chain.           | 
+| `chain`                 | `number`   | ID of the blockchain.               | 
+| `versionId`             | `number`   | Version ID of the contract.         | 
+| `constructorArguments`  | `any[]`    | Arguments for the constructor.      | 
+| `contractStatus`        | `number`   | Status of the contract deployment.  | 
+| `contractAddress`       | `string`   | Deployed contract address.          | 
+| `deployerAddress`       | `string`   | Address of the deployer.            | 
+| `transactionHash`       | `string`   | Transaction hash of deployment.     | 
+| `contractVersion`       | `string`   | Version of the contract (nullable). |
+| `createTime`            | `Datetime` | Creation time of the contract.      | 
+| `updateTime`            | `Datetime` | Last update time of the contract.   | 
+
 
   </div>
   <div class="split_side">
@@ -1045,7 +1044,7 @@ Endpoint returns transactions for deployed contract based on filters.
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location --request GET 'https://api.apillon.io/contracts/deployed/:uuid' --header 'Authorization: Basic :credentials'
+curl --location --request GET 'https://api.apillon.io/contracts/deployed/:uuid/transactions' --header 'Authorization: Basic :credentials'
 ```
 
   </CodeGroupItem>
