@@ -1,4 +1,4 @@
-# Contracts API
+# Smart Contracts API
 
 API for creation and management of smart contracts through Apillon wallets on supported EVM chains.
 
@@ -360,7 +360,7 @@ Array item(s) format depends on value of `solidityJson` passed as query paramete
     <CodeGroupItem title="cURL" active>
 
 ```sh
-curl --location 'https://api.apillon.io/contracts/:uuid/deploy' \ 
+curl --location 'https://api.apillon.io/contracts/:uuid/deploy' \
 --header 'Authorization: Basic :credentials'
 --data-raw '{
     "name": "Test Contract 2",
@@ -641,7 +641,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests) p
 
 Response is a list of items (shorter version) described [under Response Fields above](#response-fields).
 
-Item is a shorter version because it is a flat object and it doesn't include nested `contractVersion` (with `abi`, 
+Item is a shorter version because it is a flat object and it doesn't include nested `contractVersion` (with `abi`,
 `methods` and `contract`), instead it exposes some details from this table:
 
 ##### Response Fields
@@ -857,7 +857,7 @@ All query parameters from [listing request](1-apillon-api.md#listing-requests), 
 | 40300000  | Not allowed to access deployed contract.   |
 
 #### Response
-Endpoint returns ABI methods as an array. 
+Endpoint returns ABI methods as an array.
 
 Array item(s) format depends on value of `solidityJson` passed as query parameter (human-readable ABI or ABI in Solidity JSON format).
 
@@ -1020,21 +1020,21 @@ Endpoint returns transactions for deployed contract based on filters.
 
 | Name                    | Type       | Description                         |
 |-------------------------|------------|-------------------------------------|
-| `contractUuid`          | `string`   | UUID of the contract.               | 
-| `projectUuid`           | `string`   | UUID of the associated project.     | 
-| `name`                  | `string`   | Name of the contract.               | 
-| `description`           | `string`   | Description of the contract.        | 
-| `chainType`             | `number`   | Type of blockchain chain.           | 
-| `chain`                 | `number`   | ID of the blockchain.               | 
-| `versionId`             | `number`   | Version ID of the contract.         | 
-| `constructorArguments`  | `any[]`    | Arguments for the constructor.      | 
-| `contractStatus`        | `number`   | Status of the contract deployment.  | 
-| `contractAddress`       | `string`   | Deployed contract address.          | 
-| `deployerAddress`       | `string`   | Address of the deployer.            | 
-| `transactionHash`       | `string`   | Transaction hash of deployment.     | 
+| `contractUuid`          | `string`   | UUID of the contract.               |
+| `projectUuid`           | `string`   | UUID of the associated project.     |
+| `name`                  | `string`   | Name of the contract.               |
+| `description`           | `string`   | Description of the contract.        |
+| `chainType`             | `number`   | Type of blockchain chain.           |
+| `chain`                 | `number`   | ID of the blockchain.               |
+| `versionId`             | `number`   | Version ID of the contract.         |
+| `constructorArguments`  | `any[]`    | Arguments for the constructor.      |
+| `contractStatus`        | `number`   | Status of the contract deployment.  |
+| `contractAddress`       | `string`   | Deployed contract address.          |
+| `deployerAddress`       | `string`   | Address of the deployer.            |
+| `transactionHash`       | `string`   | Transaction hash of deployment.     |
 | `contractVersion`       | `string`   | Version of the contract (nullable). |
-| `createTime`            | `Datetime` | Creation time of the contract.      | 
-| `updateTime`            | `Datetime` | Last update time of the contract.   | 
+| `createTime`            | `Datetime` | Creation time of the contract.      |
+| `updateTime`            | `Datetime` | Last update time of the contract.   |
 
 
   </div>
