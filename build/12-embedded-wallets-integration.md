@@ -45,7 +45,7 @@ export default defineConfig({
 To use the Embedded wallet UI, your Next app has to be in `app router` mode. When in `pages routing` mode, global CSS file imports throw an error. [Github Discussion](https://github.com/vercel/next.js/discussions/27953)
 
 Embedded wallet relies on browser APIs and it doesn't make sense to run it server-side.
-To avoid errors, the component including `<WalletWidget />` should be marked with `'use client';`
+To avoid errors, the component including `<EmbeddedWallet />` should be marked with `'use client';`
 
 HTTPS needs to be configured even for localhost, so that authentication can work accross multiple domains.
 In Next.js you can do this by adding `--experimental-https` to dev command.
@@ -87,7 +87,7 @@ To avoid errors, wrap the wallet with `<ClientOnly />`.
 ```vue
 <template>
   <ClientOnly>
-    <WalletWidget clientId="..." />
+    <EmbeddedWallet clientId="..." />
   </ClientOnly>
 </template>
 ```
@@ -154,9 +154,9 @@ Replace the parameters with however you wish to setup your wallet.
   <CodeGroupItem title="React / Next.js" active>
 
 ```tsx
-import { WalletWidget } from "@apillon/wallet-react";
+import { EmbeddedWallet } from "@apillon/wallet-react";
 
-<WalletWidget
+<EmbeddedWallet
   clientId={"YOUR INTEGRATION UUID HERE"}
   defaultNetworkId={1287}
   networks={[
@@ -175,9 +175,9 @@ import { WalletWidget } from "@apillon/wallet-react";
     <CodeGroupItem title="Vue / Nuxt">
 
 ```tsx
-import { WalletWidget } from "@apillon/wallet-vue";
+import { EmbeddedWallet } from "@apillon/wallet-vue";
 
-<WalletWidget
+<EmbeddedWallet
   clientId="YOUR INTEGRATION UUID HERE"
   :defaultNetworkId="1287"
   :networks="[
@@ -218,14 +218,24 @@ EmbeddedWalletUI("#wallet", {
 
 ### Parameters
 
-| Field                        | Type        | Required | Description                                                                                                                                                    |
-| ---------------------------- | ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| clientId                     | `string`    | Yes      | UUID of the integration that you obtain when creating it on the [Apillon embedded wallet dashboard](https://app.apillon.io/dashboard/service/embedded-wallet). |
-| defaultNetworkId             | `number`    | No       | Chain ID set as default when opening wallet.                                                                                                                   |
-| networks                     | `Network[]` | No       | Array of network specifications                                                                                                                                |
-| broadcastAfterSign           | `boolean`   | No       | Automatically broadcast with SDK after confirming a transaction.                                                                                               |
-| disableDefaultActivatorStyle | `boolean`   | No       | Remove styles from "open wallet" button                                                                                                                        |
-| authFormPlaceholder          | `string`    | No       | Placeholder displayed in input for username/email                                                                                                              |
+| Field                        | Type              | Required | Description                                                                                                                                                    |
+| ---------------------------- | ----------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| clientId                     | `string`          | Yes      | UUID of the integration that you obtain when creating it on the [Apillon embedded wallet dashboard](https://app.apillon.io/dashboard/service/embedded-wallet). |
+| passkeyAuthMode              | `AuthPasskeyMode` | No       | Method for authenticating with passkey to make it global. Default is `redirect`                                                                                |
+| defaultNetworkId             | `number`          | No       | Chain ID set as default when opening wallet.                                                                                                                   |
+| networks                     | `Network[]`       | No       | Array of network specifications                                                                                                                                |
+| broadcastAfterSign           | `boolean`         | No       | Automatically broadcast with SDK after confirming a transaction.                                                                                               |
+| disableDefaultActivatorStyle | `boolean`         | No       | Remove styles from "open wallet" button                                                                                                                        |
+| authFormPlaceholder          | `string`          | No       | Placeholder displayed in input for username/email                                                                                                              |
+
+#### AuthPasskeyMode
+
+| Option        | Description                                  |
+| ------------- | -------------------------------------------- |
+| `redirect`    | Open registration form in the same tab       |
+| `tab_form`    | Open registration form in a new tab          |
+| `tab_process` | Process registration in a new tab            |
+| `popup`       | Process registration in a new browser window |
 
 #### Network Object
 
@@ -235,12 +245,15 @@ The Network Object defines the properties required to connect to a blockchain ne
 To find the information for your desired network, visit [chainlist.org](https://chainlist.org).
 :::
 
-| Field       | Type     | Description                             |
-| ----------- | -------- | --------------------------------------- |
-| name        | `string` | The name of the network                 |
-| id          | `number` | The unique Chain ID of the network      |
-| rpcUrl      | `string` | The URL to the network's RPC server     |
-| explorerUrl | `string` | The URL to the network's block explorer |
+| Field            | Type     | Description                                                         |
+| ---------------- | -------- | ------------------------------------------------------------------- |
+| name             | `string` | The name of the network                                             |
+| id               | `number` | The unique Chain ID of the network                                  |
+| rpcUrl           | `string` | The URL to the network's RPC server                                 |
+| explorerUrl      | `string` | The URL to the network's block explorer                             |
+| imageUrl         | `string` | Optional. Icon of the chain for display in UI                       |
+| currencySymbol   | `string` | Optional. Symbol of the native currency (default is 'ETH')          |
+| currencyDecimals | `number` | Optional. Number of decimals of the native currency (default is 18) |
 
 ### Button style
 
@@ -380,6 +393,25 @@ const signer = new EmbeddedEthersSigner();
 await signer.signMessage("test message");
 ```
 
+::: warning
+Beware when changing wallet chain after initializing any ethers object (e.g. `const myContract = new ethers.Contract(..., signer);`).
+These objects are not reactive by default, so the previous chain will be used.
+
+Events `'chainChanged'` and `'dataUpdated'` on `embeddedWallet.events` are emitted when wallet chain is updated, you can use these events to reinitialize any stale objects.
+:::
+
+::: details Chain change event handler example
+
+```js
+getEmbeddedWallet()?.events.on("dataUpdated", ({ name, newValue }) => {
+  if (name === "defaultNetworkId") {
+    // ...
+  }
+});
+```
+
+:::
+
 ### Viem
 
 To use [viem](https://viem.sh/) we provide a specialized Viem adapter.
@@ -414,6 +446,25 @@ await walletClient.sendRawTransaction({
   ),
 });
 ```
+
+::: warning
+Beware when changing wallet chain after initializing any viem object with a specific chain (e.g. `const walletClient = createWalletClient(...);`).
+If not changed, this chain will be used even after changing chain in the wallet.
+
+Events `'chainChanged'` and `'dataUpdated'` on `embeddedWallet.events` are emitted when wallet chain is updated, you can use these events to reinitialize any stale objects (or update reactive state e.g.).
+:::
+
+::: details Chain change event handler example
+
+```js
+getEmbeddedWallet()?.events.on("dataUpdated", ({ name, newValue }) => {
+  if (name === "defaultNetworkId") {
+    // ...
+  }
+});
+```
+
+:::
 
 ### Wagmi
 
@@ -545,7 +596,7 @@ document
 
 ## Create custom UI
 
-All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. The SDK exposes all the core methods of the wallet and you can create completely custom UI of the wallet on top of it.
+All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. The SDK exposes all the core methods of the wallet and you can create a completely custom UI of the wallet on top of it.
 
 ::: tip
 For detailed technical documentation about the embedded wallet SDK, visit [the github repository](https://github.com/Apillon/embedded-wallet/tree/main/packages/sdk)
