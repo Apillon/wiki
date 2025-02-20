@@ -230,12 +230,11 @@ EmbeddedWalletUI("#wallet", {
 
 #### AuthPasskeyMode
 
-| Option        | Description                                  |
-| ------------- | -------------------------------------------- |
-| `redirect`    | Open registration form in the same tab       |
-| `tab_form`    | Open registration form in a new tab          |
-| `tab_process` | Process registration in a new tab            |
-| `popup`       | Process registration in a new browser window |
+| Option        | Description                                    |
+| ------------- | ---------------------------------------------- |
+| `popup`       | Process registration in a browser popup window |
+| `redirect`    | Open registration form in the same tab         |
+| `tab_form`    | Open registration form in a new tab            |
 
 #### Network Object
 
