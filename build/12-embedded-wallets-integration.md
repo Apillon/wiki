@@ -594,6 +594,73 @@ document
 </CodeGroupItem>
 </CodeGroup>
 
+## SDK events
+
+The SDK uses an event bus for async communication with embedded wallet's UI and for programmatic interface.
+The events are exposed on the `events` property of the SDK instance.
+These events can be used to make your app more reactive and to offer embedded wallet functionality through your own UI.
+
+Events are implemented with [Mitt](https://github.com/developit/mitt), the API is basically 3 methods: `on`, `emit` and `off`.
+
+### UI events
+
+- `dataUpdated`
+  Emitted after state data changes, e.g. for keeping track of active account
+
+- `open`
+  Emit to open or close Embedded wallet UI
+
+- `addToken`
+  Emit to programmatically add an ERC20 token
+
+```js
+wallet.events.emit("addToken", {
+  address: "0x...",
+  symbol: "USDC",
+  decimals: 6,
+  name: "USD Coin",
+});
+```
+
+- `addTokenNft`
+  Emit to programmatically add an NFT token
+
+```js
+wallet.events.emit("addTokenNft", {
+  address: "0x...",
+  tokenId: 8,
+});
+```
+
+- `addTokenStatus`
+  Emitted when `addToken` or `addTokenNft` resolves.
+
+```js
+wallet.events.on(
+  "addTokenStatus",
+  ({ success, info, token, nft }: Events["addTokenStatus"]) => {
+    console.log(success ? "Success" : "Error", info, token, nft);
+  }
+);
+```
+
+### Transaction events
+
+- `signatureRequest`
+  e.g. display UI with message and approve/decline buttons
+
+- `txApprove`
+  e.g. display UI with transaction details and approve/decline buttons
+
+- `txSubmitted`
+  e.g. log the transaction in session storage or own backend
+
+- `txDone`
+  Emitted by UI after a submitted tx is consisdered done (ethereum provider listener)
+
+- `requestChainChange`
+  Emitted when tx chainId is different from defaultNetworkId. Must be resolve()'d to continue with the tx execution.
+
 ## Create custom UI
 
 All the functionalities of embedded wallets are contained in base package `@apillon/wallet-sdk`. The SDK exposes all the core methods of the wallet and you can create a completely custom UI of the wallet on top of it.
