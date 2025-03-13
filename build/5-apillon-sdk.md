@@ -296,21 +296,21 @@ const uniqueCollection = await nft.createUnique({
       name: 'Unique NFT 1',
       description: 'Description for Unique NFT 1',
       image: 'https://example.com/nft1.png',
-      attributes: {
+      attributes: [{
         trait_type: 'color',
         value: 'red',
         display_type: 'string',
-      },
+      }],
     },
     '2': {
       name: 'Unique NFT 2',
       description: 'Description for Unique NFT 2',
       image: 'https://example.com/nft2.png',
-      attributes: {
+      attributes: [{
         trait_type: 'color',
         value: 'blue',
         display_type: 'string',
-      },
+      }],
     },
   },
 });
