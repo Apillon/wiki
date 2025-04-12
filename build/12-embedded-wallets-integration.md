@@ -224,17 +224,19 @@ EmbeddedWalletUI("#wallet", {
 | passkeyAuthMode              | `AuthPasskeyMode` | No       | Method for authenticating with passkey to make it global. Default is `redirect`                                                                                |
 | defaultNetworkId             | `number`          | No       | Chain ID set as default when opening wallet.                                                                                                                   |
 | networks                     | `Network[]`       | No       | Array of network specifications                                                                                                                                |
+| networksSubstrate            | `Network[]`       | No       | Substrate networks. If no network is provided, substrate is disabled.                                                                                          |
 | broadcastAfterSign           | `boolean`         | No       | Automatically broadcast with SDK after confirming a transaction.                                                                                               |
 | disableDefaultActivatorStyle | `boolean`         | No       | Remove styles from "open wallet" button                                                                                                                        |
 | authFormPlaceholder          | `string`          | No       | Placeholder displayed in input for username/email                                                                                                              |
+| injectPolkadot               | `boolean`         | No       | Register wallet as an injected web3 wallet, which can then be used via @polkadot/extension-dapp                                                                |
 
 #### AuthPasskeyMode
 
-| Option        | Description                                    |
-| ------------- | ---------------------------------------------- |
-| `popup`       | Process registration in a browser popup window |
-| `redirect`    | Open registration form in the same tab         |
-| `tab_form`    | Open registration form in a new tab            |
+| Option     | Description                                    |
+| ---------- | ---------------------------------------------- |
+| `popup`    | Process registration in a browser popup window |
+| `redirect` | Open registration form in the same tab         |
+| `tab_form` | Open registration form in a new tab            |
 
 #### Network Object
 
@@ -244,15 +246,15 @@ The Network Object defines the properties required to connect to a blockchain ne
 To find the information for your desired network, visit [chainlist.org](https://chainlist.org).
 :::
 
-| Field            | Type     | Description                                                         |
-| ---------------- | -------- | ------------------------------------------------------------------- |
-| name             | `string` | The name of the network                                             |
-| id               | `number` | The unique Chain ID of the network                                  |
-| rpcUrl           | `string` | The URL to the network's RPC server                                 |
-| explorerUrl      | `string` | The URL to the network's block explorer                             |
-| imageUrl         | `string` | Optional. Icon of the chain for display in UI                       |
-| currencySymbol   | `string` | Optional. Symbol of the native currency (default is 'ETH')          |
-| currencyDecimals | `number` | Optional. Number of decimals of the native currency (default is 18) |
+| Field            | Type               | Description                                                                   |
+| ---------------- | ------------------ | ----------------------------------------------------------------------------- |
+| name             | `string`           | The name of the network                                                       |
+| id               | `number \| string` | The unique Chain ID of the network. `number` for evm, `string` for substrate. |
+| rpcUrl           | `string`           | The URL to the network's RPC server                                           |
+| explorerUrl      | `string`           | The URL to the network's block explorer                                       |
+| imageUrl         | `string`           | Optional. Icon of the chain for display in UI                                 |
+| currencySymbol   | `string`           | Optional. Symbol of the native currency (default is 'ETH')                    |
+| currencyDecimals | `number`           | Optional. Number of decimals of the native currency (default is 18)           |
 
 ### Button style
 
@@ -669,6 +671,7 @@ For detailed technical documentation about the embedded wallet SDK, visit [the g
 :::
 
 ## NPM Packages
+
 - [Embedded Wallet SDK (@apillon/wallet-sdk)](https://www.npmjs.com/package/@apillon/wallet-sdk)
 - [Embedded Wallet UI (@apillon/wallet-ui)](https://www.npmjs.com/package/@apillon/wallet-ui)
 - [Embedded Wallet React UI (@apillon/wallet-react)](https://www.npmjs.com/package/@apillon/wallet-react)
