@@ -595,6 +595,101 @@ document
 </CodeGroupItem>
 </CodeGroup>
 
+### Polkadot extension
+
+Polkadot/substrate interaction with embedded wallet can be done with [Dapp extension API](https://polkadot.js.org/docs/extension/usage/).
+
+To register the standard signer and options for injected wallets, you must set `injectPolkadot` in [**configuration**](#parameters) to `true`.
+
+<CodeGroup>
+<CodeGroupItem title="Sign a raw message" active>
+
+```ts
+async function signMessage() {
+  await web3Enable("my cool dapp");
+
+  const allAccounts = await web3Accounts();
+
+  const account = allAccounts.find(
+    (a) => a.meta.source === "apillon-embedded-wallet"
+  );
+
+  if (!account) {
+    // no embedded wallet account
+    return;
+  }
+  const injector = await web3FromSource(account.meta.source);
+
+  const signRaw = injector?.signer?.signRaw;
+
+  if (!!signRaw) {
+    console.log(
+      await signRaw({
+        address: account.address,
+        data: stringToHex("message to sign"),
+        type: "bytes",
+      })
+    );
+  }
+}
+```
+
+</CodeGroupItem>
+<CodeGroupItem title="Sign a polkadot.js transaction (extrinsic)" active>
+
+```ts
+async function signTransaction() {
+  await web3Enable("my cool dapp");
+
+  const w = getEmbeddedWallet();
+  const api = await w?.ss.getApiForNetworkId();
+
+  if (!api) {
+    // no polkadot api
+    return;
+  }
+
+  const allAccounts = await web3Accounts();
+
+  const account = allAccounts.find(
+    (a) => a.meta.source === "apillon-embedded-wallet"
+  );
+
+  if (!account) {
+    // no embedded wallet account
+    return;
+  }
+
+  const injector = await web3FromSource(account.meta.source);
+
+  const transferExtrinsic = api.tx.balances.transferAllowDeath(
+    "5H6Ym2FDEn8u5sfitLyKfGRMMZhmp2u855bxQBxDUn4ekhbK",
+    0.01 * 1e12
+  );
+
+  transferExtrinsic
+    .signAndSend(
+      account.address,
+      { signer: injector.signer, withSignedTransaction: true },
+      ({ status }) => {
+        if (status.isInBlock) {
+          console.log(
+            `Completed at block hash #${status.asInBlock.toString()}`
+          );
+        } else {
+          console.log(`Current status: ${status.type}`);
+        }
+      }
+    )
+    .catch((error: any) => {
+      console.log(":( transaction failed", error);
+    });
+}
+```
+
+</CodeGroupItem>
+</CodeGroup>
+
 ## SDK events
 
 The SDK uses an event bus for async communication with embedded wallet's UI and for programmatic interface.
