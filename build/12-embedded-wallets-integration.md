@@ -601,6 +601,10 @@ Polkadot/substrate interaction with embedded wallet can be done with [Dapp exten
 
 To register the standard signer and options for injected wallets, you must set `injectPolkadot` in [**configuration**](#parameters) to `true`.
 
+::: danger
+`withSignedTransaction: true` option must be set when using extrinsics with embedded wallet as a polkadot injected wallet.
+:::
+
 <CodeGroup>
 <CodeGroupItem title="Sign a raw message" active>
 
