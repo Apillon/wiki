@@ -12,11 +12,14 @@ Apillon's adaptability and interoperability allow builders to seamlessly merge u
 
 Thanks to easy integration into any development framework, the Apillon APIs introduce a new way of Web3 development that significantly simplifies the go-to-market product evolution.
 
-Initially, the Apillon platform will incorporate APIs to the following Polkadot parachains:
+Currently, the Apillon platform incorporates APIs to the following Polkadot parachains:
+* [Crust](https://crust.network/)
 * [Moonbeam](https://moonbeam.network/)
 * [KILT](https://www.kilt.io/)
-* [Crust](https://crust.network/)
 * [Phala](https://www.phala.network/)
+* [Acurast](https://acurast.com/)
+* [Subsocial](https://www.subsocial.network/)
+* [Asset Hub](https://docs.polkadot.com/polkadot-protocol/architecture/system-chains/asset-hub/)
 
 In the future, more APIs will be added as new parachains earn their slot on Polkadot, and new Web3 services and features are released on the network.
 

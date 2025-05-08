@@ -65,9 +65,9 @@ export default defineUserConfig({
 function generateNav(): NavbarGroup[] {
   const folders = ["about", "web3-services", "build"];
   return folders.map((folder) => ({
-    text: capitalize(folder),
+    text: folder === "web3-services" ? "Web3 Services" : capitalize(folder),
     link: `/${folder}/`,
-    children: generateSiteMap(folder, capitalize(folder)).children,
+    children: generateSiteMap(folder, folder === "web3-services" ? "Web3 Services" : capitalize(folder)).children,
   }));
 }
 
@@ -77,7 +77,7 @@ function generateSidebar(): { [route: string]: string[] } {
   const sidebarMap: any[] = [];
 
   folders.map((folder) => {
-    sidebarMap.push(generateSiteMap(folder, capitalize(folder)));
+    sidebarMap.push(generateSiteMap(folder, folder === "web3-services" ? "Web3 Services" : capitalize(folder)));
   });
 
   folders.map((folder) => {

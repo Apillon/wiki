@@ -37,6 +37,14 @@ If you want to redeploy the website or app with new changes, repeat the process 
 
 Learn more: [Web3 Hosting FAQ](https://blog.apillon.io/faq-apillon-web3-hosting-81d5477661e7)
 
+### Deploying via GitHub
+
+Apillon also supports deploying files and projects to Web3 Hosting directly from a GitHub repository. Just connect your GitHub on the platform through an action button you will see inside the hosting service.
+
+Once your GitHub account is connected, you are able to import any repository from your account, which will immediately trigger a build and deployment based on the provided parameters.
+
+As a bonus, this will also automatically create a CI/CD deployment pipeline for your GitHub repository, therefore each new commit to the repository will automatically trigger a deployment to Apillon's Web3 Hosting and update your website content.
+
 ## File deletion
 
 Each file hosting that passes through Crust’s pinning and replication service is paid upfront for a minimum period of 6 months. Apillon has no control over amending that period, so keep in mind that all files you deploy to Apillon storage buckets will remain accessible for that period of time.

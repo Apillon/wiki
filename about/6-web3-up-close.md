@@ -131,6 +131,10 @@ Web3 project is a website, program, or app that’s built using decentralized te
 
 [Web3 Computing](/web3-services/7-web3-compute.md) is a Web3 service that offers decentralized cloud computing power by connecting to a peer-to-peer network of computer nodes. This provides privacy, security, and data confidentiality. The Apillon platform delivers Web3 Computing service, powered by Phala Network.
 
+#### Web3 Cloud Functions
+
+[Web3 Cloud Functions](/web3-services/8-web3-cloud-functions.md) is a Web3 service that enables developers to host scripts, cron jobs, hosted services and fully-fledged backend deployments to a decentralized network which replicates the script and makes it unstoppable. This makes your cloud function be fully reliable and censorship-resistant, enabling you to significantly reduce downtime and availability of your app.
+
 #### Unified service pricing
 
 Unified service pricing is a reliable business model that enables the user to predict the cost of services and pay for multiple services in a single transaction. The Apillon platform delivers various Web3 services at stable monthly pricing with DOT and fiat that allows users to devote more time to developing new products as they don’t have to deal with the typically unstable pricing of Web3 services. [Read more >](https://blog.apillon.io/what-is-apillons-unified-pricing-and-why-does-it-matter-45832a14cc94)

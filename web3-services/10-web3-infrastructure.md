@@ -1,4 +1,4 @@
-# Web3 infrastructure
+# Web3 Infrastructure
 
 ## Introduction
 
@@ -46,7 +46,7 @@ The RPC service is available with two main plants:
 - **RPC Calls**: Increases the limit to 25 million RPC calls per month
 - **API Keys**: Allows up to 5 API keys per user
 - **Cost**: 49.99€ per month
- 
+
 
 ## Indexing service
 
