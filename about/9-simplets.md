@@ -1,6 +1,6 @@
 # Simplets
 
-## What Are Simplets?
+## What are simplets?
 
 **Simplets** (short for "simple templates") are plug-and-play Web3 marketing solutions built on the Apillon platform. They are designed to help **anyone** - users, agencies, developers, and brands deploy powerful NFT-based experiences with minimal effort and no Web3 or software development expertise required. Each Simplet is a prebuilt, customizable template that simplifies the process of distributing NFTs to build community engagement, promote events, and reward loyalty.
 
@@ -10,7 +10,7 @@ By removing the complexity from the NFT deployment and user onboarding process, 
 
 Web3 adoption has been held back by complex tools and steep learning curves. Simplets solve this by giving marketers, project managers, and developers **a frictionless way to launch NFT campaigns** - no wallet setup, no coding, and no blockchain headaches. They allow users to interact with NFTs via familiar digital flows like email, QR codes, or public links, while ensuring secure, decentralized technology powers everything in the background.
 
-## Available Simplet Solutions
+## Available Simplet solutions
 
 Apillon currently offers three distinct Simplet templates, each serving a unique marketing or engagement goal:
 
@@ -46,11 +46,11 @@ No rules, no barriers. This is an open drop accessible by anyone, perfect for vi
 
 ✨ **More templates are on the way!** Stay tuned, and for feature ideas, support, or feedback, feel free to join our community.
 
-## What You Get With Each Simplet
+## What you get with each Simplet
 
 Each Simplet offers a complete, user-friendly and fully customizable UI experience. Here’s how it works:
 
-#### Setup Flow:
+#### Setup flow:
 
 1. **Create NFT Collection**
    Use Apillon’s NFT Wizard and utilize the [NFT service](/web3-services/4-nfts.md) to generate and deploy your collection.
@@ -67,19 +67,17 @@ Each Simplet offers a complete, user-friendly and fully customizable UI experien
 5. **Dedicated Admin Dashboard**
    As part of the simplet dashboard, you receive a page which only you can access with your wallet and can use to monitor and make edits to your simplet.  Monitor claims, interactions, and conversions via the Apillon dashboard.
 
-#### End-User Experience:
+#### End-user experience:
 
 * **Frictionless Claiming:** Users can access a claim link via email, link or QR code, or get a direct airdrop to their wallet. No wallet? No problem. Apillon's [embedded wallet service](/web3-services/9-embedded-wallets.md) has got your users covered.
 * **Secure by Default:** Embedded wallets, encrypted private keys, and privacy-friendly flows.
 * **Familiar Interfaces:** Looks and feels like standard Web2 experiences (email confirmations, QR scans, etc.).
 
----
-
-## Simplet Auto-Deployment
+## Simplet auto-deployment
 
 All Simplets are **auto-deployed using Web3-native infrastructure**, combining cutting-edge decentralized services. This eliminates the need for you to get your hands dirty with technical nitty-gritty. You can trigger a deployment of your own simplet through the simplets dashboard on the [Apillon Dashboard](https://app.apillon.io)
 
-#### Under the Hood:
+#### Under the hood:
 
 * **Frontend:** Hosted on [Apillon’s decentralized web3 hosting](/web3-services/3-web3-hosting.md)
 * **Backend:** Deployed as a **Docker image on Phala Network's TEE-based decentralized cloud platform**. Utilizes Apillon's [Web3 Computing Service](/web3-services/7-web3-compute.md)
@@ -94,11 +92,11 @@ All Simplets are **auto-deployed using Web3-native infrastructure**, combining c
 
 These components work together to ensure scalability, security, and decentralization while preserving ease of use.
 
-## NFT Studio: Developer Access
+## NFT Studio: developer access
 
 For developers and teams looking to customize or extend their Simplet experience, the [**NFT Studio** GitHub repository](https://github.com/Apillon/nft-studio-simplet) provides **the full source code** for all Simplets in a single, neat monorepo.
 
-#### Key Technologies Used:
+#### Key technologies used:
 
 * **Frontend:** Vue.js
 * **Backend:** Node.js + Express.js
@@ -106,7 +104,7 @@ For developers and teams looking to customize or extend their Simplet experience
 * **DevOps:** Docker-based deployment
 * **Security:** Embedded wallets with wallet-based login, using **TEE (Trusted Execution Environment)** nodes to safely handle credentials
 
-#### What Developers Can Do:
+#### What developers can do:
 
 * Clone or fork the repo
 * Modify styles, logic, or templates
@@ -114,6 +112,6 @@ For developers and teams looking to customize or extend their Simplet experience
 
 Perfect for those who want to build custom integrations, complex logic, or advanced branding into their campaigns.
 
-## Join the Community
+## Join the community
 
 Want to suggest new templates, need help, or just curious how others are using Simplets? Join our [community](/about/7-community.md) and let’s build the future of Web3 marketing - together.
