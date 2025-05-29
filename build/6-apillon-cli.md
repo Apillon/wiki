@@ -250,6 +250,22 @@ apillon hosting get-deployment --website-uuid "123e4567-e89b-12d3-a456-426655440
 
 ## Storage Commands
 
+
+#### `storage create-bucket`
+
+Creates a new storage bucket in your project.
+
+**Options**
+
+- `-n, --name <string>`: Name of the new bucket.
+- `-d, --description <string>`: Description of the new bucket (optional).
+
+**Example**
+
+```sh
+apillon storage create-bucket --name "Photo bucket" --description "Vacation photos"
+```
+
 #### `storage list-buckets`
 
 Lists all storage buckets associated with your project.
