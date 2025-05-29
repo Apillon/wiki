@@ -150,7 +150,9 @@ const storage = new Storage({
 // list buckets
 await storage.listBuckets({ limit: 5 });
 
-// create and instance of a bucket directly through uuid
+// create a new bucket instance
+const bucket = await storage.createBucket({ name: 'Photo bucket' });
+// OR fetch an existing bucket by UUID
 const bucket = storage.bucket('uuid');
 
 // Upload files from local folder
