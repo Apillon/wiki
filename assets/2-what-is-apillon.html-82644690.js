@@ -1,0 +1,1 @@
+const a=JSON.parse('{"key":"v-d64fcca0","path":"/about/2-what-is-apillon.html","title":"What is Apillon?","lang":"en-US","frontmatter":{},"headers":[],"git":{"updatedTime":1750926869000,"contributors":[{"name":"Damjan Dimitrov","email":"damjandimitrov1@gmail.com","commits":1}]},"filePathRelative":"about/2-what-is-apillon.md"}');export{a as data};
