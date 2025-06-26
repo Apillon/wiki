@@ -334,9 +334,6 @@ await collection.mint({
   quantity: 1,
 });
 
-// nest mint a new nft if collection type is NESTABLE
-await collection.nestMint(collection.uuid, 1, 1);
-
 // burn/destroy a specific NFT by its ID if collection is set as revokable
 await collection.burn('1');
 

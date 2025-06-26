@@ -661,21 +661,11 @@ Mints NFTs for a collection with a specific UUID.
 apillon nfts mint-nft --uuid "123e4567-e89b-12d3-a456-426655440000" --address "0xdAC17F958D2ee523a2206206994597C13D831ec7" --quantity 2
 ```
 
-#### `nfts nest-mint-nft`
-
-Nest mints NFT child collection to a parent collection with a specific UUID and parent NFT with id.
-
 **Options**
 
 - `-c, --parent-collection-uuid <collection-uuid>`: Parent collection UUID to which child NFTs will be minted to.
 - `-p, --parent-nft-id <string>`: Parent collection NFT id to which child NFTs will be minted to.
 - `-q, --quantity <integer>`: Number of child NFTs to mint (default 1).
-
-**Example**
-
-```sh
-apillon nfts nest-mint-nft --parent-collection-uuid "123e4567-e89b-12d3-a456-426655440000" --parent-nft-id 5 --quantity 2
-```
 
 #### `nfts burn-nft`
 
@@ -735,7 +725,6 @@ TRANSFER_CONTRACT_OWNERSHIP = 2
 MINT_NFT = 3
 SET_COLLECTION_BASE_URI = 4
 BURN_NFT = 5
-NEST_MINT_NFT = 6
 ```
 
 **Example**
