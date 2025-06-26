@@ -30,7 +30,6 @@ API is for creating and managing NFTs. To prepare images and metadata for your N
 | ---------------- | ---------- | ------------------------------------------------------------------------------------------------------ |
 | createTime       | `DateTime` | Collection create time.                                                                                |
 | updateTime       | `DateTime` | Collection last update time.                                                                           |
-| collectionType   | `number`   | Type of smart contract to use for collection. Available types are described [here](#collection-type). |
 | collectionUuid   | `string`   | Unique key of a collection.                                                                            |
 | symbol           | `string`   | NFT collection symbol (usually 3-4 characters long).                                                   |
 | name             | `string`   | NFT collection name.                                                                                   |
@@ -77,7 +76,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
   "data": {
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
-    "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -107,13 +105,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid' \
 </CodeGroup>
   </div>
 </div>
-
-##### Collection Type
-
-| Number | Description              |
-| ------ | ------------------------ |
-| 0      | Generic NFT collection.  |
-| 1      | Nestable NFT collection. |
 
 ##### Collection Statuses
 
@@ -172,7 +163,6 @@ curl --location 'https://api.apillon.io/nfts/collections' \
       {
         "createTime": "2023-06-13T10:15:58.000Z",
         "updateTime": "2023-06-13T10:15:58.000Z",
-        "collectionType": 1,
         "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
         "symbol": "NFT",
         "name": "NFT Collection",
@@ -291,7 +281,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transactions' \
 | 3      | Mint NFT                    |
 | 4      | Set Collection Base URI     |
 | 5      | Burn NFT                    |
-| 6      | Nest mint NFT               |
 
 ##### Transaction Status
 
@@ -313,10 +302,7 @@ An NFT Collection can be created with a few features/functionalities:
 - soulbound: NFTs are bound to wallet address and can't be transferred
 - royalties: owner can enable royalties to earn specified percentage per each NFT trade
 
-2 types of collections are supported:
-
-1. Generic collection, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard / Native NFTs for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
-2. Nestable collection which allows nesting NFTs under each other (based on [RMRKs ERC-7401](https://evm.rmrk.app/nestable) NFT standard and [Unique Native NFTs](https://docs.unique.network/reference/blockchain/nesting.html))
+The types of NFTs supported are generic collections, which represents an extension of the ERC-721 standard for EVM collections and the PSP-34 standard / Native NFTs for substrate collections. You can read more about these standards [here](/web3-services/4-nfts.html#nft-files)
 
 Additionally, 2 chain types/environments are supported: EVM and Substrate.
 
@@ -331,7 +317,6 @@ Additionally, 2 chain types/environments are supported: EVM and Substrate.
 
 | Name             | Type      | Description                                                                                                | Required |
 | ---------------- | --------- | ---------------------------------------------------------------------------------------------------------- | -------- |
-| collectionType   | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable).                   | true     |
 | chain            | `number`  | Blockchain ID on which you want to release your collection. Options: (`8` - Astar)                        | true     |
 | symbol           | `string`  | NFT collection symbol (usually 3-4 characters long).                                                       | true     |
 | name             | `string`  | NFT collection name.                                                                                       | true     |
@@ -375,7 +360,6 @@ curl --location 'https://api.apillon.io/nfts/collections/substrate' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{
-    "collectionType": 1,
     "chain": 8,
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -405,7 +389,6 @@ curl --location 'https://api.apillon.io/nfts/collections/substrate' \
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
     "chain": 8,
-    "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -478,7 +461,6 @@ curl --location 'https://api.apillon.io/nfts/collections/evm' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{
-    "collectionType": 1,
     "chain": 1287,
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -510,7 +492,6 @@ curl --location 'https://api.apillon.io/nfts/collections/evm' \
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
     "chain": 1287,
-    "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -552,7 +533,6 @@ curl --location 'https://api.apillon.io/nfts/collections/evm' \
 
 | Name           | Type      | Description                                                                                | Required |
 |----------------|-----------|--------------------------------------------------------------------------------------------|----------|
-| collectionType | `number`  | Type of smart contract to use when deploying collection (1 for generic, 2 for nestable).   | true     |
 | symbol         | `string`  | NFT collection symbol (usually 3-4 characters long).                                       | true     |
 | name           | `string`  | NFT collection name.                                                                       | true     |
 | description    | `string`  | NFT collection description.                                                                | false    |
@@ -627,7 +607,6 @@ curl --location 'https://api.apillon.io/nfts/collections/unique' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{
-    "collectionType": 1,
     "symbol": "NFT",
     "name": "NFT Collection",
     "description": "NFT Collection description",
@@ -681,7 +660,6 @@ curl --location 'https://api.apillon.io/nfts/collections/unique' \
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
     "chain": 11,
-    "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -774,7 +752,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/transfer' \
   "data": {
     "createTime": "2023-06-13T10:15:58.000Z",
     "updateTime": "2023-06-13T10:15:58.000Z",
-    "collectionType": 1,
     "collectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a",
     "symbol": "NFT",
     "name": "NFT Collection",
@@ -858,81 +835,6 @@ curl --location 'https://api.apillon.io/nfts/collections/:uuid/mint' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic :credentials' \
 --data '{"receivingAddress": "0x452101C96A1Cf2cBDfa5BB5353e4a7F235241557", "quantity": 1}'
-```
-
-  </CodeGroupItem>
-  </CodeGroup>
-  <CodeGroup>
-  <CodeGroupItem title="Response">
-
-```json
-{
-  "id": "b5935c73-204d-4365-9f9a-6a1792adab5b",
-  "status": 200,
-  "data": {
-    "success": true
-  }
-}
-```
-
-  </CodeGroupItem>
-  </CodeGroup>
-  </div>
-</div>
-
-### Nest Mint Collection NFTs
-
-> Nest mint specified amount of NFTs under a parent NFT defined by the parent collection UUID and token id.
-
-<CodeDiv>POST/nfts/collections/:uuid/nest-mint</CodeDiv>
-
-<div class="split_content">
-	<div class="split_side">
-
-#### URL parameters
-
-| Name | Description                                      | Required |
-| ---- | ------------------------------------------------ | -------- |
-| uuid | Unique key of (child) collection we are minting. | true     |
-
-#### Body fields
-
-| Name                 | Type     | Description                                       | Required |
-| -------------------- | -------- | ------------------------------------------------- | -------- |
-| parentCollectionUuid | `string` | Collection UUID of NFT receiving nest-minted NFT. | true     |
-| parentNftId          | `number` | Token id of NFT receiving nest-minted NFT.        | true     |
-| quantity             | `number` | Number of NFTs to nest-mint.                      | true     |
-
-#### Possible errors
-
-Beside validation errors (with 422 http status code) these are the error codes may be returned:
-
-| Code     | Description                                                              |
-| -------- | ------------------------------------------------------------------------ |
-| 40300000 | Not allowed to access collection.                                        |
-| 50012002 | Collection doesn't exist, wasn't deployed or was already transferred.    |
-| 50012007 | Total number of minted NFTs would exceed max supply for this collection. |
-| 50012008 | All of the reserved NFTs were already minted.                            |
-| 50012013 | Parrent collection doesn't support nesting.                              |
-| 50012014 | Parrent and child collection chain missmatch.                            |
-
-#### Response Fields
-
-| Field   | Type      | Description       |
-| ------- | --------- | ----------------- |
-| success | `boolean` | Status of action. |
-
-  </div>
-  <div class="split_side">
-
-  <CodeGroup>
-  <CodeGroupItem title="cURL" active>
-
-```sh
-curl --location 'https://api.apillon.io/nfts/collections/:uuid/next-mint' \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic :credentials' \
---data '{"parentCollectionUuid": "d6355fd3-640d-4803-a4d9-79d875abcb5a", "parentNftId": 1, "quantity": 1}'
 ```
 
   </CodeGroupItem>
